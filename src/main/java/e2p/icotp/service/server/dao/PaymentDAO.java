@@ -74,7 +74,7 @@ public class PaymentDAO {
         params.add(new SQLParam(Types.DECIMAL, "payment_amount", payment.getPayment_amount()));
 
         // PAYMENT DAY
-        params.add(new SQLParam(Types.DECIMAL, "date_pay", payment.getDatePaymentProperty().get()));
+        params.add(new SQLParam(Types.DATE, "date_pay", payment.getDatePaymentProperty().get()));
 
         return params;
     }

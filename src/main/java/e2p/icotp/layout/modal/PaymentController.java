@@ -37,6 +37,8 @@ public class PaymentController {
 
     @FXML
     private DatePicker payment_date;
+    @FXML
+    private Label payment_date_label;
 
     @FXML
     private TextField payment_amount;
@@ -47,8 +49,6 @@ public class PaymentController {
     private Button cancel;
 
     // Icon
-    @FXML
-    private HBox paymentDate_icon;
     @FXML
     private HBox paymentAmount_icon;
 
@@ -133,24 +133,29 @@ public class PaymentController {
     }
 
     private void load_bindings() {
-        paymentDate_icon.visibleProperty().bind(payment_date.promptTextProperty().isEmpty());
         paymentAmount_icon.setVisible(false);
 
         save.disableProperty().bind(paymentAmount_icon.visibleProperty().or(paymentAmount_icon.visibleProperty()));
     }
 
     private void init_insert_listeners() {
-        date_paid.setText(DateUtil.localizeDate(LocalDate.now()));
+        date_paid.setText(DateUtil.localizeDate(payment.getDatePaymentProperty().get()));
         payment_id.textProperty().set(payment.getPayment_id() + "");
         payment_date.valueProperty().set(payment.getPaymentDate());
+        payment_date_label.textProperty().set(DateUtil.localizeDate(payment.getPaymentDate()));
         payment_amount.textProperty().set(payment.getPayment_amount() + "");
+
+        payment.getDatePaymentProperty().set(payment.getDatePaymentProperty().get());
     }
 
     private void init_add_listeners() {
         generate_id();
-        date_paid.setText(DateUtil.localizeDate(payment.getDatePaymentProperty().get()));
+        date_paid.setText(DateUtil.localizeDate(LocalDate.now()));
         payment_date.valueProperty().set(mc.getNextDueDate());
+        payment_date_label.textProperty().set(DateUtil.localizeDate(mc.getNextDueDate()));
         payment_amount.textProperty().set(mc.getTotalDueAmount());
+
+        payment.getDatePaymentProperty().set(LocalDate.now());
     }
 
     // TEXTFIELD VALIDATORS

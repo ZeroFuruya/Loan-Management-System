@@ -399,8 +399,10 @@
                                                                                     <TableView fx:id="paymentTable" onSort="#payment_tab_transitions" prefHeight="279.0" prefWidth="328.0" VBox.vgrow="ALWAYS">
                                                                                        <columns>
                                                                                           <TableColumn fx:id="payment_id" prefWidth="75.0" text="Payment ID" />
-                                                                                          <TableColumn fx:id="payment_loan_id" prefWidth="127.0" text="Loan ID" />
-                                                                                          <TableColumn fx:id="payment_loaner_name" prefWidth="171.0" text="Loaner Name" />
+                                                                                          <TableColumn fx:id="payment_loan_id" prefWidth="75.0" text="Loan ID" />
+                                                                                          <TableColumn fx:id="payment_due_dates" prefWidth="78.0" text="Due Dates" />
+                                                                                          <TableColumn fx:id="payment_loaner_name" prefWidth="130.0" text="Loaner Name" />
+                                                                                          <TableColumn fx:id="payment_payment_date" prefWidth="165.0" text="Payment Date" />
                                                                                        </columns>
                                                                                     </TableView>
                                                                                     <TextField fx:id="payment_search" />

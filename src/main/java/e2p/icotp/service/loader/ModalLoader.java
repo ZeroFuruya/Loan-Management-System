@@ -69,7 +69,7 @@ public class ModalLoader {
     public static void load_payment_update(App app, Loan loan, boolean isEdit, MainController mc, Loaner loaner,
             Payment payment)
             throws IOException {
-        FXMLLoader loader = load_modal(app, "modal/PAYMENT");
+        FXMLLoader loader = load_modal(app, "modal/PAYMENTS");
 
         PaymentController controller = loader.getController();
         controller.load(app, loan, isEdit, mc, loaner, payment);

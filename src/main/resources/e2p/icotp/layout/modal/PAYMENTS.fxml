@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -17,7 +18,7 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
-            <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
                   <Label text="Payment Form">
                      <padding>
@@ -27,6 +28,13 @@
                         <Font name="Arial" size="30.0" />
                      </font>
                   </Label>
+                  <Region prefHeight="56.0" prefWidth="39.0" HBox.hgrow="ALWAYS" />
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="Date Paid:" />
+                        <Label fx:id="date_paid" text="Jan, 1, 2001" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
          </top>
@@ -136,7 +144,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <children>
-                              <Label text="Payment Date:">
+                              <Label text="Due Date to Pay:">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
@@ -148,31 +156,16 @@
                                  <children>
                                     <VBox>
                                        <children>
-                                          <DatePicker fx:id="payment_date" editable="false" promptText=" 1/11/111" />
-                                          <HBox fx:id="paymentDate_icon" alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label fx:id="paymentDateTT" styleClass="label-red" text="Invalid Field" textFill="RED">
-                                                   <font>
-                                                      <Font name="Arial Bold" size="12.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label>
-                                                   <graphic>
-                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
-                                                   </graphic>
-                                                   <tooltip>
-                                                      <Tooltip text="Empty Tooltip" />
-                                                   </tooltip>
-                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                   </padding>
-                                                </Label>
-                                             </children>
-                                          </HBox>
+                                          <DatePicker fx:id="payment_date" disable="true" editable="false" promptText=" 1/11/111" />
                                        </children>
                                     </VBox>
                                  </children>
                               </HBox>
+                              <Label fx:id="payment_date_label" text="date">
+                                 <font>
+                                    <Font name="Arial" size="13.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </VBox>
                      </children>

@@ -235,6 +235,10 @@ public class MainController {
     TableColumn<Payment, Integer> payment_loan_id;
     @FXML
     TableColumn<Payment, String> payment_loaner_name;
+    @FXML
+    TableColumn<Payment, String> payment_due_dates;
+    @FXML
+    TableColumn<Payment, String> payment_payment_date;
 
     @FXML
     Label payment_loan_id_label;
@@ -516,6 +520,12 @@ public class MainController {
         });
         payment_loaner_name.setCellValueFactory(payment -> {
             return payment.getValue().getLoan_id_Property().get().getLoanerID_Property().get().getNameProperty();
+        });
+        payment_due_dates.setCellValueFactory(payment -> {
+            return DateUtil.localizeDateProperty(payment.getValue().getPayment_date_Property().get());
+        });
+        payment_payment_date.setCellValueFactory(payment -> {
+            return DateUtil.localizeDateProperty(payment.getValue().getDatePaymentProperty().get());
         });
 
         // COLLATERAL TABLE
@@ -1190,11 +1200,22 @@ public class MainController {
 
     BooleanProperty over_due_for_month = new SimpleBooleanProperty(false);
 
-    // TODO payment frequency, do all logics here, add payment extension
-
     LocalDate next_due_date = LocalDate.now();
     long days_skipped = 0;
     long total_days = 0;
+
+    long add_months_ctr = 0;
+
+    // TODO payment frequency, do all logics here, add payment extension
+    // TODO get total penalty payment if overdue for several months
+    // TODO collect collateral if loan not paid past maturity date
+    // TODO change loan_plan : interest and penalty to percentage
+    // TODO add loan_plan : payment frequency : daily, monthly, annually
+    // TODO make an invoice for each payment done
+    // TODO add security more by putting confirmations every after tasks
+    // TODO make statistics
+    // TODO add forget password
+    // TODO think of more features to add after the important bits are done
 
     private void loan_next_logic_monthly() {
         long total_years = (long) loan.getTerm() / 365;
@@ -1248,7 +1269,7 @@ public class MainController {
             next_amount_err.setVisible(true);
             if (days_skipped < total_days) {
                 next_due_date.plusDays(days_skipped);
-                loan_next_due_label.setText(DateUtil.localizeDate(next_due_date));
+                loan_next_due_label.setText("Overdue for " + days_skipped + " days");
                 // TODO TOTAL PENALTY PAYMENT IF OVERDUE FOR MANY MONTHS
                 loan_next_amount_label.setText(format.format(penalty_payment));
                 next_amount.set(penalty_payment);
@@ -1259,8 +1280,8 @@ public class MainController {
         paymentList.forEach(pay -> {
             if (YearMonth.of(pay.getPaymentDate().getYear(), pay.getPaymentDate().getMonthValue())
                     .compareTo(yearMonth_next_due) == 0) {
-                next_due_date = LocalDate.of(next_due_date.getYear(), next_due_date.getMonthValue() + 1,
-                        next_due_date.getDayOfMonth());
+                add_months_ctr++;
+                next_due_date = next_due_date.plusMonths(add_months_ctr);
 
                 if (days_skipped > total_days) {
                     loan_next_due_label.setText("Past Maturity Date");
