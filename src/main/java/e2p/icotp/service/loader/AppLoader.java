@@ -1,6 +1,5 @@
 package e2p.icotp.service.loader;
 
-import java.io.File;
 import java.io.IOException;
 
 import e2p.icotp.App;
