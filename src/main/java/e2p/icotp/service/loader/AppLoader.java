@@ -5,7 +5,6 @@ import java.io.IOException;
 import e2p.icotp.App;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -16,8 +15,9 @@ public class AppLoader {
     }
 
     public static void load_main(App app, Stage mainStage) throws IOException {
-        mainStage.setTitle("Thesis Manager");
-        mainStage.getIcons().add(new Image(App.class.getResourceAsStream("assets/icons/ThesisManager.png")));
+        mainStage.setTitle("Loan Management System");
+        // mainStage.getIcons().add(new
+        // Image(App.class.getResourceAsStream("assets/icons/ThesisManager.png")));
 
         FXMLLoader loader = load("MAIN");
         StackPane root = loader.load();
