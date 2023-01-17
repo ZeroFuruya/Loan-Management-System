@@ -19,6 +19,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         this.mainStage = stage;
+        initializa_main();
     }
 
     public void initializa_main() throws IOException {
