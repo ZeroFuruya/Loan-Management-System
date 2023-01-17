@@ -18,6 +18,8 @@ public class App extends Application {
 
     // ADDED NEW CONTENT
 
+    // ANIMALLLIZ
+
     @Override
     public void start(Stage stage) throws IOException {
         this.mainStage = stage;
