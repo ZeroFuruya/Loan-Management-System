@@ -16,9 +16,7 @@ public class App extends Application {
     private StackPane mainScreen;
     private Stage mainStage;
 
-    // ADDED NEW CONTENT
-
-    // ANIMALLLIZ
+    // AC/DC
 
     @Override
     public void start(Stage stage) throws IOException {
