@@ -16,6 +16,8 @@ public class App extends Application {
     private StackPane mainScreen;
     private Stage mainStage;
 
+    // ADDED NEW CONTENT
+
     @Override
     public void start(Stage stage) throws IOException {
         this.mainStage = stage;
