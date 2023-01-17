@@ -16,7 +16,7 @@ public class App extends Application {
     private StackPane mainScreen;
     private Stage mainStage;
 
-    // AC/DC
+    // Boolean
 
     @Override
     public void start(Stage stage) throws IOException {
