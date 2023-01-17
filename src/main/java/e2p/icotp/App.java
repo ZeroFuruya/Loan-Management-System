@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import e2p.icotp.service.loader.AppLoader;
+
 /**
  * JavaFX App
  */
@@ -17,6 +19,10 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         this.mainStage = stage;
+    }
+
+    public void initializa_main() throws IOException {
+        AppLoader.load_main(this, mainStage);
     }
 
     public void setMainScreen(StackPane screen) {
