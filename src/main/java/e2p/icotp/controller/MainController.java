@@ -120,6 +120,11 @@ public class MainController {
 
     private void init_bindings() {
         home_box.visibleProperty().bind(home_button.selectedProperty());
+        loaners_box.visibleProperty().bind(loaners_button.selectedProperty());
+        loans_box.visibleProperty().bind(loans_button.selectedProperty());
+        payments_box.visibleProperty().bind(payments_button.selectedProperty());
+        types_box.visibleProperty().bind(types_button.selectedProperty());
+        plans_box.visibleProperty().bind(plans_button.selectedProperty());
 
     }
 
