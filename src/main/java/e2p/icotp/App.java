@@ -16,7 +16,7 @@ public class App extends Application {
     private StackPane mainScreen;
     private Stage mainStage;
 
-    // SAMPLE
+    // STASH UPDATE COMMENT
 
     // Boolean
 
