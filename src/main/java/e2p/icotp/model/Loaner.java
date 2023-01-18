@@ -5,6 +5,9 @@ import java.time.LocalDate;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Loaner {
@@ -17,14 +20,14 @@ public class Loaner {
 
     
 
-    public Loaner(IntegerProperty loaner_id, StringProperty name, StringProperty address, StringProperty phone,
-            ObjectProperty<LocalDate> birthdate, IntegerProperty social_security) {
-        this.loaner_id = loaner_id;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.birthdate = birthdate;
-        this.social_security = social_security;
+    public Loaner(int loaner_id, String name, String address, String phone,
+            LocalDate birthdate, int social_security) {
+        this.loaner_id = new SimpleIntegerProperty(loaner_id);
+        this.name = new SimpleStringProperty(name);
+        this.address = new SimpleStringProperty(address);
+        this.phone = new SimpleStringProperty(phone);
+        this.birthdate = new SimpleObjectProperty<>(birthdate);
+        this.social_security = new SimpleIntegerProperty(social_security);
     }
 
     // SETTERS
