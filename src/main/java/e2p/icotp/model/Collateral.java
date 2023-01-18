@@ -19,4 +19,45 @@ public class Collateral {
     public Collateral() {
         this(0, 0, "");
     }
+
+    // SETTERS
+    public void setLoaner_id(int val) {
+        this.loaner_id.set(val);
+    }
+
+    public void setLoan_id(int val) {
+        this.loan_id.set(val);
+    }
+
+    public void setCollateral(String val) {
+        this.collateral.set(val);
+    }
+
+    // GETTERS
+
+    public int getLoaner_id() {
+        return this.loaner_id.get();
+    }
+
+    public int getLoan_id() {
+        return this.loan_id.get();
+    }
+
+    public String getCollateral() {
+        return this.collateral.get();
+    }
+
+    // PROPERTY GETTERS
+
+    public IntegerProperty getLoaner_property() {
+        return this.loaner_id;
+    }
+
+    public IntegerProperty getLoan_property() {
+        return this.loan_id;
+    }
+
+    public StringProperty getCollateral_property() {
+        return this.collateral;
+    }
 }
