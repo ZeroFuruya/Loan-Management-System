@@ -29,23 +29,23 @@ public class Payment {
     }
 
     // SETTERS
-    public void setPayment_id(IntegerProperty payment_id) {
-        this.payment_id = payment_id;
+    public void setPayment_id(int payment_id) {
+        this.payment_id.set(payment_id);
     }
-    public void setLoaner_id(IntegerProperty loaner_id) {
-        this.loaner_id = loaner_id;
-    }
-
-    public void setLoan_id(IntegerProperty loan_id) {
-        this.loan_id = loan_id;
+    public void setLoaner_id(int loaner_id) {
+        this.loaner_id.set(loaner_id);
     }
 
-    public void setPayment_date(ObjectProperty<LocalDate> payment_date) {
-        this.payment_date = payment_date;
+    public void setLoan_id(int loan_id) {
+        this.loan_id.set(loan_id);
     }
 
-    public void setPayment_amount(DoubleProperty payment_amount) {
-        this.payment_amount = payment_amount;
+    public void setPayment_date(LocalDate payment_date) {
+        this.payment_date.set(payment_date);
+    }
+
+    public void setPayment_amount(double payment_amount) {
+        this.payment_amount.set(payment_amount);
     }
 
     // GETTERS

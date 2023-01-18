@@ -28,46 +28,79 @@ public class Loaner {
     }
 
     // SETTERS
+    public void setLoaner_id(int loaner_id) {
+        this.loaner_id.set(loaner_id);
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public void setAddress(String address) {
+        this.address.set(address);
+    }
+
+    public void setPhone(String phone) {
+        this.phone.set(phone);
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate.set(birthdate);
+    }
+
+    public void setSocial_security(int social_security) {
+        this.social_security.set(social_security);
+    }
 
     // GETTERS
+    public int getLoaner_id(){
+        return this.loaner_id.get();
+    }
+
+    public String getName(){
+        return this.name.get();
+    }
+
+    public String getAddress(){
+        return this.address.get();
+    }
+
+    public String getPhone(){
+        return this.phone.get();
+    }
+
+    public LocalDate getBirthdate(){
+        return this.birthdate.get();
+    }
+
+    public int getSocial_security(){
+        return this.social_security.get();
+    }
 
     // PROPERTY GETTERS
-    public IntegerProperty getLoaner_id() {
+    public IntegerProperty getLoaner_idProperty() {
         return loaner_id;
     }
-    public void setLoaner_id(IntegerProperty loaner_id) {
-        this.loaner_id = loaner_id;
-    }
-
-    public StringProperty getName() {
+   
+    public StringProperty getNameProperty() {
         return name;
     }
-    public void setName(StringProperty name) {
-        this.name = name;
-    }
-    public StringProperty getAddress() {
+    
+    public StringProperty getAddressProperty() {
         return address;
     }
-    public void setAddress(StringProperty address) {
-        this.address = address;
-    }
-    public StringProperty getPhone() {
+   
+    public StringProperty getPhoneProperty() {
         return phone;
     }
-    public void setPhone(StringProperty phone) {
-        this.phone = phone;
-    }
-    public ObjectProperty<LocalDate> getBirthdate() {
+    
+    public ObjectProperty<LocalDate> getBirthdateProperty() {
         return birthdate;
     }
-    public void setBirthdate(ObjectProperty<LocalDate> birthdate) {
-        this.birthdate = birthdate;
-    }
-    public IntegerProperty getSocial_security() {
+   
+    public IntegerProperty getSocial_securityProperty() {
         return social_security;
     }
-    public void setSocial_security(IntegerProperty social_security) {
-        this.social_security = social_security;
-    }
+    
    
 }
