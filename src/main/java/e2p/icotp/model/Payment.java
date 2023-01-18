@@ -57,7 +57,7 @@ public class Payment {
         return this.loaner_id.get();
     }
 
-    public int getLoanProperty(){
+    public int getLoan_id(){
         return this.loan_id.get();
     }
 
