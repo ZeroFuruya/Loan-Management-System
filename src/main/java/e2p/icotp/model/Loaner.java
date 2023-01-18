@@ -1,6 +1,5 @@
 package e2p.icotp.model;
 
-
 import java.time.LocalDate;
 
 import javafx.beans.property.IntegerProperty;
@@ -18,16 +17,14 @@ public class Loaner {
     private ObjectProperty<LocalDate> birthdate;
     private IntegerProperty social_security;
 
-    
-
     public Loaner(int loaner_id, String name, String address, int phone,
             LocalDate birthdate, int social_security) {
-        this.loaner_id = new SimpleIntegerProperty(loaner_id) ;
+        this.loaner_id = new SimpleIntegerProperty(loaner_id);
         this.name = new SimpleStringProperty(name);
-        this.address = new SimpleStringProperty(address) ;
-        this.phone = new SimpleIntegerProperty(phone) ;
-        this.birthdate = new SimpleObjectProperty<LocalDate>(birthdate) ;
-        this.social_security = new SimpleIntegerProperty(social_security) ;
+        this.address = new SimpleStringProperty(address);
+        this.phone = new SimpleIntegerProperty(phone);
+        this.birthdate = new SimpleObjectProperty<LocalDate>(birthdate);
+        this.social_security = new SimpleIntegerProperty(social_security);
     }
 
     // SETTERS
@@ -35,6 +32,7 @@ public class Loaner {
     public void setLoaner_id(IntegerProperty loaner_id) {
         this.loaner_id = loaner_id;
     }
+
     public void setName(StringProperty name) {
         this.name = name;
     }
@@ -42,9 +40,11 @@ public class Loaner {
     public void setAddress(StringProperty address) {
         this.address = address;
     }
+
     public void setPhone(IntegerProperty phone) {
         this.phone = phone;
     }
+
     public void setBirthdate(ObjectProperty<LocalDate> birthdate) {
         this.birthdate = birthdate;
     }
@@ -55,19 +55,23 @@ public class Loaner {
 
     // GETTERS
 
-    public int getLoaner_id(){
+    public int getLoaner_id() {
         return this.loaner_id.get();
     }
-    public String getName(){
+
+    public String getName() {
         return this.name.get();
     }
-    public String getAddress(){
+
+    public String getAddress() {
         return this.address.get();
     }
-    public int getPhone(){
+
+    public int getPhone() {
         return this.phone.get();
     }
-    public LocalDate getBirthdate(){
+
+    public LocalDate getBirthdate() {
         return this.birthdate.get();
     }
 
@@ -76,27 +80,25 @@ public class Loaner {
     public IntegerProperty getLoaner_id_Property() {
         return loaner_id;
     }
-    
 
     public StringProperty getNameProperty() {
         return name;
     }
-    
+
     public StringProperty getAddressProperty() {
         return address;
     }
-   
+
     public IntegerProperty getPhoneProperty() {
         return phone;
     }
-   
+
     public ObjectProperty<LocalDate> getBirthdateProperty() {
         return birthdate;
     }
-    
+
     public IntegerProperty getSocial_securityProperty() {
         return social_security;
     }
-    
-   
+
 }
