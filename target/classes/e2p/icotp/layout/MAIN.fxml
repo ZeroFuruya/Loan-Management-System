@@ -10,26 +10,170 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.controller.MainController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
             <HBox prefHeight="39.0" prefWidth="1080.0" styleClass="context-menu" BorderPane.alignment="CENTER">
                <children>
-                  <ToggleButton mnemonicParsing="false" text="Home" HBox.hgrow="ALWAYS" />
-                  <ToggleButton mnemonicParsing="false" text="Loaners" HBox.hgrow="ALWAYS" />
-                  <ToggleButton mnemonicParsing="false" text="Loan" HBox.hgrow="ALWAYS" />
-                  <ToggleButton mnemonicParsing="false" text="Payments" HBox.hgrow="ALWAYS" />
-                  <ToggleButton mnemonicParsing="false" text="Loan Type" HBox.hgrow="ALWAYS" />
-                  <ToggleButton mnemonicParsing="false" text="Loan Plans" HBox.hgrow="ALWAYS" />
+                  <ToggleButton fx:id="home_button" mnemonicParsing="false" text="Home" HBox.hgrow="ALWAYS" />
+                  <ToggleButton fx:id="loaners_button" mnemonicParsing="false" text="Loaners" HBox.hgrow="ALWAYS" />
+                  <ToggleButton fx:id="loans_button" mnemonicParsing="false" text="Loan" HBox.hgrow="ALWAYS" />
+                  <ToggleButton fx:id="payments_button" mnemonicParsing="false" text="Payments" HBox.hgrow="ALWAYS" />
+                  <ToggleButton fx:id="types_button" mnemonicParsing="false" text="Loan Types" HBox.hgrow="ALWAYS" />
+                  <ToggleButton fx:id="plans_button" mnemonicParsing="false" text="Loan Plans" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </top>
          <center>
-            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <StackPane fx:id="motherPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" visible="false">
+                  <VBox fx:id="home_box" prefHeight="200.0" prefWidth="100.0" visible="false">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="1040.0">
+                           <children>
+                              <Label text="Welcome Back, Admin!" textFill="WHITE">
+                                 <font>
+                                    <Font name="Eras Light ITC" size="45.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </FlowPane>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="loaners_box" prefHeight="200.0" prefWidth="100.0" visible="false">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="1040.0">
+                           <children>
+                              <Label text="Welcome Back, Admin!" textFill="WHITE">
+                                 <font>
+                                    <Font name="Eras Light ITC" size="45.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </FlowPane>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="loans_box" prefHeight="200.0" prefWidth="100.0" visible="false">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="1040.0">
+                           <children>
+                              <Label text="Welcome Back, Admin!" textFill="WHITE">
+                                 <font>
+                                    <Font name="Eras Light ITC" size="45.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </FlowPane>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="payments_box" prefHeight="200.0" prefWidth="100.0" visible="false">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="1040.0">
+                           <children>
+                              <Label text="Welcome Back, Admin!" textFill="WHITE">
+                                 <font>
+                                    <Font name="Eras Light ITC" size="45.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </FlowPane>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="types_box" prefHeight="200.0" prefWidth="100.0" visible="false">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="1040.0">
+                           <children>
+                              <Label text="Welcome Back, Admin!" textFill="WHITE">
+                                 <font>
+                                    <Font name="Eras Light ITC" size="45.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </FlowPane>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="plans_box" prefHeight="200.0" prefWidth="100.0" visible="false">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
