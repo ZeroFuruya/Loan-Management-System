@@ -52,7 +52,7 @@ public class CollateralDAO {
     }
 
     public static void update(Collateral collateral){
-       
+       updateByID(collateral, collateral.getLoaner_id());
     }
 
     //REMOVE
