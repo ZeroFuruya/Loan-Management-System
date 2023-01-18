@@ -94,7 +94,6 @@ public class Loan {
 
     public void setStatus(String val) {
         this.status.set(val);
-        ;
     }
 
     // GETTERS
