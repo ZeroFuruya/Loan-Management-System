@@ -3,6 +3,7 @@ package e2p.icotp.service.loader;
 import java.io.IOException;
 
 import e2p.icotp.App;
+import e2p.icotp.controller.MainController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -35,8 +36,8 @@ public class AppLoader {
 
         mainStage.show();
 
-        // MainController controller = loader.getController();
-        // controller.load(app);
+        MainController controller = loader.getController();
+        controller.load(app);
 
         // // Gets and Unwraps XML file
         // File xml = RegistryService.getXML_FromRegistry();
