@@ -29,7 +29,7 @@ public class ModalLoader {
         modal.setOnMouseClicked(e -> {
             if (e.getTarget() == modal) {
                 modal_close(app);
-            } else {
+            } else {    
                 e.consume();
             }
         });
