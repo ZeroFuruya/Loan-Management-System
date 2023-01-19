@@ -59,7 +59,7 @@ public class CollateralDAO {
 
     // REMOVE
     public static void remove(int loaner_id) {
-        SQLParam idParam = new SQLParam(Types.INTEGER, "loaner_id", loaner_id);
+        SQLParam idParam = new SQLParam(Types.BIGINT, "loaner_id", loaner_id);
         SQLCommand.deleteById("collateral", idParam);
     }
 
@@ -68,9 +68,9 @@ public class CollateralDAO {
         ArrayList<SQLParam> params = new ArrayList<>();
 
         // int loaner_id
-        params.add(new SQLParam(Types.INTEGER, "loaner_id", collateral.getLoaner_id()));
+        params.add(new SQLParam(Types.BIGINT, "loaner_id", collateral.getLoaner_id()));
         // int loan_id
-        params.add(new SQLParam(Types.INTEGER, "loan_id", collateral.getLoan_id()));
+        params.add(new SQLParam(Types.BIGINT, "loan_id", collateral.getLoan_id()));
         // String collateral
         params.add(new SQLParam(Types.VARCHAR, "collateral", collateral.getCollateral()));
 

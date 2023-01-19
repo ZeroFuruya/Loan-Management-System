@@ -63,7 +63,7 @@ public class LoanerDAO {
 
     // Remove
     public static void remove(int loaner_id) {
-        SQLParam idParam = new SQLParam(Types.INTEGER, "loaner_id", loaner_id);
+        SQLParam idParam = new SQLParam(Types.BIGINT, "loaner_id", loaner_id);
         SQLCommand.deleteById("loaners", idParam);
     }
 
@@ -72,17 +72,17 @@ public class LoanerDAO {
         ArrayList<SQLParam> params = new ArrayList<>();
 
         // int loaner_id
-        params.add(new SQLParam(Types.INTEGER, "loaner_id", loaner.getLoaner_id()));
+        params.add(new SQLParam(Types.BIGINT, "loaner_id", loaner.getLoaner_id()));
         // varchar name
         params.add(new SQLParam(Types.VARCHAR, "name", loaner.getName()));
         // varchar address
         params.add(new SQLParam(Types.VARCHAR, "address", loaner.getAddress()));
         // int phone
-        params.add(new SQLParam(Types.INTEGER, "phone", loaner.getPhone()));
+        params.add(new SQLParam(Types.BIGINT, "phone", loaner.getPhone()));
         // date birthdate
         params.add(new SQLParam(Types.DATE, "birthdate", loaner.getBirthdate()));
         // int social_security
-        params.add(new SQLParam(Types.INTEGER, "social_security", loaner.getSocial_security()));
+        params.add(new SQLParam(Types.BIGINT, "social_security", loaner.getSocial_security()));
 
         return params;
     }
