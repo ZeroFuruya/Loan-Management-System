@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
@@ -18,7 +22,7 @@
                <children>
                   <ToggleButton fx:id="home_button" mnemonicParsing="false" text="Home" HBox.hgrow="ALWAYS" />
                   <ToggleButton fx:id="loaners_button" mnemonicParsing="false" text="Loaners" HBox.hgrow="ALWAYS" />
-                  <ToggleButton fx:id="loans_button" mnemonicParsing="false" text="Loan" HBox.hgrow="ALWAYS" />
+                  <ToggleButton fx:id="loans_button" mnemonicParsing="false" text="Loans" HBox.hgrow="ALWAYS" />
                   <ToggleButton fx:id="payments_button" mnemonicParsing="false" text="Payments" HBox.hgrow="ALWAYS" />
                   <ToggleButton fx:id="types_button" mnemonicParsing="false" text="Loan Types" HBox.hgrow="ALWAYS" />
                   <ToggleButton fx:id="plans_button" mnemonicParsing="false" text="Loan Plans" HBox.hgrow="ALWAYS" />
@@ -44,12 +48,108 @@
                         </HBox>
                         <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
+                              <VBox prefHeight="200.0" prefWidth="275.0" styleClass="dept-tab-container">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="149.0" prefWidth="275.0" styleClass="dept-tab-container" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Loaners" textFill="WHITE">
+                                             <font>
+                                                <Font name="Arial" size="32.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="334.0" text="Button">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children></VBox>
+                              <VBox prefHeight="200.0" prefWidth="275.0" styleClass="dept-tab-container">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="149.0" prefWidth="275.0" styleClass="dept-tab-container" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Loans" textFill="WHITE">
+                                             <font>
+                                                <Font name="Arial" size="32.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="334.0" text="Button">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children></VBox>
+                              <VBox prefHeight="200.0" prefWidth="275.0" styleClass="dept-tab-container">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="149.0" prefWidth="275.0" styleClass="dept-tab-container" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Payments" textFill="WHITE">
+                                             <font>
+                                                <Font name="Arial" size="32.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="334.0" text="Button">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children></VBox>
+                              <VBox prefHeight="200.0" prefWidth="275.0" styleClass="dept-tab-container">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="149.0" prefWidth="275.0" styleClass="dept-tab-container" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Loan Types" textFill="WHITE">
+                                             <font>
+                                                <Font name="Arial" size="32.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="334.0" text="Button">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children></VBox>
+                              <VBox prefHeight="200.0" prefWidth="275.0" styleClass="dept-tab-container">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="149.0" prefWidth="275.0" styleClass="dept-tab-container" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Loan Plans" textFill="WHITE">
+                                             <font>
+                                                <Font name="Arial" size="32.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="334.0" text="Button">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children></VBox>
+                              <VBox prefHeight="200.0" prefWidth="275.0" styleClass="dept-tab-container">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="149.0" prefWidth="275.0" styleClass="dept-tab-container" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Admin" textFill="WHITE">
+                                             <font>
+                                                <Font name="Arial" size="32.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="334.0" text="Button">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children></VBox>
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -62,27 +162,36 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                      <children>
-                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="1040.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
                            <children>
-                              <Label text="Welcome Back, Admin!" textFill="WHITE">
+                              <Label text="Loaner's Informations" textFill="WHITE">
                                  <font>
-                                    <Font name="Eras Light ITC" size="45.0" />
+                                    <Font name="Arial" size="40.0" />
                                  </font>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
                         </HBox>
                         <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                           </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
+                           <children>
+                              <TableView prefHeight="408.0" prefWidth="951.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Add Loaner" />
+                                    <Button mnemonicParsing="false" text="Remove Loaner" />
+                                 </children>
+                              </HBox>
+                           </children>
                         </FlowPane>
                      </children>
                   </VBox>
@@ -91,27 +200,36 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                      <children>
-                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="1040.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
                            <children>
-                              <Label text="Welcome Back, Admin!" textFill="WHITE">
+                              <Label text="Loan Informations" textFill="WHITE">
                                  <font>
-                                    <Font name="Eras Light ITC" size="45.0" />
+                                    <Font name="Arial" size="40.0" />
                                  </font>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
                         </HBox>
-                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                           </children>
+                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
+                           <children>
+                              <TableView prefHeight="408.0" prefWidth="951.0">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="C1" />
+                                    <TableColumn prefWidth="75.0" text="C2" />
+                                 </columns>
+                              </TableView>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Add Loan" />
+                                    <Button mnemonicParsing="false" text="Remove Loan" />
+                                 </children>
+                              </HBox>
+                           </children>
                         </FlowPane>
                      </children>
                   </VBox>
@@ -120,27 +238,36 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                      <children>
-                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="1040.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
                            <children>
-                              <Label text="Welcome Back, Admin!" textFill="WHITE">
+                              <Label text="Payment Informations" textFill="WHITE">
                                  <font>
-                                    <Font name="Eras Light ITC" size="45.0" />
+                                    <Font name="Arial" size="40.0" />
                                  </font>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
                         </HBox>
-                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                           </children>
+                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
+                           <children>
+                              <TableView prefHeight="408.0" prefWidth="951.0">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="C1" />
+                                    <TableColumn prefWidth="75.0" text="C2" />
+                                 </columns>
+                              </TableView>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Add Payment" />
+                                    <Button mnemonicParsing="false" text="Remove Payment" />
+                                 </children>
+                              </HBox>
+                           </children>
                         </FlowPane>
                      </children>
                   </VBox>
@@ -149,27 +276,36 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                      <children>
-                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="1040.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
                            <children>
-                              <Label text="Welcome Back, Admin!" textFill="WHITE">
+                              <Label text="Loan Plans" textFill="WHITE">
                                  <font>
-                                    <Font name="Eras Light ITC" size="45.0" />
+                                    <Font name="Arial" size="40.0" />
                                  </font>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
                         </HBox>
-                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                           </children>
+                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
+                           <children>
+                              <TableView prefHeight="408.0" prefWidth="951.0">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="C1" />
+                                    <TableColumn prefWidth="75.0" text="C2" />
+                                 </columns>
+                              </TableView>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Add Loan Plan" />
+                                    <Button mnemonicParsing="false" text="Remove Loan Plan" />
+                                 </children>
+                              </HBox>
+                           </children>
                         </FlowPane>
                      </children>
                   </VBox>
@@ -178,27 +314,36 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                      <children>
-                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="1040.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
                            <children>
-                              <Label text="Welcome Back, Admin!" textFill="WHITE">
+                              <Label text="Loan Types" textFill="WHITE">
                                  <font>
-                                    <Font name="Eras Light ITC" size="45.0" />
+                                    <Font name="Arial" size="40.0" />
                                  </font>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
                         </HBox>
-                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                              <VBox prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: white;" />
-                           </children>
+                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
+                           <children>
+                              <TableView prefHeight="408.0" prefWidth="951.0">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="C1" />
+                                    <TableColumn prefWidth="75.0" text="C2" />
+                                 </columns>
+                              </TableView>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Add Loan Type" />
+                                    <Button mnemonicParsing="false" text="Remove Loan Type" />
+                                 </children>
+                              </HBox>
+                           </children>
                         </FlowPane>
                      </children>
                   </VBox>
@@ -208,3 +353,5 @@
       </BorderPane>
    </children>
 </StackPane>
+
+<!-- asdasd -->
