@@ -1,37 +1,34 @@
 package e2p.icotp.model;
 
-
 import java.time.LocalDate;
 
-import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Loaner {
-    private IntegerProperty loaner_id;
+    private LongProperty loaner_id;
     private StringProperty name;
     private StringProperty address;
-    private StringProperty phone;
+    private LongProperty phone;
     private ObjectProperty<LocalDate> birthdate;
-    private IntegerProperty social_security;
+    private LongProperty social_security;
 
-    
-
-    public Loaner(int loaner_id, String name, String address, String phone,
-            LocalDate birthdate, int social_security) {
-        this.loaner_id = new SimpleIntegerProperty(loaner_id);
+    public Loaner(long loaner_id, String name, String address, long phone,
+            LocalDate birthdate, long social_security) {
+        this.loaner_id = new SimpleLongProperty(loaner_id);
         this.name = new SimpleStringProperty(name);
         this.address = new SimpleStringProperty(address);
-        this.phone = new SimpleStringProperty(phone);
+        this.phone = new SimpleLongProperty(phone);
         this.birthdate = new SimpleObjectProperty<>(birthdate);
-        this.social_security = new SimpleIntegerProperty(social_security);
+        this.social_security = new SimpleLongProperty(social_security);
     }
 
     // SETTERS
-    public void setLoaner_id(int loaner_id) {
+    public void setLoaner_id(long loaner_id) {
         this.loaner_id.set(loaner_id);
     }
 
@@ -43,7 +40,7 @@ public class Loaner {
         this.address.set(address);
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(long phone) {
         this.phone.set(phone);
     }
 
@@ -51,59 +48,58 @@ public class Loaner {
         this.birthdate.set(birthdate);
     }
 
-    public void setSocial_security(int social_security) {
+    public void setSocial_security(long social_security) {
         this.social_security.set(social_security);
     }
 
     // GETTERS
-    public int getLoaner_id(){
+    public long getLoaner_id() {
         return this.loaner_id.get();
     }
 
-    public String getName(){
+    public String getName() {
         return this.name.get();
     }
 
-    public String getAddress(){
+    public String getAddress() {
         return this.address.get();
     }
 
-    public String getPhone(){
+    public long getPhone() {
         return this.phone.get();
     }
 
-    public LocalDate getBirthdate(){
+    public LocalDate getBirthdate() {
         return this.birthdate.get();
     }
 
-    public int getSocial_security(){
+    public long getSocial_security() {
         return this.social_security.get();
     }
 
     // PROPERTY GETTERS
-    public IntegerProperty getLoaner_idProperty() {
+    public LongProperty getLoaner_idProperty() {
         return loaner_id;
     }
-   
+
     public StringProperty getNameProperty() {
         return name;
     }
-    
+
     public StringProperty getAddressProperty() {
         return address;
     }
-   
-    public StringProperty getPhoneProperty() {
+
+    public LongProperty getPhoneProperty() {
         return phone;
     }
-    
+
     public ObjectProperty<LocalDate> getBirthdateProperty() {
         return birthdate;
     }
-   
-    public IntegerProperty getSocial_securityProperty() {
+
+    public LongProperty getSocial_securityProperty() {
         return social_security;
     }
-    
-   
+
 }

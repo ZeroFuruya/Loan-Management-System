@@ -34,12 +34,12 @@ public class LoanerDAO {
     // Loaner DATA
     private static Loaner loanerData(CachedRowSet crs) throws SQLException {
 
-        int loaner_id = crs.getInt("loaner_id");
+        long loaner_id = crs.getLong("loaner_id");
         String name = crs.getString("name");
         String address = crs.getString("address");
-        String phone = crs.getString("phone");
+        long phone = crs.getLong("phone");
         LocalDate birthdate = crs.getDate("birthdate").toLocalDate();
-        int social_security = crs.getInt("social_security");
+        long social_security = crs.getLong("social_security");
 
         return new Loaner(loaner_id, name, address, phone, birthdate, social_security);
     }
