@@ -19,7 +19,6 @@ import e2p.icotp.service.loader.AppLoader;
  * JavaFX App
  */
 public class App extends Application {
-    private int temp;
     private StackPane mainScreen;
     private Stage mainStage;
 
