@@ -49,7 +49,17 @@ public class LoanerDAO {
         ArrayList<SQLParam> params = parameters(loaner);
         SQLCommand.insert("loaners", params);
     }
+
     // Update
+    public static void updateByID(Loaner loaner, int id) {
+        SQLParam idParam = new SQLParam(Types.INTEGER, "loaner_id", id);
+        ArrayList<SQLParam> params = parameters(loaner);
+        SQLCommand.updateById("loaners", params, idParam);
+    }
+
+    public static void update(Loaner loaner) {
+        updateByID(loaner, loaner.getLoaner_id());
+    }
 
     // Remove
     public static void remove(int loaner_id) {
