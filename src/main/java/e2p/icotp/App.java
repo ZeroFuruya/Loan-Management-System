@@ -47,7 +47,7 @@ public class App extends Application {
 
         collateralCache.forEach(col -> {
             System.out.println(col.getCollateral());
-            System.out.println();
+            System.out.println("---------");
         });
     }
 
