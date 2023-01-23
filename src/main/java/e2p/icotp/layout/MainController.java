@@ -1,15 +1,21 @@
 package e2p.icotp.layout;
 
+import java.io.IOException;
+
 import e2p.icotp.App;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
+import e2p.icotp.service.loader.ModalLoader;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -35,7 +41,7 @@ public class MainController {
 
     // HBOX
     @FXML
-    HBox toggle_btn_container;
+    VBox toggle_btn_container;
 
     // TOGGLE BUTTONS
     @FXML
@@ -65,6 +71,29 @@ public class MainController {
     @FXML
     TableColumn<Loaner, String> loaner_name;
 
+    @FXML
+    Label loaner_name_label;
+    @FXML
+    Label loaner_id_label;
+    @FXML
+    Label loaner_address_label;
+    @FXML
+    Label loaner_birthdate_label;
+    @FXML
+    Label loaner_phone_label;
+    @FXML
+    Label loaner_social_label;
+
+    @FXML
+    Button loaner_edit_button;
+    @FXML
+    Button loaner_add_button;
+    @FXML
+    Button loaner_remove_button;
+
+    @FXML
+    TextField loaner_search;
+
     // TABLE COLS - Loan
     @FXML
     TableColumn<Loan, Integer> loan_id;
@@ -88,6 +117,26 @@ public class MainController {
     FilteredList<Loan> loanList;
     FilteredList<Payment> paymentList;
 
+    // MODELS ----------------------------------
+    Loaner og_loaner;
+    Loaner loaner;
+
+    // LOANER BUTTON HANDLES ---------------------------
+    @FXML
+    private void handle_loaner_edit() throws IOException {
+        ModalLoader.load_loaner_update(app);
+    }
+
+    @FXML
+    private void handle_loaner_add() throws IOException {
+        ModalLoader.load_loaner_update(app);
+    }
+
+    @FXML
+    private void handle_loaner_remove() {
+        app.loanerMasterlist().remove(og_loaner);
+    }
+
     public void load(App app) {
         this.app = app;
 
@@ -96,7 +145,8 @@ public class MainController {
 
         init_tables();
         init_bindings();
-        init_listeners();
+        init_togbutton_listeners();
+        init_table_listeners();
         init_anims();
     }
 
@@ -136,7 +186,45 @@ public class MainController {
         paymentTable.setItems(paymentList);
     }
 
-    private void init_listeners() {
+    private void init_bindings() {
+
+        // TABLE WIDTHS
+        loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
+        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.84));
+        loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
+        loan_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.84));
+        payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.200));
+        payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.130));
+        payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.670));
+
+        // HOME
+        home_box.visibleProperty().bind(home_button.selectedProperty());
+        home_button.disableProperty().bind(home_button.selectedProperty());
+        home_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
+        // LOANERS
+        loaners_box.visibleProperty().bind(loaners_button.selectedProperty());
+        loaners_button.disableProperty().bind(loaners_button.selectedProperty());
+        loaners_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
+        // LOANS
+        loans_box.visibleProperty().bind(loans_button.selectedProperty());
+        loans_button.disableProperty().bind(loans_button.selectedProperty());
+        loans_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
+        // PAYMENTS
+        payments_box.visibleProperty().bind(payments_button.selectedProperty());
+        payments_button.disableProperty().bind(payments_button.selectedProperty());
+        payments_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
+        // TYPES
+        types_box.visibleProperty().bind(types_button.selectedProperty());
+        types_button.disableProperty().bind(types_button.selectedProperty());
+        types_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
+        // PLANS
+        plans_box.visibleProperty().bind(plans_button.selectedProperty());
+        plans_button.disableProperty().bind(plans_button.selectedProperty());
+        plans_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
+
+    }
+
+    private void init_togbutton_listeners() {
         // HOME
         home_button.selectedProperty().addListener((o, ov, nv) -> {
             if (home_button.isSelected()) {
@@ -199,39 +287,53 @@ public class MainController {
         });
     }
 
-    private void init_bindings() {
+    private void init_table_listeners() {
+        loanerTable.setRowFactory(table -> {
+            TableRow<Loaner> loanerRow = new TableRow<>();
+            loanerRow.setOnMousePressed(e -> {
+                if (!loanerRow.isEmpty()) {
+                    og_loaner = loanerRow.getItem();
+                    loaner = og_loaner;
+                    System.out.println(loaner.getName());
+                    _init_loaner_bindings();
+                } else {
+                    og_loaner = new Loaner();
+                    loaner = og_loaner;
+                }
+            });
+            return loanerRow;
+        });
 
-        // TABLE WIDTHS
-        loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
-        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.84));
-        loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
-        loan_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.84));
-        payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.200));
-        payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.130));
-        payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.670));
+        loaner_search.textProperty().addListener((o, ov, nv) -> {
+            loanerList.setPredicate(p -> {
+                if (nv == null || nv.isEmpty()) {
+                    return true;
+                }
 
-        // HOME
-        home_box.visibleProperty().bind(home_button.selectedProperty());
-        home_button.disableProperty().bind(home_button.selectedProperty());
-        // LOANERS
-        loaners_box.visibleProperty().bind(loaners_button.selectedProperty());
-        loaners_button.disableProperty().bind(loaners_button.selectedProperty());
-        // LOANS
-        loans_box.visibleProperty().bind(loans_button.selectedProperty());
-        loans_button.disableProperty().bind(loans_button.selectedProperty());
-        // PAYMENTS
-        payments_box.visibleProperty().bind(payments_button.selectedProperty());
-        payments_button.disableProperty().bind(payments_button.selectedProperty());
-        // TYPES
-        types_box.visibleProperty().bind(types_button.selectedProperty());
-        types_button.disableProperty().bind(types_button.selectedProperty());
-        // PLANS
-        plans_box.visibleProperty().bind(plans_button.selectedProperty());
-        plans_button.disableProperty().bind(plans_button.selectedProperty());
+                if (Long.toString(p.getLoaner_id()).contains(nv.toLowerCase())) {
+                    return true;
+                }
 
+                return p.getName().toLowerCase().contains(nv.toLowerCase());
+            });
+        });
     }
 
     private void init_anims() {
 
     }
+
+    // INDIVIDUAL FUNCTIONS ---------------------------------------------------
+    private void _init_loaner_bindings() {
+        loaner_name_label.textProperty().bind(og_loaner.getNameProperty());
+        loaner_id_label.textProperty().bind(og_loaner.getLoaner_idProperty().asString());
+        loaner_address_label.textProperty().bind(og_loaner.getAddressProperty());
+        loaner_phone_label.textProperty().bind(og_loaner.getPhoneProperty().asString());
+        loaner_birthdate_label.textProperty().bind(og_loaner.getBirthdateProperty().asString());
+        loaner_social_label.textProperty().bind(og_loaner.getSocial_securityProperty().asString());
+
+        loaner_edit_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
+        loaner_remove_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
+    }
+
 }
