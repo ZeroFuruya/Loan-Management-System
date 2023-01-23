@@ -3,6 +3,7 @@ package e2p.icotp.service.loader;
 import java.io.IOException;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.modal.LoanerController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,7 +15,7 @@ public class ModalLoader {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(App.class.getResource("layout/" + fxml + ".fxml"));
 
-        BorderPane pane = loader.load();
+        StackPane pane = loader.load();
 
         StackPane modal = new StackPane(pane);
         modal.getStyleClass().add("modal-bg");
@@ -45,7 +46,7 @@ public class ModalLoader {
     public static void load_loaner_update(App app) throws IOException {
         FXMLLoader loader = load_modal(app, "modal/LOANER");
 
-        // AuthorUpdate controller = loader.getController();
+        // LoanerController controller = loader.getController();
         // controller.load(app);
     }
 

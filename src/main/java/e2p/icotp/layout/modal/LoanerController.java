@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 public class LoanerController {
     @FXML
     private TextField lastname;
-    
+
     @FXML
     private TextField firstname;
 
