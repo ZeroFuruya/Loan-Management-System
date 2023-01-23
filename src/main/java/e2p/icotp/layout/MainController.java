@@ -203,12 +203,12 @@ public class MainController {
 
         // TABLE WIDTHS
         loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
-        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.80));
+        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.84));
         loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
-        loan_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.80));
-        payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.130));
+        loan_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.84));
+        payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.200));
         payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.130));
-        payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.70));
+        payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.670));
 
         // HOME
         home_box.visibleProperty().bind(home_button.selectedProperty());

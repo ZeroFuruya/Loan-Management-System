@@ -26,12 +26,6 @@ public class PaymentDAO {
         return masterlist;
     }
 
-    public static Loaner getLoanerById(int id) throws SQLException {
-        SQLParam idParam = new SQLParam(Types.INTEGER, "loaner_id", id);
-        CachedRowSet crs = SQLCommand.selectByID("loaners", idParam);
-        return crs.next() ? LoanerDAO.loanerData(crs) : null;
-    }
-
     public static Loan getLoanById(int id) throws SQLException {
         SQLParam idParam = new SQLParam(Types.INTEGER, "loan_id", id);
         CachedRowSet crs = SQLCommand.selectByID("loans", idParam);
@@ -45,14 +39,14 @@ public class PaymentDAO {
         if (loaner_id <= 0) {
             loaner = new Loaner();
         } else {
-            loaner = getLoanerById(loaner_id);
+            loaner = LoanerDAO.getLoanerByID(loaner_id);
         }
         int loan_id = (crs.getInt("loan_id"));
         Loan loan;
         if (loan_id <= 0) {
             loan = new Loan();
         } else {
-            loan = getLoanById(loaner_id);
+            loan = getLoanById(loan_id);
         }
         LocalDate payment_date = (crs.getDate("payment_date").toLocalDate());
         double payment_amount = (crs.getDouble("payment_amount"));
