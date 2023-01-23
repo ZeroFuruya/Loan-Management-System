@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -12,14 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.LoanController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
             <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Loaner">
+                  <Label text="Loans:">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -35,7 +35,7 @@
                <children>
                   <VBox prefHeight="335.0" prefWidth="200.0">
                      <children>
-                        <Label text="Last Name:">
+                        <Label text="Loan ID:">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -43,12 +43,12 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Last Name:">
+                        <TextField promptText="Loan ID:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </TextField>
-                        <Label text="Address:">
+                        <Label text="Maturity Date:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -56,12 +56,8 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Address:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
-                        <Label text="Social Security:">
+                        <DatePicker promptText="1/11/1111" />
+                        <Label text="Due:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -69,7 +65,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Social Security:">
+                        <TextField promptText="Due:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -81,7 +77,7 @@
                   </VBox>
                   <VBox prefHeight="335.0" prefWidth="200.0">
                      <children>
-                        <Label text="First Name:">
+                        <Label text="Loaner ID:">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -89,12 +85,12 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="First Name:">
+                        <TextField promptText="Loaner ID:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </TextField>
-                        <Label text="Contact No.">
+                        <Label text="Principal:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -102,7 +98,20 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Contact  No.">
+                        <TextField promptText="Principal:">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </TextField>
+                        <Label text="Paid:">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <TextField promptText="Paid:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -114,7 +123,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label text="Middle Name:">
+                        <Label text="Term:">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -122,12 +131,12 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Middle Name:">
+                        <TextField promptText="Term:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </TextField>
-                        <Label text="Email:">
+                        <Label text="Interest:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -135,7 +144,20 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Email:">
+                        <TextField promptText="Interest:">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </TextField>
+                        <Label text="Balance:">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField promptText="Balance:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -150,7 +172,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <children>
-                        <Label text="Birthday:">
+                        <Label text="Release Date:">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -159,7 +181,7 @@
                            </padding>
                         </Label>
                         <DatePicker promptText="1/11/1111" />
-                        <Label text="Loaner ID:">
+                        <Label text="Penalty:">
                            <padding>
                               <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                            </padding>
@@ -167,11 +189,20 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Loaner Id:">
+                        <TextField promptText="Penalty:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </TextField>
+                        <Label text="Status:">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <ComboBox prefWidth="150.0" promptText="Status:" />
                      </children>
                   </VBox>
                </children>
