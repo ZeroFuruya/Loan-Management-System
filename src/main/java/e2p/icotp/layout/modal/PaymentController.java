@@ -1,5 +1,6 @@
 package e2p.icotp.layout.modal;
 
+import e2p.icotp.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -25,4 +26,10 @@ public class PaymentController {
     private Button save;
     @FXML
     private Button cancel;
+
+    private App app;
+
+    public void load(App app){
+        this.app = app;
+    }
 }
