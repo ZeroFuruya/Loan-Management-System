@@ -1,6 +1,7 @@
 package e2p.icotp.layout.modal;
 
 
+import e2p.icotp.App;
 import e2p.icotp.model.Enums.Status;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -49,4 +50,11 @@ public class LoanController {
     private Button save;
     @FXML
     private Button cancel;
+
+    private App app;
+
+
+    public void load(App app){
+        this.app = app;
+    }
 }

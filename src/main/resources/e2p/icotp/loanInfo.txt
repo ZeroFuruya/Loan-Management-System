@@ -1,0 +1,51 @@
+
+Personal Loan Details:
+    Desired Loan Amount: Php______;
+    Payment Term: 12 months, 18 months, 24 months, 36 months;
+    Loan Purpose: Appliance, Personal Consumtion, Tuition fee, Other;
+    Mode of Release: VIA Managers Check, Credit to my Security Bank Account, Branch _______, Account No.__________;
+
+Personal Information:
+    Gender: Male, Female
+    Occupation
+    Educational Attainment: Elementary, HighSchool, College, Vocational, Post Graduate, Others______
+    Civil Status: Single, Married, Widow/Widower, Legally Separeted
+    Citizenship;
+    Place of Birth:
+    Vehicle OwnerShip: Personal Monthly amortization(PHP_______), Company provided, Both, None
+    Home Ownership: Owned, Company-Owned, Living with relatives, Mortgage, Rented (Php______/mo.) Length of Stay:_____ years
+
+
+Spouse Information:
+    Full Name(Last, First, Middle) Mr and MS;
+    Birthdate(mm-dd--yyyy);
+    Educational Attainment: Elementary, HighSchool, College, Vocational, Post Graduate, Others______
+    Business/Employer: 
+    Position:
+    Business/Employer Address: (Floor,Street, Brgy/Village, Subdivision, City/Municipality, Province);
+
+My work and Finances:
+    Employment Type: Goverment, Private, Self-Employed;
+    Position:
+        Rank and File, Junior Officer, Supervisor, Assisstant Manager/Senior Assisstant Manager, Manager/Senior Manager, 
+        Assisstant Vice President/Senior Assisstant Vice President, Vice President/First Vice President/Senior Vice President/
+        Executive Vice President, President/ Chief Executive Officer/ Director/Chairman
+    Permanent: Yes, NO;
+    Nature of Business: 
+    Date of Hire:
+    Length of Service:
+    Tin:
+    SSS/GSIS/UNified ID No:
+    Business/Employer:
+    Business/Employer Address (Floor,Street, Brgy/Village, Subdivision, City/Municipality, Province);
+
+Other Loan Accounts
+    Bank/Company:
+    Outstanding Balance:
+    Type of Loan:
+    Monthly Payment:
+
+
+
+
+
