@@ -29,7 +29,7 @@ public class ModalLoader {
         modal.setOnMouseClicked(e -> {
             if (e.getTarget() == modal) {
                 modal_close(app);
-            } else {    
+            } else {
                 e.consume();
             }
         });
@@ -42,21 +42,21 @@ public class ModalLoader {
         app.getMainScreen().getChildren().remove(lastIdx);
     }
 
-    // public static void load_author_update(App app) throws IOException {
-    //     FXMLLoader loader = load_modal(app, "m/AUTHOR_UPDATE");
+    public static void load_loaner_update(App app) throws IOException {
+        FXMLLoader loader = load_modal(app, "modal/LOANER");
 
-    //     AuthorUpdate controller = loader.getController();
-    //     controller.load(app);
-    // }
+        // AuthorUpdate controller = loader.getController();
+        // controller.load(app);
+    }
 
     // public static void load_degree_update(App app) throws IOException {
-    //     FXMLLoader loader = load_modal(app, "modals/DEGREE_UPDATE");
+    // FXMLLoader loader = load_modal(app, "modals/DEGREE_UPDATE");
 
-    //     DegreeUpdate controller = loader.getController();
-    //     controller.load(app);
+    // DegreeUpdate controller = loader.getController();
+    // controller.load(app);
     // }
 
     // public static void load_error(App app) throws IOException {
-    //     FXMLLoader loader = load_modal(app, "login/INVALIDACC");
+    // FXMLLoader loader = load_modal(app, "login/INVALIDACC");
     // }
 }
