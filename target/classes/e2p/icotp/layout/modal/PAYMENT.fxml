@@ -42,7 +42,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Last Name:">
+                        <TextField fx:id="lastname" promptText="Last Name:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -65,7 +65,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Loaner ID:">
+                        <TextField fx:id="loaner_id" promptText="Loaner ID:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -85,7 +85,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Loan ID:">
+                        <TextField fx:id="loan_id" promptText="Loan ID:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -105,7 +105,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <DatePicker promptText=" 1/11/111" />
+                        <DatePicker fx:id="payment_date" promptText=" 1/11/111" />
                      </children>
                   </VBox>
                   <VBox prefHeight="285.0" prefWidth="170.0">
@@ -121,7 +121,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Payment Amount:">
+                        <TextField fx:id="payment_amount" promptText="Payment Amount:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -134,8 +134,8 @@
          <bottom>
             <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="720.0" layoutY="13.0" mnemonicParsing="false" text="Cancel" />
-                  <Button layoutX="649.0" layoutY="13.0" mnemonicParsing="false" text="Save" />
+                  <Button fx:id="cancel" layoutX="720.0" layoutY="13.0" mnemonicParsing="false" text="Cancel" />
+                  <Button fx:id="save" layoutX="649.0" layoutY="13.0" mnemonicParsing="false" text="Save" />
                </children>
             </Pane>
          </bottom>
