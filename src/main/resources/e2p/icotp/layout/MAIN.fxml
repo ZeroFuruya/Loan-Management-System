@@ -377,7 +377,7 @@
                                                       <TableColumn fx:id="loan_loaner_name" prefWidth="223.0" text="Loaner Name" />
                                                    </columns>
                                                 </TableView>
-                                                <TextField />
+                                                <TextField fx:id="loan_search" />
                                              </children>
                                           </VBox>
                                        </children>
@@ -391,7 +391,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="264.0">
                                                    <children>
-                                                      <Label text="Name Of D. Loaner" textFill="WHITE">
+                                                      <Label fx:id="loan_loaner_name_label" text="Name Of D. Loaner" textFill="WHITE">
                                                          <font>
                                                             <Font size="30.0" />
                                                          </font>
@@ -403,7 +403,7 @@
                                                 </VBox>
                                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                                    <children>
-                                                      <ImageView fitHeight="78.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS" />
+                                                      <ImageView fx:id="status_image" fitHeight="78.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -423,7 +423,7 @@
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Label text="0001" textFill="WHITE">
+                                                            <Label fx:id="loan_loaner_id_label" text="0001" textFill="WHITE">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
@@ -448,7 +448,7 @@
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Label text="0001" textFill="WHITE">
+                                                            <Label fx:id="loan_id_label" text="0001" textFill="WHITE">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
@@ -476,7 +476,7 @@
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Label text="January 23, 1909" textFill="WHITE">
+                                                            <Label fx:id="release_date_label" text="January 23, 1909" textFill="WHITE">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
@@ -501,7 +501,7 @@
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Label text="January 99, 9999" textFill="WHITE">
+                                                            <Label fx:id="term_label" text="January 99, 9999" textFill="WHITE">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
@@ -526,7 +526,7 @@
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Label text="December 26, 2006" textFill="WHITE">
+                                                            <Label fx:id="maturity_date_label" text="December 26, 2006" textFill="WHITE">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
@@ -551,7 +551,7 @@
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Label text="134245" textFill="WHITE">
+                                                            <Label fx:id="principal_label" text="134245" textFill="WHITE">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
@@ -576,7 +576,7 @@
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Label text="134245" textFill="WHITE">
+                                                            <Label fx:id="interest_label" text="134245" textFill="WHITE">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
@@ -601,7 +601,7 @@
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Label text="134245" textFill="WHITE">
+                                                            <Label fx:id="penalty_label" text="134245" textFill="WHITE">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
@@ -626,7 +626,7 @@
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Label text="134245" textFill="WHITE">
+                                                            <Label fx:id="due_label" text="134245" textFill="WHITE">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
@@ -651,7 +651,7 @@
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Label text="134245" textFill="WHITE">
+                                                            <Label fx:id="paid_label" text="134245" textFill="WHITE">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
@@ -676,7 +676,7 @@
                                                       </HBox>
                                                       <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                                          <children>
-                                                            <Label text="134245" textFill="WHITE">
+                                                            <Label fx:id="balance_label" text="134245" textFill="WHITE">
                                                                <font>
                                                                   <Font size="20.0" />
                                                                </font>
@@ -693,9 +693,9 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
                                  <children>
-                                    <Button mnemonicParsing="false" text="Modify Loan" />
-                                    <Button mnemonicParsing="false" text="Add Loan" />
-                                    <Button mnemonicParsing="false" text="Remove Loan" />
+                                    <Button fx:id="loan_edit_button" mnemonicParsing="false" text="Modify Loan" />
+                                    <Button fx:id="loan_add_button" mnemonicParsing="false" text="Add Loan" />
+                                    <Button fx:id="loan_remove_button" mnemonicParsing="false" text="Remove Loan" />
                                  </children>
                               </HBox>
                            </children>
