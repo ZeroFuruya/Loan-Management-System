@@ -16,6 +16,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -99,6 +100,44 @@ public class MainController {
     TableColumn<Loan, Integer> loan_id;
     @FXML
     TableColumn<Loan, String> loan_loaner_name;
+
+    @FXML
+    Label loan_loaner_name_label;
+    @FXML
+    Label loan_loaner_id_label;
+    @FXML
+    Label loan_id_label;
+    @FXML
+    Label release_date_label;
+    @FXML
+    Label term_label;
+    @FXML
+    Label maturity_date_label;
+    @FXML
+    Label principal_label;
+    @FXML
+    Label interest_label;
+    @FXML
+    Label penalty_label;
+    @FXML
+    Label due_label;
+    @FXML
+    Label paid_label;
+    @FXML
+    Label balance_label;
+
+    @FXML
+    Button loan_edit_button;
+    @FXML
+    Button loan_add_button;
+    @FXML
+    Button loan_remove_button;
+
+    @FXML
+    TextField loan_search;
+
+    @FXML
+    ImageView status_image;
     // TABLE COLS - Payment
     @FXML
     TableColumn<Payment, Long> payment_id;
