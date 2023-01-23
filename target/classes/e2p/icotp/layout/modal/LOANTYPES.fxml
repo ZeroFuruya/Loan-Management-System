@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.LoanTypesController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" style="-fx-background-color: #c4aead;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.LoanTypesController">
    <children>
       <BorderPane>
          <top>
@@ -258,7 +258,7 @@
             <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <Button layoutX="1101.0" layoutY="15.0" mnemonicParsing="false" text="Cancel" />
-                  <Button layoutX="1033.0" layoutY="15.0" mnemonicParsing="false" text="Save" />
+                  <Button layoutX="1033.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="47.0" text="Save" />
                </children>
             </Pane>
          </bottom>
