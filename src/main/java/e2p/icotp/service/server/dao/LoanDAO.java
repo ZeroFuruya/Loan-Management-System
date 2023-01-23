@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.sql.rowset.CachedRowSet;
 
 import e2p.icotp.model.Loan;
+import e2p.icotp.model.Loaner;
 import e2p.icotp.service.server.core.SQLCommand;
 import e2p.icotp.service.server.core.SQLParam;
 import javafx.collections.FXCollections;
@@ -24,9 +25,21 @@ public class LoanDAO {
         return masterlist;
     }
 
+    public static Loaner getLoanerById(int id) throws SQLException {
+        SQLParam idParam = new SQLParam(Types.INTEGER, "loaner_id", id);
+        CachedRowSet crs = SQLCommand.selectByID("loaners", idParam);
+        return crs.next() ? LoanerDAO.loanerData(crs) : null;
+    }
+
     public static Loan loanData(CachedRowSet crs) throws SQLException {
         int loan_id = (crs.getInt("loan_id"));
         int loaner_id = (crs.getInt("loaner_id"));
+        Loaner loaner;
+        if (loaner_id <= 0) {
+            loaner = new Loaner();
+        } else {
+            loaner = getLoanerById(loaner_id);
+        }
         LocalDate release_date = (crs.getDate("release_date").toLocalDate());
         int term = (crs.getInt("term"));
         LocalDate maturity_date = (crs.getDate("maturity_date").toLocalDate());
@@ -38,7 +51,7 @@ public class LoanDAO {
         double balance = (crs.getDouble("balance"));
         String status = (crs.getString("status"));
 
-        return new Loan(loan_id, loaner_id, release_date, term, maturity_date, principal, interest, penalty, due, paid,
+        return new Loan(loan_id, loaner, release_date, term, maturity_date, principal, interest, penalty, due, paid,
                 balance, status);
     }
 
