@@ -1,7 +1,5 @@
 package e2p.icotp.layout;
 
-import java.time.LocalDate;
-
 import e2p.icotp.App;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.Loaner;
@@ -67,6 +65,19 @@ public class MainController {
     @FXML
     TableColumn<Loaner, String> loaner_name;
 
+    // TABLE COLS - Loan
+    @FXML
+    TableColumn<Loan, Integer> loan_id;
+    @FXML
+    TableColumn<Loan, String> loan_loaner_name;
+    // TABLE COLS - Payment
+    @FXML
+    TableColumn<Payment, Long> payment_id;
+    @FXML
+    TableColumn<Payment, Integer> payment_loan_id;
+    @FXML
+    TableColumn<Payment, String> payment_loaner_name;
+
     // APP -------------------------------------
 
     App app;
@@ -74,6 +85,8 @@ public class MainController {
     // LISTS -----------------------------------
 
     FilteredList<Loaner> loanerList;
+    FilteredList<Loan> loanList;
+    FilteredList<Payment> paymentList;
 
     public void load(App app) {
         this.app = app;
@@ -89,6 +102,8 @@ public class MainController {
 
     private void init_tables() {
         this.loanerList = new FilteredList<>(app.loanerMasterlist(), p -> true);
+        this.loanList = new FilteredList<>(app.loanMasterList(), p -> true);
+        this.paymentList = new FilteredList<>(app.paymentMasterlist(), p -> true);
 
         // LOANER TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         loaner_id.setCellValueFactory(loaner -> {
@@ -98,6 +113,27 @@ public class MainController {
             return loaner.getValue().getNameProperty();
         });
         loanerTable.setItems(loanerList);
+
+        // LOAN TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        loan_id.setCellValueFactory(loan -> {
+            return loan.getValue().getLoanID_Property().asObject();
+        });
+        loan_loaner_name.setCellValueFactory(loan -> {
+            return loan.getValue().getLoanerID_Property().get().getNameProperty();
+        });
+        loanTable.setItems(loanList);
+
+        // PAYMENT TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        payment_id.setCellValueFactory(payment -> {
+            return payment.getValue().getPayment_id_Property().asObject();
+        });
+        payment_loan_id.setCellValueFactory(payment -> {
+            return payment.getValue().getLoan_id_Property().get().getLoanID_Property().asObject();
+        });
+        payment_loaner_name.setCellValueFactory(payment -> {
+            return payment.getValue().getLoan_id_Property().get().getLoanerID_Property().get().getNameProperty();
+        });
+        paymentTable.setItems(paymentList);
     }
 
     private void init_listeners() {
@@ -165,9 +201,14 @@ public class MainController {
 
     private void init_bindings() {
 
-        // LOANER TABLE WIDTHS
-        loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.140));
-        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.20));
+        // TABLE WIDTHS
+        loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
+        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.80));
+        loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
+        loan_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.80));
+        payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.130));
+        payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.130));
+        payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.70));
 
         // HOME
         home_box.visibleProperty().bind(home_button.selectedProperty());

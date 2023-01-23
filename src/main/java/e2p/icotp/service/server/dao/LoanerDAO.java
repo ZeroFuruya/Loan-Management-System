@@ -32,7 +32,7 @@ public class LoanerDAO {
     }
 
     // Loaner DATA
-    private static Loaner loanerData(CachedRowSet crs) throws SQLException {
+    public static Loaner loanerData(CachedRowSet crs) throws SQLException {
 
         long loaner_id = crs.getLong("loaner_id");
         String name = crs.getString("name");

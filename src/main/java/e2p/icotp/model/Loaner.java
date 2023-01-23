@@ -27,6 +27,10 @@ public class Loaner {
         this.social_security = new SimpleLongProperty(social_security);
     }
 
+    public Loaner() {
+        this(0, "", "", 0, LocalDate.now(), 0);
+    }
+
     // SETTERS
     public void setLoaner_id(long loaner_id) {
         this.loaner_id.set(loaner_id);

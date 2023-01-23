@@ -159,7 +159,7 @@
                         </FlowPane>
                      </children>
                   </VBox>
-                  <VBox fx:id="loaners_box" prefHeight="200.0" prefWidth="100.0">
+                  <VBox fx:id="loaners_box" prefHeight="200.0" prefWidth="100.0" visible="false">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
@@ -184,6 +184,989 @@
                                               <TableColumn fx:id="loaner_id" prefWidth="75.0" text="Loaner ID" />
                                               <TableColumn fx:id="loaner_name" prefWidth="223.0" text="Name" />
                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </HBox>
+                                    <VBox maxWidth="400.0" minWidth="-Infinity" prefHeight="559.0" prefWidth="332.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="332.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label text="Name Of D. Loaner" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="30.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="378.0" prefWidth="651.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="ID:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="0001" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Address:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Skyrim, Falkreath" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Birthdate:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="January 99, 9999" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Phone:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="9123134716" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Social Security:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="134245" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox maxWidth="250.0" prefHeight="559.0" prefWidth="250.0">
+                                       <children>
+                                          <Label text="Loans" textFill="WHITE">
+                                             <font>
+                                                <Font size="30.0" />
+                                             </font>
+                                          </Label>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Add Loaner" />
+                                    <Button mnemonicParsing="false" text="Remove Loaner" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="loans_box" prefHeight="200.0" prefWidth="100.0" visible="false">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
+                           <children>
+                              <Label text="Loan Informations" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="40.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="408.0" prefWidth="840.0" spacing="50.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox maxWidth="400.0" minWidth="400.0" prefWidth="400.0">
+                                       <children>
+                                          <TableView fx:id="loanTable" prefHeight="559.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
+                                             <columns>
+                                                <TableColumn fx:id="loan_id" prefWidth="75.0" text="Loan ID" />
+                                                <TableColumn fx:id="loan_loaner_name" prefWidth="223.0" text="Loaner Name" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </HBox>
+                                    <VBox maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="559.0" prefWidth="568.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <VBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="264.0">
+                                                   <children>
+                                                      <Label text="Name Of D. Loaner" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="30.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ImageView fitHeight="78.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                          <VBox prefHeight="502.0" prefWidth="457.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Loaner ID:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="0001" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Loan ID:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="0001" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Release Date:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="January 23, 1909" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Term:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="January 99, 9999" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Maturity Date:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="December 26, 2006" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Principal:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="134245" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Interest:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="134245" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Penalty:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="134245" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Due:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="134245" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Paid:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="134245" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Balance:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="134245" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Add Loaner" />
+                                    <Button mnemonicParsing="false" text="Remove Loaner" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="payments_box" prefHeight="200.0" prefWidth="100.0">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
+                           <children>
+                              <Label text="Payments" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="40.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="408.0" prefWidth="840.0" spacing="50.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox maxWidth="400.0" minWidth="400.0" prefWidth="400.0">
+                                       <children>
+                                          <TableView fx:id="paymentTable" prefHeight="559.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
+                                             <columns>
+                                                <TableColumn fx:id="payment_id" prefWidth="75.0" text="Payment ID" />
+                                                <TableColumn fx:id="payment_loan_id" prefWidth="127.0" text="Loan ID" />
+                                                <TableColumn fx:id="payment_loaner_name" prefWidth="171.0" text="Loaner Name" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </HBox>
+                                    <VBox maxWidth="400.0" minWidth="-Infinity" prefHeight="559.0" prefWidth="332.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="332.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <Label text="Name Of D. Loaner" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="30.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="378.0" prefWidth="651.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Loaner ID:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="0001" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Loan ID:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="0001" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Payment ID:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="0001" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Date:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="August 9, 9999" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Amount:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="134245" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Add Loaner" />
+                                    <Button mnemonicParsing="false" text="Remove Loaner" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="types_box" prefHeight="200.0" prefWidth="100.0" visible="false">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
+                           <children>
+                              <Label text="Loaner's Informations" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="40.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="408.0" prefWidth="840.0" spacing="50.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox maxWidth="400.0" minWidth="400.0" prefWidth="400.0">
+                                       <children>
+                                          <TableView fx:id="loanerTable3" prefHeight="559.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
+                                             <columns>
+                                                <TableColumn fx:id="loaner_id3" prefWidth="75.0" text="Loaner ID" />
+                                                <TableColumn fx:id="loaner_name3" prefWidth="223.0" text="Name" />
+                                             </columns>
                                           </TableView>
                                        </children>
                                     </HBox>
@@ -611,120 +1594,6 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="loans_box" prefHeight="200.0" prefWidth="100.0" visible="false">
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
-                           <children>
-                              <Label text="Loan Informations" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial" size="40.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets left="40.0" />
-                           </padding>
-                        </HBox>
-                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                           <children>
-                              <TableView prefHeight="408.0" prefWidth="951.0">
-                                 <columns>
-                                    <TableColumn prefWidth="75.0" text="C1" />
-                                    <TableColumn prefWidth="75.0" text="C2" />
-                                 </columns>
-                              </TableView>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" text="Add Loan" />
-                                    <Button mnemonicParsing="false" text="Remove Loan" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </FlowPane>
-                     </children>
-                  </VBox>
-                  <VBox fx:id="payments_box" prefHeight="200.0" prefWidth="100.0" visible="false">
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
-                           <children>
-                              <Label text="Payment Informations" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial" size="40.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets left="40.0" />
-                           </padding>
-                        </HBox>
-                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                           <children>
-                              <TableView prefHeight="408.0" prefWidth="951.0">
-                                 <columns>
-                                    <TableColumn prefWidth="75.0" text="C1" />
-                                    <TableColumn prefWidth="75.0" text="C2" />
-                                 </columns>
-                              </TableView>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" text="Add Payment" />
-                                    <Button mnemonicParsing="false" text="Remove Payment" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </FlowPane>
-                     </children>
-                  </VBox>
-                  <VBox fx:id="types_box" prefHeight="200.0" prefWidth="100.0" visible="false">
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
-                           <children>
-                              <Label text="Loan Plans" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial" size="40.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets left="40.0" />
-                           </padding>
-                        </HBox>
-                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                           <children>
-                              <TableView prefHeight="408.0" prefWidth="951.0">
-                                 <columns>
-                                    <TableColumn prefWidth="75.0" text="C1" />
-                                    <TableColumn prefWidth="75.0" text="C2" />
-                                 </columns>
-                              </TableView>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" text="Add Loan Plan" />
-                                    <Button mnemonicParsing="false" text="Remove Loan Plan" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </FlowPane>
-                     </children>
-                  </VBox>
                   <VBox fx:id="plans_box" prefHeight="200.0" prefWidth="100.0" visible="false">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -732,35 +1601,449 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
                            <children>
-                              <Label text="Loan Types" textFill="WHITE">
+                              <Label text="Loaner's Informations" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="40.0" />
                                  </font>
                               </Label>
                            </children>
-                           <padding>
-                              <Insets left="40.0" />
-                           </padding>
                         </HBox>
-                        <FlowPane alignment="TOP_CENTER" hgap="10.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
+                        <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
                            <children>
-                              <TableView prefHeight="408.0" prefWidth="951.0">
-                                 <columns>
-                                    <TableColumn prefWidth="75.0" text="C1" />
-                                    <TableColumn prefWidth="75.0" text="C2" />
-                                 </columns>
-                              </TableView>
+                              <HBox alignment="CENTER" prefHeight="408.0" prefWidth="840.0" spacing="50.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox maxWidth="400.0" minWidth="400.0" prefWidth="400.0">
+                                       <children>
+                                          <TableView fx:id="loanerTable4" prefHeight="559.0" prefWidth="300.0" HBox.hgrow="ALWAYS">
+                                             <columns>
+                                                <TableColumn fx:id="loaner_id4" prefWidth="75.0" text="Loaner ID" />
+                                                <TableColumn fx:id="loaner_name4" prefWidth="223.0" text="Name" />
+                                             </columns>
+                                          </TableView>
+                                       </children>
+                                    </HBox>
+                                    <VBox maxWidth="400.0" minWidth="-Infinity" prefHeight="559.0" prefWidth="332.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="186.0" prefWidth="309.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <ImageView fitHeight="150.0" fitWidth="141.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../../../../../Pictures/Files/artworks/hat.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label text="Name Of D. Loaner" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="30.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="378.0" prefWidth="651.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="ID:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="0001" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Address:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="Skyrim, Falkreath" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Birthdate:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="January 99, 9999" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Phone:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="9123134716" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <HBox alignment="CENTER" minWidth="132.0" prefWidth="132.0">
+                                                         <children>
+                                                            <Label text="Social Security:" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label text="134245" textFill="WHITE">
+                                                               <font>
+                                                                  <Font size="20.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox maxWidth="250.0" prefHeight="559.0" prefWidth="250.0">
+                                       <children>
+                                          <Label text="Loans" textFill="WHITE">
+                                             <font>
+                                                <Font size="30.0" />
+                                             </font>
+                                          </Label>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                                   <children>
+                                                      <Label text="ID:" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
                                  <children>
-                                    <Button mnemonicParsing="false" text="Add Loan Type" />
-                                    <Button mnemonicParsing="false" text="Remove Loan Type" />
+                                    <Button mnemonicParsing="false" text="Add Loaner" />
+                                    <Button mnemonicParsing="false" text="Remove Loaner" />
                                  </children>
                               </HBox>
                            </children>
-                        </FlowPane>
+                        </VBox>
                      </children>
                   </VBox>
                </children>
