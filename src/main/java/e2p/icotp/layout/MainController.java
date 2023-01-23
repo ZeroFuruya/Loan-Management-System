@@ -336,4 +336,15 @@ public class MainController {
         loaner_remove_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
     }
 
+    private void _init_loan_bindings() {
+    }
+
+    private void _init_payment_bindings() {
+    }
+
+    private void _init_type_bindings() {
+    }
+
+    private void _init_plan_bindings() {
+    }
 }
