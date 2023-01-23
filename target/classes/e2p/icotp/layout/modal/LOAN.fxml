@@ -43,7 +43,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Loan ID:">
+                        <TextField fx:id="loan_id" promptText="Loan ID:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -56,7 +56,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <DatePicker promptText="1/11/1111" />
+                        <DatePicker fx:id="maturity_date" promptText="1/11/1111" />
                         <Label text="Due:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -65,7 +65,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Due:">
+                        <TextField fx:id="due" promptText="Due:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -85,7 +85,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Loaner ID:">
+                        <TextField fx:id="loaner_id" promptText="Loaner ID:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -98,7 +98,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Principal:">
+                        <TextField fx:id="principal" promptText="Principal:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -111,7 +111,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Paid:">
+                        <TextField fx:id="paid" promptText="Paid:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -131,7 +131,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Term:">
+                        <TextField fx:id="term" promptText="Term:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -144,7 +144,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Interest:">
+                        <TextField fx:id="interest" promptText="Interest:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -157,7 +157,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Balance:">
+                        <TextField fx:id="balance" promptText="Balance:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -180,7 +180,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <DatePicker promptText="1/11/1111" />
+                        <DatePicker fx:id="release_date" promptText="1/11/1111" />
                         <Label text="Penalty:">
                            <padding>
                               <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
@@ -189,7 +189,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Penalty:">
+                        <TextField fx:id="penalty" promptText="Penalty:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -202,7 +202,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <ComboBox prefWidth="150.0" promptText="Status:" />
+                        <ComboBox fx:id="status" prefWidth="150.0" promptText="Status:" />
                      </children>
                   </VBox>
                </children>
@@ -211,8 +211,8 @@
          <bottom>
             <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="720.0" layoutY="13.0" mnemonicParsing="false" text="Cancel" />
-                  <Button layoutX="649.0" layoutY="13.0" mnemonicParsing="false" text="Save" />
+                  <Button fx:id="cancel" layoutX="720.0" layoutY="13.0" mnemonicParsing="false" text="Cancel" />
+                  <Button fx:id="save" layoutX="649.0" layoutY="13.0" mnemonicParsing="false" text="Save" />
                </children>
             </Pane>
          </bottom>

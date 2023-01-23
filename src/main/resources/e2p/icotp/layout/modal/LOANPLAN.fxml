@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -41,7 +42,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Enter No. of Installment:">
+                        <TextField fx:id="installment" promptText="Enter No. of Installment:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -64,11 +65,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Enter Loan Status:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <ComboBox fx:id="loanStatus" prefWidth="150.0" promptText="Status:" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="160.0">
@@ -84,7 +81,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Enter the Interest:">
+                        <TextField fx:id="interest" promptText="Enter the Interest:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -104,7 +101,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Enter Repayment:">
+                        <TextField fx:id="repayment" promptText="Enter Repayment:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -121,7 +118,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Enter Annuity:">
+                        <TextField fx:id="annuity" promptText="Enter Annuity:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -137,8 +134,8 @@
          <bottom>
             <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="720.0" layoutY="13.0" mnemonicParsing="false" text="Cancel" />
-                  <Button layoutX="649.0" layoutY="13.0" mnemonicParsing="false" text="Save" />
+                  <Button fx:id="cancel" layoutX="720.0" layoutY="13.0" mnemonicParsing="false" text="Cancel" />
+                  <Button fx:id="save" layoutX="649.0" layoutY="13.0" mnemonicParsing="false" text="Save" />
                </children>
             </Pane>
          </bottom>
