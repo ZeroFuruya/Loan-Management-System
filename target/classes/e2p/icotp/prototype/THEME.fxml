@@ -15,7 +15,7 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="812.0" prefWidth="1151.0" style="-fx-background-color: #c4aead;">
          <children>
-            <Label layoutX="13.0" layoutY="4.0" prefHeight="45.0" prefWidth="633.0" text="LOAN MANAGEMENT SYSTEM">
+            <Label layoutX="13.0" layoutY="4.0" prefHeight="45.0" prefWidth="482.0" text="LOAN MANAGEMENT SYSTEM">
                <font>
                   <Font name="Iskoola Pota" size="32.0" />
                </font>
@@ -92,12 +92,12 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="511.0" layoutY="69.0" text="Payment" textFill="WHITE">
+                  <Label layoutX="511.0" layoutY="65.0" text="Payment" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="509.0" layoutY="118.0" text="Due Amount" textFill="WHITE">
+                  <Label layoutX="509.0" layoutY="113.0" text="Due Amount" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
