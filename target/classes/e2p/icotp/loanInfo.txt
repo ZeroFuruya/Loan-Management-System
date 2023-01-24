@@ -9,7 +9,7 @@ Personal Information:
     Gender: Male, Female
     Occupation
     Educational Attainment: Elementary, HighSchool, College, Vocational, Post Graduate, Others______
-    Civil Status: Single, Married, Widow/Widower, Legally Separeted
+    Civil Status: Single, Married, Widow/Widower, Legally Separated
     Citizenship;
     Place of Birth:
     Vehicle OwnerShip: Personal Monthly amortization(PHP_______), Company provided, Both, None

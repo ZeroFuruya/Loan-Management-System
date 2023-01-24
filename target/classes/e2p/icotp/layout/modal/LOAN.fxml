@@ -43,11 +43,15 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="loan_id" promptText="Loan ID:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="loan_id" promptText="Loan ID:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                        </HBox>
                         <Label text="Maturity Date:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -56,7 +60,11 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="maturity_date" promptText="1/11/1111" />
+                        <HBox>
+                           <children>
+                              <DatePicker fx:id="maturity_date" promptText="1/11/1111" />
+                           </children>
+                        </HBox>
                         <Label text="Due:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -65,11 +73,15 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="due" promptText="Due:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="due" promptText="Due:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -85,11 +97,15 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="loaner_id" promptText="Loaner ID:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="loaner_id" promptText="Loaner ID:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                        </HBox>
                         <Label text="Principal:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -98,11 +114,15 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="principal" promptText="Principal:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="principal" promptText="Principal:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                        </HBox>
                         <Label text="Paid:">
                            <font>
                               <Font size="20.0" />
@@ -111,11 +131,15 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="paid" promptText="Paid:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="paid" promptText="Paid:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -131,11 +155,15 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="term" promptText="Term:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="term" promptText="Term:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                        </HBox>
                         <Label text="Interest:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -144,11 +172,15 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="interest" promptText="Interest:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="interest" promptText="Interest:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                        </HBox>
                         <Label text="Balance:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -157,11 +189,15 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="balance" promptText="Balance:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="balance" promptText="Balance:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -180,7 +216,11 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <DatePicker fx:id="release_date" promptText="1/11/1111" />
+                        <HBox>
+                           <children>
+                              <DatePicker fx:id="release_date" promptText="1/11/1111" />
+                           </children>
+                        </HBox>
                         <Label text="Penalty:">
                            <padding>
                               <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
@@ -189,11 +229,15 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="penalty" promptText="Penalty:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="penalty" promptText="Penalty:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </TextField>
+                           </children>
+                        </HBox>
                         <Label text="Status:">
                            <font>
                               <Font size="20.0" />
@@ -202,7 +246,11 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <ComboBox fx:id="status" prefWidth="150.0" promptText="Status:" />
+                        <HBox>
+                           <children>
+                              <ComboBox fx:id="status" prefWidth="150.0" promptText="Status:" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
