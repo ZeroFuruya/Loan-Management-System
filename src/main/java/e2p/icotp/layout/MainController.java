@@ -391,12 +391,25 @@ public class MainController {
         maturity_date_label.textProperty().bind(DateUtil.localizeDateProperty(loan.getMaturity_date()));
         principal_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("%s", format.format(loan.getPrincipal()));
+        }, loan.getPrincipalProperty()));
+        interest_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%.2f" + "%%", loan.getInterest());
+        }, loan.getInterestProperty()));
+        penalty_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%.2f" + "%%", loan.getPenalty());
+        }, loan.getPenaltyProperty()));
+        due_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%d", loan.getDue());
+        }, loan.getDueProperty()));
+        paid_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%.2f" + "%%", loan.getPaid());
+        }, loan.getPaidProperty()));
+        balance_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%s", format.format(loan.getBalance()));
         }, loan.getBalanceProperty()));
-        interest_label.textProperty().bind(loan.getInterestProperty().asString());
-        penalty_label.textProperty().bind(loan.getPenaltyProperty().asString());
-        due_label.textProperty().bind(loan.getDueProperty().asString());
-        paid_label.textProperty().bind(loan.getPaidProperty().asString());
-        balance_label.textProperty().bind(loan.getBalanceProperty().asString());
+
+        loan_edit_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
+        loan_remove_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
     }
 
     private void _init_payment_bindings() {
