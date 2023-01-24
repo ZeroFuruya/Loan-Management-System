@@ -338,11 +338,15 @@ public class MainController {
 
         // LOANER ------------------------------------------
         loanerTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
-            og_loaner = nv;
-            loaner = og_loaner;
-            _init_loaner_bindings();
+            if (nv != null) {
+                og_loaner = nv;
+                loaner = og_loaner;
+                _init_loan_bindings();
+            } else {
+                og_loaner = new Loaner();
+                loaner = og_loaner;
+            }
         });
-
         loaner_search.textProperty().addListener((o, ov, nv) -> {
             loanerList.setPredicate(p -> {
                 if (nv == null || nv.isEmpty()) {
@@ -359,9 +363,27 @@ public class MainController {
 
         // LOAN --------------------------------------------
         loanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
-            og_loan = nv;
-            loan = og_loan;
-            _init_loan_bindings();
+            if (nv != null) {
+                og_loan = nv;
+                loan = og_loan;
+                _init_loan_bindings();
+            } else {
+                og_loan = new Loan();
+                loan = og_loan;
+            }
+        });
+        loan_search.textProperty().addListener((o, ov, nv) -> {
+            loanList.setPredicate(p -> {
+                if (nv == null || nv.isEmpty()) {
+                    return true;
+                }
+
+                if (Integer.toString(p.getLoan_id()).contains(nv.toLowerCase())) {
+                    return true;
+                }
+
+                return p.getLoanerID_Property().get().getName().toLowerCase().contains(nv.toLowerCase());
+            });
         });
     }
 
@@ -390,7 +412,7 @@ public class MainController {
         term_label.textProperty().bind(loan.getTermProperty().asString());
         maturity_date_label.textProperty().bind(DateUtil.localizeDateProperty(loan.getMaturity_date()));
         principal_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("%s", format.format(loan.getPrincipal()));
+            return String.format("$%s", format.format(loan.getPrincipal()));
         }, loan.getPrincipalProperty()));
         interest_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("%.2f" + "%%", loan.getInterest());
@@ -399,13 +421,13 @@ public class MainController {
             return String.format("%.2f" + "%%", loan.getPenalty());
         }, loan.getPenaltyProperty()));
         due_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("%d", loan.getDue());
+            return String.format("Day %d of every month", loan.getDue());
         }, loan.getDueProperty()));
         paid_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("%.2f" + "%%", loan.getPaid());
         }, loan.getPaidProperty()));
         balance_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("%s", format.format(loan.getBalance()));
+            return String.format("$%s", format.format(loan.getBalance()));
         }, loan.getBalanceProperty()));
 
         loan_edit_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
