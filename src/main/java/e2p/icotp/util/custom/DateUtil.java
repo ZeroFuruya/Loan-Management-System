@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class DateUtil {
 
     private static final String DATE_PATTERN = "MM/dd/yyyy";
@@ -29,5 +32,10 @@ public class DateUtil {
     public static String localizeDate(LocalDate date) {
         return date.format(
                 DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
+    }
+
+    public static StringProperty localizeDateProperty(LocalDate date) {
+        return new SimpleStringProperty(date.format(
+                DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
     }
 }

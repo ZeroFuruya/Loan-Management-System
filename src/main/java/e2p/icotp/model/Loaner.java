@@ -2,6 +2,7 @@ package e2p.icotp.model;
 
 import java.time.LocalDate;
 
+import e2p.icotp.util.custom.DateUtil;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -17,6 +18,12 @@ public class Loaner {
     private ObjectProperty<LocalDate> birthdate;
     private LongProperty social_security;
 
+    // STRINGS
+    private StringProperty loaner_id_string;
+    private StringProperty phone_string;
+    private StringProperty birthdate_string;
+    private StringProperty social_string;
+
     public Loaner(long loaner_id, String name, String address, long phone,
             LocalDate birthdate, long social_security) {
         this.loaner_id = new SimpleLongProperty(loaner_id);
@@ -25,10 +32,33 @@ public class Loaner {
         this.phone = new SimpleLongProperty(phone);
         this.birthdate = new SimpleObjectProperty<>(birthdate);
         this.social_security = new SimpleLongProperty(social_security);
+
+        // STRINGS
+        this.loaner_id_string = new SimpleStringProperty(loaner_id + "");
+        this.phone_string = new SimpleStringProperty(phone + "");
+        this.birthdate_string = new SimpleStringProperty(DateUtil.localizeDate(birthdate));
+        this.social_string = new SimpleStringProperty(social_security + "");
     }
 
     public Loaner() {
         this(0, "", "", 0, LocalDate.now(), 0);
+    }
+
+    // STRING GETTERS
+    public StringProperty getLoanerIdString() {
+        return loaner_id_string;
+    }
+
+    public StringProperty getPhoneString() {
+        return phone_string;
+    }
+
+    public StringProperty getBirthdateString() {
+        return birthdate_string;
+    }
+
+    public StringProperty getSocialString() {
+        return social_string;
     }
 
     // SETTERS
