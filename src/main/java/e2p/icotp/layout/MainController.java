@@ -278,14 +278,6 @@ public class MainController {
         loaners_box.visibleProperty().bind(loaners_button.selectedProperty());
         loaners_button.disableProperty().bind(loaners_button.selectedProperty());
         loaners_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
-        // // LOANS
-        // loans_box.visibleProperty().bind(loans_button.selectedProperty());
-        // loans_button.disableProperty().bind(loans_button.selectedProperty());
-        // loans_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
-        // // PAYMENTS
-        // payments_box.visibleProperty().bind(payments_button.selectedProperty());
-        // payments_button.disableProperty().bind(payments_button.selectedProperty());
-        // payments_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
         // TYPES
         types_box.visibleProperty().bind(types_button.selectedProperty());
         types_button.disableProperty().bind(types_button.selectedProperty());
@@ -314,26 +306,6 @@ public class MainController {
                 plans_button.selectedProperty().set(false);
             }
         });
-        // // LOAN
-        // loans_button.selectedProperty().addListener((o, ov, nv) -> {
-        // if (loans_button.isSelected()) {
-        // home_button.selectedProperty().set(false);
-        // loaners_button.selectedProperty().set(false);
-        // payments_button.selectedProperty().set(false);
-        // types_button.selectedProperty().set(false);
-        // plans_button.selectedProperty().set(false);
-        // }
-        // });
-        // // PAYMENT
-        // payments_button.selectedProperty().addListener((o, ov, nv) -> {
-        // if (payments_button.isSelected()) {
-        // home_button.selectedProperty().set(false);
-        // loaners_button.selectedProperty().set(false);
-        // loans_button.selectedProperty().set(false);
-        // types_button.selectedProperty().set(false);
-        // plans_button.selectedProperty().set(false);
-        // }
-        // });
         // TYPE
         types_button.selectedProperty().addListener((o, ov, nv) -> {
             if (types_button.isSelected()) {
