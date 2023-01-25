@@ -12,6 +12,8 @@ import e2p.icotp.util.custom.DateUtil;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -179,6 +181,10 @@ public class MainController {
     FilteredList<Loan> loanList;
     FilteredList<Payment> paymentList;
 
+    // OBSERVABLE LIST
+    ObservableList<Loan> loanObservableList;
+    ObservableList<Payment> paymentObservableList;
+
     // MODELS ----------------------------------
     Loaner og_loaner;
     Loaner loaner;
@@ -221,8 +227,9 @@ public class MainController {
 
     private void init_tables() {
         this.loanerList = new FilteredList<>(app.loanerMasterlist(), p -> true);
-        this.loanList = new FilteredList<>(app.loanMasterList(), p -> true);
-        this.paymentList = new FilteredList<>(app.paymentMasterlist(), p -> true);
+
+        this.loanObservableList = FXCollections.observableArrayList();
+        this.paymentObservableList = FXCollections.observableArrayList();
 
         // LOANER TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         loaner_id.setCellValueFactory(loaner -> {
@@ -240,7 +247,6 @@ public class MainController {
         loan_loaner_name.setCellValueFactory(loan -> {
             return loan.getValue().getLoanerID_Property().get().getNameProperty();
         });
-        loanTable.setItems(loanList);
 
         // PAYMENT TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         payment_id.setCellValueFactory(payment -> {
@@ -252,7 +258,11 @@ public class MainController {
         payment_loaner_name.setCellValueFactory(payment -> {
             return payment.getValue().getLoan_id_Property().get().getLoanerID_Property().get().getNameProperty();
         });
-        paymentTable.setItems(paymentList);
+    }
+
+    private void set__filtered_tables() {
+        this.loanList = new FilteredList<>(loanObservableList, p -> true);
+        this.paymentList = new FilteredList<>(paymentObservableList, p -> true);
     }
 
     private void init_bindings() {
@@ -327,6 +337,8 @@ public class MainController {
             if (nv != null) {
                 og_loaner = nv;
                 loaner = og_loaner;
+                load_loan_table();
+                refresh_loan_list();
                 _init_loaner_bindings();
             } else {
                 og_loaner = new Loaner();
@@ -352,6 +364,8 @@ public class MainController {
             if (nv != null) {
                 og_loan = nv;
                 loan = og_loan;
+                load_payment_table();
+                refresh_payment_list();
                 _init_loan_bindings();
             } else {
                 og_loan = new Loan();
@@ -395,6 +409,34 @@ public class MainController {
 
                 return p.getLoaner_id_Property().get().getName().toLowerCase().contains(nv.toLowerCase());
             });
+        });
+    }
+
+    private void refresh_loan_list() {
+        set__filtered_tables();
+        loanTable.setItems(loanList);
+    }
+
+    private void refresh_payment_list() {
+        set__filtered_tables();
+        paymentTable.setItems(paymentList);
+    }
+
+    private void load_loan_table() {
+        loanObservableList.removeAll(loanObservableList);
+        app.loanMasterList().forEach(loan -> {
+            if (loaner.getLoaner_id() == loan.getLoanerID_Property().get().getLoaner_id()) {
+                loanObservableList.add(loan);
+            }
+        });
+    }
+
+    private void load_payment_table() {
+        paymentObservableList.removeAll(paymentObservableList);
+        app.paymentMasterlist().forEach(payment -> {
+            if (loan.getLoan_id() == payment.getLoan_id().getLoan_id()) {
+                paymentObservableList.add(payment);
+            }
         });
     }
 
@@ -474,12 +516,6 @@ public class MainController {
         loaner_social_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("Social Security: %d", loaner.getSocial_security());
         }, loaner.getSocial_securityProperty()));
-
-        // FILTERS
-        loanList.setPredicate(p -> {
-            return Long.toString(p.getLoaner_id().getLoaner_id())
-                    .contains(Long.toString(loaner.getLoaner_id()).toLowerCase());
-        });
 
         loaner_edit_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
         loaner_remove_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
