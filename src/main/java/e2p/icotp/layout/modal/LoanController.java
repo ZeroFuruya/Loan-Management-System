@@ -4,6 +4,7 @@ package e2p.icotp.layout.modal;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import e2p.icotp.App;
+import e2p.icotp.model.Loan;
 import e2p.icotp.model.Enums.Status;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -105,6 +106,7 @@ public class LoanController {
     private Button cancel;
 
     private App app;
+    private Loan loan;
 
 
     public void load(App app){
