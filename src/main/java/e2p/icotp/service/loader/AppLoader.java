@@ -30,8 +30,8 @@ public class AppLoader {
         app.setMainScreen(root);
 
         mainStage.setScene(scene);
-        mainStage.setMinHeight(768);
-        mainStage.setMinWidth(1000);
+        mainStage.setMinHeight(720);
+        mainStage.setMinWidth(1300);
         mainStage.setMaximized(false);
 
         mainStage.show();
