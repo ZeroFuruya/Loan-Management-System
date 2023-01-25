@@ -59,7 +59,7 @@ public class MainController {
     @FXML
     Tab loans_button;
     @FXML
-    ToggleButton payments_button;
+    Tab payments_button;
     @FXML
     ToggleButton types_button;
     @FXML
@@ -150,10 +150,6 @@ public class MainController {
     @FXML
     TableColumn<Payment, String> payment_loaner_name;
 
-    @FXML
-    Label payment_loaner_name_label;
-    @FXML
-    Label payment_loaner_id_label;
     @FXML
     Label payment_loan_id_label;
     @FXML
@@ -262,13 +258,13 @@ public class MainController {
     private void init_bindings() {
 
         // TABLE WIDTHS
-        loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
-        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.84));
+        loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.20));
+        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.8));
         loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
         loan_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.84));
-        payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.200));
-        payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.130));
-        payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.670));
+        payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.300));
+        payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.230));
+        payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.700));
 
         // HOME
         home_box.visibleProperty().bind(home_button.selectedProperty());
@@ -447,26 +443,43 @@ public class MainController {
         translate.play();
     }
 
+    @FXML
+    private void payment_tab_transitions() {
+        FadeTransition translate = new FadeTransition();
+        translate.setNode(payments_box);
+        translate.setDuration(Duration.millis(400));
+        translate.setInterpolator(Interpolator.EASE_IN);
+        translate.setFromValue(0);
+        translate.setToValue(1);
+        translate.play();
+    }
+
     // INDIVIDUAL FUNCTIONS ---------------------------------------------------
     private void _init_loaner_bindings() {
         loaner_name_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("%s", loaner.getName());
         }, loaner.getNameProperty()));
         loaner_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("LOANER ID: %d", loaner.getLoaner_id());
+            return String.format("Loaner ID: %d", loaner.getLoaner_id());
         }, loaner.getLoaner_idProperty()));
         loaner_address_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("ADDRESS: %s", loaner.getAddress());
+            return String.format("Address: %s", loaner.getAddress());
         }, loaner.getAddressProperty()));
         loaner_phone_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("PHONE: %d", loaner.getPhone());
+            return String.format("Phone: %d", loaner.getPhone());
         }, loaner.getPhoneProperty()));
         loaner_birthdate_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("BIRTHDATE: %s", DateUtil.localizeDate(loaner.getBirthdate()));
+            return String.format("Birthdate: %s", DateUtil.localizeDate(loaner.getBirthdate()));
         }, loaner.getBirthdateProperty()));
         loaner_social_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("SOCIAL SECURITY: %d", loaner.getSocial_security());
+            return String.format("Social Security: %d", loaner.getSocial_security());
         }, loaner.getSocial_securityProperty()));
+
+        // FILTERS
+        loanList.setPredicate(p -> {
+            return Long.toString(p.getLoaner_id().getLoaner_id())
+                    .contains(Long.toString(loaner.getLoaner_id()).toLowerCase());
+        });
 
         loaner_edit_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
         loaner_remove_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
@@ -474,7 +487,7 @@ public class MainController {
 
     private void _init_loan_bindings() {
         loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Term: %d", loan.getLoan_id());
+            return String.format("Loan ID: %d", loan.getLoan_id());
         }, loan.getLoanID_Property()));
         loan_release_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("Release: %s", DateUtil.localizeDate(loan.getRelease_date()));
@@ -492,7 +505,7 @@ public class MainController {
             return String.format("Interest: %.2f" + "%%", loan.getInterest());
         }, loan.getInterestProperty()));
         loan_penalty_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Penalry: %.2f" + "%%", loan.getPenalty());
+            return String.format("Penalty: %.2f" + "%%", loan.getPenalty());
         }, loan.getPenaltyProperty()));
         loan_due_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("Due: Day %d of every month", loan.getDue());
@@ -509,15 +522,17 @@ public class MainController {
     }
 
     private void _init_payment_bindings() {
-        payment_loaner_name_label.textProperty().bind(payment.getLoaner_id_Property().get().getNameProperty());
-        payment_loaner_id_label.textProperty()
-                .bind(payment.getLoaner_id_Property().get().getLoaner_idProperty().asString());
-        payment_loan_id_label.textProperty()
-                .bind(payment.getLoan_id_Property().get().getLoanID_Property().asString());
-        payment_id_label.textProperty().bind(payment.getPayment_id_Property().asString());
-        payment_date_label.textProperty().bind(DateUtil.localizeDateProperty(payment.getPaymentDate()));
+        payment_loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Loan ID: %d", payment.getLoan_id().getLoan_id());
+        }, payment.getLoan_id_Property().get().getLoanID_Property()));
+        payment_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Payment ID: %d", payment.getPayment_id());
+        }, payment.getPayment_id_Property()));
+        payment_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Date: %s", DateUtil.localizeDate(payment.getPaymentDate()));
+        }, payment.getPayment_date_Property()));
         payment_amount_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("$%s", format.format(payment.getPayment_amount()));
+            return String.format("Amount: $%s", format.format(payment.getPayment_amount()));
         }, payment.getPayment_amount_Property()));
 
     }
