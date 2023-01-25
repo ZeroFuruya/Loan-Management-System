@@ -7,6 +7,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -151,25 +153,25 @@
                         </FlowPane>
                      </children>
                   </VBox>
-                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0" visible="false">
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" />
-                     </padding>
+                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="902.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="902.0" styleClass="dept-tab-container">
                            <children>
-                              <Label text="Loaner's Informations" textFill="WHITE">
+                              <Label prefHeight="19.0" prefWidth="415.0" text="Loaner's Informations" textFill="WHITE">
                                  <font>
-                                    <Font name="Arial" size="40.0" />
+                                    <Font name="Arial" size="30.0" />
                                  </font>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                           </padding>
                         </HBox>
-                        <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                        <VBox alignment="TOP_CENTER" prefHeight="365.0" prefWidth="1038.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="573.0" prefWidth="974.0" spacing="50.0" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" prefHeight="573.0" prefWidth="974.0" spacing="20.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <HBox maxWidth="400.0" minWidth="400.0" prefWidth="400.0">
+                                    <HBox maxWidth="400.0" minWidth="303.0" prefHeight="286.0" prefWidth="303.0">
                                        <children>
                                           <VBox HBox.hgrow="ALWAYS">
                                              <children>
@@ -188,519 +190,170 @@
                                           </VBox>
                                        </children>
                                     </HBox>
-                                    <VBox maxWidth="400.0" minWidth="-Infinity" prefHeight="559.0" prefWidth="332.0" HBox.hgrow="ALWAYS">
+                                    <VBox HBox.hgrow="ALWAYS">
                                        <children>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="332.0" VBox.vgrow="ALWAYS">
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                             <children>
-                                                <Label fx:id="loaner_name_label" text="Name Of D. Loaner" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="30.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                </Label>
-                                             </children>
-                                          </VBox>
-                                          <VBox prefHeight="503.0" prefWidth="415.0" VBox.vgrow="ALWAYS">
-                                             <children>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
+                                          <TabPane prefHeight="297.0" prefWidth="548.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                                            <tabs>
+                                                <Tab fx:id="loans_button" onSelectionChanged="#loan_tab_transitions" text="Loans">
+                                                   <content>
+                                                      <VBox fx:id="loans_box" prefHeight="200.0" prefWidth="100.0">
                                                          <children>
-                                                            <Label text="ID:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
+                                                            <HBox prefHeight="227.0" prefWidth="548.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <VBox>
+                                                                     <children>
+                                                                        <TableView fx:id="loanTable" prefHeight="559.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
+                                                                           <columns>
+                                                                              <TableColumn fx:id="loan_id" prefWidth="75.0" text="Loan ID" />
+                                                                              <TableColumn fx:id="loan_loaner_name" prefWidth="223.0" text="Loaner Name" />
+                                                                           </columns>
+                                                                        </TableView>
+                                                                        <TextField fx:id="loan_search" />
+                                                                     </children>
+                                                                  </VBox>
+                                                                  <FlowPane hgap="20.0" prefHeight="200.0" prefWidth="200.0" vgap="5.0" HBox.hgrow="ALWAYS">
+                                                                     <children>
+                                                                        <Label fx:id="loan_id_label" text="134245" textFill="WHITE">
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Label fx:id="loan_release_date_label" text="134245" textFill="WHITE">
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Label fx:id="loan_term_label" text="134245" textFill="WHITE">
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Label fx:id="loan_maturity_date_label" text="134245" textFill="WHITE">
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Label fx:id="loan_principal_label" text="134245" textFill="WHITE">
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Label fx:id="loan_interest_label" text="134245" textFill="WHITE">
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Label fx:id="loan_penalty_label" text="134245" textFill="WHITE">
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Label fx:id="loan_due_label" text="134245" textFill="WHITE">
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Label fx:id="loan_paid_label" text="134245" textFill="WHITE">
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                        <Label fx:id="loan_balance_label" text="134245" textFill="WHITE">
+                                                                           <font>
+                                                                              <Font size="20.0" />
+                                                                           </font>
+                                                                        </Label>
+                                                                     </children>
+                                                                  </FlowPane>
+                                                               </children>
+                                                            </HBox>
+                                                            <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
+                                                               <children>
+                                                                  <Button fx:id="loan_edit_button" mnemonicParsing="false" text="Modify Loan" />
+                                                                  <Button fx:id="loan_add_button" mnemonicParsing="false" text="Add Loan" />
+                                                                  <Button fx:id="loan_remove_button" mnemonicParsing="false" text="Remove Loan" />
+                                                               </children>
+                                                            </HBox>
                                                          </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loaner_id_label" text="0001" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Address:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loaner_address_label" text="Skyrim, Falkreath" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Birthdate:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loaner_birthdate_label" text="January 99, 9999" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Phone:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loaner_phone_label" text="9123134716" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Social Security:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loaner_social_label" text="134245" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
+                                                      </VBox>
+                                                   </content>
+                                                </Tab>
+                                                <Tab text="Collaterals">
+                                                   <content>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" />
+                                                   </content>
+                                                </Tab>
+                                                <Tab text="Payments">
+                                                   <content>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" />
+                                                   </content>
+                                                </Tab>
+                                            </tabs>
+                                          </TabPane>
                                        </children>
                                     </VBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox prefHeight="166.0" prefWidth="1038.0">
+                           <children>
+                              <HBox>
                                  <children>
-                                    <Button fx:id="loaner_edit_button" disable="true" mnemonicParsing="false" onAction="#handle_loaner_edit" text="Edit Loaner" />
-                                    <Button fx:id="loaner_add_button" mnemonicParsing="false" onAction="#handle_loaner_add" text="Add Loaner" />
-                                    <Button fx:id="loaner_remove_button" disable="true" mnemonicParsing="false" onAction="#handle_loaner_remove" text="Remove Loaner" />
+                                    <Label fx:id="loaner_name_label" text="Name Of D. Loaner" textFill="WHITE">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </HBox>
+                              <FlowPane hgap="20.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="85.0" prefWidth="998.0" vgap="5.0">
+                                 <children>
+                                    <Label fx:id="loaner_address_label" text="Skyrim, Falkreath" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="loaner_id_label" text="0001" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="loaner_birthdate_label" text="January 99, 9999" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="loaner_phone_label" text="9123134716" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="loaner_social_label" text="134245" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </FlowPane>
                            </children>
+                           <padding>
+                              <Insets left="20.0" right="20.0" />
+                           </padding>
                         </VBox>
-                        <FlowPane prefHeight="200.0" prefWidth="200.0" />
-                     </children>
-                  </VBox>
-                  <VBox fx:id="loans_box" prefHeight="200.0" prefWidth="100.0">
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" />
-                     </padding>
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="1038.0" spacing="10.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label text="Loan Informations" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial" size="40.0" />
-                                 </font>
-                              </Label>
+                              <Button fx:id="loaner_edit_button" disable="true" mnemonicParsing="false" onAction="#handle_loaner_edit" text="Edit Loaner" />
+                              <Button fx:id="loaner_add_button" mnemonicParsing="false" onAction="#handle_loaner_add" text="Add Loaner" />
+                              <Button fx:id="loaner_remove_button" disable="true" mnemonicParsing="false" onAction="#handle_loaner_remove" text="Remove Loaner" />
                            </children>
+                           <padding>
+                              <Insets left="20.0" right="20.0" />
+                           </padding>
                         </HBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="303.0" prefWidth="1018.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="408.0" prefWidth="840.0" spacing="50.0" VBox.vgrow="ALWAYS">
-                                 <children>
-                                    <HBox maxWidth="400.0" minWidth="400.0" prefWidth="400.0">
-                                       <children>
-                                          <VBox HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <TableView fx:id="loanTable" prefHeight="559.0" prefWidth="300.0">
-                                                   <columns>
-                                                      <TableColumn fx:id="loan_id" prefWidth="75.0" text="Loan ID" />
-                                                      <TableColumn fx:id="loan_loaner_name" prefWidth="223.0" text="Loaner Name" />
-                                                   </columns>
-                                                </TableView>
-                                                <TextField fx:id="loan_search" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                    <VBox maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="559.0" prefWidth="568.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <HBox>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                             <children>
-                                                <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="264.0" HBox.hgrow="ALWAYS">
-                                                   <children>
-                                                      <Label fx:id="loan_loaner_name_label" text="Name Of D. Loaner" textFill="WHITE">
-                                                         <font>
-                                                            <Font size="30.0" />
-                                                         </font>
-                                                         <VBox.margin>
-                                                            <Insets />
-                                                         </VBox.margin>
-                                                      </Label>
-                                                   </children>
-                                                </VBox>
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
-                                                      <ImageView fx:id="status_image" fitHeight="78.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS" />
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </HBox>
-                                          <VBox prefHeight="502.0" prefWidth="457.0" VBox.vgrow="ALWAYS">
-                                             <children>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Loaner ID:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loan_loaner_id_label" text="0001" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Loan ID:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loan_id_label" text="0001" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Release Date:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loan_release_date_label" text="January 23, 1909" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Term:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loan_term_label" text="January 99, 9999" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Maturity Date:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loan_maturity_date_label" text="December 26, 2006" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Principal:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loan_principal_label" text="134245" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Interest:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loan_interest_label" text="134245" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Penalty:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loan_penalty_label" text="134245" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Due:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loan_due_label" text="134245" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Paid:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loan_paid_label" text="134245" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="740.0" spacing="10.0">
-                                                   <padding>
-                                                      <Insets left="10.0" />
-                                                   </padding>
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" minWidth="132.0" prefWidth="132.0">
-                                                         <children>
-                                                            <Label text="Balance:" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label fx:id="loan_balance_label" text="134245" textFill="WHITE">
-                                                               <font>
-                                                                  <Font size="20.0" />
-                                                               </font>
-                                                            </Label>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
-                                 <children>
-                                    <Button fx:id="loan_edit_button" mnemonicParsing="false" text="Modify Loan" />
-                                    <Button fx:id="loan_add_button" mnemonicParsing="false" text="Add Loan" />
-                                    <Button fx:id="loan_remove_button" mnemonicParsing="false" text="Remove Loan" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
                      </children>
                   </VBox>
                   <VBox fx:id="payments_box" prefHeight="200.0" prefWidth="100.0" visible="false">
@@ -1803,9 +1456,6 @@
                      </children>
                   </VBox>
                </children>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
             </StackPane>
          </center>
          <left>
@@ -1813,8 +1463,6 @@
                <children>
                   <ToggleButton fx:id="home_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="button" text="Home" />
                   <ToggleButton fx:id="loaners_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="button" text="Loaners" />
-                  <ToggleButton fx:id="loans_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="button" text="Loans" />
-                  <ToggleButton fx:id="payments_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="button" text="Payments" />
                   <ToggleButton fx:id="types_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="button" text="Loan Types" />
                   <ToggleButton fx:id="plans_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="button" text="Loan Plans" />
                </children>
