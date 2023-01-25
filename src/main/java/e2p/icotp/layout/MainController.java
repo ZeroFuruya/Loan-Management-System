@@ -474,7 +474,7 @@ public class MainController {
 
     private void _init_loan_bindings() {
         loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Term: %d", loan.getLoan_id());
+            return String.format("Loan ID: %d", loan.getLoan_id());
         }, loan.getLoanID_Property()));
         loan_release_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("Release: %s", DateUtil.localizeDate(loan.getRelease_date()));
