@@ -278,16 +278,16 @@
 
 .text-field {
     -fx-font-family: "Century Gothic";
-    -fx-background-color: #3636365e;
+    -fx-background-color: #ffffff5e;
     background-color: #FFC23C;
-    -fx-background-radius: 10;
+    -fx-background-radius: 1;
     -fx-font-size: 15;
     font-size: 20;
-    -fx-text-fill: white;
-    -fx-fill: white;
-    -fx-border-color: #ebebeb;
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-fill: rgb(0, 0, 0);
+    -fx-border-color: #ae00ff;
     border-color: transparent;
-    -fx-border-radius: 10;
+    -fx-border-radius: 1;
     border-radius: 10;
 }
 
@@ -630,7 +630,7 @@
 }
 
 .scroll-bar:vertical .thumb {
-    -fx-background-color: linear-gradient(to bottom, #ff8025 5%, #7f3500 100%);
+    -fx-background-color: linear-gradient(to bottom, #c125ff 5%, #7f0059 100%);
     -fx-background-insets: 2, 0, 0;
     -fx-background-radius : 2.0em;
     -fx-pref-width: 10px;
@@ -682,7 +682,7 @@
 }
 
 .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: linear-gradient(to bottom, #ff8025 5%, #7f3500 100%);
+    -fx-background-color: linear-gradient(to bottom, #c125ff 5%, #7f0059 100%);
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
 }

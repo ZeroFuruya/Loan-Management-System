@@ -2,6 +2,7 @@ package e2p.icotp.layout;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 
 import e2p.icotp.App;
 import e2p.icotp.model.Loan;
@@ -187,11 +188,11 @@ public class MainController {
 
     // MODELS ----------------------------------
     Loaner og_loaner;
-    Loaner loaner;
+    Loaner loaner = new Loaner();
     Loan og_loan;
-    Loan loan;
+    Loan loan = new Loan();
     Payment og_payment;
-    Payment payment;
+    Payment payment = new Payment();
 
     NumberFormat format = NumberFormat.getInstance();
 
@@ -337,8 +338,11 @@ public class MainController {
             if (nv != null) {
                 og_loaner = nv;
                 loaner = og_loaner;
+                clear_fields(2);
+                clear_fields(3);
                 load_loan_table();
                 refresh_loan_list();
+                clear_payment_table();
                 _init_loaner_bindings();
             } else {
                 og_loaner = new Loaner();
@@ -410,6 +414,46 @@ public class MainController {
                 return p.getLoaner_id_Property().get().getName().toLowerCase().contains(nv.toLowerCase());
             });
         });
+    }
+
+    private void clear_fields(int val) {
+        switch (val) {
+            case 1:
+                loaner.setAddress("None");
+                loaner.setName("None");
+                loaner.setBirthdate(LocalDate.now());
+                loaner.setLoaner_id(0);
+                loaner.setPhone(0000000000);
+                loaner.setSocial_security(0);
+                break;
+            case 2:
+                loan.setLoan_id(0);
+                loan.setLoaner_id(new Loaner());
+                loan.setRelease_date(LocalDate.now());
+                loan.setTerm(0);
+                loan.setMaturity_date(LocalDate.now());
+                loan.setPrincipal(0.0f);
+                loan.setInterest(0.0f);
+                loan.setPenalty(0.0f);
+                loan.setDue(0);
+                loan.setPaid(0.0f);
+                loan.setBalance(0.0f);
+                loan.setStatus("None");
+                break;
+            case 3:
+                payment.setPayment_id(0);
+                payment.getLoan_id_Property().set(new Loan());
+                payment.setLoaner_id(new Loaner());
+                payment.setPayment_date(LocalDate.now());
+                payment.setPayment_amount(0.0f);
+                break;
+        }
+    }
+
+    private void clear_payment_table() {
+        paymentObservableList.removeAll(paymentObservableList);
+        set__filtered_tables();
+        paymentTable.setItems(paymentList);
     }
 
     private void refresh_loan_list() {
@@ -559,7 +603,7 @@ public class MainController {
 
     private void _init_payment_bindings() {
         payment_loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loan ID: %d", payment.getLoan_id().getLoan_id());
+            return String.format("Loan ID: %d", payment.getLoan_id_Property().get().getLoan_id());
         }, payment.getLoan_id_Property().get().getLoanID_Property()));
         payment_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("Payment ID: %d", payment.getPayment_id());

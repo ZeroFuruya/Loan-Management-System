@@ -8,29 +8,20 @@
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #c4aead;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.LoanerController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" styleClass="dept-tab-container" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.LoanerController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
             <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Loaner">
+                  <Label text="Loaner Form">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <Label text="Personal Information:">
-                     <padding>
-                        <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
                      </padding>
                      <font>
                         <Font size="30.0" />
@@ -54,10 +45,13 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="lastname" prefHeight="27.0" prefWidth="193.0" promptText="Last Name:">
+                              <TextField fx:id="lastname" prefHeight="27.0" prefWidth="193.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
                               </TextField>
                               <Label translateX="-27.0">
                                  <tooltip>
@@ -82,10 +76,13 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="address" prefHeight="27.0" prefWidth="189.0" promptText="Address:">
+                              <TextField fx:id="address" prefHeight="27.0" prefWidth="189.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
                               </TextField>
                               <Label translateX="-27.0">
                                  <graphic>
@@ -110,10 +107,13 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="social_security" prefHeight="27.0" prefWidth="201.0" promptText="Social Security:">
+                              <TextField fx:id="social_security" prefHeight="27.0" prefWidth="201.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
                               </TextField>
                               <Label translateX="-27.0">
                                  <graphic>
@@ -145,10 +145,13 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="firstname" prefHeight="27.0" prefWidth="194.0" promptText="First Name:">
+                              <TextField fx:id="firstname" prefHeight="27.0" prefWidth="194.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
                               </TextField>
                               <Label translateX="-27.0">
                                  <graphic>
@@ -173,10 +176,13 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="contactNo" prefHeight="27.0" prefWidth="188.0" promptText="Contact  No.">
+                              <TextField fx:id="contactNo" prefHeight="27.0" prefWidth="188.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
                               </TextField>
                               <Label translateX="-27.0">
                                  <graphic>
@@ -201,10 +207,13 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="civil_status" prefHeight="27.0" prefWidth="275.0" promptText="Civil Status:">
+                              <TextField fx:id="civil_status" prefHeight="27.0" prefWidth="275.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
                               </TextField>
                               <Label translateX="-27.0">
                                  <graphic>
@@ -244,10 +253,13 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="middleName" prefHeight="27.0" prefWidth="175.0" promptText="Middle Name:">
+                              <TextField fx:id="middleName" prefHeight="27.0" prefWidth="175.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
                               </TextField>
                               <Label translateX="-27.0">
                                  <graphic>
@@ -272,10 +284,13 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="email" prefHeight="27.0" prefWidth="176.0" promptText="Email:">
+                              <TextField fx:id="email" prefHeight="27.0" prefWidth="176.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
                               </TextField>
                               <Label prefHeight="26.0" prefWidth="22.0">
                                  <graphic>
@@ -300,10 +315,13 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="citizenship" prefHeight="27.0" prefWidth="189.0" promptText="Citizenship:">
+                              <TextField fx:id="citizenship" prefHeight="27.0" prefWidth="189.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
                               </TextField>
                               <Label translateX="-27.0">
                                  <graphic>
@@ -338,7 +356,7 @@
                         </Label>
                         <HBox>
                            <children>
-                              <DatePicker fx:id="birthday" prefHeight="25.0" prefWidth="177.0" promptText="1/11/1111" />
+                              <DatePicker fx:id="birthday" prefHeight="25.0" prefWidth="177.0" />
                               <Label translateX="-50.0">
                                  <tooltip>
                                     <Tooltip fx:id="birthdayTT" text="Empty Tooltip" />
@@ -362,10 +380,13 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="loaner_id" prefHeight="27.0" prefWidth="190.0" promptText="Loaner Id:">
+                              <TextField fx:id="loaner_id" prefHeight="27.0" prefWidth="190.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
                               </TextField>
                               <Label translateX="-27.0">
                                  <graphic>
@@ -390,10 +411,13 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="place_of_Birth" prefHeight="27.0" prefWidth="195.0" promptText="Place of Birth:">
+                              <TextField fx:id="place_of_Birth" prefHeight="27.0" prefWidth="195.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
                               </TextField>
                               <Label translateX="-27.0">
                                  <graphic>
@@ -414,13 +438,18 @@
             </HBox>
          </center>
          <bottom>
-            <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_RIGHT" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
+                  <Button fx:id="cancel" mnemonicParsing="false" onAction="#handle_cancel" text="Cancel" />
+                  <Button fx:id="save" mnemonicParsing="false" text="Save" />
                   <Button fx:id="cancel" layoutX="720.0" layoutY="13.0" mnemonicParsing="false" onAction="#handle_cancel" text="Cancel" />
                   <Button fx:id="save" layoutX="649.0" layoutY="13.0" mnemonicParsing="false" onAction="#handle_save" text="Save" />
                </children>
-            </Pane>
+            </HBox>
          </bottom>
       </BorderPane>
    </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 </StackPane>
