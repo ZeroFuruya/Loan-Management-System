@@ -50,6 +50,10 @@ public class Loan {
         this(0, new Loaner(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0, Status.application.get());
     }
 
+    public Loan(int id) {
+        this(id, new Loaner(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0, Status.application.get());
+    }
+
     // SETTERS
     public void setLoan_id(int loan_id) {
         this.loan_id.set(loan_id);
