@@ -3,6 +3,7 @@ package e2p.icotp.layout.modal;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import e2p.icotp.App;
+import e2p.icotp.service.loader.ModalLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -57,7 +58,22 @@ public class PaymentController {
 
     private App app;
 
+    @FXML
+    private void handle_cancel(){
+        ModalLoader.modal_close(app);
+    }
+
+    @FXML
+    private void handle_save(){
+        
+    }
+
     public void load(App app){
         this.app = app;
+        load_bindings();
+    }
+
+    private void load_bindings(){
+
     }
 }

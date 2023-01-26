@@ -5,6 +5,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import e2p.icotp.App;
 import e2p.icotp.model.Enums.Status;
+import e2p.icotp.service.loader.ModalLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -54,6 +55,16 @@ public class LoanPlanController {
     private Tooltip monthlyPenaltyTT;
 
     private App app;
+
+    @FXML
+    private void handle_cancel(){
+        ModalLoader.modal_close(app);
+    }
+
+    @FXML
+    private void handle_save(){
+        
+    }
 
     public void load(App app){
         this.app = app;
