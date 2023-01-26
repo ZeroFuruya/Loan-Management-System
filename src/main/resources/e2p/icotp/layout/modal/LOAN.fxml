@@ -52,9 +52,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label prefHeight="26.0" prefWidth="0.0" translateX="-27.0">
+                              <Label fx:id="loanId_icon" prefHeight="26.0" prefWidth="0.0" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="loanId_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="loanIdTT" text="Empty Tooltip" />
@@ -76,9 +76,9 @@
                         <HBox>
                            <children>
                               <DatePicker fx:id="maturity_date" prefHeight="25.0" prefWidth="177.0" promptText="1/11/1111" />
-                              <Label translateX="-50.0">
+                              <Label fx:id="maturityDate_icon" translateX="-50.0">
                                  <graphic>
-                                    <FontIcon fx:id="maturityDate_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="maturityDateTT" text="Empty Tooltip" />
@@ -104,9 +104,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="due_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="due_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="dueTT" text="Empty Tooltip" />
@@ -139,9 +139,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="loanerId_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="loanerId_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="loanerIdTT" text="Empty Tooltip" />
@@ -167,9 +167,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="principal_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="principal_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="principalTT" text="Empty Tooltip" />
@@ -195,9 +195,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="paid_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="paid_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="paidTT" text="Empty Tooltip" />
@@ -230,9 +230,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="term_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="term_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="termTT" text="Empty Tooltip" />
@@ -258,9 +258,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="interest_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="interest_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="interestTT" text="Empty Tooltip" />
@@ -286,9 +286,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="balance_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="balance_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" selectionEnd="1" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" selectionEnd="1" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="balanceTT" text="Empty Tooltip" />
@@ -320,9 +320,9 @@
                         <HBox>
                            <children>
                               <DatePicker fx:id="release_date" prefHeight="25.0" prefWidth="189.0" promptText="1/11/1111" />
-                              <Label translateX="-50.0">
+                              <Label fx:id="releaseDate_icon" translateX="-50.0">
                                  <graphic>
-                                    <FontIcon fx:id="releaseDate_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="releaseDateTT" text="Empty Tooltip" />
@@ -348,9 +348,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="penalty_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="penalty_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="penaltyTT" text="Empty Tooltip" />
