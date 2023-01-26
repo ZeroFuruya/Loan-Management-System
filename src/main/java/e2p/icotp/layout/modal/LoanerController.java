@@ -102,9 +102,6 @@ public class LoanerController {
     private Tooltip placeOfBirthTT;
 
 
-
-
-
     @FXML
     private Button save;
     @FXML
@@ -117,6 +114,12 @@ public class LoanerController {
     private void handle_cancel(){
         ModalLoader.modal_close(app);
     }
+
+    @FXML
+    private void handle_save(){
+        
+    }
+    
 
     public void load(App app){
         this.app = app;

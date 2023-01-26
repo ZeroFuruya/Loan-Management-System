@@ -4,6 +4,9 @@
 .label-dark {
     -fx-text-fill: rgb(20, 0, 24);
 }
+.label {
+    -fx-text-fill: rgb(20, 0, 24);
+}
 
 .label-cont-bright {
     -fx-text-fill: rgb(204, 204, 204);
@@ -44,13 +47,13 @@
 /* Department and Salary Grade MASTERLIST */
 
 .dept-container {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #31087B, #100720);
-    background-color: #100720;
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #ebebeb, #616161);
+    background-color: #dddddd;
 }
 
 .dept-tab-container {
     /* -fx-background-color: #31087B; */
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #100720, #31087B);
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #616161, #ebebeb);
     background-color: #31087B;
 }
 
@@ -82,7 +85,7 @@
 .tree-table-view>.column-header-background>.show-hide-columns-button,
 .table-view:constrained-resize .filler,
 .tree-table-view:constrained-resize .filler {
-    -fx-background-color: linear-gradient(to bottom, #ff8025 5%, #7f3500 100%);
+    -fx-background-color: linear-gradient(to bottom, #7125ff 5%, #6a007f 100%);
     -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
     -fx-font-weight: bold;
     -fx-size: 2em;
@@ -148,7 +151,7 @@
 }
 
 .table-view .table-cell {
-    -fx-alignment: center;
+    -fx-alignment: left;
     -fx-border-style: none;
     -fx-border-width: 1;
     border-style: none;
@@ -183,8 +186,8 @@
 
 .table-row-cell:even:hover {
     -fx-text-fill: rgb(0, 0, 0);
-	-fx-background-color:linear-gradient(to bottom, #ff8025 5%, #7f3500 100%);
-    background-color: rgb(58, 0, 10);
+	-fx-background-color:linear-gradient(to bottom, #0077ff 5%, #003f88 100%);
+    background-color: #3a000a;
     font-weight: bold;
     -fx-font-weight: bold;
     height: 40px;
@@ -193,21 +196,21 @@
 
 .table-row-cell:odd:hover {
     -fx-text-fill: rgb(0, 0, 0);
-    -fx-background-color:linear-gradient(to bottom, #7f3500 5%, #ff8025 100%);
+    -fx-background-color:linear-gradient(to bottom, #0077ff 5%, #003f88 100%);
     -fx-font-weight: bold;
     -fx-height: 40px;
-    background-color: rgb(0, 52, 73);
+    background-color: #003449;
     font-weight: bold;
     height: 40px;
 }
 
 .table-row-cell:even:empty {
-    -fx-background-color: rgb(24, 24, 24);
+    -fx-background-color: rgba(24, 24, 24, 0.5);
     background-color: rgb(24, 24, 24);
 }
 
 .table-row-cell:odd:empty {
-    -fx-background-color: rgb(24, 24, 24);
+    -fx-background-color: rgba(24, 24, 24, 0.5);
     background-color: rgb(24, 24, 24);
 }
 
@@ -277,14 +280,14 @@
     font-family: "Century Gothic";
     -fx-background-color: #180b20;
     background-color: #FFC23C;
-    -fx-background-radius: 10;
+    -fx-background-radius: 1;
     -fx-font-size: 15;
     font-size: 20;
     -fx-text-fill: white;
     fill: white;
     -fx-border-color: #31087B;
     border-color: transparent;
-    -fx-border-radius: 10;
+    -fx-border-radius: 1;
     border-radius: 10;
 }
 

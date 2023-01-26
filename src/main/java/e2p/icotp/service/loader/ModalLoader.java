@@ -7,7 +7,6 @@ import e2p.icotp.layout.modal.LoanerController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 public class ModalLoader {
@@ -46,8 +45,8 @@ public class ModalLoader {
     public static void load_loaner_update(App app) throws IOException {
         FXMLLoader loader = load_modal(app, "modal/LOANER");
 
-        // LoanerController controller = loader.getController();
-        // controller.load(app);
+        LoanerController controller = loader.getController();
+        controller.load(app);
     }
 
     // public static void load_degree_update(App app) throws IOException {

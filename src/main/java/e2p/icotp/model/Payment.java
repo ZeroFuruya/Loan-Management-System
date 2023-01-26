@@ -25,6 +25,10 @@ public class Payment {
         this.payment_amount = new SimpleDoubleProperty(payment_amount);
     }
 
+    public Payment() {
+        this(0, new Loaner(), new Loan(), LocalDate.now(), 0.0);
+    }
+
     // SETTERS
     public void setPayment_id(long payment_id) {
         this.payment_id.set(payment_id);
@@ -64,7 +68,7 @@ public class Payment {
     }
 
     public double getPayment_amount() {
-        return this.getPayment_amount();
+        return this.payment_amount.get();
     }
 
     // PROPERTY GETTERS

@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import e2p.icotp.model.Enums.Status;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -21,14 +23,14 @@ public class Loan {
     private DoubleProperty principal;
     private DoubleProperty interest;
     private DoubleProperty penalty;
-    private DoubleProperty due;
+    private LongProperty due;
     private DoubleProperty paid;
     private DoubleProperty balance;
     private StringProperty status;
 
     public Loan(int loan_id, Loaner loaner_id, LocalDate release_date, int term, LocalDate maturity_date,
             double principal,
-            double interest, double penalty, double due, double paid, double balance, String status) {
+            double interest, double penalty, long due, double paid, double balance, String status) {
 
         this.loan_id = new SimpleIntegerProperty(loan_id);
         this.loaner_id = new SimpleObjectProperty<>(loaner_id);
@@ -38,7 +40,7 @@ public class Loan {
         this.principal = new SimpleDoubleProperty(principal);
         this.interest = new SimpleDoubleProperty(interest);
         this.penalty = new SimpleDoubleProperty(penalty);
-        this.due = new SimpleDoubleProperty(due);
+        this.due = new SimpleLongProperty(due);
         this.paid = new SimpleDoubleProperty(paid);
         this.balance = new SimpleDoubleProperty(balance);
         this.status = new SimpleStringProperty(status);
@@ -46,6 +48,10 @@ public class Loan {
 
     public Loan() {
         this(0, new Loaner(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0, Status.application.get());
+    }
+
+    public Loan(int id) {
+        this(id, new Loaner(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0, Status.application.get());
     }
 
     // SETTERS
@@ -81,7 +87,7 @@ public class Loan {
         this.penalty.set(penalty);
     }
 
-    public void setDue(double due) {
+    public void setDue(long due) {
         this.due.set(due);
     }
 
@@ -130,7 +136,7 @@ public class Loan {
         return this.penalty.get();
     }
 
-    public Double getDue() {
+    public Long getDue() {
         return this.due.get();
     }
 
@@ -179,7 +185,7 @@ public class Loan {
         return this.penalty;
     }
 
-    public DoubleProperty getDueProperty() {
+    public LongProperty getDueProperty() {
         return this.due;
     }
 

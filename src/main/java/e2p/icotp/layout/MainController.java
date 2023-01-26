@@ -1,8 +1,8 @@
 package e2p.icotp.layout;
 
 import java.io.IOException;
-import java.text.Format;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 
 import e2p.icotp.App;
 import e2p.icotp.model.Loan;
@@ -10,11 +10,17 @@ import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.util.custom.DateUtil;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,6 +28,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class MainController {
 
@@ -53,9 +60,9 @@ public class MainController {
     @FXML
     ToggleButton loaners_button;
     @FXML
-    ToggleButton loans_button;
+    Tab loans_button;
     @FXML
-    ToggleButton payments_button;
+    Tab payments_button;
     @FXML
     ToggleButton types_button;
     @FXML
@@ -105,29 +112,25 @@ public class MainController {
     TableColumn<Loan, String> loan_loaner_name;
 
     @FXML
-    Label loan_loaner_name_label;
-    @FXML
-    Label loan_loaner_id_label;
-    @FXML
     Label loan_id_label;
     @FXML
-    Label release_date_label;
+    Label loan_release_date_label;
     @FXML
-    Label term_label;
+    Label loan_term_label;
     @FXML
-    Label maturity_date_label;
+    Label loan_maturity_date_label;
     @FXML
-    Label principal_label;
+    Label loan_principal_label;
     @FXML
-    Label interest_label;
+    Label loan_interest_label;
     @FXML
-    Label penalty_label;
+    Label loan_penalty_label;
     @FXML
-    Label due_label;
+    Label loan_due_label;
     @FXML
-    Label paid_label;
+    Label loan_paid_label;
     @FXML
-    Label balance_label;
+    Label loan_balance_label;
 
     @FXML
     Button loan_edit_button;
@@ -141,6 +144,7 @@ public class MainController {
 
     @FXML
     ImageView status_image;
+
     // TABLE COLS - Payment
     @FXML
     TableColumn<Payment, Long> payment_id;
@@ -148,6 +152,25 @@ public class MainController {
     TableColumn<Payment, Integer> payment_loan_id;
     @FXML
     TableColumn<Payment, String> payment_loaner_name;
+
+    @FXML
+    Label payment_loan_id_label;
+    @FXML
+    Label payment_id_label;
+    @FXML
+    Label payment_date_label;
+    @FXML
+    Label payment_amount_label;
+
+    @FXML
+    Button payment_edit_button;
+    @FXML
+    Button payment_add_button;
+    @FXML
+    Button payment_remove_button;
+
+    @FXML
+    TextField payment_search;
 
     // APP -------------------------------------
 
@@ -159,11 +182,17 @@ public class MainController {
     FilteredList<Loan> loanList;
     FilteredList<Payment> paymentList;
 
+    // OBSERVABLE LIST
+    ObservableList<Loan> loanObservableList;
+    ObservableList<Payment> paymentObservableList;
+
     // MODELS ----------------------------------
     Loaner og_loaner;
-    Loaner loaner;
+    Loaner loaner = new Loaner();
     Loan og_loan;
-    Loan loan;
+    Loan loan = new Loan();
+    Payment og_payment;
+    Payment payment = new Payment();
 
     NumberFormat format = NumberFormat.getInstance();
 
@@ -199,8 +228,9 @@ public class MainController {
 
     private void init_tables() {
         this.loanerList = new FilteredList<>(app.loanerMasterlist(), p -> true);
-        this.loanList = new FilteredList<>(app.loanMasterList(), p -> true);
-        this.paymentList = new FilteredList<>(app.paymentMasterlist(), p -> true);
+
+        this.loanObservableList = FXCollections.observableArrayList();
+        this.paymentObservableList = FXCollections.observableArrayList();
 
         // LOANER TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         loaner_id.setCellValueFactory(loaner -> {
@@ -218,7 +248,6 @@ public class MainController {
         loan_loaner_name.setCellValueFactory(loan -> {
             return loan.getValue().getLoanerID_Property().get().getNameProperty();
         });
-        loanTable.setItems(loanList);
 
         // PAYMENT TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         payment_id.setCellValueFactory(payment -> {
@@ -230,19 +259,23 @@ public class MainController {
         payment_loaner_name.setCellValueFactory(payment -> {
             return payment.getValue().getLoan_id_Property().get().getLoanerID_Property().get().getNameProperty();
         });
-        paymentTable.setItems(paymentList);
+    }
+
+    private void set__filtered_tables() {
+        this.loanList = new FilteredList<>(loanObservableList, p -> true);
+        this.paymentList = new FilteredList<>(paymentObservableList, p -> true);
     }
 
     private void init_bindings() {
 
         // TABLE WIDTHS
-        loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
-        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.84));
+        loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.20));
+        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.8));
         loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
         loan_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.84));
-        payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.200));
-        payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.130));
-        payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.670));
+        payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.300));
+        payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.230));
+        payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.700));
 
         // HOME
         home_box.visibleProperty().bind(home_button.selectedProperty());
@@ -252,14 +285,6 @@ public class MainController {
         loaners_box.visibleProperty().bind(loaners_button.selectedProperty());
         loaners_button.disableProperty().bind(loaners_button.selectedProperty());
         loaners_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
-        // LOANS
-        loans_box.visibleProperty().bind(loans_button.selectedProperty());
-        loans_button.disableProperty().bind(loans_button.selectedProperty());
-        loans_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
-        // PAYMENTS
-        payments_box.visibleProperty().bind(payments_button.selectedProperty());
-        payments_button.disableProperty().bind(payments_button.selectedProperty());
-        payments_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
         // TYPES
         types_box.visibleProperty().bind(types_button.selectedProperty());
         types_button.disableProperty().bind(types_button.selectedProperty());
@@ -276,8 +301,6 @@ public class MainController {
         home_button.selectedProperty().addListener((o, ov, nv) -> {
             if (home_button.isSelected()) {
                 loaners_button.selectedProperty().set(false);
-                loans_button.selectedProperty().set(false);
-                payments_button.selectedProperty().set(false);
                 types_button.selectedProperty().set(false);
                 plans_button.selectedProperty().set(false);
             }
@@ -286,28 +309,6 @@ public class MainController {
         loaners_button.selectedProperty().addListener((o, ov, nv) -> {
             if (loaners_button.isSelected()) {
                 home_button.selectedProperty().set(false);
-                loans_button.selectedProperty().set(false);
-                payments_button.selectedProperty().set(false);
-                types_button.selectedProperty().set(false);
-                plans_button.selectedProperty().set(false);
-            }
-        });
-        // LOAN
-        loans_button.selectedProperty().addListener((o, ov, nv) -> {
-            if (loans_button.isSelected()) {
-                home_button.selectedProperty().set(false);
-                loaners_button.selectedProperty().set(false);
-                payments_button.selectedProperty().set(false);
-                types_button.selectedProperty().set(false);
-                plans_button.selectedProperty().set(false);
-            }
-        });
-        // PAYMENT
-        payments_button.selectedProperty().addListener((o, ov, nv) -> {
-            if (payments_button.isSelected()) {
-                home_button.selectedProperty().set(false);
-                loaners_button.selectedProperty().set(false);
-                loans_button.selectedProperty().set(false);
                 types_button.selectedProperty().set(false);
                 plans_button.selectedProperty().set(false);
             }
@@ -317,8 +318,6 @@ public class MainController {
             if (types_button.isSelected()) {
                 home_button.selectedProperty().set(false);
                 loaners_button.selectedProperty().set(false);
-                loans_button.selectedProperty().set(false);
-                payments_button.selectedProperty().set(false);
                 plans_button.selectedProperty().set(false);
             }
         });
@@ -327,8 +326,6 @@ public class MainController {
             if (plans_button.isSelected()) {
                 home_button.selectedProperty().set(false);
                 loaners_button.selectedProperty().set(false);
-                loans_button.selectedProperty().set(false);
-                payments_button.selectedProperty().set(false);
                 types_button.selectedProperty().set(false);
             }
         });
@@ -338,11 +335,20 @@ public class MainController {
 
         // LOANER ------------------------------------------
         loanerTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
-            og_loaner = nv;
-            loaner = og_loaner;
-            _init_loaner_bindings();
+            if (nv != null) {
+                og_loaner = nv;
+                loaner = og_loaner;
+                clear_fields(2);
+                clear_fields(3);
+                load_loan_table();
+                refresh_loan_list();
+                clear_payment_table();
+                _init_loaner_bindings();
+            } else {
+                og_loaner = new Loaner();
+                loaner = og_loaner;
+            }
         });
-
         loaner_search.textProperty().addListener((o, ov, nv) -> {
             loanerList.setPredicate(p -> {
                 if (nv == null || nv.isEmpty()) {
@@ -359,47 +365,256 @@ public class MainController {
 
         // LOAN --------------------------------------------
         loanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
-            og_loan = nv;
-            loan = og_loan;
-            _init_loan_bindings();
+            if (nv != null) {
+                og_loan = nv;
+                loan = og_loan;
+                load_payment_table();
+                refresh_payment_list();
+                _init_loan_bindings();
+            } else {
+                og_loan = new Loan();
+                loan = og_loan;
+            }
+        });
+        loan_search.textProperty().addListener((o, ov, nv) -> {
+            loanList.setPredicate(p -> {
+                if (nv == null || nv.isEmpty()) {
+                    return true;
+                }
+
+                if (Integer.toString(p.getLoan_id()).contains(nv.toLowerCase())) {
+                    return true;
+                }
+
+                return p.getLoanerID_Property().get().getName().toLowerCase().contains(nv.toLowerCase());
+            });
+        });
+
+        // PAYMENT --------------------------------------------
+        paymentTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
+            if (nv != null) {
+                og_payment = nv;
+                payment = og_payment;
+                _init_payment_bindings();
+            } else {
+                og_payment = new Payment();
+                payment = og_payment;
+            }
+        });
+        payment_search.textProperty().addListener((o, ov, nv) -> {
+            paymentList.setPredicate(p -> {
+                if (nv == null || nv.isEmpty()) {
+                    return true;
+                }
+
+                if (Integer.toString(p.getLoan_id_Property().get().getLoan_id()).contains(nv.toLowerCase())) {
+                    return true;
+                }
+
+                return p.getLoaner_id_Property().get().getName().toLowerCase().contains(nv.toLowerCase());
+            });
+        });
+    }
+
+    private void clear_fields(int val) {
+        switch (val) {
+            case 1:
+                loaner.setAddress("None");
+                loaner.setName("None");
+                loaner.setBirthdate(LocalDate.now());
+                loaner.setLoaner_id(0);
+                loaner.setPhone(0000000000);
+                loaner.setSocial_security(0);
+                break;
+            case 2:
+                loan.setLoan_id(0);
+                loan.setLoaner_id(new Loaner());
+                loan.setRelease_date(LocalDate.now());
+                loan.setTerm(0);
+                loan.setMaturity_date(LocalDate.now());
+                loan.setPrincipal(0.0f);
+                loan.setInterest(0.0f);
+                loan.setPenalty(0.0f);
+                loan.setDue(0);
+                loan.setPaid(0.0f);
+                loan.setBalance(0.0f);
+                loan.setStatus("None");
+                break;
+            case 3:
+                payment.setPayment_id(0);
+                payment.getLoan_id_Property().set(new Loan());
+                payment.setLoaner_id(new Loaner());
+                payment.setPayment_date(LocalDate.now());
+                payment.setPayment_amount(0.0f);
+                break;
+        }
+    }
+
+    private void clear_payment_table() {
+        paymentObservableList.removeAll(paymentObservableList);
+        set__filtered_tables();
+        paymentTable.setItems(paymentList);
+    }
+
+    private void refresh_loan_list() {
+        set__filtered_tables();
+        loanTable.setItems(loanList);
+    }
+
+    private void refresh_payment_list() {
+        set__filtered_tables();
+        paymentTable.setItems(paymentList);
+    }
+
+    private void load_loan_table() {
+        loanObservableList.removeAll(loanObservableList);
+        app.loanMasterList().forEach(loan -> {
+            if (loaner.getLoaner_id() == loan.getLoanerID_Property().get().getLoaner_id()) {
+                loanObservableList.add(loan);
+            }
+        });
+    }
+
+    private void load_payment_table() {
+        paymentObservableList.removeAll(paymentObservableList);
+        app.paymentMasterlist().forEach(payment -> {
+            if (loan.getLoan_id() == payment.getLoan_id().getLoan_id()) {
+                paymentObservableList.add(payment);
+            }
         });
     }
 
     private void init_anims() {
+        home_button.selectedProperty().addListener((o, ov, nv) -> {
+            if (nv) {
+                transitions(home_box);
+            }
+        });
+        loaners_button.selectedProperty().addListener((o, ov, nv) -> {
+            if (nv) {
+                transitions(loaners_box);
+            }
+        });
+        types_button.selectedProperty().addListener((o, ov, nv) -> {
+            if (nv) {
+                transitions(types_box);
+            }
+        });
+        plans_button.selectedProperty().addListener((o, ov, nv) -> {
+            if (nv) {
+                transitions(plans_box);
+            }
+        });
 
+    }
+
+    private void transitions(Node node) {
+        FadeTransition translate = new FadeTransition();
+        translate.setNode(node);
+        translate.setDuration(Duration.millis(400));
+        translate.setInterpolator(Interpolator.EASE_IN);
+        translate.setFromValue(0);
+        translate.setToValue(1);
+        translate.play();
+    }
+
+    @FXML
+    private void loan_tab_transitions() {
+        FadeTransition translate = new FadeTransition();
+        translate.setNode(loans_box);
+        translate.setDuration(Duration.millis(400));
+        translate.setInterpolator(Interpolator.EASE_IN);
+        translate.setFromValue(0);
+        translate.setToValue(1);
+        translate.play();
+    }
+
+    @FXML
+    private void payment_tab_transitions() {
+        FadeTransition translate = new FadeTransition();
+        translate.setNode(payments_box);
+        translate.setDuration(Duration.millis(400));
+        translate.setInterpolator(Interpolator.EASE_IN);
+        translate.setFromValue(0);
+        translate.setToValue(1);
+        translate.play();
     }
 
     // INDIVIDUAL FUNCTIONS ---------------------------------------------------
     private void _init_loaner_bindings() {
-        loaner_name_label.textProperty().bind(loaner.getNameProperty());
-        loaner_id_label.textProperty().bind(loaner.getLoaner_idProperty().asString());
-        loaner_address_label.textProperty().bind(loaner.getAddressProperty());
-        loaner_phone_label.textProperty().bind(loaner.getPhoneProperty().asString());
-        loaner_birthdate_label.textProperty().bind(DateUtil.localizeDateProperty(loaner.getBirthdate()));
-        loaner_social_label.textProperty().bind(loaner.getSocial_securityProperty().asString());
+        loaner_name_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%s", loaner.getName());
+        }, loaner.getNameProperty()));
+        loaner_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Loaner ID: %d", loaner.getLoaner_id());
+        }, loaner.getLoaner_idProperty()));
+        loaner_address_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Address: %s", loaner.getAddress());
+        }, loaner.getAddressProperty()));
+        loaner_phone_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Phone: %d", loaner.getPhone());
+        }, loaner.getPhoneProperty()));
+        loaner_birthdate_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Birthdate: %s", DateUtil.localizeDate(loaner.getBirthdate()));
+        }, loaner.getBirthdateProperty()));
+        loaner_social_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Social Security: %d", loaner.getSocial_security());
+        }, loaner.getSocial_securityProperty()));
 
         loaner_edit_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
         loaner_remove_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
     }
 
     private void _init_loan_bindings() {
-        loan_loaner_name_label.textProperty().bind(loan.getLoanerID_Property().get().getNameProperty());
-        loan_loaner_id_label.textProperty().bind(loan.getLoanerID_Property().get().getLoaner_idProperty().asString());
-        loan_id_label.textProperty().bind(loan.getLoanID_Property().asString());
-        release_date_label.textProperty().bind(DateUtil.localizeDateProperty(loan.getRelease_date()));
-        term_label.textProperty().bind(loan.getTermProperty().asString());
-        maturity_date_label.textProperty().bind(DateUtil.localizeDateProperty(loan.getMaturity_date()));
-        principal_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("%s", format.format(loan.getPrincipal()));
+        loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Loan ID: %d", loan.getLoan_id());
+        }, loan.getLoanID_Property()));
+        loan_release_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Release: %s", DateUtil.localizeDate(loan.getRelease_date()));
+        }, loan.getRelease_date_Property()));
+        loan_term_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Term: %d", loan.getTerm());
+        }, loan.getTermProperty()));
+        loan_maturity_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Maturity: %s", DateUtil.localizeDate(loan.getMaturity_date()));
+        }, loan.getMaturity_date_Property()));
+        loan_principal_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Principal: $%s", format.format(loan.getPrincipal()));
+        }, loan.getPrincipalProperty()));
+        loan_interest_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Interest: %.2f" + "%%", loan.getInterest());
+        }, loan.getInterestProperty()));
+        loan_penalty_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Penalty: %.2f" + "%%", loan.getPenalty());
+        }, loan.getPenaltyProperty()));
+        loan_due_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Due: Day %d of every month", loan.getDue());
+        }, loan.getDueProperty()));
+        loan_paid_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Paid: $%s", format.format(loan.getPaid()));
+        }, loan.getPaidProperty()));
+        loan_balance_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Balance: $%s", format.format(loan.getBalance()));
         }, loan.getBalanceProperty()));
-        interest_label.textProperty().bind(loan.getInterestProperty().asString());
-        penalty_label.textProperty().bind(loan.getPenaltyProperty().asString());
-        due_label.textProperty().bind(loan.getDueProperty().asString());
-        paid_label.textProperty().bind(loan.getPaidProperty().asString());
-        balance_label.textProperty().bind(loan.getBalanceProperty().asString());
+
+        loan_edit_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
+        loan_remove_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
     }
 
     private void _init_payment_bindings() {
+        payment_loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Loan ID: %d", payment.getLoan_id_Property().get().getLoan_id());
+        }, payment.getLoan_id_Property().get().getLoanID_Property()));
+        payment_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Payment ID: %d", payment.getPayment_id());
+        }, payment.getPayment_id_Property()));
+        payment_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Date: %s", DateUtil.localizeDate(payment.getPaymentDate()));
+        }, payment.getPayment_date_Property()));
+        payment_amount_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Amount: $%s", format.format(payment.getPayment_amount()));
+        }, payment.getPayment_amount_Property()));
+
     }
 
     private void _init_type_bindings() {
