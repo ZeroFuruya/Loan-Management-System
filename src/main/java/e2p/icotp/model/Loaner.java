@@ -44,6 +44,11 @@ public class Loaner {
         this(0, "", "", 0, LocalDate.now(), 0);
     }
 
+    public Loaner(Loaner loaner) {
+        this(loaner.getLoaner_id(), loaner.getName(), loaner.getAddress(), loaner.getPhone(), loaner.getBirthdate(),
+                loaner.getSocial_security());
+    }
+
     // STRING GETTERS
     public StringProperty getLoanerIdString() {
         return loaner_id_string;

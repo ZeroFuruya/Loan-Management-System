@@ -44,9 +44,9 @@ public class App extends Application {
         loanerCache = LoanerDAO.getMasterlist();
         paymentCache = PaymentDAO.getMasterlist();
 
-        paymentCache.forEach(e -> {
-            System.out.println(e.getLoan_id_Property().get().getLoanID_Property().get());
-        });
+        // loanCache.forEach(loan -> {
+        // System.out.println(loan.getStatus());
+        // });
     }
 
     public void initializa_main() throws IOException {

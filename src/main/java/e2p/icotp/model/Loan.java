@@ -47,11 +47,11 @@ public class Loan {
     }
 
     public Loan() {
-        this(0, new Loaner(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0, Status.application.get());
+        this(0, new Loaner(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0, Status.APPLICATION);
     }
 
     public Loan(int id) {
-        this(id, new Loaner(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0, Status.application.get());
+        this(id, new Loaner(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0, Status.APPLICATION);
     }
 
     // SETTERS
