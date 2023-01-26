@@ -1,11 +1,12 @@
 package e2p.icotp.layout.modal;
 
-import org.kordamp.ikonli.javafx.FontIcon;
+
 
 import e2p.icotp.App;
 import e2p.icotp.service.loader.ModalLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -17,9 +18,9 @@ public class LoanTypesController {
     private TextArea description;
 
     @FXML
-    private FontIcon loanName_icon;
+    private Label loanName_icon;
     @FXML
-    private FontIcon description_icon;
+    private Label description_icon;
 
 
     @FXML
@@ -46,5 +47,12 @@ public class LoanTypesController {
 
     public void load(App app){
         this.app = app;
+        load_bindings();
     }
+
+    private void load_bindings(){
+        loanName_icon.visibleProperty().bind(loanName.textProperty().isEmpty());
+        description_icon.visibleProperty().bind(description.textProperty().isEmpty());
+    }
+
 }
