@@ -676,7 +676,7 @@ border-width: 2;
  .scroll-bar:vertical .decrement-arrow{
     -fx-shape : " ";    
     padding :0.0 0.15em;
-}
+ }
 
 .scroll-bar:vertical .thumb:hover {
     background-color: linear-gradient(to bottom, #ff8025 5%, #7f3500 100%);
