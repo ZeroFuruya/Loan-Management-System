@@ -40,8 +40,12 @@ public class LoanerDAO {
         long phone = crs.getLong("phone");
         LocalDate birthdate = crs.getDate("birthdate").toLocalDate();
         long social_security = crs.getLong("social_security");
+        String civil_status = crs.getString("civil_status");
+        String citizenship = crs.getString("citizenship");
+        String place_of_birth = crs.getString("place_of_birth");
 
-        return new Loaner(loaner_id, name, address, phone, birthdate, social_security);
+        return new Loaner(loaner_id, name, address, phone, birthdate, social_security, civil_status, citizenship,
+                place_of_birth);
     }
 
     // Insert
@@ -73,6 +77,12 @@ public class LoanerDAO {
         params.add(new SQLParam(Types.DATE, "birthdate", loaner.getBirthdate()));
         // int social_security
         params.add(new SQLParam(Types.INTEGER, "social_security", loaner.getSocial_security()));
+        // varchar civil status
+        params.add(new SQLParam(Types.VARCHAR, "civil_status", loaner.getCivilStatus()));
+        // varchar citizenship
+        params.add(new SQLParam(Types.VARCHAR, "citizenship", loaner.getCitizenship()));
+        // varchar place of birth
+        params.add(new SQLParam(Types.VARCHAR, "place_of_birth", loaner.getPlaceOfBirth()));
 
         return params;
     }

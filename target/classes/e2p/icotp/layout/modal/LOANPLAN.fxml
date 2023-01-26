@@ -51,9 +51,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="installment_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="installment_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="installmentTT" text="Empty Tooltip" />
@@ -105,9 +105,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="interest_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="interest_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="interestTT" text="Empty Tooltip" />
@@ -140,9 +140,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="repayment_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="repayment_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="repaymentTT" text="Empty Tooltip" />
@@ -167,17 +167,17 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="monthlyPenalty" promptText="Monthly Penalty:">
+                              <TextField fx:id="monthlyPenalty" prefWidth="160.0" promptText="Monthly Penalty:">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="monthlyPenalty_icon" translateX="-27.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                                  <graphic>
-                                    <FontIcon fx:id="monthlyPenalty_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="monthlyPenaltyTT" text="Empty Tooltip" />

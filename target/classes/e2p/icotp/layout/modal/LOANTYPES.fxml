@@ -48,9 +48,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-35.0">
+                              <Label fx:id="loanName_icon" translateX="-35.0">
                                  <graphic>
-                                    <FontIcon fx:id="loanName_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="20" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="20" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="loanNameTT" text="Empty Tooltip" />
@@ -73,9 +73,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextArea>
-                              <Label translateX="-35.0">
+                              <Label fx:id="description_icon" translateX="-35.0">
                                  <graphic>
-                                    <FontIcon fx:id="description_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="20" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="20" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="descriptionTT" text="Empty Tooltip" />

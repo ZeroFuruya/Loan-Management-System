@@ -123,8 +123,12 @@ public class LoanerController {
 
     public void load(App app){
         this.app = app;
+        load_bindings();
     }
 
+    private void load_bindings(){
+        
+    }
 
 
 }

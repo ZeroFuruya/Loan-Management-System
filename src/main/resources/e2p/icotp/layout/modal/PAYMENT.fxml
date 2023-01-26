@@ -51,9 +51,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="lastname_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="lastname_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="lastnameTT" text="Empty Tooltip" />
@@ -89,9 +89,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="loanerID_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="loanerID_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="loanerIdTT" text="Empty Tooltip" />
@@ -124,9 +124,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="loanId_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="loanId_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="loanIdTT" text="Empty Tooltip" />
@@ -155,9 +155,9 @@
                         <HBox>
                            <children>
                               <DatePicker fx:id="payment_date" promptText=" 1/11/111" />
-                              <Label translateX="-50.0">
+                              <Label fx:id="paymentDate_icon" translateX="-50.0">
                                  <graphic>
-                                    <FontIcon fx:id="paymentDate_icon" iconColor="#ff0101" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="#ff0101" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="paymentDateTT" text="Empty Tooltip" />
@@ -190,9 +190,9 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </TextField>
-                              <Label translateX="-27.0">
+                              <Label fx:id="paymentAmount_icon" translateX="-27.0">
                                  <graphic>
-                                    <FontIcon fx:id="paymentAmount_icon" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="paymentAmountTT" text="Empty Tooltip" />
