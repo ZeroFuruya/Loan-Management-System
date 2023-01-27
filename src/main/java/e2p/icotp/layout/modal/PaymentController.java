@@ -1,12 +1,12 @@
 package e2p.icotp.layout.modal;
 
-import org.kordamp.ikonli.javafx.FontIcon;
 
 import e2p.icotp.App;
 import e2p.icotp.service.loader.ModalLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 
@@ -33,15 +33,15 @@ public class PaymentController {
 
     // Icon
     @FXML
-    private FontIcon lastname_icon;
+    private Label lastname_icon;
     @FXML
-    private FontIcon loanerID_icon;
+    private Label loanerID_icon;
     @FXML
-    private FontIcon loanId_icon;
+    private Label loanId_icon;
     @FXML
-    private FontIcon paymentDate_icon;
+    private Label paymentDate_icon;
     @FXML
-    private FontIcon paymentAmount_icon;
+    private Label paymentAmount_icon;
 
     // TOOLTIPS
     @FXML
@@ -74,6 +74,10 @@ public class PaymentController {
     }
 
     private void load_bindings(){
-
+        lastname_icon.visibleProperty().bind(lastname.textProperty().isEmpty());
+        loanerID_icon.visibleProperty().bind(loaner_id.textProperty().isEmpty());
+        loanId_icon.visibleProperty().bind(loan_id.textProperty().isEmpty());
+        paymentDate_icon.visibleProperty().bind(payment_date.promptTextProperty().isEmpty());
+        paymentAmount_icon.visibleProperty().bind(payment_amount.textProperty().isEmpty());
     }
 }

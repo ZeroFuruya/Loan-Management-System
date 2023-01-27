@@ -1,106 +1,105 @@
 .table-view .column-header,
 .table-view .column-header .filler,
 .table-view .column-header-background .filler {
-    -fx-background-color: #0f4586;
+    background-color: #0f4586;
 
 }
 
 .tab-header-background {
-    -fx-background-color: #696969 ;
+    background-color: #696969 ;
 
-    -fx-background-color: #696969 ;
+    background-color: #696969 ;
 }
 
 .department {
-    -fx-background-image: linear-gradient(red, blue);
+    background-image: linear-gradient(red, blue);
 }
 
 /* ------------------------ BUTTON ------------------------*/
 
 .button {
-    -fx-background-color: #d04615;
-    -fx-border-style: solid;
-    -fx-border-radius: 10px;
+    background-color: #d04615;
+    border-style: solid;
+    border-radius: 10px;
     -fx-background-radius: 10px;
-    -fx-border-right-width: 50px;
-    -fx-border-bottom-width: 50px;
-    -fx-border-color: #3d1608;
+    border-right-width: 50px;
+    border-bottom-width: 50pborder-color: #3d1608;
 
 }
 
 .button-filter:pressed {
-    -fx-background-color: #0432ff;
+    background-color: #0432ff;
 }
 
 .button {
-    -fx-background-color:#d04615;
+    background-color:#d04615;
         
 }
 
 .button:hover {
-    -fx-background-color:#e74004;
+    background-color:#e74004;
         
 }
 
 .button:pressed {
-    -fx-background-color:#551701;
+    background-color:#551701;
         
 }
 
 .buttonDelete {
-    -fx-background-color:#063970
+    background-color:#063970
         
 }
 .buttonDelete:hover{
-    -fx-background-color: #981100;
+    background-color: #981100;
 }
 .buttonDelete:pressed{
-    -fx-background-color: #80090f;
+    background-color: #80090f;
 }
 
 
 .buttonAdd{
-    -fx-background-color: #063970;
+    background-color: #063970;
 }
 .buttonAdd:hover{
-    -fx-background-color: #02f7ff49;
+    background-color: #02f7ff49;
 }
 .buttonAdd:pressed{
-    -fx-background-color: #0432ff;
+    background-color: #0432ff;
 }
 
 
 .buttonRefresh{
-    -fx-background-color: #063970;
+    background-color: #063970;
 }
 .buttonRefresh:hover{
-    -fx-background-color: #0432ff;
+    background-color: #0432ff;
 }
 .buttonRefresh:pressed{
-    -fx-background-color: #0f4586;
+    background-color: #0f4586;
 }
 
 
 /*-------------------------------------------------------------------------------------------------------------------------------------*/
 .table-view {
-    -fx-background-color: #db5927;
-    -fx-border-color: transparent;
+    background-color: #db5927;
+    border-color: transparent;
 }
 
 .table-view:focused {
-    -fx-background-color: #ebba75;
+    background-color: #ebba75;
     -fx-text-fill: rgb(11, 134, 165);
 }
 
 .table-row-cell {
-    -fx-border-style: none;
-    -fx-border-width: 2;
+    border-style: none;
+    border-width: 2;
 }
 
 .table-view .table-cell {
     -fx-alignment: center;
-    -fx-border-style: none;
-    -fx-border-width: 1;
+    border-style: none;
+    border-width: 1;
 }
 
 .table-row-cell:focused,
@@ -109,14 +108,14 @@
 }
 
 .table-row-cell {
-    -fx-background-color: #ebba75;
-    -fx-border-color: transparent;
+    background-color: #ebba75;
+    border-color: transparent;
     -fx-table-cell-border-color: transparent;
 }
 
 .table-row-cell:empty {
-    -fx-background-color: #ebba75;
-    -fx-border-color: transparent;
+    background-color: #ebba75;
+    border-color: transparent;
     -fx-table-cell-border-color: transparent;
 }
 
@@ -125,23 +124,23 @@
 }
 
 .table-row-cell:even:hover {
-    -fx-background-color: #ebba75;
+    background-color: #ebba75;
 }
 
 .table-row-cell:odd:hover {
-    -fx-background-color: #9c7640;
+    background-color: #9c7640;
 }
 
 .table-row-cell:even:empty {
-    -fx-background-color: #ebba75;
+    background-color: #ebba75;
 }
 
 .table-row-cell:odd:empty {
-    -fx-background-color: #9c7640;
+    background-color: #9c7640;
 }
 
 .table-row-cell:selected {
-    -fx-background-color: rgb(2, 27, 253);
+    background-color: rgb(2, 27, 253);
     -fx-text-fill: rgb(24, 20, 236);
     -fx-background-insets: 0;
 }
@@ -151,28 +150,28 @@
 }
 
 .table-row-cell {
-    -fx-background: rgb(24, 24, 24);
-    -fx-background-color: transparent;
+    background: rgb(24, 24, 24);
+    background-color: transparent;
     -fx-background-insets: 0, 0 0 1 0;
-    -fx-padding: 0;
+    padding: 0;
     -fx-text-fill: -fx-text-background-color;
-    -fx-border-color: null;
+    border-color: null;
 }
 
 .table-row-cell:odd {
-    -fx-background: #d04615;
+    background: #d04615;
 }
 .table-row-cell:even {
-    -fx-background: #611e06;
+-background: #611e06;
 }
 
 .table-row-cell:selected {
-    -fx-background: rgb(0, 38, 255);
-    -fx-background-color: transparent;
+    background: rgb(0, 38, 255);
+    background-color: transparent;
 }
 
 .table-cell {
-    -fx-padding: 0.166667em;
+    padding: 0.166667em;
     /* 2px, plus border adds 1px /
     -fx-background-color: null;
     -fx-border-color: null;
@@ -183,19 +182,19 @@
 .table-view .column-header,
 .table-view .column-header .filler,
 .table-view .column-header-background .filler {
-    -fx-background-color: rgb(47, 0, 255);
+    background-color: rgb(47, 0, 255);
 
 
 }
 
 .table-view .column-header {
-    -fx-background-color: rgb(49, 49, 49);
+    background-color: rgb(49, 49, 49);
     -fx-text-fill: rgb(235, 235, 235);
 
 }
 
 .tab-header-background {
-    -fx-background-color: rgb(49, 49, 49);
+    background-color: rgb(49, 49, 49);
 
 }
 
@@ -207,34 +206,34 @@
 .tree-table-view>.column-header-background>.show-hide-columns-button,
 .table-view:constrained-resize .filler,
 .tree-table-view:constrained-resize .filler {
-    -fx-background-color: #ebba75;
+    background-color: #ebba75;
     -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
-    -fx-font-weight: bold;
-    -fx-size: 2em;
-    -fx-color: rgb(49, 49, 49);
+    font-weight: bold;
+    size: 2em;
+    color: rgb(49, 49, 49);
     -fx-text-fill: rgb(255, 0, 0);
-    -fx-padding: 0.166667em;
+    padding: 0.166667em;
 }
 
 .table-view .column-header .label {
     -fx-text-fill: white;
-    -fx-font-weight: bold;
+    font-weight: bold;
 }
 
 
 
 
 .modal-bg {
-    -fx-background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.15);
 }
 
 .modal-container {
-    -fx-border-color: rgba(0, 0, 0, 0.4);
-    -fx-background-color: white;
+    border-color: rgba(0, 0, 0, 0.4);
+    background-color: white;
     -fx-base: white;
 
 }
 
 .icon-color{
-    -fx-border-color: #ff9900;
+    border-color: #ff9900;
 }

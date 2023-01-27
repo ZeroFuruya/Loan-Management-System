@@ -23,9 +23,12 @@ public class Loaner {
     private StringProperty phone_string;
     private StringProperty birthdate_string;
     private StringProperty social_string;
+    private StringProperty citizenship_string;
+    private StringProperty placeOfBirth_string;
+    private StringProperty civilStatus_string;
 
     public Loaner(long loaner_id, String name, String address, long phone,
-            LocalDate birthdate, long social_security) {
+            LocalDate birthdate, long social_security, String citizenship_string, String placeOfBirth_string, String civilStatus_string) {
         this.loaner_id = new SimpleLongProperty(loaner_id);
         this.name = new SimpleStringProperty(name);
         this.address = new SimpleStringProperty(address);
@@ -38,10 +41,13 @@ public class Loaner {
         this.phone_string = new SimpleStringProperty(phone + "");
         this.birthdate_string = new SimpleStringProperty(DateUtil.localizeDate(birthdate));
         this.social_string = new SimpleStringProperty(social_security + "");
+        this.citizenship_string = new SimpleStringProperty(citizenship_string + "");
+        this.civilStatus_string = new SimpleStringProperty(civilStatus_string + "");
+        
     }
 
     public Loaner() {
-        this(0, "", "", 0, LocalDate.now(), 0);
+        this(0, "", "", 0, LocalDate.now(), 0, "","","");
     }
 
     public Loaner(Loaner loaner) {
@@ -65,6 +71,7 @@ public class Loaner {
     public StringProperty getSocialString() {
         return social_string;
     }
+
 
     // SETTERS
     public void setLoaner_id(long loaner_id) {
@@ -91,6 +98,20 @@ public class Loaner {
         this.social_security.set(social_security);
     }
 
+    public void setCitizenship(String citizenship){
+        this.citizenship_string.set(citizenship);
+    }
+
+    public void setPlaceOfBirth(String placeOfBirth){
+        this.placeOfBirth_string.set(placeOfBirth);
+    }
+
+    public void setCivilStatus(String civilStatus){
+        this.civilStatus_string.set(civilStatus);
+    }
+
+
+
     // GETTERS
     public long getLoaner_id() {
         return this.loaner_id.get();
@@ -114,6 +135,18 @@ public class Loaner {
 
     public long getSocial_security() {
         return this.social_security.get();
+    }
+
+    public String getCitizenship(){
+        return this.citizenship_string.get();
+    }
+
+    public String getPlaceOfBirth(){
+        return this.placeOfBirth_string.get();
+    }
+
+    public String getCivilStatus(){
+        return this.civilStatus_string.get();
     }
 
     // PROPERTY GETTERS
@@ -140,5 +173,18 @@ public class Loaner {
     public LongProperty getSocial_securityProperty() {
         return social_security;
     }
+    
+    public StringProperty getCitizenshipProperty(){
+        return citizenship_string;
+    }
+
+    public StringProperty getPlaceOfBirthProperty(){
+        return placeOfBirth_string;
+    }
+
+    public StringProperty getCivilStatusProperty(){
+        return civilStatus_string;
+    }
+    
 
 }

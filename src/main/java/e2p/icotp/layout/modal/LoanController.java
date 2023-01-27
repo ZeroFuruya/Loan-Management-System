@@ -1,16 +1,15 @@
 package e2p.icotp.layout.modal;
 
 
-import org.kordamp.ikonli.javafx.FontIcon;
 
 import e2p.icotp.App;
-import e2p.icotp.model.Loan;
 import e2p.icotp.model.Enums.Status;
 import e2p.icotp.service.loader.ModalLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 
@@ -54,27 +53,27 @@ public class LoanController {
     // Icons
 
     @FXML
-    private FontIcon loanId_icon; 
+    private Label loanId_icon; 
     @FXML
-    private FontIcon loanerId_icon;
+    private Label loanerId_icon;
     @FXML
-    private FontIcon term_icon;
+    private Label term_icon;
     @FXML
-    private FontIcon releaseDate_icon;
+    private Label releaseDate_icon;
     @FXML
-    private FontIcon maturityDate_icon;
+    private Label maturityDate_icon;
     @FXML
-    private FontIcon principal_icon;
+    private Label principal_icon;
     @FXML
-    private FontIcon interest_icon;
+    private Label interest_icon;
     @FXML
-    private FontIcon penalty_icon;
+    private Label penalty_icon;
     @FXML
-    private FontIcon due_icon;
+    private Label due_icon;
     @FXML
-    private FontIcon paid_icon;
+    private Label paid_icon;
     @FXML
-    private FontIcon balance_icon;
+    private Label balance_icon;
 
     // ToolTips
 
@@ -107,7 +106,6 @@ public class LoanController {
     private Button cancel;
 
     private App app;
-    private Loan loan;
 
     @FXML
     private void handle_cancel(){
@@ -121,5 +119,20 @@ public class LoanController {
 
     public void load(App app){
         this.app = app;
+        load_bindings();
+    }
+
+    private void load_bindings(){
+        loanerId_icon.visibleProperty().bind(loaner_id.textProperty().isEmpty());
+        loanId_icon.visibleProperty().bind(loan_id.textProperty().isEmpty());
+        term_icon.visibleProperty().bind(term.textProperty().isEmpty());
+        releaseDate_icon.visibleProperty().bind(release_date.promptTextProperty().isEmpty());
+        maturityDate_icon.visibleProperty().bind(maturity_date.promptTextProperty().isEmpty());
+        principal_icon.visibleProperty().bind(principal.textProperty().isEmpty());
+        interest_icon.visibleProperty().bind(interest.textProperty().isEmpty());
+        penalty_icon.visibleProperty().bind(penalty.textProperty().isEmpty());
+        due_icon.visibleProperty().bind(due.textProperty().isEmpty());
+        paid_icon.visibleProperty().bind(paid.textProperty().isEmpty());
+        balance_icon.visibleProperty().bind(balance.textProperty().isEmpty());
     }
 }
