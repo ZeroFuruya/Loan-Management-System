@@ -212,7 +212,7 @@
                                                                         <TextField fx:id="loan_search" />
                                                                      </children>
                                                                   </VBox>
-                                                                  <VBox HBox.hgrow="ALWAYS">
+                                                                  <VBox fx:id="loan_information_container" HBox.hgrow="ALWAYS">
                                                                      <children>
                                                                         <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="366.0" VBox.vgrow="NEVER">
                                                                            <children>
@@ -221,7 +221,7 @@
                                                                                     <Font name="Arial" size="30.0" />
                                                                                  </font>
                                                                               </Label>
-                                                                              <ImageView fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                                                              <ImageView fx:id="status_image" fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                                                                            </children>
                                                                         </HBox>
                                                                         <VBox spacing="10.0" VBox.vgrow="ALWAYS">
@@ -327,7 +327,7 @@
                                                                         <TextField fx:id="payment_search" />
                                                                      </children>
                                                                   </VBox>
-                                                                  <VBox HBox.hgrow="ALWAYS">
+                                                                  <VBox fx:id="payment_information_container" HBox.hgrow="ALWAYS">
                                                                      <children>
                                                                         <VBox spacing="10.0" VBox.vgrow="ALWAYS">
                                                                            <children>
@@ -389,7 +389,7 @@
                         </VBox>
                         <VBox prefHeight="166.0" prefWidth="1038.0">
                            <children>
-                              <HBox>
+                              <HBox fx:id="loaner_name_container">
                                  <children>
                                     <Label fx:id="loaner_name_label" text="Name Of D. Loaner" textFill="WHITE">
                                        <font>
@@ -405,7 +405,7 @@
                                           <Image url="@../../../../../../../../../../../Pictures/Decks/heartSymbol.jpg" />
                                        </image>
                                     </ImageView>
-                                    <HBox>
+                                    <HBox fx:id="loaner_information_container">
                                        <children>
                                           <VBox prefHeight="150.0" prefWidth="316.0" spacing="10.0">
                                              <children>

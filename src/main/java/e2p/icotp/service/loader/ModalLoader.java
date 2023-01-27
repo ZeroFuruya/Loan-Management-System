@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.modal.LoanerController;
+import e2p.icotp.model.Loaner;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,7 +29,7 @@ public class ModalLoader {
 
         modal.setOnMouseClicked(e -> {
             if (e.getTarget() == modal) {
-                modal_close(app);
+                e.consume();
             } else {
                 e.consume();
             }
@@ -42,11 +43,11 @@ public class ModalLoader {
         app.getMainScreen().getChildren().remove(lastIdx);
     }
 
-    public static void load_loaner_update(App app) throws IOException {
+    public static void load_loaner_update(App app, Loaner loaner) throws IOException {
         FXMLLoader loader = load_modal(app, "modal/LOANER");
 
         LoanerController controller = loader.getController();
-        controller.load(app);
+        controller.load(app, loaner);
     }
 
     // public static void load_degree_update(App app) throws IOException {

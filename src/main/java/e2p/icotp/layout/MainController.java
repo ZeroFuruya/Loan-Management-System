@@ -8,6 +8,7 @@ import e2p.icotp.App;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
+import e2p.icotp.model.Enums.Status;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.util.custom.DateUtil;
 import javafx.animation.FadeTransition;
@@ -25,12 +26,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class MainController {
+
+    // CONSTANTS
+    private static final int fit_width = 200;
+    private static final int fit_height = 50;
 
     // STACKPANE
     @FXML
@@ -50,9 +57,19 @@ public class MainController {
     @FXML
     VBox plans_box;
 
-    // HBOX
+    // VBOX
     @FXML
     VBox toggle_btn_container;
+    @FXML
+    VBox loan_information_container;
+    @FXML
+    VBox payment_information_container;
+
+    // HBOX
+    @FXML
+    HBox loaner_information_container;
+    @FXML
+    HBox loaner_name_container;
 
     // TOGGLE BUTTONS
     @FXML
@@ -187,11 +204,11 @@ public class MainController {
     ObservableList<Payment> paymentObservableList;
 
     // MODELS ----------------------------------
-    Loaner og_loaner;
+    Loaner og_loaner = new Loaner();
     Loaner loaner = new Loaner();
-    Loan og_loan;
+    Loan og_loan = new Loan();
     Loan loan = new Loan();
-    Payment og_payment;
+    Payment og_payment = new Payment();
     Payment payment = new Payment();
 
     NumberFormat format = NumberFormat.getInstance();
@@ -199,12 +216,12 @@ public class MainController {
     // LOANER BUTTON HANDLES ---------------------------
     @FXML
     private void handle_loaner_edit() throws IOException {
-        ModalLoader.load_loaner_update(app);
+        ModalLoader.load_loaner_update(app, loaner);
     }
 
     @FXML
     private void handle_loaner_add() throws IOException {
-        ModalLoader.load_loaner_update(app);
+        ModalLoader.load_loaner_update(app, new Loaner());
     }
 
     @FXML
@@ -218,6 +235,11 @@ public class MainController {
 
         // SETS HOME AS DEFAULT
         home_button.setSelected(true);
+
+        loaner_information_container.setVisible(false);
+        loaner_name_container.setVisible(false);
+        loan_information_container.setVisible(false);
+        payment_information_container.setVisible(false);
 
         init_tables();
         init_bindings();
@@ -336,17 +358,19 @@ public class MainController {
         // LOANER ------------------------------------------
         loanerTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (nv != null) {
+                loaner_information_container.setVisible(true);
+                loaner_name_container.setVisible(true);
                 og_loaner = nv;
                 loaner = og_loaner;
-                clear_fields(2);
-                clear_fields(3);
                 load_loan_table();
                 refresh_loan_list();
                 clear_payment_table();
                 _init_loaner_bindings();
+                loan_information_container.setVisible(false);
+                payment_information_container.setVisible(false);
             } else {
-                og_loaner = new Loaner();
-                loaner = og_loaner;
+                loaner_information_container.setVisible(false);
+                loaner_name_container.setVisible(false);
             }
         });
         loaner_search.textProperty().addListener((o, ov, nv) -> {
@@ -366,15 +390,17 @@ public class MainController {
         // LOAN --------------------------------------------
         loanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (nv != null) {
+                loan_information_container.setVisible(true);
                 og_loan = nv;
                 loan = og_loan;
                 load_payment_table();
                 refresh_payment_list();
                 _init_loan_bindings();
             } else {
-                og_loan = new Loan();
-                loan = og_loan;
+                loan_information_container.setVisible(false);
+                payment_information_container.setVisible(false);
             }
+
         });
         loan_search.textProperty().addListener((o, ov, nv) -> {
             loanList.setPredicate(p -> {
@@ -393,12 +419,12 @@ public class MainController {
         // PAYMENT --------------------------------------------
         paymentTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (nv != null) {
+                payment_information_container.setVisible(true);
                 og_payment = nv;
                 payment = og_payment;
                 _init_payment_bindings();
             } else {
-                og_payment = new Payment();
-                payment = og_payment;
+                payment_information_container.setVisible(false);
             }
         });
         payment_search.textProperty().addListener((o, ov, nv) -> {
@@ -414,40 +440,6 @@ public class MainController {
                 return p.getLoaner_id_Property().get().getName().toLowerCase().contains(nv.toLowerCase());
             });
         });
-    }
-
-    private void clear_fields(int val) {
-        switch (val) {
-            case 1:
-                loaner.setAddress("None");
-                loaner.setName("None");
-                loaner.setBirthdate(LocalDate.now());
-                loaner.setLoaner_id(0);
-                loaner.setPhone(0000000000);
-                loaner.setSocial_security(0);
-                break;
-            case 2:
-                loan.setLoan_id(0);
-                loan.setLoaner_id(new Loaner());
-                loan.setRelease_date(LocalDate.now());
-                loan.setTerm(0);
-                loan.setMaturity_date(LocalDate.now());
-                loan.setPrincipal(0.0f);
-                loan.setInterest(0.0f);
-                loan.setPenalty(0.0f);
-                loan.setDue(0);
-                loan.setPaid(0.0f);
-                loan.setBalance(0.0f);
-                loan.setStatus("None");
-                break;
-            case 3:
-                payment.setPayment_id(0);
-                payment.getLoan_id_Property().set(new Loan());
-                payment.setLoaner_id(new Loaner());
-                payment.setPayment_date(LocalDate.now());
-                payment.setPayment_amount(0.0f);
-                break;
-        }
     }
 
     private void clear_payment_table() {
@@ -597,6 +589,8 @@ public class MainController {
             return String.format("Balance: $%s", format.format(loan.getBalance()));
         }, loan.getBalanceProperty()));
 
+        status_image_setter(loan.getStatus());
+
         loan_edit_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
         loan_remove_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
     }
@@ -621,5 +615,18 @@ public class MainController {
     }
 
     private void _init_plan_bindings() {
+    }
+
+    // CUSTOMS
+    private void status_image_setter(String status) {
+        switch (status) {
+            case Status.APPLICATION:
+                status_image.setImage(new Image(App.class.getResourceAsStream("assets/images/app_logo.png")));
+                break;
+            case Status.OPEN:
+                status_image
+                        .setImage(new Image(App.class.getResourceAsStream("assets/images/open2-removebg-preview.png")));
+                break;
+        }
     }
 }
