@@ -3,7 +3,7 @@ package e2p.icotp.service.loader;
 import java.io.IOException;
 
 import e2p.icotp.App;
-import e2p.icotp.controller.MainController;
+import e2p.icotp.layout.MainController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -30,8 +30,8 @@ public class AppLoader {
         app.setMainScreen(root);
 
         mainStage.setScene(scene);
-        mainStage.setMinHeight(768);
-        mainStage.setMinWidth(1000);
+        mainStage.setMinHeight(720);
+        mainStage.setMinWidth(1300);
         mainStage.setMaximized(false);
 
         mainStage.show();

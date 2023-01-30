@@ -5,21 +5,21 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" styleClass="dept-tab-container" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.LoanerController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
             <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Loaner">
+                  <Label text="Loaner Form">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -35,7 +35,7 @@
                <children>
                   <VBox prefHeight="335.0" prefWidth="200.0">
                      <children>
-                        <Label text="Last Name:">
+                        <Label text="Name:">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -43,11 +43,26 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Last Name:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="name" prefHeight="27.0" prefWidth="193.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="name_icon" translateX="-25.0" translateY="7.0">
+                                 <tooltip>
+                                    <Tooltip fx:id="nameTT" text="No last name" />
+                                 </tooltip>
+                                 <graphic>
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                 </graphic>
+                              </Label>
+                           </children>
+                        </HBox>
                         <Label text="Address:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -56,11 +71,26 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Address:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="address" prefHeight="27.0" prefWidth="189.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="address_icon" translateX="-25.0" translateY="7.0">
+                                 <graphic>
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip fx:id="addressTT" text="Empty Tooltip" />
+                                 </tooltip>
+                              </Label>
+                           </children>
+                        </HBox>
                         <Label text="Social Security:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -69,11 +99,26 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Social Security:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="social_security" prefHeight="27.0" prefWidth="201.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="socialSecurity_icon" translateX="-25.0" translateY="7.0">
+                                 <graphic>
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip fx:id="socialSecurityTT" text="Empty Tooltip" />
+                                 </tooltip>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -81,19 +126,6 @@
                   </VBox>
                   <VBox prefHeight="335.0" prefWidth="200.0">
                      <children>
-                        <Label text="First Name:">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <TextField promptText="First Name:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
                         <Label text="Contact No.">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -102,19 +134,55 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Contact  No.">
+                        <HBox>
+                           <children>
+                              <TextField fx:id="contactNo" prefHeight="27.0" prefWidth="188.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="contact_icon" translateX="-25.0" translateY="7.0">
+                                 <graphic>
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip fx:id="contactTT" text="Empty Tooltip" />
+                                 </tooltip>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Label text="Civil Status:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
-                        </TextField>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Label text="Middle Name:">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="civil_status" prefHeight="27.0" prefWidth="275.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="civilStatus_icon" translateX="-25.0" translateY="7.0">
+                                 <graphic>
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip fx:id="civilStatusTT" text="Empty Tooltip" />
+                                 </tooltip>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Label text="Place of Birth:">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -122,11 +190,33 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField promptText="Middle Name:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="place_of_Birth" prefHeight="27.0" prefWidth="195.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="placeOfBirth_icon" translateX="-25.0" translateY="7.0">
+                                 <graphic>
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip fx:id="placeOfBirthTT" text="Empty Tooltip" />
+                                 </tooltip>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="200.0">
+                     <children>
                         <Label text="Email:">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -135,11 +225,54 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Email:">
+                        <HBox>
+                           <children>
+                              <TextField fx:id="email" prefHeight="31.0" prefWidth="181.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="email_icon" translateX="-27.0" translateY="7.0">
+                                 <graphic>
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip fx:id="emailTT" text="Empty Tooltip" />
+                                 </tooltip>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Label text="Citizenship:">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
-                        </TextField>
+                        </Label>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="citizenship" prefHeight="27.0" prefWidth="189.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="citizenship_icon" translateX="-25.0" translateY="7.0">
+                                 <graphic>
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip fx:id="citizenshipTT" text="Empty Tooltip" />
+                                 </tooltip>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -158,7 +291,19 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <DatePicker promptText="1/11/1111" />
+                        <HBox>
+                           <children>
+                              <DatePicker fx:id="birthday" prefHeight="25.0" prefWidth="177.0" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="birthday_icon" translateX="-45.0" translateY="7.0">
+                                 <tooltip>
+                                    <Tooltip fx:id="birthdayTT" text="Empty Tooltip" />
+                                 </tooltip>
+                                 <graphic>
+                                    <FontIcon iconColor="#f80000" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                 </graphic>
+                              </Label>
+                           </children>
+                        </HBox>
                         <Label text="Loaner ID:">
                            <padding>
                               <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
@@ -167,24 +312,43 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField promptText="Loaner Id:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </TextField>
+                        <HBox>
+                           <children>
+                              <TextField fx:id="loaner_id" prefHeight="27.0" prefWidth="190.0" HBox.hgrow="ALWAYS">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label fx:id="loanerId_icon" translateX="-25.0" translateY="7.0">
+                                 <graphic>
+                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                 </graphic>
+                                 <tooltip>
+                                    <Tooltip fx:id="loanerIdTT" text="Empty Tooltip" />
+                                 </tooltip>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
             </HBox>
          </center>
          <bottom>
-            <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_RIGHT" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="720.0" layoutY="13.0" mnemonicParsing="false" text="Cancel" />
-                  <Button layoutX="649.0" layoutY="13.0" mnemonicParsing="false" text="Save" />
+                  <Button fx:id="upload_img" mnemonicParsing="false" onAction="#handle_cancel" text="Upload Image" />
+                  <Button fx:id="cancel" mnemonicParsing="false" onAction="#handle_cancel" text="Cancel" />
+                  <Button fx:id="save" mnemonicParsing="false" onAction="#handle_save" text="Save" />
                </children>
-            </Pane>
+            </HBox>
          </bottom>
       </BorderPane>
    </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 </StackPane>

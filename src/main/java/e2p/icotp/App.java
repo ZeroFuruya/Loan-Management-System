@@ -38,16 +38,15 @@ public class App extends Application {
         initializa_main();
     }
 
-    private void load_cache() throws SQLException{
+    private void load_cache() throws SQLException {
         collateralCache = CollateralDAO.getMasterlist();
         loanCache = LoanDAO.getMasterlist();
         loanerCache = LoanerDAO.getMasterlist();
         paymentCache = PaymentDAO.getMasterlist();
 
-        collateralCache.forEach(col -> {
-            System.out.println(col.getCollateral());
-            System.out.println("---------");
-        });
+        // loanCache.forEach(loan -> {
+        // System.out.println(loan.getStatus());
+        // });
     }
 
     public void initializa_main() throws IOException {
@@ -68,19 +67,19 @@ public class App extends Application {
 
     // MASTERLIST
 
-    public ObservableList<Collateral> collateralMasterlist(){
+    public ObservableList<Collateral> collateralMasterlist() {
         return collateralCache;
     }
 
-    public ObservableList<Loan> loanMasterList(){
+    public ObservableList<Loan> loanMasterList() {
         return loanCache;
     }
 
-    public ObservableList<Loaner> loanerMasterlist(){
+    public ObservableList<Loaner> loanerMasterlist() {
         return loanerCache;
     }
 
-    public ObservableList<Payment> paymentMasterlist(){
+    public ObservableList<Payment> paymentMasterlist() {
         return paymentCache;
     }
 
