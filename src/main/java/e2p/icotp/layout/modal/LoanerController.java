@@ -1,12 +1,17 @@
 package e2p.icotp.layout.modal;
 
+import java.sql.SQLException;
+
 import e2p.icotp.App;
+import e2p.icotp.layout.MainController;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.service.loader.ModalLoader;
+import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanerDAO;
-import e2p.icotp.util.custom.DateUtil;
+import e2p.icotp.service.server.dao.PaymentDAO;
 import e2p.icotp.util.custom.IDTextFieldFormatter;
 import e2p.icotp.util.custom.LocalizeDateConverter;
+import e2p.icotp.util.custom.RandomIDGenerator;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -99,30 +104,36 @@ public class LoanerController {
     private TextFormatter<Long> phone_formatter;
     private TextFormatter<Long> social_formatter;
 
+    private MainController mc;
+
+    long final_num = 0;
+
     @FXML
     private void handle_cancel() {
         ModalLoader.modal_close(app);
     }
 
     @FXML
-    private void handle_save() {
+    private void handle_save() throws SQLException {
         modify_loaner_listener();
         if (isEdit.get()) {
-            LoanerDAO.updateById(loaner, og_loaner.getLoaner_id());
+            LoanerDAO.update(loaner);
             app.loanerMasterlist().remove(og_loaner);
             app.loanerMasterlist().add(loaner);
         } else {
             LoanerDAO.insert(loaner);
             app.loanerMasterlist().add(loaner);
         }
+        notify_changes();
         ModalLoader.modal_close(app);
     }
 
-    public void load(App app, Loaner loaner, boolean isEdit) {
+    public void load(App app, Loaner loaner, boolean isEdit, MainController mc) {
         this.app = app;
         this.loaner = loaner;
         this.og_loaner = loaner;
         this.isEdit = new SimpleBooleanProperty(isEdit);
+        this.mc = mc;
 
         init_bindings();
         init_fields();
@@ -162,16 +173,40 @@ public class LoanerController {
         contactNo.setTextFormatter(phone_formatter);
         social_security.setTextFormatter(social_formatter);
 
+        if (isEdit.get()) {
+            loaner_id.textProperty().set(loaner.getLoaner_id() + "");
+        } else {
+            generate_id();
+        }
+
         name.textProperty().set(loaner.getName());
         birthday.valueProperty().set(loaner.getBirthdate());
         address.textProperty().set(loaner.getAddress());
         contactNo.textProperty().set(loaner.getPhone() + "");
         email.textProperty().set(loaner.getEmail());
-        loaner_id.textProperty().set(loaner.getLoaner_id() + "");
         social_security.textProperty().set(loaner.getSocial_security() + "");
         civil_status.textProperty().set(loaner.getCivilStatus());
         citizenship.textProperty().set(loaner.getCitizenship());
         place_of_Birth.textProperty().set(loaner.getPlaceOfBirth());
+    }
+
+    private void generate_id() {
+        String temp_val;
+        String string_val = "";
+        for (int i = 0; i < 7; i++) {
+            int initial_num = RandomIDGenerator.getRandomNumber();
+            temp_val = Integer.toString(initial_num);
+            string_val = temp_val + string_val;
+        }
+        final_num = Long.parseLong(string_val);
+
+        app.loanerMasterlist().forEach(loaner -> {
+            if (loaner.getLoaner_id() == final_num) {
+                generate_id();
+            } else {
+                loaner_id.textProperty().set(final_num + "");
+            }
+        });
     }
 
     // CUSTOMS
@@ -190,5 +225,10 @@ public class LoanerController {
 
     private Long long_parser(String val) {
         return Long.parseLong(val);
+    }
+
+    private void notify_changes() throws SQLException {
+        app.loanMasterList().setAll(LoanDAO.getMasterlist());
+        app.paymentMasterlist().setAll(PaymentDAO.getMasterlist());
     }
 }

@@ -216,12 +216,12 @@ public class MainController {
     // LOANER BUTTON HANDLES ---------------------------
     @FXML
     private void handle_loaner_edit() throws IOException {
-        ModalLoader.load_loaner_update(app, loaner, true);
+        ModalLoader.load_loaner_update(app, loaner, true, this);
     }
 
     @FXML
     private void handle_loaner_add() throws IOException {
-        ModalLoader.load_loaner_update(app, new Loaner(), false);
+        ModalLoader.load_loaner_update(app, new Loaner(), false, this);
     }
 
     @FXML
@@ -459,7 +459,13 @@ public class MainController {
         paymentTable.setItems(paymentList);
     }
 
-    private void refresh_loan_list() {
+    public void clear_loan_list() {
+        loanObservableList.removeAll(loanObservableList);
+        set__filtered_tables(1);
+        loanTable.setItems(loanList);
+    }
+
+    public void refresh_loan_list() {
         set__filtered_tables(1);
         loanTable.setItems(loanList);
     }
@@ -469,7 +475,7 @@ public class MainController {
         paymentTable.setItems(paymentList);
     }
 
-    private void load_loan_table() {
+    public void load_loan_table() {
         loanObservableList.removeAll(loanObservableList);
         app.loanMasterList().forEach(loan -> {
             if (loaner.getLoaner_id() == loan.getLoanerID_Property().get().getLoaner_id()) {
@@ -648,5 +654,10 @@ public class MainController {
                         .setImage(new Image(App.class.getResourceAsStream("assets/images/open2-removebg-preview.png")));
                 break;
         }
+    }
+
+    // GETTERS AND SETTERS
+    public ObservableList<Loan> getLoanObservableList() {
+        return loanObservableList;
     }
 }

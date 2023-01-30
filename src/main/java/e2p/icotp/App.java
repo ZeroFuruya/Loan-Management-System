@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 import e2p.icotp.model.Collateral;
 import e2p.icotp.service.server.dao.*;
+import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
@@ -44,9 +45,9 @@ public class App extends Application {
         loanerCache = LoanerDAO.getMasterlist();
         paymentCache = PaymentDAO.getMasterlist();
 
-        loanerCache.forEach(loaner -> {
-            System.out.println(loaner.getBirthdate());
-        });
+        // loanerCache.forEach(loaner -> {
+        // System.out.println(loaner.getBirthdate());
+        // });
     }
 
     public void initializa_main() throws IOException {
