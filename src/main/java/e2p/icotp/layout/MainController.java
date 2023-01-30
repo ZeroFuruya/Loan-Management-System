@@ -5,7 +5,9 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.factory.TypesFactory;
 import e2p.icotp.model.Loan;
+import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import e2p.icotp.model.Enums.Status;
@@ -18,9 +20,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -189,6 +193,12 @@ public class MainController {
     @FXML
     TextField payment_search;
 
+    // SCROLLPANE
+    @FXML
+    ScrollPane types_scroll_pane;
+    @FXML
+    VBox types_container;
+
     // APP -------------------------------------
 
     App app;
@@ -198,6 +208,7 @@ public class MainController {
     FilteredList<Loaner> loanerList;
     FilteredList<Loan> loanList;
     FilteredList<Payment> paymentList;
+    FilteredList<LoanType> loanTypeList;
 
     // OBSERVABLE LIST
     ObservableList<Loan> loanObservableList;
@@ -229,6 +240,22 @@ public class MainController {
         app.loanerMasterlist().remove(og_loaner);
     }
 
+    // LOAN BUTTON HANDLES -----------------------------
+    @FXML
+    private void handle_loan_edit() throws IOException {
+        ModalLoader.load_loan_update(app, loan, true, this);
+    }
+
+    @FXML
+    private void handle_loan_add() throws IOException {
+        ModalLoader.load_loan_update(app, new Loan(), false, this);
+    }
+
+    @FXML
+    private void handle_loan_remove() {
+        app.loanMasterList().remove(og_loan);
+    }
+
     public void load(App app) {
         this.app = app;
         format.setGroupingUsed(true);
@@ -241,10 +268,13 @@ public class MainController {
         loan_information_container.setVisible(false);
         payment_information_container.setVisible(false);
 
+        loanTypeList = new FilteredList<>(app.loanTypeMasterlist(), p -> true);
+
         init_tables();
         init_bindings();
         init_togbutton_listeners();
         init_table_listeners();
+        _init_types();
         init_anims();
     }
 
@@ -654,6 +684,19 @@ public class MainController {
                         .setImage(new Image(App.class.getResourceAsStream("assets/images/open2-removebg-preview.png")));
                 break;
         }
+    }
+
+    private void _init_types() {
+        types_container.prefWidthProperty().bind(types_scroll_pane.widthProperty().subtract(16));
+        loanTypeList.forEach(type -> {
+            Label label1 = TypesFactory.createLabel(type.getId().get() + "", 17);
+            HBox val1 = TypesFactory.createLabelContainer(label1, types_container, 0.05, Pos.CENTER);
+            Label label2 = TypesFactory.createLabel(type.getName().get(), 17);
+            HBox val2 = TypesFactory.createLabelContainer(label2, types_container, 0.115, Pos.CENTER_LEFT);
+            Label label3 = TypesFactory.createLabel(type.getDesc().get(), 14);
+            HBox val3 = TypesFactory.createLabelContainer(label3, types_container, 0.8, Pos.CENTER_LEFT);
+            types_container.getChildren().add(TypesFactory.createHBox(val1, val2, val3));
+        });
     }
 
     // GETTERS AND SETTERS
