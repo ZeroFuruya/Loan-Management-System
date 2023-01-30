@@ -4,9 +4,9 @@ import java.util.function.UnaryOperator;
 
 import javafx.scene.control.TextFormatter;
 import javafx.util.StringConverter;
-import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.LongStringConverter;
 
-public class IDTextFieldFormatter extends TextFormatter<Integer> {
+public class IDTextFieldFormatter extends TextFormatter<Long> {
 
     private static String regex = "-?([0-9][0-9]*)?";
 
@@ -30,15 +30,15 @@ public class IDTextFieldFormatter extends TextFormatter<Integer> {
         return null;
     };
 
-    private static StringConverter<Integer> converter = new IntegerStringConverter() {
+    private static StringConverter<Long> converter = new LongStringConverter() {
 
         @Override
-        public Integer fromString(String s) {
+        public Long fromString(String s) {
             return s.isEmpty() ? -1 : super.fromString(s);
         }
     };
 
     public IDTextFieldFormatter() {
-        super(converter, -1, filter);
+        super(converter, -1l, filter);
     }
 }

@@ -99,7 +99,10 @@ public class JDBC {
                             break;
                         case Types.DATE:
                             statement.setDate(dataCount.getAndIncrement(),
-                                    Date.valueOf(DateUtil.parse((String) param.getData())));
+                                    Date.valueOf(param.getData() + ""));
+                            break;
+                        case Types.BIGINT:
+                            statement.setLong(dataCount.getAndIncrement(), (long) param.getData());
                             break;
                     }
                 } catch (Exception e) {

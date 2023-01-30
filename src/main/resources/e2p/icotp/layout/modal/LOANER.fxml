@@ -37,7 +37,7 @@
                      <children>
                         <Label text="Name:">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -68,7 +68,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                         </Label>
                         <HBox>
@@ -96,7 +96,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                         </Label>
                         <HBox>
@@ -131,7 +131,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                         </Label>
                         <HBox>
@@ -159,7 +159,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                         </Label>
                         <HBox>
@@ -184,7 +184,7 @@
                         </HBox>
                         <Label text="Place of Birth:">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -222,7 +222,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                         </Label>
                         <HBox>
@@ -247,7 +247,7 @@
                         </HBox>
                         <Label text="Citizenship:">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -285,7 +285,7 @@
                      <children>
                         <Label text="Birthday:">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -293,7 +293,7 @@
                         </Label>
                         <HBox>
                            <children>
-                              <DatePicker fx:id="birthday" prefHeight="25.0" prefWidth="177.0" HBox.hgrow="ALWAYS" />
+                              <DatePicker fx:id="birthday" editable="false" prefHeight="25.0" prefWidth="177.0" HBox.hgrow="ALWAYS" />
                               <Label fx:id="birthday_icon" translateX="-45.0" translateY="7.0">
                                  <tooltip>
                                     <Tooltip fx:id="birthdayTT" text="Empty Tooltip" />
@@ -309,12 +309,12 @@
                               <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                            </padding>
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="14.0" />
                            </font>
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="loaner_id" prefHeight="27.0" prefWidth="190.0" HBox.hgrow="ALWAYS">
+                              <TextField fx:id="loaner_id" disable="true" editable="false" prefHeight="27.0" prefWidth="190.0" HBox.hgrow="ALWAYS">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>

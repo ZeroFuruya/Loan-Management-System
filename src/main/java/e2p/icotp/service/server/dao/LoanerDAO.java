@@ -38,13 +38,14 @@ public class LoanerDAO {
         String name = crs.getString("name");
         String address = crs.getString("address");
         long phone = crs.getLong("phone");
+        String email = crs.getString("email");
         LocalDate birthdate = crs.getDate("birthdate").toLocalDate();
         long social_security = crs.getLong("social_security");
         String civil_status = crs.getString("civil_status");
         String citizenship = crs.getString("citizenship");
         String place_of_birth = crs.getString("place_of_birth");
 
-        return new Loaner(loaner_id, name, address, phone, birthdate, social_security, civil_status, citizenship,
+        return new Loaner(loaner_id, name, address, phone, email, birthdate, social_security, civil_status, citizenship,
                 place_of_birth);
     }
 
@@ -53,11 +54,21 @@ public class LoanerDAO {
         ArrayList<SQLParam> params = parameters(loaner);
         SQLCommand.insert("loaners", params);
     }
+
     // Update
+    public static void update(Loaner loaner) {
+        updateById(loaner, loaner.getLoaner_id());
+    }
+
+    public static void updateById(Loaner loaner, long target_id) {
+        SQLParam idParam = new SQLParam(Types.BIGINT, "loaner_id", target_id);
+        ArrayList<SQLParam> params = parameters(loaner);
+        SQLCommand.updateById("loaners", params, idParam);
+    }
 
     // Remove
     public static void remove(int loaner_id) {
-        SQLParam idParam = new SQLParam(Types.INTEGER, "loaner_id", loaner_id);
+        SQLParam idParam = new SQLParam(Types.BIGINT, "loaner_id", loaner_id);
         SQLCommand.deleteById("loaners", idParam);
     }
 
@@ -66,17 +77,19 @@ public class LoanerDAO {
         ArrayList<SQLParam> params = new ArrayList<>();
 
         // int loaner_id
-        params.add(new SQLParam(Types.INTEGER, "loaner_id", loaner.getLoaner_id()));
+        params.add(new SQLParam(Types.BIGINT, "loaner_id", loaner.getLoaner_id()));
         // varchar name
         params.add(new SQLParam(Types.VARCHAR, "name", loaner.getName()));
         // varchar address
         params.add(new SQLParam(Types.VARCHAR, "address", loaner.getAddress()));
         // int phone
-        params.add(new SQLParam(Types.INTEGER, "phone", loaner.getPhone()));
+        params.add(new SQLParam(Types.BIGINT, "phone", loaner.getPhone()));
+        // varchar email
+        params.add(new SQLParam(Types.VARCHAR, "email", loaner.getEmail()));
         // date birthdate
         params.add(new SQLParam(Types.DATE, "birthdate", loaner.getBirthdate()));
         // int social_security
-        params.add(new SQLParam(Types.INTEGER, "social_security", loaner.getSocial_security()));
+        params.add(new SQLParam(Types.BIGINT, "social_security", loaner.getSocial_security()));
         // varchar civil status
         params.add(new SQLParam(Types.VARCHAR, "civil_status", loaner.getCivilStatus()));
         // varchar citizenship

@@ -1,8 +1,8 @@
 package e2p.icotp.layout.modal;
 
-
-
 import e2p.icotp.App;
+import e2p.icotp.layout.MainController;
+import e2p.icotp.model.Loan;
 import e2p.icotp.model.Enums.Status;
 import e2p.icotp.service.loader.ModalLoader;
 import javafx.fxml.FXML;
@@ -16,46 +16,28 @@ import javafx.scene.control.Tooltip;
 public class LoanController {
     @FXML
     private TextField loan_id;
-
-    @FXML
-    private TextField loaner_id;
-
     @FXML
     private TextField term;
-
     @FXML
     private DatePicker release_date;
-
     @FXML
     private DatePicker maturity_date;
-
     @FXML
     private TextField principal;
-
     @FXML
     private TextField interest;
-
     @FXML
     private TextField penalty;
-
     @FXML
     private TextField due;
-
-    @FXML
-    private TextField paid;
-
-    @FXML
-    private TextField balance;
-
     @FXML
     private ComboBox<Status> status;
+    @FXML
+    private ComboBox<Status> loan_type;
+    @FXML
+    private ComboBox<Status> loan_plan;
 
     // Icons
-
-    @FXML
-    private Label loanId_icon; 
-    @FXML
-    private Label loanerId_icon;
     @FXML
     private Label term_icon;
     @FXML
@@ -70,17 +52,8 @@ public class LoanController {
     private Label penalty_icon;
     @FXML
     private Label due_icon;
-    @FXML
-    private Label paid_icon;
-    @FXML
-    private Label balance_icon;
 
     // ToolTips
-
-    @FXML
-    private Tooltip loanIdTT;
-    @FXML
-    private Tooltip loanerIdTT;
     @FXML
     private Tooltip termTT;
     @FXML
@@ -95,10 +68,6 @@ public class LoanController {
     private Tooltip penaltyTT;
     @FXML
     private Tooltip dueTT;
-    @FXML
-    private Tooltip paidTT;
-    @FXML
-    private Tooltip balanceTT;
 
     @FXML
     private Button save;
@@ -106,33 +75,37 @@ public class LoanController {
     private Button cancel;
 
     private App app;
+    private Loan og_loan;
+    private Loan loan;
+    private boolean isEdit;
+    private MainController mc;
 
     @FXML
-    private void handle_cancel(){
+    private void handle_cancel() {
         ModalLoader.modal_close(app);
     }
+
     @FXML
-    private void handle_save(){
-        
+    private void handle_save() {
+
     }
 
-
-    public void load(App app){
+    public void load(App app, Loan loan, boolean isEdit, MainController mc) {
         this.app = app;
+        this.og_loan = loan;
+        this.loan = loan;
+        this.isEdit = isEdit;
+        this.mc = mc;
         load_bindings();
     }
 
-    private void load_bindings(){
-        loanerId_icon.visibleProperty().bind(loaner_id.textProperty().isEmpty());
-        loanId_icon.visibleProperty().bind(loan_id.textProperty().isEmpty());
+    private void load_bindings() {
         term_icon.visibleProperty().bind(term.textProperty().isEmpty());
-        releaseDate_icon.visibleProperty().bind(release_date.promptTextProperty().isEmpty());
-        maturityDate_icon.visibleProperty().bind(maturity_date.promptTextProperty().isEmpty());
+        releaseDate_icon.visibleProperty().bind(release_date.valueProperty().isNull());
+        maturityDate_icon.visibleProperty().bind(maturity_date.valueProperty().isNull());
         principal_icon.visibleProperty().bind(principal.textProperty().isEmpty());
         interest_icon.visibleProperty().bind(interest.textProperty().isEmpty());
         penalty_icon.visibleProperty().bind(penalty.textProperty().isEmpty());
         due_icon.visibleProperty().bind(due.textProperty().isEmpty());
-        paid_icon.visibleProperty().bind(paid.textProperty().isEmpty());
-        balance_icon.visibleProperty().bind(balance.textProperty().isEmpty());
     }
 }
