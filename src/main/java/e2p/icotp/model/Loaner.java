@@ -52,7 +52,7 @@ public class Loaner {
 
     public Loaner(Loaner loaner) {
         this(loaner.getLoaner_id(), loaner.getName(), loaner.getAddress(), loaner.getPhone(), loaner.getBirthdate(),
-                loaner.getSocial_security());
+                loaner.getSocial_security(), loaner.getCitizenship(), loaner.getPlaceOfBirth(), loaner.getCivilStatus());
     }
 
     // STRING GETTERS
