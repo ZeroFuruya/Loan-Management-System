@@ -4,9 +4,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -1377,34 +1374,13 @@
          <left>
             <VBox fx:id="toggle_btn_container" prefHeight="695.0" prefWidth="122.0" styleClass="dept-tab-container" BorderPane.alignment="CENTER">
                <children>
-                  <ToggleButton fx:id="home_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="button" text="Home" />
-                  <ToggleButton fx:id="loaners_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="button" text="Loaners" />
-                  <ToggleButton fx:id="types_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="button" text="Loan Types" />
-                  <ToggleButton fx:id="plans_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="button" text="Loan Plans" />
+                  <ToggleButton fx:id="home_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button" text="Home" />
+                  <ToggleButton fx:id="loaners_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button" text="Loaners" />
+                  <ToggleButton fx:id="types_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button" text="Loan Types" />
+                  <ToggleButton fx:id="plans_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button" text="Loan Plans" />
                </children>
             </VBox>
          </left>
-         <top>
-            <MenuBar prefHeight="25.0" prefWidth="1195.0" BorderPane.alignment="CENTER">
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-         </top>
       </BorderPane>
    </children>
 </StackPane>

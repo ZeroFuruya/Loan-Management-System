@@ -3,11 +3,18 @@ package e2p.icotp.layout.modal;
 import e2p.icotp.App;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.service.loader.ModalLoader;
+import e2p.icotp.service.server.dao.LoanerDAO;
+import e2p.icotp.util.custom.DateUtil;
+import e2p.icotp.util.custom.IDTextFieldFormatter;
+import e2p.icotp.util.custom.LocalizeDateConverter;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
 
 public class LoanerController {
@@ -85,6 +92,12 @@ public class LoanerController {
 
     private App app;
     private Loaner loaner;
+    private Loaner og_loaner;
+
+    private BooleanProperty isEdit;
+
+    private TextFormatter<Long> phone_formatter;
+    private TextFormatter<Long> social_formatter;
 
     @FXML
     private void handle_cancel() {
@@ -94,18 +107,29 @@ public class LoanerController {
     @FXML
     private void handle_save() {
         modify_loaner_listener();
+        if (isEdit.get()) {
+            LoanerDAO.updateById(loaner, og_loaner.getLoaner_id());
+            app.loanerMasterlist().remove(og_loaner);
+            app.loanerMasterlist().add(loaner);
+        } else {
+            LoanerDAO.insert(loaner);
+            app.loanerMasterlist().add(loaner);
+        }
         ModalLoader.modal_close(app);
     }
 
-    public void load(App app, Loaner loaner) {
+    public void load(App app, Loaner loaner, boolean isEdit) {
         this.app = app;
         this.loaner = loaner;
+        this.og_loaner = loaner;
+        this.isEdit = new SimpleBooleanProperty(isEdit);
 
         init_bindings();
-        init_listeners();
+        init_fields();
     }
 
     private void init_bindings() {
+
         // ERROR BINDINGS
         name_icon.visibleProperty().bind(name.textProperty().isEmpty());
         birthday_icon.visibleProperty().bind(birthday.valueProperty().isNull());
@@ -126,14 +150,45 @@ public class LoanerController {
                         .or(civilStatus_icon.visibleProperty()).or(citizenship_icon.visibleProperty())
                         .or(placeOfBirth_icon.visibleProperty()));
 
+        birthday.setConverter(new LocalizeDateConverter());
+        birthday.setEditable(false);
+
     }
 
-    private void init_listeners() {
+    private void init_fields() {
+        phone_formatter = new IDTextFieldFormatter();
+        social_formatter = new IDTextFieldFormatter();
+
+        contactNo.setTextFormatter(phone_formatter);
+        social_security.setTextFormatter(social_formatter);
+
         name.textProperty().set(loaner.getName());
+        birthday.valueProperty().set(loaner.getBirthdate());
+        address.textProperty().set(loaner.getAddress());
+        contactNo.textProperty().set(loaner.getPhone() + "");
+        email.textProperty().set(loaner.getEmail());
+        loaner_id.textProperty().set(loaner.getLoaner_id() + "");
+        social_security.textProperty().set(loaner.getSocial_security() + "");
+        civil_status.textProperty().set(loaner.getCivilStatus());
+        citizenship.textProperty().set(loaner.getCitizenship());
+        place_of_Birth.textProperty().set(loaner.getPlaceOfBirth());
     }
 
     // CUSTOMS
     private void modify_loaner_listener() {
         loaner.setName(name.textProperty().get());
+        loaner.setBirthdate(birthday.getValue());
+        loaner.setAddress(address.textProperty().get());
+        loaner.setPhone(long_parser(contactNo.textProperty().get()));
+        loaner.setEmail(email.textProperty().get());
+        loaner.setLoaner_id(long_parser(loaner_id.textProperty().get()));
+        loaner.setSocial_security(long_parser(social_security.textProperty().get()));
+        loaner.setCivilStatus(civil_status.textProperty().get());
+        loaner.setCitizenship(citizenship.textProperty().get());
+        loaner.setPlaceOfBirth(place_of_Birth.textProperty().get());
+    }
+
+    private Long long_parser(String val) {
+        return Long.parseLong(val);
     }
 }

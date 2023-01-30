@@ -216,12 +216,12 @@ public class MainController {
     // LOANER BUTTON HANDLES ---------------------------
     @FXML
     private void handle_loaner_edit() throws IOException {
-        ModalLoader.load_loaner_update(app, loaner);
+        ModalLoader.load_loaner_update(app, loaner, true);
     }
 
     @FXML
     private void handle_loaner_add() throws IOException {
-        ModalLoader.load_loaner_update(app, new Loaner());
+        ModalLoader.load_loaner_update(app, new Loaner(), false);
     }
 
     @FXML
@@ -283,9 +283,15 @@ public class MainController {
         });
     }
 
-    private void set__filtered_tables() {
-        this.loanList = new FilteredList<>(loanObservableList, p -> true);
-        this.paymentList = new FilteredList<>(paymentObservableList, p -> true);
+    private void set__filtered_tables(int val) {
+        switch (val) {
+            case 1:
+                this.loanList = new FilteredList<>(loanObservableList, p -> true);
+                break;
+            case 2:
+                this.paymentList = new FilteredList<>(paymentObservableList, p -> true);
+                break;
+        }
     }
 
     private void init_bindings() {
@@ -369,8 +375,13 @@ public class MainController {
                 loan_information_container.setVisible(false);
                 payment_information_container.setVisible(false);
             } else {
+                load_empty_loan_table();
+                refresh_loan_list();
+                clear_payment_table();
                 loaner_information_container.setVisible(false);
                 loaner_name_container.setVisible(false);
+                loan_information_container.setVisible(false);
+                payment_information_container.setVisible(false);
             }
         });
         loaner_search.textProperty().addListener((o, ov, nv) -> {
@@ -444,17 +455,17 @@ public class MainController {
 
     private void clear_payment_table() {
         paymentObservableList.removeAll(paymentObservableList);
-        set__filtered_tables();
+        set__filtered_tables(2);
         paymentTable.setItems(paymentList);
     }
 
     private void refresh_loan_list() {
-        set__filtered_tables();
+        set__filtered_tables(1);
         loanTable.setItems(loanList);
     }
 
     private void refresh_payment_list() {
-        set__filtered_tables();
+        set__filtered_tables(2);
         paymentTable.setItems(paymentList);
     }
 
@@ -472,6 +483,15 @@ public class MainController {
         app.paymentMasterlist().forEach(payment -> {
             if (loan.getLoan_id() == payment.getLoan_id().getLoan_id()) {
                 paymentObservableList.add(payment);
+            }
+        });
+    }
+
+    private void load_empty_loan_table() {
+        loanObservableList.removeAll(loanObservableList);
+        app.loanMasterList().forEach(loan -> {
+            if (0 >= loan.getLoanerID_Property().get().getLoaner_id()) {
+                loanObservableList.add(loan);
             }
         });
     }
@@ -547,7 +567,7 @@ public class MainController {
             return String.format("Phone: %d", loaner.getPhone());
         }, loaner.getPhoneProperty()));
         loaner_birthdate_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Birthdate: %s", DateUtil.localizeDate(loaner.getBirthdate()));
+            return String.format("Birthdate: %s", loaner.getBirthdate());
         }, loaner.getBirthdateProperty()));
         loaner_social_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("Social Security: %d", loaner.getSocial_security());

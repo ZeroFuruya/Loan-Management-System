@@ -43,11 +43,11 @@ public class ModalLoader {
         app.getMainScreen().getChildren().remove(lastIdx);
     }
 
-    public static void load_loaner_update(App app, Loaner loaner) throws IOException {
+    public static void load_loaner_update(App app, Loaner loaner, boolean isEdit) throws IOException {
         FXMLLoader loader = load_modal(app, "modal/LOANER");
 
         LoanerController controller = loader.getController();
-        controller.load(app, loaner);
+        controller.load(app, loaner, isEdit);
     }
 
     // public static void load_degree_update(App app) throws IOException {

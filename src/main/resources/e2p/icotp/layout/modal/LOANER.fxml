@@ -293,7 +293,7 @@
                         </Label>
                         <HBox>
                            <children>
-                              <DatePicker fx:id="birthday" prefHeight="25.0" prefWidth="177.0" HBox.hgrow="ALWAYS" />
+                              <DatePicker fx:id="birthday" editable="false" prefHeight="25.0" prefWidth="177.0" HBox.hgrow="ALWAYS" />
                               <Label fx:id="birthday_icon" translateX="-45.0" translateY="7.0">
                                  <tooltip>
                                     <Tooltip fx:id="birthdayTT" text="Empty Tooltip" />

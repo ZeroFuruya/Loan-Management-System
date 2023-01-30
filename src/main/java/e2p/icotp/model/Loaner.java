@@ -15,44 +15,48 @@ public class Loaner {
     private StringProperty name;
     private StringProperty address;
     private LongProperty phone;
+    private StringProperty email;
     private ObjectProperty<LocalDate> birthdate;
     private LongProperty social_security;
+    private StringProperty citizenship;
+    private StringProperty civilStatus;
+    private StringProperty placeOfBirth;
 
     // STRINGS
     private StringProperty loaner_id_string;
     private StringProperty phone_string;
     private StringProperty birthdate_string;
     private StringProperty social_string;
-    private StringProperty citizenship_string;
-    private StringProperty placeOfBirth_string;
-    private StringProperty civilStatus_string;
 
-    public Loaner(long loaner_id, String name, String address, long phone,
+    public Loaner(long loaner_id, String name, String address, long phone, String email,
             LocalDate birthdate, long social_security, String citizenship_string, String placeOfBirth_string,
             String civilStatus_string) {
         this.loaner_id = new SimpleLongProperty(loaner_id);
         this.name = new SimpleStringProperty(name);
         this.address = new SimpleStringProperty(address);
         this.phone = new SimpleLongProperty(phone);
+        this.email = new SimpleStringProperty(email);
         this.birthdate = new SimpleObjectProperty<>(birthdate);
         this.social_security = new SimpleLongProperty(social_security);
+        this.citizenship = new SimpleStringProperty(citizenship_string);
+        this.civilStatus = new SimpleStringProperty(civilStatus_string);
+        this.placeOfBirth = new SimpleStringProperty(placeOfBirth_string);
 
         // STRINGS
         this.loaner_id_string = new SimpleStringProperty(loaner_id + "");
         this.phone_string = new SimpleStringProperty(phone + "");
         this.birthdate_string = new SimpleStringProperty(DateUtil.localizeDate(birthdate));
         this.social_string = new SimpleStringProperty(social_security + "");
-        this.citizenship_string = new SimpleStringProperty(citizenship_string + "");
-        this.civilStatus_string = new SimpleStringProperty(civilStatus_string + "");
 
     }
 
     public Loaner() {
-        this(0, "", "", 0, LocalDate.now(), 0, "", "", "");
+        this(0, "", "", 0, "", LocalDate.now(), 0, "", "", "");
     }
 
     public Loaner(Loaner loaner) {
-        this(loaner.getLoaner_id(), loaner.getName(), loaner.getAddress(), loaner.getPhone(), loaner.getBirthdate(),
+        this(loaner.getLoaner_id(), loaner.getName(), loaner.getAddress(), loaner.getPhone(), loaner.getEmail(),
+                loaner.getBirthdate(),
                 loaner.getSocial_security(), loaner.getCitizenship(), loaner.getPlaceOfBirth(),
                 loaner.getCivilStatus());
     }
@@ -91,6 +95,10 @@ public class Loaner {
         this.phone.set(phone);
     }
 
+    public void setEmail(String email) {
+        this.email.set(email);
+    }
+
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate.set(birthdate);
     }
@@ -100,15 +108,15 @@ public class Loaner {
     }
 
     public void setCitizenship(String citizenship) {
-        this.citizenship_string.set(citizenship);
+        this.citizenship.set(citizenship);
     }
 
     public void setPlaceOfBirth(String placeOfBirth) {
-        this.placeOfBirth_string.set(placeOfBirth);
+        this.placeOfBirth.set(placeOfBirth);
     }
 
     public void setCivilStatus(String civilStatus) {
-        this.civilStatus_string.set(civilStatus);
+        this.civilStatus.set(civilStatus);
     }
 
     // GETTERS
@@ -128,6 +136,10 @@ public class Loaner {
         return this.phone.get();
     }
 
+    public String getEmail() {
+        return this.email.get();
+    }
+
     public LocalDate getBirthdate() {
         return this.birthdate.get();
     }
@@ -137,15 +149,15 @@ public class Loaner {
     }
 
     public String getCitizenship() {
-        return this.citizenship_string.get();
+        return this.citizenship.get();
     }
 
     public String getPlaceOfBirth() {
-        return this.placeOfBirth_string.get();
+        return this.placeOfBirth.get();
     }
 
     public String getCivilStatus() {
-        return this.civilStatus_string.get();
+        return this.civilStatus.get();
     }
 
     // PROPERTY GETTERS
@@ -165,6 +177,10 @@ public class Loaner {
         return phone;
     }
 
+    public StringProperty getEmailProperty() {
+        return email;
+    }
+
     public ObjectProperty<LocalDate> getBirthdateProperty() {
         return birthdate;
     }
@@ -174,15 +190,15 @@ public class Loaner {
     }
 
     public StringProperty getCitizenshipProperty() {
-        return citizenship_string;
+        return citizenship;
     }
 
     public StringProperty getPlaceOfBirthProperty() {
-        return placeOfBirth_string;
+        return placeOfBirth;
     }
 
     public StringProperty getCivilStatusProperty() {
-        return civilStatus_string;
+        return civilStatus;
     }
 
 }

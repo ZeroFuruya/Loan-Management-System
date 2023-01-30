@@ -404,6 +404,31 @@
     -fx-background-color:linear-gradient(to bottom, #31087B 5%, #31087B 100%);
 }
 
+.toggle_button{
+	-fx-background-color:linear-gradient(to bottom, #7125ff 90%, #31087B 100%);
+    -fx-border-width: 1in;
+    -fx-font-size: 15px;
+	-fx-font-family:Arial;
+	-fx-text-fill:#ffffff;
+}
+.toggle_button:selected {
+	-fx-background-color:linear-gradient(to bottom, #31087B 90%, #31087B 100%);
+    -fx-border-width: 1in;
+	-fx-font-family:Arial;
+	-fx-text-fill:#ffffff;
+}
+.toggle_button:hover {
+	-fx-background-color:linear-gradient(to bottom, #7125ff 80%, #31087B 100%);
+    -fx-border-width: 1in;
+	-fx-font-family:Arial;
+	-fx-text-fill:#ffffff;
+}
+.toggle_button:pressed {
+	-fx-background-color:linear-gradient(to bottom, #31087B 90%, #31087B 100%);
+    -fx-border-width: 1in;
+	-fx-font-family:Arial;
+	-fx-text-fill:#ffffff;
+}
 .combo-box .list-cell 
 {
     -fx-background-color: linear-gradient(to bottom, #ff8025 5%, #7f3500 100%);
