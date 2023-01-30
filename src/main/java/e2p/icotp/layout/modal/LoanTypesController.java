@@ -53,6 +53,8 @@ public class LoanTypesController {
     private void load_bindings(){
         loanName_icon.visibleProperty().bind(loanName.textProperty().isEmpty());
         description_icon.visibleProperty().bind(description.textProperty().isEmpty());
+
+        save.disableProperty().bind(loanName_icon.visibleProperty().or(description_icon.visibleProperty()));
     }
 
 }

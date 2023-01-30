@@ -1,7 +1,5 @@
 package e2p.icotp.layout.modal;
 
-
-
 import e2p.icotp.App;
 import e2p.icotp.model.Enums.Status;
 import e2p.icotp.service.loader.ModalLoader;
@@ -24,7 +22,7 @@ public class LoanPlanController {
 
     @FXML
     private TextField repayment;
-    
+
     @FXML
     private TextField monthlyPenalty;
 
@@ -57,24 +55,27 @@ public class LoanPlanController {
     private App app;
 
     @FXML
-    private void handle_cancel(){
+    private void handle_cancel() {
         ModalLoader.modal_close(app);
     }
 
     @FXML
-    private void handle_save(){
-        
+    private void handle_save() {
+
     }
 
-    public void load(App app){
+    public void load(App app) {
         this.app = app;
         load_bindings();
     }
 
-    private void load_bindings(){
+    private void load_bindings() {
         installment_icon.visibleProperty().bind(installment.textProperty().isEmpty());
         interest_icon.visibleProperty().bind(interest.textProperty().isEmpty());
         repayment_icon.visibleProperty().bind(repayment.textProperty().isEmpty());
         monthlyPenalty_icon.visibleProperty().bind(monthlyPenalty.textProperty().isEmpty());
+
+        save.disableProperty().bind(installment_icon.visibleProperty().or(interest_icon.visibleProperty())
+                .or(repayment_icon.visibleProperty()).or(monthlyPenalty_icon.visibleProperty()));
     }
 }
