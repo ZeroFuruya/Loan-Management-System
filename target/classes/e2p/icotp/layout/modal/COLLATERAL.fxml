@@ -13,7 +13,6 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.CollateralController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
@@ -25,7 +24,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <font>
-                        <Font size="40.0" />
+                        <Font name="Arial" size="40.0" />
                      </font>
                   </Label>
                </children>
@@ -41,7 +40,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="17.0" />
                            </font>
                         </Label>
                         <HBox>
@@ -76,7 +75,7 @@
                      <children>
                         <Label text="Loan ID:">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="17.0" />
                            </font>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -114,7 +113,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="17.0" />
                            </font>
                         </Label>
                         <HBox>
