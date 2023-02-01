@@ -47,8 +47,8 @@ public class App extends Application {
         paymentCache = PaymentDAO.getMasterlist();
         loan_typeCache = LoanTypeDAO.getMasterlist();
 
-        loan_typeCache.forEach(type -> {
-            System.out.println(type.getName());
+        loanCache.forEach(loan -> {
+            System.out.println(loan.getLoanType().getName());
         });
     }
 

@@ -19,6 +19,8 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -35,6 +37,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class MainController {
@@ -221,6 +224,8 @@ public class MainController {
     Loan loan = new Loan();
     Payment og_payment = new Payment();
     Payment payment = new Payment();
+    LoanType og_loan_type = new LoanType();
+    LoanType loan_type = new LoanType();
 
     NumberFormat format = NumberFormat.getInstance();
 
@@ -687,15 +692,18 @@ public class MainController {
     }
 
     private void _init_types() {
-        types_container.prefWidthProperty().bind(types_scroll_pane.widthProperty().subtract(16));
+        types_container.prefWidthProperty().bind(types_scroll_pane.widthProperty().subtract(18));
+        types_container.setSpacing(10);
         loanTypeList.forEach(type -> {
             Label label1 = TypesFactory.createLabel(type.getId().get() + "", 17);
-            HBox val1 = TypesFactory.createLabelContainer(label1, types_container, 0.05, Pos.CENTER);
+            HBox val1 = TypesFactory.createLabelContainer(label1, types_container, 0.04, Pos.CENTER, 1);
             Label label2 = TypesFactory.createLabel(type.getName().get(), 17);
-            HBox val2 = TypesFactory.createLabelContainer(label2, types_container, 0.115, Pos.CENTER_LEFT);
+            HBox val2 = TypesFactory.createLabelContainer(label2, types_container, 0.115, Pos.CENTER_LEFT, 1);
             Label label3 = TypesFactory.createLabel(type.getDesc().get(), 14);
-            HBox val3 = TypesFactory.createLabelContainer(label3, types_container, 0.8, Pos.CENTER_LEFT);
-            types_container.getChildren().add(TypesFactory.createHBox(val1, val2, val3));
+            HBox val3 = TypesFactory.createLabelContainer(label3, types_container, 0.8, Pos.CENTER_LEFT, 0);
+
+            types_container.getChildren().add(TypesFactory.createHBox(val1, val2, val3,
+                    TypesFactory.createButton("Modify", Color.RED, type, this, app)));
         });
     }
 

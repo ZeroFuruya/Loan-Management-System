@@ -2,15 +2,18 @@
     -fx-text-fill: white;
 }
 .label-dark {
-    -fx-text-fill: rgb(20, 0, 24);
+    -fx-text-fill: rgb(0, 0, 0);
 }
 .label {
-    -fx-text-fill: rgb(20, 0, 24);
+    -fx-text-fill: rgb(0, 0, 0);
+}
+.label-red {
+    -fx-text-fill: rgb(255, 0, 0);
 }
 
 .label-cont-bright {
-    -fx-text-fill: rgb(204, 204, 204);
-    -fx-font-family: "Century Gothic" ;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-family: "Arial" ;
 }
 
 
@@ -47,18 +50,22 @@
 /* Department and Salary Grade MASTERLIST */
 
 .dept-container {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #ebebeb, #616161);
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #28334a, #314268);
+    background-color: #dddddd;
+}
+.dividers {
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #121722, #06080e);
     background-color: #dddddd;
 }
 
 .dept-tab-container {
     /* -fx-background-color: #31087B; */
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #616161, #ebebeb);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #ffd817, #fbde44);
     background-color: #31087B;
 }
 
 .edit-container {
-    -fx-background-color: #31087B;
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
     background-color: #31087B;
     -fx-background-radius: 5;
 }
@@ -66,15 +73,15 @@
 .table-view .column-header,
 .table-view .column-header .filler,
 .table-view .column-header-background .filler {
-    -fx-background-color: linear-gradient(to bottom, #7125ff 5%, #6a007f 100%);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
 }
 
 .table-view .column-header {
-    -fx-background-color: linear-gradient(to bottom, #7125ff 5%, #6a007f 100%);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
 }
 
 .tab-header-background {
-    -fx-background-color: linear-gradient(to bottom, #7125ff 5%, #6a007f 100%);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
 }
 
 .table-view .column-header,
@@ -85,7 +92,7 @@
 .tree-table-view>.column-header-background>.show-hide-columns-button,
 .table-view:constrained-resize .filler,
 .tree-table-view:constrained-resize .filler {
-    -fx-background-color: linear-gradient(to bottom, #7125ff 5%, #6a007f 100%);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
     -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
     -fx-font-weight: bold;
     -fx-size: 2em;
@@ -100,7 +107,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-background-color: linear-gradient(to bottom, #7125ff 5%, #6a007f 100%);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
     -fx-text-fill: rgb(255, 255, 255);
     -fx-font-weight: bold;
     font-weight: bold;
@@ -391,7 +398,7 @@
 
 .button {
 	-fx-box-shadow:inset 0px 1px 0px 0px #f29c93;
-	-fx-background-color:linear-gradient(to bottom, #7125ff 5%, #31087B 100%);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
 	-fx-border-radius:6px;
 	-fx-text-fill:#ffffff;
 	-fx-font-family:Arial;
@@ -405,26 +412,26 @@
 }
 
 .toggle_button{
-	-fx-background-color:linear-gradient(to bottom, #7125ff 90%, #31087B 100%);
+	-fx-background-color:linear-gradient(to bottom, #ff2f3a 90%, #bb161e 100%);
     -fx-border-width: 1in;
     -fx-font-size: 15px;
 	-fx-font-family:Arial;
 	-fx-text-fill:#ffffff;
 }
 .toggle_button:selected {
-	-fx-background-color:linear-gradient(to bottom, #31087B 90%, #31087B 100%);
+	-fx-background-color:linear-gradient(to bottom, #bb161e 90%, #bb161e 100%);
     -fx-border-width: 1in;
 	-fx-font-family:Arial;
 	-fx-text-fill:#ffffff;
 }
 .toggle_button:hover {
-	-fx-background-color:linear-gradient(to bottom, #7125ff 80%, #31087B 100%);
+	-fx-background-color:linear-gradient(to bottom, #d3212a 80%, #bb161e 100%);
     -fx-border-width: 1in;
 	-fx-font-family:Arial;
 	-fx-text-fill:#ffffff;
 }
 .toggle_button:pressed {
-	-fx-background-color:linear-gradient(to bottom, #31087B 90%, #31087B 100%);
+	-fx-background-color:linear-gradient(to bottom, #bb161e 90%, #bb161e 100%);
     -fx-border-width: 1in;
 	-fx-font-family:Arial;
 	-fx-text-fill:#ffffff;

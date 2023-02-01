@@ -5,8 +5,10 @@ import java.io.IOException;
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
 import e2p.icotp.layout.modal.LoanController;
+import e2p.icotp.layout.modal.LoanTypesController;
 import e2p.icotp.layout.modal.LoanerController;
 import e2p.icotp.model.Loan;
+import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -60,6 +62,14 @@ public class ModalLoader {
 
         LoanController controller = loader.getController();
         controller.load(app, loan, isEdit, mc);
+    }
+
+    public static void load_loan_type_update(App app, LoanType loan_type, boolean isEdit, MainController mc)
+            throws IOException {
+        FXMLLoader loader = load_modal(app, "modal/LOANTYPES");
+
+        LoanTypesController controller = loader.getController();
+        controller.load(app, loan_type, isEdit, mc);
     }
 
     // public static void load_degree_update(App app) throws IOException {
