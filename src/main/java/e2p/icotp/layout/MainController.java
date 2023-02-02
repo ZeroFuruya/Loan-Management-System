@@ -2,29 +2,33 @@ package e2p.icotp.layout;
 
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.time.LocalDate;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.factory.TypesFactory;
 import e2p.icotp.model.Loan;
+import e2p.icotp.model.LoanPlan;
 import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import e2p.icotp.model.Enums.Status;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.util.custom.DateUtil;
+import e2p.icotp.util.custom.LoanPlanListCell;
+import e2p.icotp.util.custom.LoanTypeListCell;
+import e2p.icotp.util.custom.LoanTypeStringConverter;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -43,8 +47,8 @@ import javafx.util.Duration;
 public class MainController {
 
     // CONSTANTS
-    private static final int fit_width = 200;
-    private static final int fit_height = 50;
+    // private static final int fit_width = 200;
+    // private static final int fit_height = 50;
 
     // STACKPANE
     @FXML
@@ -99,6 +103,8 @@ public class MainController {
     TableView<Loan> loanTable;
     @FXML
     TableView<Payment> paymentTable;
+    @FXML
+    TableView<LoanPlan> loanPlanTable;
 
     // TABLE COLS - Loaner
     @FXML
@@ -196,6 +202,49 @@ public class MainController {
     @FXML
     TextField payment_search;
 
+    // TABLE COLS - Plan
+    @FXML
+    TableColumn<LoanPlan, Integer> plan_id;
+    @FXML
+    TableColumn<LoanPlan, String> plan_type_name;
+    @FXML
+    TableColumn<LoanPlan, Long> plan_term;
+    @FXML
+    TableColumn<LoanPlan, Double> plan_interest;
+    @FXML
+    TableColumn<LoanPlan, Double> plan_penalty;
+
+    @FXML
+    ToggleButton edit_toggle;
+    BooleanProperty plan_isEdit = new SimpleBooleanProperty(false);
+
+    @FXML
+    TextField plan_id_tf;
+    @FXML
+    TextField plan_term_tf;
+    @FXML
+    TextField plan_interest_tf;
+    @FXML
+    TextField plan_penalty_tf;
+    @FXML
+    TextField plan_search;
+    @FXML
+    ComboBox<LoanType> plan_type_cbox;
+
+    @FXML
+    Button plan_save_button;
+    @FXML
+    Button plan_remove_button;
+
+    @FXML
+    HBox plan_type_err;
+    @FXML
+    HBox plan_term_err;
+    @FXML
+    HBox plan_interest_err;
+    @FXML
+    HBox plan_penalty_err;
+
     // SCROLLPANE
     @FXML
     ScrollPane types_scroll_pane;
@@ -212,6 +261,7 @@ public class MainController {
     FilteredList<Loan> loanList;
     FilteredList<Payment> paymentList;
     FilteredList<LoanType> loanTypeList;
+    FilteredList<LoanPlan> loanPlanList;
 
     // OBSERVABLE LIST
     ObservableList<Loan> loanObservableList;
@@ -226,6 +276,8 @@ public class MainController {
     Payment payment = new Payment();
     LoanType og_loan_type = new LoanType();
     LoanType loan_type = new LoanType();
+    LoanPlan og_loan_plan = new LoanPlan();
+    LoanPlan loan_plan = new LoanPlan();
 
     NumberFormat format = NumberFormat.getInstance();
 
@@ -280,11 +332,13 @@ public class MainController {
         init_togbutton_listeners();
         init_table_listeners();
         _init_types();
+        init_plans();
         init_anims();
     }
 
     private void init_tables() {
         this.loanerList = new FilteredList<>(app.loanerMasterlist(), p -> true);
+        this.loanPlanList = new FilteredList<>(app.loanPlanMasterlist(), p -> true);
 
         this.loanObservableList = FXCollections.observableArrayList();
         this.paymentObservableList = FXCollections.observableArrayList();
@@ -316,6 +370,24 @@ public class MainController {
         payment_loaner_name.setCellValueFactory(payment -> {
             return payment.getValue().getLoan_id_Property().get().getLoanerID_Property().get().getNameProperty();
         });
+
+        // LOAN PLAN TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        plan_id.setCellValueFactory(plan -> {
+            return plan.getValue().getId().asObject();
+        });
+        plan_type_name.setCellValueFactory(plan -> {
+            return plan.getValue().getType().get().getName();
+        });
+        plan_term.setCellValueFactory(plan -> {
+            return plan.getValue().getTerm().asObject();
+        });
+        plan_interest.setCellValueFactory(plan -> {
+            return plan.getValue().getInterest().asObject();
+        });
+        plan_penalty.setCellValueFactory(plan -> {
+            return plan.getValue().getPenalty().asObject();
+        });
+        loanPlanTable.setItems(loanPlanList);
     }
 
     private void set__filtered_tables(int val) {
@@ -332,12 +404,12 @@ public class MainController {
     private void init_bindings() {
 
         // TABLE WIDTHS
-        loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.20));
-        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.8));
-        loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.160));
-        loan_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.84));
-        payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.300));
-        payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.230));
+        loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
+        loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.75));
+        loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
+        loan_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.75));
+        payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
+        payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
         payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.700));
 
         // HOME
@@ -703,7 +775,67 @@ public class MainController {
     }
 
     private void init_plans() {
+        plan_init_cbox();
+        loanPlanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
+            if (nv != null) {
+                og_loan_plan = nv;
+                loan_plan = og_loan_plan;
+                if (edit_toggle.isSelected()) {
+                    plan_load_fields();
+                } else {
+                    plan_clear_fields();
+                }
+            } else {
+                og_loan_plan = new LoanPlan();
+                loan_plan = og_loan_plan;
+            }
+        });
+        plan_search.textProperty().addListener((o, ov, nv) -> {
+            loanPlanList.setPredicate(p -> {
+                if (nv == null || nv.isEmpty()) {
+                    return true;
+                }
 
+                if (Integer.toString(p.getId().get()).toLowerCase().contains(nv.toLowerCase())) {
+                    return true;
+                }
+
+                return p.getType().get().getName().get().toLowerCase().contains(nv.toLowerCase());
+            });
+        });
+        edit_toggle.selectedProperty().addListener((o, ov, nv) -> {
+            if (edit_toggle.isSelected()) {
+                plan_load_fields();
+                edit_toggle.textProperty().set("Edit");
+            } else {
+                plan_clear_fields();
+                edit_toggle.textProperty().set("Add");
+            }
+        });
+    }
+
+    void plan_init_cbox() {
+        plan_type_cbox.setCellFactory(cell -> new LoanTypeListCell());
+        plan_type_cbox.setButtonCell(new LoanTypeListCell());
+        plan_type_cbox.getItems().addAll(loanTypeList);
+        plan_type_cbox.setConverter(new LoanTypeStringConverter());
+        plan_type_cbox.setPromptText("Select Loan Type");
+    }
+
+    void plan_load_fields() {
+        plan_id_tf.setText(loan_plan.getId().get() + "");
+        plan_type_cbox.getSelectionModel().select(loan_plan.getType().get());
+        plan_term_tf.setText(loan_plan.getTerm().get() + "");
+        plan_interest_tf.setText(loan_plan.getInterest().get() + "");
+        plan_penalty_tf.setText(loan_plan.getPenalty().get() + "");
+    }
+
+    void plan_clear_fields() {
+        plan_id_tf.setText("0");
+        plan_type_cbox.getSelectionModel().select(new LoanType());
+        plan_term_tf.setText("0");
+        plan_interest_tf.setText("0.0");
+        plan_penalty_tf.setText("0.0");
     }
 
     // GETTERS AND SETTERS
