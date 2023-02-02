@@ -17,8 +17,10 @@ import javafx.beans.property.StringProperty;
 public class Loan {
     private IntegerProperty loan_id;
     private ObjectProperty<Loaner> loaner_id;
+    private ObjectProperty<LoanType> loan_type;
+    private ObjectProperty<LoanPlan> loan_plan;
     private ObjectProperty<LocalDate> release_date;
-    private IntegerProperty term;
+    private LongProperty term;
     private ObjectProperty<LocalDate> maturity_date;
     private DoubleProperty principal;
     private DoubleProperty interest;
@@ -28,14 +30,18 @@ public class Loan {
     private DoubleProperty balance;
     private StringProperty status;
 
-    public Loan(int loan_id, Loaner loaner_id, LocalDate release_date, int term, LocalDate maturity_date,
+    public Loan(int loan_id, Loaner loaner_id, LoanType loan_type, LoanPlan loan_plan, LocalDate release_date,
+            long term,
+            LocalDate maturity_date,
             double principal,
             double interest, double penalty, long due, double paid, double balance, String status) {
 
         this.loan_id = new SimpleIntegerProperty(loan_id);
         this.loaner_id = new SimpleObjectProperty<>(loaner_id);
+        this.loan_type = new SimpleObjectProperty<>(loan_type);
+        this.loan_plan = new SimpleObjectProperty<>(loan_plan);
         this.release_date = new SimpleObjectProperty<>(release_date);
-        this.term = new SimpleIntegerProperty(term);
+        this.term = new SimpleLongProperty(term);
         this.maturity_date = new SimpleObjectProperty<>(maturity_date);
         this.principal = new SimpleDoubleProperty(principal);
         this.interest = new SimpleDoubleProperty(interest);
@@ -47,11 +53,13 @@ public class Loan {
     }
 
     public Loan() {
-        this(0, new Loaner(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0, Status.APPLICATION);
+        this(0, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
+                Status.APPLICATION);
     }
 
     public Loan(int id) {
-        this(id, new Loaner(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0, Status.APPLICATION);
+        this(id, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
+                Status.APPLICATION);
     }
 
     // SETTERS
@@ -61,6 +69,14 @@ public class Loan {
 
     public void setLoaner_id(Loaner loaner_id) {
         this.loaner_id.set(loaner_id);
+    }
+
+    public void setLoanType(LoanType loan_type) {
+        this.loan_type.set(loan_type);
+    }
+
+    public void setLoanPlan(LoanPlan loan_plan) {
+        this.loan_plan.set(loan_plan);
     }
 
     public void setRelease_date(LocalDate release_date) {
@@ -112,11 +128,19 @@ public class Loan {
         return this.loaner_id.get();
     }
 
+    public LoanType getLoanType() {
+        return this.loan_type.get();
+    }
+
+    public LoanPlan getLoanPlan() {
+        return this.loan_plan.get();
+    }
+
     public LocalDate getRelease_date() {
         return this.release_date.get();
     }
 
-    public int getTerm() {
+    public long getTerm() {
         return this.term.get();
     }
 
@@ -124,11 +148,11 @@ public class Loan {
         return this.maturity_date.get();
     }
 
-    public Double getPrincipal() {
+    public double getPrincipal() {
         return this.principal.get();
     }
 
-    public Double getInterest() {
+    public double getInterest() {
         return this.interest.get();
     }
 
@@ -144,7 +168,7 @@ public class Loan {
         return this.paid.get();
     }
 
-    public Double getBalance() {
+    public double getBalance() {
         return this.balance.get();
     }
 
@@ -161,11 +185,19 @@ public class Loan {
         return this.loaner_id;
     }
 
+    public ObjectProperty<LoanType> getLoanType_Property() {
+        return this.loan_type;
+    }
+
+    public ObjectProperty<LoanPlan> getLoanPlan_Property() {
+        return this.loan_plan;
+    }
+
     public ObjectProperty<LocalDate> getRelease_date_Property() {
         return this.release_date;
     }
 
-    public IntegerProperty getTermProperty() {
+    public LongProperty getTermProperty() {
         return this.term;
     }
 

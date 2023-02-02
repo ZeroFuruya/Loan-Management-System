@@ -1,23 +1,23 @@
 package e2p.icotp.model;
 
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class LoanType {
-    private LongProperty type_id;
+    private IntegerProperty type_id;
     private StringProperty type_name;
     private StringProperty type_desc;
 
-    public LoanType(long id, String name, String desc) {
-        this.type_id = new SimpleLongProperty(id);
+    public LoanType(int id, String name, String desc) {
+        this.type_id = new SimpleIntegerProperty(id);
         this.type_name = new SimpleStringProperty(name);
         this.type_desc = new SimpleStringProperty(desc);
     }
 
     public LoanType() {
-        this(0, "", "");
+        this(0, "Select Loan Type", "");
     }
 
     public LoanType(LoanType loan_type) {
@@ -26,7 +26,7 @@ public class LoanType {
 
     // PROPERTY GETTERS
 
-    public LongProperty getId() {
+    public IntegerProperty getId() {
         return this.type_id;
     }
 

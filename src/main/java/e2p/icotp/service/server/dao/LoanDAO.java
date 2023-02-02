@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import javax.sql.rowset.CachedRowSet;
 
 import e2p.icotp.model.Loan;
+import e2p.icotp.model.LoanPlan;
+import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.service.server.core.SQLCommand;
 import e2p.icotp.service.server.core.SQLParam;
@@ -40,8 +42,24 @@ public class LoanDAO {
         } else {
             loaner = getLoanerById(loaner_id);
         }
+        int plan_id = (crs.getInt("plan_id"));
+        LoanPlan loan_plan;
+        if (plan_id <= 0) {
+            loan_plan = new LoanPlan();
+        } else {
+            loan_plan = LoanPlanDAO.getLoanPlanByID(plan_id);
+        }
+
+        int type_id = loan_plan.getType().get().getId().get();
+        LoanType loan_type;
+        if (type_id <= 0) {
+            loan_type = new LoanType();
+        } else {
+            loan_type = LoanPlanDAO.getLoanTypeById(type_id);
+        }
+
         LocalDate release_date = (crs.getDate("release_date").toLocalDate());
-        int term = (crs.getInt("term"));
+        long term = (crs.getLong("term"));
         LocalDate maturity_date = (crs.getDate("maturity_date").toLocalDate());
         double principal = (crs.getDouble("principal"));
         double interest = (crs.getDouble("interest"));
@@ -51,7 +69,9 @@ public class LoanDAO {
         double balance = (crs.getDouble("balance"));
         String status = (crs.getString("status"));
 
-        return new Loan(loan_id, loaner, release_date, term, maturity_date, principal, interest, penalty, due, paid,
+        return new Loan(loan_id, loaner, loan_type, loan_plan, release_date, term, maturity_date, principal, interest,
+                penalty, due,
+                paid,
                 balance, status);
     }
 
@@ -63,6 +83,12 @@ public class LoanDAO {
 
         // LOANER ID
         params.add(new SQLParam(Types.BIGINT, "loaner_id", loan.getLoaner_id()));
+
+        // TYPE ID
+        params.add(new SQLParam(Types.INTEGER, "type_id", loan.getLoaner_id()));
+
+        // LOAN AMOUNT
+        params.add(new SQLParam(Types.DOUBLE, "loan_amount", loan.getLoaner_id()));
 
         // RELEASE DATE
         params.add(new SQLParam(Types.DATE, "release_date", loan.getRelease_date()));
