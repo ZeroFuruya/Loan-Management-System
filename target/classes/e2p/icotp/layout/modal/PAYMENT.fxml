@@ -46,22 +46,35 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="lastname" promptText="Last Name:">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </TextField>
-                              <Label fx:id="lastname_icon" translateX="-27.0">
-                                 <graphic>
-                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                 </graphic>
-                                 <tooltip>
-                                    <Tooltip fx:id="lastnameTT" text="Empty Tooltip" />
-                                 </tooltip>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Label>
+                              <VBox>
+                                 <children>
+                                    <TextField fx:id="lastname" promptText="Last Name:">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </TextField>
+                                    <HBox fx:id="lastname_icon" alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Invalid Field" textFill="RED">
+                                             <font>
+                                                <Font name="Arial Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label>
+                                             <graphic>
+                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                             </graphic>
+                                             <tooltip>
+                                                <Tooltip fx:id="lastnameTT" text="Empty Tooltip" />
+                                             </tooltip>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                      </children>
@@ -84,22 +97,35 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="loaner_id" promptText="Loaner ID:">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </TextField>
-                              <Label fx:id="loanerID_icon" translateX="-27.0">
-                                 <graphic>
-                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                 </graphic>
-                                 <tooltip>
-                                    <Tooltip fx:id="loanerIdTT" text="Empty Tooltip" />
-                                 </tooltip>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Label>
+                              <VBox>
+                                 <children>
+                                    <TextField fx:id="loaner_id" promptText="Loaner ID:">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </TextField>
+                                    <HBox fx:id="loanerID_icon" alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Invalid Field" textFill="RED">
+                                             <font>
+                                                <Font name="Arial Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label>
+                                             <graphic>
+                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                             </graphic>
+                                             <tooltip>
+                                                <Tooltip fx:id="loanerIdTT" text="Empty Tooltip" />
+                                             </tooltip>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                      </children>
@@ -119,22 +145,35 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="loan_id" promptText="Loan ID:">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </TextField>
-                              <Label fx:id="loanId_icon" translateX="-27.0">
-                                 <graphic>
-                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                 </graphic>
-                                 <tooltip>
-                                    <Tooltip fx:id="loanIdTT" text="Empty Tooltip" />
-                                 </tooltip>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Label>
+                              <VBox>
+                                 <children>
+                                    <TextField fx:id="loan_id" promptText="Loan ID:">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </TextField>
+                                    <HBox fx:id="loanId_icon" alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Invalid Field" textFill="RED">
+                                             <font>
+                                                <Font name="Arial Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label>
+                                             <graphic>
+                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                             </graphic>
+                                             <tooltip>
+                                                <Tooltip fx:id="loanIdTT" text="Empty Tooltip" />
+                                             </tooltip>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                      </children>
@@ -154,18 +193,31 @@
                         </Label>
                         <HBox>
                            <children>
-                              <DatePicker fx:id="payment_date" promptText=" 1/11/111" />
-                              <Label fx:id="paymentDate_icon" translateX="-50.0">
-                                 <graphic>
-                                    <FontIcon iconColor="#ff0101" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                 </graphic>
-                                 <tooltip>
-                                    <Tooltip fx:id="paymentDateTT" text="Empty Tooltip" />
-                                 </tooltip>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Label>
+                              <VBox>
+                                 <children>
+                                    <DatePicker fx:id="payment_date" promptText=" 1/11/111" />
+                                    <HBox fx:id="paymentDate_icon" alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Invalid Field" textFill="RED">
+                                             <font>
+                                                <Font name="Arial Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label>
+                                             <graphic>
+                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                             </graphic>
+                                             <tooltip>
+                                                <Tooltip fx:id="paymentDateTT" text="Empty Tooltip" />
+                                             </tooltip>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                      </children>
@@ -185,22 +237,35 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="payment_amount" promptText="Payment Amount:">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </TextField>
-                              <Label fx:id="paymentAmount_icon" translateX="-27.0">
-                                 <graphic>
-                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                 </graphic>
-                                 <tooltip>
-                                    <Tooltip fx:id="paymentAmountTT" text="Empty Tooltip" />
-                                 </tooltip>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Label>
+                              <VBox>
+                                 <children>
+                                    <TextField fx:id="payment_amount" promptText="Payment Amount:">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </TextField>
+                                    <HBox fx:id="paymentAmount_icon" alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Invalid Field" textFill="RED">
+                                             <font>
+                                                <Font name="Arial Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label>
+                                             <graphic>
+                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                             </graphic>
+                                             <tooltip>
+                                                <Tooltip fx:id="paymentAmountTT" text="Empty Tooltip" />
+                                             </tooltip>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                      </children>

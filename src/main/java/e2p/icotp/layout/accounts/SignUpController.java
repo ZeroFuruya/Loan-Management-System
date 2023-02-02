@@ -1,5 +1,6 @@
 package e2p.icotp.layout.accounts;
 
+import e2p.icotp.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -31,7 +32,26 @@ public class SignUpController {
     private Tooltip confirmPassTT;
 
     @FXML
-    private Button signUp;
+    private Button signUpButton;
     @FXML
     private Hyperlink logIn;
+
+    private App app;
+    private SignUp signUp;
+
+    @FXML
+    void handle_signUp(){
+        
+    }
+
+    public void load(App app) {
+        this.app = app;
+        init_bindings();
+    }
+
+    private void init_bindings() {
+
+        signUpButton.disableProperty().bind(usernameLabel.visibleProperty().or(passwordLabel.visibleProperty())
+                .or(confirmPassLabel.visibleProperty()));
+    }
 }

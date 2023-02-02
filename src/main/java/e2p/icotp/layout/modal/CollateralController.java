@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
 
 public class CollateralController {
     @FXML
@@ -22,11 +23,11 @@ public class CollateralController {
 
     // Label
     @FXML
-    private Label loanerIdLabel;
+    private HBox loanerIdLabel;
     @FXML
-    private Label loanIdLabel;
+    private HBox loanIdLabel;
     @FXML
-    private Label collateralLabel;
+    private HBox collateralLabel;
 
     // Tooltip
     @FXML

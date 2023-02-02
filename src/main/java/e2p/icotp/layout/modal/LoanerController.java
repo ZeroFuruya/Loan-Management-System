@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
 
 public class LoanerController {
     @FXML
@@ -46,25 +47,25 @@ public class LoanerController {
 
     // Icons
     @FXML
-    private Label name_icon;
+    private HBox name_icon;
     @FXML
-    private Label birthday_icon;
+    private HBox birthday_icon;
     @FXML
-    private Label address_icon;
+    private HBox address_icon;
     @FXML
-    private Label contact_icon;
+    private HBox contact_icon;
     @FXML
-    private Label email_icon;
+    private HBox email_icon;
     @FXML
-    private Label loanerId_icon;
+    private HBox loanerId_icon;
     @FXML
-    private Label socialSecurity_icon;
+    private HBox socialSecurity_icon;
     @FXML
-    private Label civilStatus_icon;
+    private HBox civilStatus_icon;
     @FXML
-    private Label citizenship_icon;
+    private HBox citizenship_icon;
     @FXML
-    private Label placeOfBirth_icon;
+    private HBox placeOfBirth_icon;
 
     // ToolTip
     @FXML

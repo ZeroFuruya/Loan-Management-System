@@ -24,7 +24,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <font>
-                        <Font name="Arial" size="40.0" />
+                        <Font size="40.0" />
                      </font>
                   </Label>
                </children>
@@ -40,27 +40,40 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font name="Arial" size="17.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="loanerId" prefHeight="27.0" prefWidth="182.0">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </TextField>
-                              <Label fx:id="loanerIdLabel" prefHeight="26.0" prefWidth="21.0" textFill="RED" translateX="-27.0">
-                                 <graphic>
-                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                 </graphic>
-                                 <tooltip>
-                                    <Tooltip fx:id="loanerIdTT" text="Empty Tooltip" />
-                                 </tooltip>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </Label>
+                              <VBox>
+                                 <children>
+                                    <TextField fx:id="loanerId" prefHeight="27.0" prefWidth="182.0">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </TextField>
+                                    <HBox fx:id="loanerIdLabel" alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Invalid Field" textFill="RED">
+                                             <font>
+                                                <Font name="Arial Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="loanerIdLabel" prefHeight="26.0" prefWidth="21.0" textFill="RED">
+                                             <graphic>
+                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                             </graphic>
+                                             <tooltip>
+                                                <Tooltip fx:id="loanerIdTT" text="Empty Tooltip" />
+                                             </tooltip>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                      </children>
@@ -75,7 +88,7 @@
                      <children>
                         <Label text="Loan ID:">
                            <font>
-                              <Font name="Arial" size="17.0" />
+                              <Font size="20.0" />
                            </font>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -83,18 +96,39 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="loanId" prefHeight="27.0" prefWidth="197.0">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </TextField>
+                              <VBox>
+                                 <children>
+                                    <TextField fx:id="loanId" prefHeight="27.0" prefWidth="197.0">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </TextField>
+                                    <HBox fx:id="loanIdLabel" alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Invalid Field" textFill="RED">
+                                             <font>
+                                                <Font name="Arial Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="loanerIdLabel1" prefHeight="26.0" prefWidth="21.0" textFill="RED">
+                                             <graphic>
+                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                             </graphic>
+                                             <tooltip>
+                                                <Tooltip fx:id="loanerIdTT1" text="Empty Tooltip" />
+                                             </tooltip>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                               <Label fx:id="loanIdLabel" translateX="-27.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
-                                 <graphic>
-                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                 </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="loanIdTT" text="Empty Tooltip" />
                                  </tooltip>
@@ -113,23 +147,44 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font name="Arial" size="17.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="collateral" prefHeight="27.0" prefWidth="203.0">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </TextField>
+                              <VBox>
+                                 <children>
+                                    <TextField fx:id="collateral" prefHeight="27.0" prefWidth="203.0">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </TextField>
+                                    <HBox fx:id="collateralLabel" alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Invalid Field" textFill="RED">
+                                             <font>
+                                                <Font name="Arial Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="loanerIdLabel2" prefHeight="26.0" prefWidth="21.0" textFill="RED">
+                                             <graphic>
+                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                             </graphic>
+                                             <tooltip>
+                                                <Tooltip fx:id="loanerIdTT2" text="Empty Tooltip" />
+                                             </tooltip>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                               <Label fx:id="collateralLabel" translateX="-27.0">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
-                                 <graphic>
-                                    <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                 </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="collateralTT" text="Empty Tooltip" />
                                  </tooltip>
