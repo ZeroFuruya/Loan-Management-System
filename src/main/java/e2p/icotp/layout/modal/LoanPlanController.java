@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
 
 public class LoanPlanController {
     @FXML
@@ -34,13 +35,13 @@ public class LoanPlanController {
     // ICONS
 
     @FXML
-    private Label installment_icon;
+    private HBox installment_icon;
     @FXML
-    private Label interest_icon;
+    private HBox interest_icon;
     @FXML
-    private Label repayment_icon;
+    private HBox repayment_icon;
     @FXML
-    private Label monthlyPenalty_icon;
+    private HBox monthlyPenalty_icon;
 
     // Tooltips
     @FXML
