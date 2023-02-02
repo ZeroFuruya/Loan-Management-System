@@ -33,7 +33,7 @@ public class LoanTypeDAO {
     // LoanType DATA
     public static LoanType loan_typeData(CachedRowSet crs) throws SQLException {
 
-        long type_id = crs.getLong("type_id");
+        int type_id = crs.getInt("type_id");
         String type_name = crs.getString("type_name");
         String type_desc = crs.getString("type_desc");
 
