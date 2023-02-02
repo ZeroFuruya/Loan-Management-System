@@ -12,6 +12,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
 
 public class LoanController {
     @FXML
@@ -39,19 +40,19 @@ public class LoanController {
 
     // Icons
     @FXML
-    private Label term_icon;
+    private HBox term_icon;
     @FXML
-    private Label releaseDate_icon;
+    private HBox releaseDate_icon;
     @FXML
-    private Label maturityDate_icon;
+    private HBox maturityDate_icon;
     @FXML
-    private Label principal_icon;
+    private HBox principal_icon;
     @FXML
-    private Label interest_icon;
+    private HBox interest_icon;
     @FXML
-    private Label penalty_icon;
+    private HBox penalty_icon;
     @FXML
-    private Label due_icon;
+    private HBox due_icon;
 
     // ToolTips
     @FXML
