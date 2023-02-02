@@ -405,10 +405,10 @@
 	-fx-text-shadow:0px 1px 0px #b23e35;
 }
 .button:hover {
-	-fx-background-color:linear-gradient(to bottom, #8f52ff 5%, #8f52ff 100%);
+	-fx-background-color:linear-gradient(to bottom, #e7666c 5%, #ff525b 100%);
 }
 .button:pressed {
-    -fx-background-color:linear-gradient(to bottom, #31087B 5%, #31087B 100%);
+    -fx-background-color:linear-gradient(to bottom, #ff2f3a 5%, #ff2f3a 100%);
 }
 
 .toggle_button{

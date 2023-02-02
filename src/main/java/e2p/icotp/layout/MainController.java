@@ -672,12 +672,6 @@ public class MainController {
 
     }
 
-    private void _init_type_bindings() {
-    }
-
-    private void _init_plan_bindings() {
-    }
-
     // CUSTOMS
     private void status_image_setter(String status) {
         switch (status) {
@@ -692,6 +686,7 @@ public class MainController {
     }
 
     private void _init_types() {
+        types_scroll_pane.setStyle("-fx-background: #fbde44; -fx-border-color: #fbde44;");
         types_container.prefWidthProperty().bind(types_scroll_pane.widthProperty().subtract(18));
         types_container.setSpacing(10);
         loanTypeList.forEach(type -> {
@@ -705,6 +700,10 @@ public class MainController {
             types_container.getChildren().add(TypesFactory.createHBox(val1, val2, val3,
                     TypesFactory.createButton("Modify", Color.RED, type, this, app)));
         });
+    }
+
+    private void init_plans() {
+
     }
 
     // GETTERS AND SETTERS

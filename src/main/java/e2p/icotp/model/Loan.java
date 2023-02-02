@@ -18,8 +18,9 @@ public class Loan {
     private IntegerProperty loan_id;
     private ObjectProperty<Loaner> loaner_id;
     private ObjectProperty<LoanType> loan_type;
+    private ObjectProperty<LoanPlan> loan_plan;
     private ObjectProperty<LocalDate> release_date;
-    private IntegerProperty term;
+    private LongProperty term;
     private ObjectProperty<LocalDate> maturity_date;
     private DoubleProperty principal;
     private DoubleProperty interest;
@@ -29,7 +30,8 @@ public class Loan {
     private DoubleProperty balance;
     private StringProperty status;
 
-    public Loan(int loan_id, Loaner loaner_id, LoanType loan_type, LocalDate release_date, int term,
+    public Loan(int loan_id, Loaner loaner_id, LoanType loan_type, LoanPlan loan_plan, LocalDate release_date,
+            long term,
             LocalDate maturity_date,
             double principal,
             double interest, double penalty, long due, double paid, double balance, String status) {
@@ -37,8 +39,9 @@ public class Loan {
         this.loan_id = new SimpleIntegerProperty(loan_id);
         this.loaner_id = new SimpleObjectProperty<>(loaner_id);
         this.loan_type = new SimpleObjectProperty<>(loan_type);
+        this.loan_plan = new SimpleObjectProperty<>(loan_plan);
         this.release_date = new SimpleObjectProperty<>(release_date);
-        this.term = new SimpleIntegerProperty(term);
+        this.term = new SimpleLongProperty(term);
         this.maturity_date = new SimpleObjectProperty<>(maturity_date);
         this.principal = new SimpleDoubleProperty(principal);
         this.interest = new SimpleDoubleProperty(interest);
@@ -50,12 +53,12 @@ public class Loan {
     }
 
     public Loan() {
-        this(0, new Loaner(), new LoanType(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
+        this(0, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
                 Status.APPLICATION);
     }
 
     public Loan(int id) {
-        this(id, new Loaner(), new LoanType(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
+        this(id, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
                 Status.APPLICATION);
     }
 
@@ -68,8 +71,12 @@ public class Loan {
         this.loaner_id.set(loaner_id);
     }
 
-    public void setLoaner_id(LoanType loan_type) {
+    public void setLoanType(LoanType loan_type) {
         this.loan_type.set(loan_type);
+    }
+
+    public void setLoanPlan(LoanPlan loan_plan) {
+        this.loan_plan.set(loan_plan);
     }
 
     public void setRelease_date(LocalDate release_date) {
@@ -125,11 +132,15 @@ public class Loan {
         return this.loan_type.get();
     }
 
+    public LoanPlan getLoanPlan() {
+        return this.loan_plan.get();
+    }
+
     public LocalDate getRelease_date() {
         return this.release_date.get();
     }
 
-    public int getTerm() {
+    public long getTerm() {
         return this.term.get();
     }
 
@@ -178,11 +189,15 @@ public class Loan {
         return this.loan_type;
     }
 
+    public ObjectProperty<LoanPlan> getLoanPlan_Property() {
+        return this.loan_plan;
+    }
+
     public ObjectProperty<LocalDate> getRelease_date_Property() {
         return this.release_date;
     }
 
-    public IntegerProperty getTermProperty() {
+    public LongProperty getTermProperty() {
         return this.term;
     }
 

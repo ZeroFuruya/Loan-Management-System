@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import e2p.icotp.model.Collateral;
 import e2p.icotp.service.server.dao.*;
 import e2p.icotp.model.Loan;
+import e2p.icotp.model.LoanPlan;
 import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
@@ -28,6 +29,7 @@ public class App extends Application {
     private ObservableList<Loaner> loanerCache;
     private ObservableList<Payment> paymentCache;
     private ObservableList<LoanType> loan_typeCache;
+    private ObservableList<LoanPlan> loan_planCache;
 
     // STASH UPDATE COMMENT
 
@@ -46,9 +48,12 @@ public class App extends Application {
         loanerCache = LoanerDAO.getMasterlist();
         paymentCache = PaymentDAO.getMasterlist();
         loan_typeCache = LoanTypeDAO.getMasterlist();
+        loan_planCache = LoanPlanDAO.getMasterlist();
 
-        loanCache.forEach(loan -> {
-            System.out.println(loan.getLoanType().getName());
+        System.out.println("======================================");
+        loan_planCache.forEach(loan -> {
+            System.out.println(loan.getId().get());
+            System.out.println(loan.getType().get().getName().get());
         });
     }
 
@@ -88,6 +93,10 @@ public class App extends Application {
 
     public ObservableList<LoanType> loanTypeMasterlist() {
         return loan_typeCache;
+    }
+
+    public ObservableList<LoanPlan> loanPlanMasterlist() {
+        return loan_planCache;
     }
 
     public static void main(String[] args) {

@@ -10,9 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -38,7 +41,7 @@ public class TypesFactory {
             }
         });
 
-        // DropShadow dsfx = new DropShadow(BlurType.GAUSSIAN, Color.BLACK, 5, 0, 7, 7);
+        // DropShadow dsfx = new DropShadow(null, Color.WHITE, 1, 1, 0, 0);
         // hbox.setEffect(dsfx);
         return hbox;
     }
@@ -60,8 +63,8 @@ public class TypesFactory {
         label.wrapTextProperty().set(true);
         label.setFont(Font.font("Arial", font_size));
         label.setAlignment(Pos.CENTER);
-        label.setTextFill(Color.BLACK);
-        label.getStyleClass().add("label-dark");
+        label.setTextFill(Color.WHITE);
+        label.getStyleClass().add("label-bright");
         return label;
     }
 
@@ -85,6 +88,7 @@ public class TypesFactory {
                         new BorderWidths(0))));
         button.addEventHandler(ActionEvent.ACTION, eventHandler);
         button.setAlignment(Pos.CENTER);
+        button.setCursor(Cursor.HAND);
         return button;
     }
 }

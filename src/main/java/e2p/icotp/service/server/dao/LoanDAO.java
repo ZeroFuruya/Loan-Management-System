@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.sql.rowset.CachedRowSet;
 
 import e2p.icotp.model.Loan;
+import e2p.icotp.model.LoanPlan;
 import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.service.server.core.SQLCommand;
@@ -32,12 +33,6 @@ public class LoanDAO {
         return crs.next() ? LoanerDAO.loanerData(crs) : null;
     }
 
-    public static LoanType getLoanTypeById(int id) throws SQLException {
-        SQLParam idParam = new SQLParam(Types.INTEGER, "type_id", id);
-        CachedRowSet crs = SQLCommand.selectByID("loan_types", idParam);
-        return crs.next() ? LoanTypeDAO.loan_typeData(crs) : null;
-    }
-
     public static Loan loanData(CachedRowSet crs) throws SQLException {
         int loan_id = (crs.getInt("loan_id"));
         int loaner_id = (crs.getInt("loaner_id"));
@@ -47,15 +42,24 @@ public class LoanDAO {
         } else {
             loaner = getLoanerById(loaner_id);
         }
-        int type_id = (crs.getInt("type_id"));
+        int plan_id = (crs.getInt("plan_id"));
+        LoanPlan loan_plan;
+        if (plan_id <= 0) {
+            loan_plan = new LoanPlan();
+        } else {
+            loan_plan = LoanPlanDAO.getLoanPlanByID(plan_id);
+        }
+
+        int type_id = loan_plan.getType().get().getId().get();
         LoanType loan_type;
         if (type_id <= 0) {
             loan_type = new LoanType();
         } else {
-            loan_type = getLoanTypeById(type_id);
+            loan_type = LoanPlanDAO.getLoanTypeById(type_id);
         }
+
         LocalDate release_date = (crs.getDate("release_date").toLocalDate());
-        int term = (crs.getInt("term"));
+        long term = (crs.getLong("term"));
         LocalDate maturity_date = (crs.getDate("maturity_date").toLocalDate());
         double principal = (crs.getDouble("principal"));
         double interest = (crs.getDouble("interest"));
@@ -65,7 +69,7 @@ public class LoanDAO {
         double balance = (crs.getDouble("balance"));
         String status = (crs.getString("status"));
 
-        return new Loan(loan_id, loaner, loan_type, release_date, term, maturity_date, principal, interest,
+        return new Loan(loan_id, loaner, loan_type, loan_plan, release_date, term, maturity_date, principal, interest,
                 penalty, due,
                 paid,
                 balance, status);
