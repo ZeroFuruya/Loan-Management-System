@@ -1,24 +1,32 @@
 package e2p.icotp.layout;
 
 import java.io.IOException;
+import java.sql.Types;
 import java.text.NumberFormat;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.factory.TypesFactory;
+import e2p.icotp.model.Collateral;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.LoanPlan;
 import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
-import e2p.icotp.model.Enums.Status;
+import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.service.loader.ModalLoader;
+import e2p.icotp.service.server.core.SQLCommand;
+import e2p.icotp.service.server.dao.LoanPlanDAO;
 import e2p.icotp.util.custom.DateUtil;
+import e2p.icotp.util.custom.DoubleTextFieldFormatter;
+import e2p.icotp.util.custom.IDTextFieldFormatter;
 import e2p.icotp.util.custom.LoanPlanListCell;
 import e2p.icotp.util.custom.LoanTypeListCell;
 import e2p.icotp.util.custom.LoanTypeStringConverter;
+import e2p.icotp.util.custom.RandomIDGenerator;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -35,6 +43,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -50,11 +59,12 @@ public class MainController {
     // private static final int fit_width = 200;
     // private static final int fit_height = 50;
 
-    // STACKPANE
+    // STACKPANE-----------------------------------------------------
     @FXML
     StackPane motherPane;
 
-    // VBOX (Child of Mother StackPane)
+    // VBOX (Child of Mother
+    // StackPane)-----------------------------------------------------
     @FXML
     VBox home_box;
     @FXML
@@ -68,21 +78,23 @@ public class MainController {
     @FXML
     VBox plans_box;
 
-    // VBOX
+    // VBOX-----------------------------------------------------
     @FXML
     VBox toggle_btn_container;
     @FXML
     VBox loan_information_container;
     @FXML
     VBox payment_information_container;
+    @FXML
+    VBox collateral_information_container;
 
-    // HBOX
+    // HBOX-----------------------------------------------------
     @FXML
     HBox loaner_information_container;
     @FXML
     HBox loaner_name_container;
 
-    // TOGGLE BUTTONS
+    // TOGGLE BUTTONS-----------------------------------------------------
     @FXML
     ToggleButton home_button;
     @FXML
@@ -96,7 +108,7 @@ public class MainController {
     @FXML
     ToggleButton plans_button;
 
-    // TABLEVIEWS
+    // TABLEVIEWS-----------------------------------------------------
     @FXML
     TableView<Loaner> loanerTable;
     @FXML
@@ -105,8 +117,10 @@ public class MainController {
     TableView<Payment> paymentTable;
     @FXML
     TableView<LoanPlan> loanPlanTable;
+    @FXML
+    TableView<Collateral> collateralTable;
 
-    // TABLE COLS - Loaner
+    // TABLE COLS - Loaner-----------------------------------------------------
     @FXML
     TableColumn<Loaner, Long> loaner_id;
     @FXML
@@ -135,7 +149,7 @@ public class MainController {
     @FXML
     TextField loaner_search;
 
-    // TABLE COLS - Loan
+    // TABLE COLS - Loan-----------------------------------------------------
     @FXML
     TableColumn<Loan, Integer> loan_id;
     @FXML
@@ -175,7 +189,7 @@ public class MainController {
     @FXML
     ImageView status_image;
 
-    // TABLE COLS - Payment
+    // TABLE COLS - Payment-----------------------------------------------------
     @FXML
     TableColumn<Payment, Long> payment_id;
     @FXML
@@ -202,7 +216,37 @@ public class MainController {
     @FXML
     TextField payment_search;
 
-    // TABLE COLS - Plan
+    // TABLE COLS - Collateral-----------------------------------------------------
+    @FXML
+    TableColumn<Collateral, Long> collateral_id;
+    @FXML
+    TableColumn<Collateral, Integer> collateral_loan_id;
+    @FXML
+    TableColumn<Collateral, String> collateral_loan_type;
+
+    @FXML
+    Label collateral_id_label;
+    @FXML
+    Label collateral_loan_id_label;
+    @FXML
+    Label collateral_type_label;
+    @FXML
+    Label collateral_label;
+
+    @FXML
+    ImageView collateralImage;
+
+    @FXML
+    TextField collateral_search;
+
+    @FXML
+    Button collateral_modify_button;
+    @FXML
+    Button collateral_add_button;
+    @FXML
+    Button collateral_remove_button;
+
+    // TABLE COLS - Plan-----------------------------------------------------
     @FXML
     TableColumn<LoanPlan, Integer> plan_id;
     @FXML
@@ -245,17 +289,19 @@ public class MainController {
     @FXML
     HBox plan_penalty_err;
 
-    // SCROLLPANE
+    // SCROLLPANE-----------------------------------------------------
     @FXML
     ScrollPane types_scroll_pane;
     @FXML
     VBox types_container;
 
-    // APP -------------------------------------
+    // APP
+    // ------------------------------------------------------------------------------------------
 
     App app;
 
-    // LISTS -----------------------------------
+    // LISTS
+    // ----------------------------------------------------------------------------------------
 
     FilteredList<Loaner> loanerList;
     FilteredList<Loan> loanList;
@@ -267,7 +313,8 @@ public class MainController {
     ObservableList<Loan> loanObservableList;
     ObservableList<Payment> paymentObservableList;
 
-    // MODELS ----------------------------------
+    // MODELS
+    // ---------------------------------------------------------------------------------------
     Loaner og_loaner = new Loaner();
     Loaner loaner = new Loaner();
     Loan og_loan = new Loan();
@@ -280,8 +327,12 @@ public class MainController {
     LoanPlan loan_plan = new LoanPlan();
 
     NumberFormat format = NumberFormat.getInstance();
+    TextFormatter<Number> interest_formatter;
+    TextFormatter<Number> penalty_formatter;
+    TextFormatter<Long> term_formatter;
 
-    // LOANER BUTTON HANDLES ---------------------------
+    // LOANER BUTTON HANDLES
+    // --------------------------------------------------------------------------------
     @FXML
     private void handle_loaner_edit() throws IOException {
         ModalLoader.load_loaner_update(app, loaner, true, this);
@@ -297,7 +348,8 @@ public class MainController {
         app.loanerMasterlist().remove(og_loaner);
     }
 
-    // LOAN BUTTON HANDLES -----------------------------
+    // LOAN BUTTON HANDLES
+    // ----------------------------------------------------------------------------------
     @FXML
     private void handle_loan_edit() throws IOException {
         ModalLoader.load_loan_update(app, loan, true, this);
@@ -326,6 +378,14 @@ public class MainController {
         payment_information_container.setVisible(false);
 
         loanTypeList = new FilteredList<>(app.loanTypeMasterlist(), p -> true);
+
+        interest_formatter = new DoubleTextFieldFormatter();
+        penalty_formatter = new DoubleTextFieldFormatter();
+        term_formatter = new IDTextFieldFormatter();
+
+        plan_interest_tf.setTextFormatter(interest_formatter);
+        plan_penalty_tf.setTextFormatter(penalty_formatter);
+        plan_term_tf.setTextFormatter(term_formatter);
 
         init_tables();
         init_bindings();
@@ -747,10 +807,10 @@ public class MainController {
     // CUSTOMS
     private void status_image_setter(String status) {
         switch (status) {
-            case Status.APPLICATION:
+            case LoanStatus.APPLICATION:
                 status_image.setImage(new Image(App.class.getResourceAsStream("assets/images/app_logo.png")));
                 break;
-            case Status.OPEN:
+            case LoanStatus.OPEN:
                 status_image
                         .setImage(new Image(App.class.getResourceAsStream("assets/images/open2-removebg-preview.png")));
                 break;
@@ -758,7 +818,7 @@ public class MainController {
     }
 
     private void _init_types() {
-        types_scroll_pane.setStyle("-fx-background: #fbde44; -fx-border-color: #fbde44;");
+        types_scroll_pane.setStyle("-fx-background: #bb161e; -fx-border-color: #bb161e;");
         types_container.prefWidthProperty().bind(types_scroll_pane.widthProperty().subtract(18));
         types_container.setSpacing(10);
         loanTypeList.forEach(type -> {
@@ -775,7 +835,20 @@ public class MainController {
     }
 
     private void init_plans() {
+        generate_id();
+        plan_type_cbox.disableProperty().bind(edit_toggle.selectedProperty());
+        plan_term_err.visibleProperty()
+                .bind(plan_term_tf.textProperty().isEmpty().or(plan_term_tf.textProperty().isEqualTo("0")));
+        plan_interest_err.visibleProperty()
+                .bind(plan_interest_tf.textProperty().isEmpty().or(plan_interest_tf.textProperty().isEqualTo("0.0")));
+        plan_penalty_err.visibleProperty()
+                .bind(plan_penalty_tf.textProperty().isEmpty().or(plan_penalty_tf.textProperty().isEqualTo("0.0")));
+        plan_type_err.visibleProperty().bind(plan_type_cbox.getSelectionModel().selectedItemProperty().isNull());
+
+        plan_save_button.disableProperty().bind(plan_type_err.visibleProperty().or(plan_term_err.visibleProperty())
+                .or(plan_interest_err.visibleProperty()).or(plan_penalty_err.visibleProperty()));
         plan_init_cbox();
+        plan_remove_button.disableProperty().bind(loanPlanTable.getSelectionModel().selectedItemProperty().isNull());
         loanPlanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (nv != null) {
                 og_loan_plan = nv;
@@ -808,6 +881,7 @@ public class MainController {
                 plan_load_fields();
                 edit_toggle.textProperty().set("Edit");
             } else {
+                generate_id();
                 plan_clear_fields();
                 edit_toggle.textProperty().set("Add");
             }
@@ -823,7 +897,9 @@ public class MainController {
     }
 
     void plan_load_fields() {
-        plan_id_tf.setText(loan_plan.getId().get() + "");
+        if (edit_toggle.isSelected()) {
+            plan_id_tf.setText(loan_plan.getId().get() + "");
+        }
         plan_type_cbox.getSelectionModel().select(loan_plan.getType().get());
         plan_term_tf.setText(loan_plan.getTerm().get() + "");
         plan_interest_tf.setText(loan_plan.getInterest().get() + "");
@@ -831,11 +907,62 @@ public class MainController {
     }
 
     void plan_clear_fields() {
-        plan_id_tf.setText("0");
         plan_type_cbox.getSelectionModel().select(new LoanType());
         plan_term_tf.setText("0");
         plan_interest_tf.setText("0.0");
         plan_penalty_tf.setText("0.0");
+    }
+
+    @FXML
+    void handle_save_plan() {
+        plan_modify_listener();
+
+        if (edit_toggle.isSelected()) {
+            LoanPlanDAO.update(loan_plan);
+            app.loanPlanMasterlist().add(loan_plan);
+            app.loanPlanMasterlist().remove(og_loan_plan);
+            plan_clear_fields();
+
+        } else {
+            LoanPlanDAO.insert(loan_plan);
+            app.loanPlanMasterlist().add(loan_plan);
+            plan_clear_fields();
+        }
+    }
+
+    @FXML
+    private void handle_remove_plan() {
+        app.loanPlanMasterlist().remove(og_loan_plan);
+        plan_clear_fields();
+    }
+
+    void plan_modify_listener() {
+        loan_plan.getId().set(Integer.parseInt(plan_id_tf.textProperty().get()));
+        loan_plan.getType().set(plan_type_cbox.getSelectionModel().getSelectedItem());
+        loan_plan.getTerm().set(Long.parseLong(plan_term_tf.textProperty().get()));
+        loan_plan.getInterest().set(Double.parseDouble(plan_interest_tf.textProperty().get()));
+        loan_plan.getPenalty().set(Double.parseDouble(plan_penalty_tf.textProperty().get()));
+    }
+
+    long final_num = 0;
+
+    private void generate_id() {
+        String temp_val;
+        String string_val = "";
+        for (int i = 0; i < 4; i++) {
+            int initial_num = RandomIDGenerator.getRandomNumber();
+            temp_val = Integer.toString(initial_num);
+            string_val = temp_val + string_val;
+        }
+        final_num = Long.parseLong(string_val);
+
+        app.loanPlanMasterlist().forEach(loan_plan -> {
+            if (loan_plan.getId().get() == final_num) {
+                generate_id();
+            } else {
+                plan_id_tf.textProperty().set(final_num + "");
+            }
+        });
     }
 
     // GETTERS AND SETTERS

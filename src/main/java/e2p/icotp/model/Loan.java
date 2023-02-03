@@ -2,7 +2,7 @@ package e2p.icotp.model;
 
 import java.time.LocalDate;
 
-import e2p.icotp.model.Enums.Status;
+import e2p.icotp.model.Enums.LoanStatus;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
@@ -54,12 +54,12 @@ public class Loan {
 
     public Loan() {
         this(0, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
-                Status.APPLICATION);
+                LoanStatus.APPLICATION);
     }
 
     public Loan(int id) {
         this(id, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
-                Status.APPLICATION);
+                LoanStatus.APPLICATION);
     }
 
     // SETTERS

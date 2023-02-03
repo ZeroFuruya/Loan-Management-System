@@ -39,6 +39,6 @@ public class IDTextFieldFormatter extends TextFormatter<Long> {
     };
 
     public IDTextFieldFormatter() {
-        super(converter, -1l, filter);
+        super(converter, 0l, filter);
     }
 }
