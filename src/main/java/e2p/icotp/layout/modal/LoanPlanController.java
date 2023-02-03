@@ -1,7 +1,7 @@
 package e2p.icotp.layout.modal;
 
 import e2p.icotp.App;
-import e2p.icotp.model.Enums.Status;
+import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.service.loader.ModalLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,7 +15,7 @@ public class LoanPlanController {
     private TextField installment;
 
     @FXML
-    private ComboBox<Status> loanStatus;
+    private ComboBox<LoanStatus> loanStatus;
 
     @FXML
     private TextField interest;

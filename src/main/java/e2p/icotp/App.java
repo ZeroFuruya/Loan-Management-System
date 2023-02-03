@@ -53,10 +53,10 @@ public class App extends Application {
     }
 
     private void load_cache() throws SQLException {
-        collateralCache = CollateralDAO.getMasterlist();
         loanCache = LoanDAO.getMasterlist();
         loanerCache = LoanerDAO.getMasterlist();
         paymentCache = PaymentDAO.getMasterlist();
+        collateralCache = CollateralDAO.getMasterlist();
         loan_typeCache = LoanTypeDAO.getMasterlist();
         loan_planCache = LoanPlanDAO.getMasterlist();
 

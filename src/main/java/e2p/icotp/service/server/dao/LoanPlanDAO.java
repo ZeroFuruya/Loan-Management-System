@@ -66,15 +66,15 @@ public class LoanPlanDAO {
         updateById(loan_plan, loan_plan.getId().get());
     }
 
-    public static void updateById(LoanPlan loan_plan, long target_id) {
-        SQLParam idParam = new SQLParam(Types.BIGINT, "plan_id", target_id);
+    public static void updateById(LoanPlan loan_plan, int target_id) {
+        SQLParam idParam = new SQLParam(Types.INTEGER, "plan_id", target_id);
         ArrayList<SQLParam> params = parameters(loan_plan);
         SQLCommand.updateById("loan_plans", params, idParam);
     }
 
     // Remove
     public static void remove(int plan_id) {
-        SQLParam idParam = new SQLParam(Types.BIGINT, "plan_id", plan_id);
+        SQLParam idParam = new SQLParam(Types.INTEGER, "plan_id", plan_id);
         SQLCommand.deleteById("loan_plans", idParam);
     }
 
@@ -85,9 +85,9 @@ public class LoanPlanDAO {
         // int plan_id
         params.add(new SQLParam(Types.INTEGER, "plan_id", loan_plan.getId().get()));
         // int plan_id
-        params.add(new SQLParam(Types.INTEGER, "type_id", loan_plan.getType().get().getId()));
+        params.add(new SQLParam(Types.INTEGER, "type_id", loan_plan.getType().get().getId().get()));
         // int plan_id
-        params.add(new SQLParam(Types.INTEGER, "term", loan_plan.getTerm().get()));
+        params.add(new SQLParam(Types.BIGINT, "term", loan_plan.getTerm().get()));
         // int plan_id
         params.add(new SQLParam(Types.DECIMAL, "interest", loan_plan.getInterest().get()));
         // int plan_id
