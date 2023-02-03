@@ -3,7 +3,7 @@ package e2p.icotp.layout.modal;
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
 import e2p.icotp.model.Loan;
-import e2p.icotp.model.Enums.Status;
+import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.service.loader.ModalLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -32,11 +32,11 @@ public class LoanController {
     @FXML
     private TextField due;
     @FXML
-    private ComboBox<Status> status;
+    private ComboBox<LoanStatus> status;
     @FXML
-    private ComboBox<Status> loan_type;
+    private ComboBox<LoanStatus> loan_type;
     @FXML
-    private ComboBox<Status> loan_plan;
+    private ComboBox<LoanStatus> loan_plan;
 
     // Icons
     @FXML

@@ -144,7 +144,7 @@
 
 .table-view {
     -fx-background-color: transparent;
-    -fx-border-color: transparent;
+    -fx-border-color: rgba(0, 0, 0, 0);
     background-color: transparent;
     border-color: transparent;
 }
@@ -156,8 +156,8 @@
 }
 
 .table-row-cell {
-    -fx-border-style: none;
-    -fx-border-width: 2;
+    -fx-border-style: solid;
+    -fx-border-style: solid; -fx-border-width: 0.5;
     border-style: none;
     border-width: 2;
     -fx-text-fill: rgb(255, 255, 255);
@@ -165,8 +165,8 @@
 
 .table-view .table-cell {
     -fx-alignment: left;
-    -fx-border-style: none;
-    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-width: 0.5;
     border-style: none;
     border-width: 1;
     -fx-text-fill: rgb(255, 255, 255);
@@ -179,7 +179,7 @@
 
 .table-row-cell {
     -fx-background-color: -fx-primary;
-    -fx-border-color: transparent;
+    -fx-border-color: rgba(0, 0, 0, 0);
     background-color: -fx-primary;
     border-color: transparent;
     -fx-table-cell-border-color: transparent;
@@ -251,7 +251,7 @@
     -fx-padding: 0;
     padding: 0;
     -fx-text-fill: -fx-text-background-color;
-    -fx-border-color: null;
+    -fx-border-color: rgba(0, 0, 0, 0);
     border-color: null;
     -fx-height: 40px;
     height: 40px;
@@ -259,20 +259,26 @@
 
 .table-row-cell:odd {
     -fx-text-fill: rgb(255, 255, 255);
-	-fx-background-color:#100720;
+	-fx-background-color:#bb161e;
+	background-color:#bb161e;
     -fx-font-size: 13;
+    font-size: 13;
     background: rgb(49, 49, 49);
 }
 .table-row-cell:even {
     -fx-text-fill: rgb(255, 255, 255);
-	-fx-background-color:#06010f; 
+	-fx-background-color:#830c12; 
+	background-color:#830c12; 
     -fx-font-size: 13;
+    font-size: 13;
     background: rgb(49, 49, 49);
 }
 
 .table-row-cell:selected {
     -fx-background-color:linear-gradient(to bottom, #ff0077 1%, #31087B 100%);
+    background-color:linear-gradient(to bottom, #ff0077 1%, #31087B 100%);
     -fx-font-weight: bold;
+    font-weight: bold;
 }
 
 .table-cell {
@@ -291,6 +297,7 @@
 
 .text-field {
     -fx-font-family: "Century Gothic";
+    font-family: "Century Gothic";
     -fx-background-color: #ffffff5e;
     background-color: #FFC23C;
     -fx-background-radius: 1;
@@ -298,6 +305,7 @@
     font-size: 20;
     -fx-text-fill: rgb(0, 0, 0);
     -fx-fill: rgb(0, 0, 0);
+    fill: rgb(0, 0, 0);
     -fx-border-color: #ae00ff00;
     border-color: transparent;
     -fx-border-radius: 1;
@@ -336,69 +344,99 @@
     -fx-text-area-background: #180b20;
     -fx-text-fill: white;
     -fx-font-size: 17;
+    font-size: 17;
     -fx-font-family: "Century Gothic";
+    font-family: "Century Gothic";
     -fx-fill: white;
+    fill: white;
 }
 .text-area:hover {
     -fx-text-area-background: #180b20;
     -fx-text-fill: white;
     -fx-font-size: 17;
+    font-size: 17;
     -fx-font-family: "Century Gothic";
+    font-family: "Century Gothic";
     -fx-fill: white;
+    fill: white;
 }
 .text-area:focused {
     -fx-text-area-background: #180b20;
     -fx-text-fill: white;
     -fx-font-size: 17;
+    font-size: 17;
     -fx-font-family: "Century Gothic";
+    font-family: "Century Gothic";
     -fx-fill: white;
+    fill: white;
 }
 
 .text-area:pressed {
     -fx-text-area-background: #180b20;
     -fx-text-fill: white;
     -fx-font-size: 17;
+    font-size: 17;
     -fx-font-family: "Century Gothic";
+    font-family: "Century Gothic";
     -fx-fill: white;
+    fill: white;
 }
 
 .text-area:selected {
     -fx-text-area-background: #180b20;
     -fx-text-fill: white;
     -fx-font-size: 17;
+    font-size: 17;
     -fx-font-family: "Century Gothic";
+    font-family: "Century Gothic";
     -fx-fill: white;
+    fill: white;
 }
 
 .text-area .content {
     -fx-background-color: #180b20;
+    background-color: #180b20;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
+    border-radius: 10;
     -fx-text-fill: white;
     -fx-fill: white;
+    fill: white;
 }
 
 .text-area .scroll-pane {
     -fx-background-color: transparent;
+    background-color: transparent;
     -fx-border-color: #180b20;
+    border-color: #180b20;
     -fx-border-radius: 10;
+    border-radius: 10;
     -fx-border-width: 2;
+    border-width: 2;
     -fx-text-fill: white;
     -fx-fill: white;
+    fill: white;
 }
 
 .text-area .scroll-pane .viewport {
     -fx-background-color: transparent;
+    background-color: transparent;
     -fx-border-color: #180b20;
+    border-color: #180b20;
     -fx-border-radius: 10;
+    border-radius: 10;
     -fx-border-width: 2;
+    border-width: 2;
     -fx-text-fill: white;
     -fx-fill: white;
+    fill: white;
 }
 
 .list-view, .tree-view {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #ff00dd, #27006c);
+    background-color: linear-gradient(from 0% 0% to 100% 100%, #ff00dd, #27006c);
     -fx-border: 1 ridge black;
+    border: 1 ridge black;
 
 }
 
