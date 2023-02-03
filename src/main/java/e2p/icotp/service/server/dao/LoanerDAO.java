@@ -25,7 +25,7 @@ public class LoanerDAO {
     }
 
     // Loaner By ID
-    public static Loaner getLoanerByID(long id) throws SQLException {
+    public static Loaner getLoanerByID(int id) throws SQLException {
         SQLParam idParam = new SQLParam(Types.INTEGER, "loaner_id", id);
         CachedRowSet crs = SQLCommand.selectByID("loaners", idParam);
         return crs.next() ? loanerData(crs) : null;

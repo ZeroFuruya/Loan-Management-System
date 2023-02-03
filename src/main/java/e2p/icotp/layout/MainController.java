@@ -1,7 +1,6 @@
 package e2p.icotp.layout;
 
 import java.io.IOException;
-import java.sql.Types;
 import java.text.NumberFormat;
 
 import e2p.icotp.App;
@@ -14,19 +13,16 @@ import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.service.loader.ModalLoader;
-import e2p.icotp.service.server.core.SQLCommand;
 import e2p.icotp.service.server.dao.LoanPlanDAO;
 import e2p.icotp.util.custom.DateUtil;
 import e2p.icotp.util.custom.DoubleTextFieldFormatter;
 import e2p.icotp.util.custom.IDTextFieldFormatter;
-import e2p.icotp.util.custom.LoanPlanListCell;
 import e2p.icotp.util.custom.LoanTypeListCell;
 import e2p.icotp.util.custom.LoanTypeStringConverter;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -73,6 +69,8 @@ public class MainController {
     VBox loans_box;
     @FXML
     VBox payments_box;
+    @FXML
+    VBox collateral_box;
     @FXML
     VBox types_box;
     @FXML
@@ -153,7 +151,7 @@ public class MainController {
     @FXML
     TableColumn<Loan, Integer> loan_id;
     @FXML
-    TableColumn<Loan, String> loan_loaner_name;
+    TableColumn<Loan, String> loan_loan_type;
 
     @FXML
     Label loan_id_label;
@@ -218,7 +216,7 @@ public class MainController {
 
     // TABLE COLS - Collateral-----------------------------------------------------
     @FXML
-    TableColumn<Collateral, Long> collateral_id;
+    TableColumn<Collateral, Integer> collateral_id;
     @FXML
     TableColumn<Collateral, Integer> collateral_loan_id;
     @FXML
@@ -232,6 +230,8 @@ public class MainController {
     Label collateral_type_label;
     @FXML
     Label collateral_label;
+    @FXML
+    Label collateral_status_label;
 
     @FXML
     ImageView collateralImage;
@@ -306,12 +306,14 @@ public class MainController {
     FilteredList<Loaner> loanerList;
     FilteredList<Loan> loanList;
     FilteredList<Payment> paymentList;
+    FilteredList<Collateral> collateralList;
     FilteredList<LoanType> loanTypeList;
     FilteredList<LoanPlan> loanPlanList;
 
     // OBSERVABLE LIST
     ObservableList<Loan> loanObservableList;
     ObservableList<Payment> paymentObservableList;
+    ObservableList<Collateral> collateralObservableList;
 
     // MODELS
     // ---------------------------------------------------------------------------------------
@@ -321,6 +323,8 @@ public class MainController {
     Loan loan = new Loan();
     Payment og_payment = new Payment();
     Payment payment = new Payment();
+    Collateral og_collateral = new Collateral();
+    Collateral collateral = new Collateral();
     LoanType og_loan_type = new LoanType();
     LoanType loan_type = new LoanType();
     LoanPlan og_loan_plan = new LoanPlan();
@@ -402,6 +406,7 @@ public class MainController {
 
         this.loanObservableList = FXCollections.observableArrayList();
         this.paymentObservableList = FXCollections.observableArrayList();
+        this.collateralObservableList = FXCollections.observableArrayList();
 
         // LOANER TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         loaner_id.setCellValueFactory(loaner -> {
@@ -416,8 +421,8 @@ public class MainController {
         loan_id.setCellValueFactory(loan -> {
             return loan.getValue().getLoanID_Property().asObject();
         });
-        loan_loaner_name.setCellValueFactory(loan -> {
-            return loan.getValue().getLoanerID_Property().get().getNameProperty();
+        loan_loan_type.setCellValueFactory(loan -> {
+            return loan.getValue().getLoanType().getName();
         });
 
         // PAYMENT TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -429,6 +434,18 @@ public class MainController {
         });
         payment_loaner_name.setCellValueFactory(payment -> {
             return payment.getValue().getLoan_id_Property().get().getLoanerID_Property().get().getNameProperty();
+        });
+
+        // COLLATERAL TABLE
+        // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        collateral_id.setCellValueFactory(collateral -> {
+            return collateral.getValue().getCollateralId_property().asObject();
+        });
+        collateral_loan_id.setCellValueFactory(collateral -> {
+            return collateral.getValue().getLoan_id().getLoanID_Property().asObject();
+        });
+        collateral_loan_type.setCellValueFactory(collateral -> {
+            return collateral.getValue().getPlan_id().getType().get().getName();
         });
 
         // LOAN PLAN TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -458,6 +475,9 @@ public class MainController {
             case 2:
                 this.paymentList = new FilteredList<>(paymentObservableList, p -> true);
                 break;
+            case 3:
+                this.collateralList = new FilteredList<>(collateralObservableList, p -> true);
+                break;
         }
     }
 
@@ -467,10 +487,13 @@ public class MainController {
         loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
         loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.75));
         loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
-        loan_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.75));
+        loan_loan_type.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.75));
         payment_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
         payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
-        payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.700));
+        payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.750));
+        collateral_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.3));
+        collateral_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
+        collateral_loan_type.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.700));
 
         // HOME
         home_box.visibleProperty().bind(home_button.selectedProperty());
@@ -549,6 +572,7 @@ public class MainController {
                 loaner_name_container.setVisible(false);
                 loan_information_container.setVisible(false);
                 payment_information_container.setVisible(false);
+                collateral_information_container.setVisible(false);
             }
         });
         loaner_search.textProperty().addListener((o, ov, nv) -> {
@@ -573,10 +597,13 @@ public class MainController {
                 loan = og_loan;
                 load_payment_table();
                 refresh_payment_list();
+                load_collateral_table();
+                refresh_collateral_list();
                 _init_loan_bindings();
             } else {
                 loan_information_container.setVisible(false);
                 payment_information_container.setVisible(false);
+                collateral_information_container.setVisible(false);
             }
 
         });
@@ -618,6 +645,31 @@ public class MainController {
                 return p.getLoaner_id_Property().get().getName().toLowerCase().contains(nv.toLowerCase());
             });
         });
+
+        // COLLATERAL --------------------------------------------
+        collateralTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
+            if (nv != null) {
+                collateral_information_container.setVisible(true);
+                og_collateral = nv;
+                collateral = og_collateral;
+                _init_collateral_bindings();
+            } else {
+                collateral_information_container.setVisible(false);
+            }
+        });
+        collateral_search.textProperty().addListener((o, ov, nv) -> {
+            collateralList.setPredicate(p -> {
+                if (nv == null || nv.isEmpty()) {
+                    return true;
+                }
+
+                if (Integer.toString(p.getLoan_id().getLoan_id()).toLowerCase().contains(nv.toLowerCase())) {
+                    return true;
+                }
+
+                return p.getPlan_id().getType().get().getName().get().toLowerCase().contains(nv.toLowerCase());
+            });
+        });
     }
 
     private void clear_payment_table() {
@@ -642,6 +694,11 @@ public class MainController {
         paymentTable.setItems(paymentList);
     }
 
+    private void refresh_collateral_list() {
+        set__filtered_tables(3);
+        collateralTable.setItems(collateralList);
+    }
+
     public void load_loan_table() {
         loanObservableList.removeAll(loanObservableList);
         app.loanMasterList().forEach(loan -> {
@@ -656,6 +713,15 @@ public class MainController {
         app.paymentMasterlist().forEach(payment -> {
             if (loan.getLoan_id() == payment.getLoan_id().getLoan_id()) {
                 paymentObservableList.add(payment);
+            }
+        });
+    }
+
+    private void load_collateral_table() {
+        collateralObservableList.removeAll(collateralObservableList);
+        app.collateralMasterlist().forEach(collateral -> {
+            if (loan.getLoan_id() == collateral.getLoan_id().getLoan_id()) {
+                collateralObservableList.add(collateral);
             }
         });
     }
@@ -718,6 +784,17 @@ public class MainController {
     private void payment_tab_transitions() {
         FadeTransition translate = new FadeTransition();
         translate.setNode(payments_box);
+        translate.setDuration(Duration.millis(400));
+        translate.setInterpolator(Interpolator.EASE_IN);
+        translate.setFromValue(0);
+        translate.setToValue(1);
+        translate.play();
+    }
+
+    @FXML
+    private void collateral_tab_transitions() {
+        FadeTransition translate = new FadeTransition();
+        translate.setNode(collateral_box);
         translate.setDuration(Duration.millis(400));
         translate.setInterpolator(Interpolator.EASE_IN);
         translate.setFromValue(0);
@@ -802,6 +879,21 @@ public class MainController {
             return String.format("Amount: $%s", format.format(payment.getPayment_amount()));
         }, payment.getPayment_amount_Property()));
 
+    }
+
+    private void _init_collateral_bindings() {
+        collateral_loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Loan ID: %d", collateral.getLoan_id().getLoan_id());
+        }, collateral.getLoan_id().getLoanID_Property()));
+        collateral_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Collateral ID: %d", collateral.getCollateral_id());
+        }, collateral.getCollateralId_property()));
+        collateral_type_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Loan Type: %s", collateral.getPlan_id().getType().get().getName().get());
+        }, collateral.getPlan_id().getType().get().getName()));
+        collateral_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("Collateral: %s", collateral.getCollateral());
+        }, collateral.getCollateral_property()));
     }
 
     // CUSTOMS

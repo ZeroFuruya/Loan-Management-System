@@ -29,7 +29,7 @@
          <center>
             <StackPane fx:id="motherPane" prefHeight="695.0" prefWidth="891.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox fx:id="home_box" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                  <VBox fx:id="home_box" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" visible="false">
                      <children>
                         <ImageView fitHeight="500.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -51,7 +51,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0" visible="false">
+                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="902.0" styleClass="dept-tab-container">
                            <children>
@@ -103,7 +103,7 @@
                                                                         <TableView fx:id="loanTable" prefHeight="559.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
                                                                            <columns>
                                                                               <TableColumn fx:id="loan_id" prefWidth="75.0" text="Loan ID" />
-                                                                              <TableColumn fx:id="loan_loaner_name" prefWidth="223.0" text="Loan Type" />
+                                                                              <TableColumn fx:id="loan_loan_type" prefWidth="223.0" text="Loan Type" />
                                                                            </columns>
                                                                         </TableView>
                                                                         <TextField fx:id="loan_search" />
@@ -280,9 +280,9 @@
                                                          </children></VBox>
                                                    </content>
                                                 </Tab>
-                                                <Tab text="Collaterals">
+                                                <Tab onSelectionChanged="#collateral_tab_transitions" text="Collaterals">
                                                    <content>
-                                                      <VBox prefHeight="200.0" prefWidth="100.0">
+                                                      <VBox fx:id="collateral_box" prefHeight="200.0" prefWidth="100.0">
                                                          <children>
                                                             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                                                                <children>
@@ -304,7 +304,7 @@
                                                                            <children>
                                                                               <HBox>
                                                                                  <children>
-                                                                                    <Label fx:id="collateral_type_label" styleClass="label-bright" text="Loan Type" textFill="WHITE">
+                                                                                    <Label fx:id="collateral_status_label" styleClass="label-bright" text="Status:" textFill="WHITE">
                                                                                        <font>
                                                                                           <Font size="30.0" />
                                                                                        </font>
@@ -331,20 +331,20 @@
                                                                               </HBox>
                                                                               <HBox>
                                                                                  <children>
-                                                                                    <Label fx:id="collateral_label" styleClass="label-bright" text="Collateral" textFill="WHITE">
+                                                                                    <Label fx:id="collateral_type_label" styleClass="label-bright" text="Loan Type" textFill="WHITE">
                                                                                        <font>
                                                                                           <Font size="20.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox alignment="CENTER">
+                                                                              <HBox layoutX="10.0" layoutY="145.0">
                                                                                  <children>
-                                                                                    <ImageView fx:id="collateralImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                                                       <image>
-                                                                                          <Image url="@../assets/images/app_logo.png" />
-                                                                                       </image>
-                                                                                    </ImageView>
+                                                                                    <Label fx:id="collateral_label" styleClass="label-bright" text="Collateral" textFill="WHITE">
+                                                                                       <font>
+                                                                                          <Font size="20.0" />
+                                                                                       </font>
+                                                                                    </Label>
                                                                                  </children>
                                                                               </HBox>
                                                                            </children>

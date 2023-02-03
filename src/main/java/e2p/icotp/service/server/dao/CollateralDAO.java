@@ -36,7 +36,7 @@ public class CollateralDAO {
     // Collateral DATA
     private static Collateral collateralData(CachedRowSet crs) throws SQLException {
 
-        long loaner_id = crs.getInt("loaner_id");
+        int loaner_id = crs.getInt("loaner_id");
         Loaner loaner;
         if (loaner_id <= 0) {
             loaner = new Loaner();
