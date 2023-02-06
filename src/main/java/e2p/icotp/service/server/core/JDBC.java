@@ -15,7 +15,7 @@ import javax.sql.rowset.RowSetFactory;
 import javax.sql.rowset.RowSetProvider;
 
 import e2p.icotp.util.constants.DB;
-import e2p.icotp.util.custom.DateUtil;
+import e2p.icotp.util.custom.date.DateUtil;
 
 public class JDBC {
     protected static Connection connect() {

@@ -42,6 +42,9 @@ public class App extends Application {
         initializa_main();
     }
 
+    long temp = 0;
+    long final_temp = 0;
+
     private void load_cache() throws SQLException {
         loanCache = LoanDAO.getMasterlist();
         loanerCache = LoanerDAO.getMasterlist();
@@ -51,9 +54,10 @@ public class App extends Application {
         loan_planCache = LoanPlanDAO.getMasterlist();
 
         System.out.println("======================================");
-        loan_planCache.forEach(loan -> {
-            System.out.println(loan.getId().get());
-            System.out.println(loan.getType().get().getName().get());
+        loanerCache.forEach(loan -> {
+            temp = loan.getLoaner_id();
+            final_temp = final_temp + temp;
+            System.out.println(final_temp);
         });
     }
 

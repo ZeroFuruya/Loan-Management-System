@@ -298,13 +298,13 @@
 .text-field {
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-    -fx-background-color: #ffffff5e;
+    -fx-background-color: #ff2f3a;
     background-color: #FFC23C;
     -fx-background-radius: 1;
     -fx-font-size: 15;
     font-size: 20;
-    -fx-text-fill: rgb(0, 0, 0);
-    -fx-fill: rgb(0, 0, 0);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-fill: rgb(255, 255, 255);
     fill: rgb(0, 0, 0);
     -fx-border-color: #ae00ff00;
     border-color: transparent;
