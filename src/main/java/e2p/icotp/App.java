@@ -1,6 +1,7 @@
 package e2p.icotp;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -8,8 +9,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import e2p.icotp.layout.accounts.Login;
+import e2p.icotp.layout.accounts.SignUp;
 import e2p.icotp.model.Collateral;
 import e2p.icotp.service.server.dao.*;
+import e2p.icotp.util.FileUtil;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.LoanPlan;
 import e2p.icotp.model.LoanType;
@@ -31,13 +35,19 @@ public class App extends Application {
     private ObservableList<LoanType> loan_typeCache;
     private ObservableList<LoanPlan> loan_planCache;
 
+    // Accounts
+    private ObservableList<SignUp> signUpList = FXCollections.observableArrayList();
+    private ObservableList<Login> loginList = FXCollections.observableArrayList();
     // STASH UPDATE COMMENT
 
     // Boolean
 
     @Override
-    public void start(Stage stage) throws IOException, SQLException {
+    public void start(Stage stage) throws Exception {
         this.mainStage = stage;
+        initialize_signUp();
+        initialize_login();
+        FileUtil.init_appdata();
         load_cache();
         initializa_main();
     }
@@ -59,6 +69,13 @@ public class App extends Application {
             final_temp = final_temp + temp;
             System.out.println(final_temp);
         });
+    }
+    private void initialize_signUp(){
+        signUpList.add(new SignUp("123", "123", "123"));
+    }
+
+    private void initialize_login(){
+        loginList.add(new Login("aloe", "123"));
     }
 
     public void initializa_main() throws IOException {
@@ -103,6 +120,15 @@ public class App extends Application {
         return loan_planCache;
     }
 
+    // Accounts
+    public ObservableList<SignUp> getSignUpList(){
+        return this.signUpList;
+    }
+    public ObservableList<Login> getLoginList(){
+        return this.loginList;
+    }
+
+    
     public static void main(String[] args) {
         launch();
     }
