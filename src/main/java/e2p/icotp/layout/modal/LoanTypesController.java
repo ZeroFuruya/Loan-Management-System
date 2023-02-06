@@ -3,6 +3,7 @@ package e2p.icotp.layout.modal;
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
 import e2p.icotp.model.LoanType;
+import e2p.icotp.model.Loaner;
 import e2p.icotp.service.loader.ModalLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

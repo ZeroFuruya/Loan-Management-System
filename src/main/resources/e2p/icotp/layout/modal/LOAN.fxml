@@ -5,18 +5,19 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #c4aead;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.LoanController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="dept-tab-container" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.LoanController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
@@ -27,27 +28,10 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <font>
-                        <Font name="Arial" size="30.0" />
+                        <Font name="Arial Bold" size="30.0" />
                      </font>
                   </Label>
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <HBox alignment="CENTER">
-                     <children>
-                        <Label text="Status:">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <ComboBox fx:id="status" prefWidth="150.0" promptText="Status" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
                </children>
                <padding>
                   <Insets left="5.0" right="20.0" />
@@ -55,387 +39,503 @@
             </HBox>
          </top>
          <center>
-            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="318.0" prefWidth="890.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="335.0" prefWidth="200.0">
+                  <HBox prefHeight="234.0" prefWidth="800.0">
                      <children>
-                        <Label text="Loan ID:">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
+                        <VBox prefHeight="258.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Loan ID:">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <TextField fx:id="loan_id" disable="true" editable="false" prefHeight="25.0" prefWidth="196.0" promptText="Loan ID:">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="Arial" size="12.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="releaseDate_icon1" alignment="CENTER_LEFT" visible="false">
+                                 <children>
+                                    <Label text="Invalid Feild" textFill="RED">
+                                       <font>
+                                          <Font name="Arial Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label>
+                                       <graphic>
+                                          <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                       </graphic>
+                                       <tooltip>
+                                          <Tooltip fx:id="releaseDateTT1" text="Empty Tooltip" />
+                                       </tooltip>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <VBox HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Status:">
+                                             <font>
+                                                <Font name="Arial Bold" size="14.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </Label>
+                                          <ComboBox fx:id="status" prefHeight="32.0" prefWidth="203.0" promptText="Status" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
-                        </Label>
-                        <HBox>
+                        </VBox>
+                        <VBox prefHeight="242.0" prefWidth="200.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
                            <children>
-                              <TextField fx:id="loan_id" disable="true" editable="false" prefHeight="27.0" prefWidth="196.0" promptText="Loan ID:">
+                              <Label text="Release Date:">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <DatePicker fx:id="release_date" editable="false" prefHeight="25.0" prefWidth="189.0" />
+                                          <HBox fx:id="releaseDate_icon" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label styleClass="label-red" text="Invalid Feild" textFill="RED">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                                   </graphic>
+                                                   <tooltip>
+                                                      <Tooltip fx:id="releaseDateTT" text="Empty Tooltip" />
+                                                   </tooltip>
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Label text="Maturity Date:">
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                                  <font>
-                                    <Font name="Arial" size="12.0" />
+                                    <Font name="Arial Bold" size="14.0" />
                                  </font>
-                              </TextField>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <VBox HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <DatePicker fx:id="maturity_date" editable="false" prefHeight="25.0" prefWidth="204.0" VBox.vgrow="ALWAYS" />
+                                          <HBox fx:id="maturityDate_icon" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                                   </graphic>
+                                                   <tooltip>
+                                                      <Tooltip fx:id="maturityDateTT" text="Empty Tooltip" />
+                                                   </tooltip>
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
-                        <Label text="Loan Type:">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
+                        </VBox>
+                        <VBox prefHeight="279.0" prefWidth="200.0">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
-                        </Label>
-                        <HBox>
                            <children>
-                              <ComboBox fx:id="loan_type" prefHeight="25.0" prefWidth="228.0" promptText="Loan Type" HBox.hgrow="ALWAYS" />
+                              <Label text="Term:">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <TextField fx:id="term" prefHeight="25.0" prefWidth="194.0" promptText="Term">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <HBox fx:id="term_icon" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                                   </graphic>
+                                                   <tooltip>
+                                                      <Tooltip fx:id="termTT" text="Empty Tooltip" />
+                                                   </tooltip>
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Label text="Due:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <TextField fx:id="due" prefHeight="25.0" prefWidth="194.0" promptText="Due">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <HBox fx:id="due_icon" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                                   </graphic>
+                                                   <tooltip>
+                                                      <Tooltip fx:id="dueTT" text="Empty Tooltip" />
+                                                   </tooltip>
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
-                        <Label text="Loan Plan:">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="200.0">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
-                        </Label>
-                        <HBox>
                            <children>
-                              <ComboBox fx:id="loan_plan" prefHeight="25.0" prefWidth="282.0" promptText="Loan Plan" HBox.hgrow="ALWAYS" />
+                              <Label text="Interest:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <TextField fx:id="interest" prefHeight="25.0" prefWidth="193.0" promptText="Interest">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <HBox fx:id="interest_icon" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                                   </graphic>
+                                                   <tooltip>
+                                                      <Tooltip fx:id="interestTT" text="Empty Tooltip" />
+                                                   </tooltip>
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Label text="Principal:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <TextField fx:id="principal" prefHeight="25.0" prefWidth="187.0" promptText="Principal">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <HBox fx:id="principal_icon" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                                   </graphic>
+                                                   <tooltip>
+                                                      <Tooltip fx:id="principalTT" text="Empty Tooltip" />
+                                                   </tooltip>
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Label text="Penalty:">
+                                 <padding>
+                                    <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <TextField fx:id="penalty" prefHeight="25.0" prefWidth="187.0" promptText="Penalty">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <HBox fx:id="penalty_icon" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                                   </graphic>
+                                                   <tooltip>
+                                                      <Tooltip fx:id="penaltyTT" text="Empty Tooltip" />
+                                                   </tooltip>
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
-                        </HBox>
+                        </VBox>
                      </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
-                  <VBox prefHeight="335.0" prefWidth="200.0">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                     <children>
-                        <Label text="Release Date:">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <HBox>
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <DatePicker fx:id="release_date" prefHeight="25.0" prefWidth="189.0" promptText="1/11/1111" />
-                                    <HBox fx:id="releaseDate_icon" alignment="CENTER_LEFT">
-                                       <children>
-                                          <Label text="Invalid Feild" textFill="RED">
-                                             <font>
-                                                <Font name="Arial Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label>
-                                             <graphic>
-                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
-                                             </graphic>
-                                             <tooltip>
-                                                <Tooltip fx:id="releaseDateTT" text="Empty Tooltip" />
-                                             </tooltip>
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <Label text="Maturity Date:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Label>
-                        <HBox>
-                           <children>
-                              <VBox HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <DatePicker fx:id="maturity_date" prefHeight="25.0" prefWidth="204.0" promptText="1/11/1111" VBox.vgrow="ALWAYS" />
-                                    <HBox fx:id="maturityDate_icon" alignment="CENTER_LEFT">
-                                       <children>
-                                          <Label text="Invalid Field" textFill="RED">
-                                             <font>
-                                                <Font name="Arial Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label>
-                                             <graphic>
-                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
-                                             </graphic>
-                                             <tooltip>
-                                                <Tooltip fx:id="maturityDateTT" text="Empty Tooltip" />
-                                             </tooltip>
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="200.0">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                     <children>
-                        <Label text="Term:">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <HBox>
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <TextField fx:id="term" prefHeight="27.0" prefWidth="194.0" promptText="Term">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Arial" size="12.0" />
-                                       </font>
-                                    </TextField>
-                                    <HBox alignment="CENTER_LEFT">
-                                       <children>
-                                          <Label text="Invalid Field" textFill="RED">
-                                             <font>
-                                                <Font name="Arial Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="term_icon">
-                                             <graphic>
-                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
-                                             </graphic>
-                                             <tooltip>
-                                                <Tooltip fx:id="termTT" text="Empty Tooltip" />
-                                             </tooltip>
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <Label text="Due:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Label>
-                        <HBox>
-                           <children>
-                              <VBox alignment="CENTER_LEFT">
-                                 <children>
-                                    <TextField fx:id="due" prefHeight="27.0" prefWidth="194.0" promptText="Due">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Arial" size="12.0" />
-                                       </font>
-                                    </TextField>
-                                    <HBox fx:id="due_icon" alignment="CENTER_LEFT">
-                                       <children>
-                                          <Label text="Invalid Field" textFill="RED">
-                                             <font>
-                                                <Font name="Arial Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label>
-                                             <graphic>
-                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
-                                             </graphic>
-                                             <tooltip>
-                                                <Tooltip fx:id="maturityDateTT1" text="Empty Tooltip" />
-                                             </tooltip>
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="200.0">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                     <children>
-                        <Label text="Interest:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Label>
-                        <HBox>
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <TextField fx:id="interest" prefHeight="27.0" prefWidth="193.0" promptText="Interest">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Arial" size="12.0" />
-                                       </font>
-                                    </TextField>
-                                    <HBox fx:id="interest_icon" alignment="CENTER_LEFT">
-                                       <children>
-                                          <Label text="Invalid Field" textFill="RED">
-                                             <font>
-                                                <Font name="Arial Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label>
-                                             <graphic>
-                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
-                                             </graphic>
-                                             <tooltip>
-                                                <Tooltip fx:id="interestTT" text="Empty Tooltip" />
-                                             </tooltip>
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <Label text="Principal:">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Label>
-                        <HBox>
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <TextField fx:id="principal" prefHeight="27.0" prefWidth="187.0" promptText="Principal">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Arial" size="12.0" />
-                                       </font>
-                                    </TextField>
-                                    <HBox fx:id="principal_icon" alignment="CENTER_LEFT">
-                                       <children>
-                                          <Label text="Invalid Field" textFill="RED">
-                                             <font>
-                                                <Font name="Arial Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label>
-                                             <graphic>
-                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
-                                             </graphic>
-                                             <tooltip>
-                                                <Tooltip fx:id="principalTT" text="Empty Tooltip" />
-                                             </tooltip>
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <Label text="Penalty:">
-                           <padding>
-                              <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-                           </padding>
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Label>
-                        <HBox>
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <TextField fx:id="penalty" prefHeight="27.0" prefWidth="187.0" promptText="Penalty">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Arial" size="12.0" />
-                                       </font>
-                                    </TextField>
-                                    <HBox fx:id="penalty_icon" alignment="CENTER_LEFT">
-                                       <children>
-                                          <Label text="Invalid Field" textFill="RED">
-                                             <font>
-                                                <Font name="Arial Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label>
-                                             <graphic>
-                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
-                                             </graphic>
-                                             <tooltip>
-                                                <Tooltip fx:id="penaltyTT" text="Empty Tooltip" />
-                                             </tooltip>
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
+                  </HBox>
                </children>
-            </HBox>
+            </VBox>
          </center>
          <bottom>
-            <Pane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="268.0" prefWidth="890.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="cancel" layoutX="720.0" layoutY="13.0" mnemonicParsing="false" onAction="#handle_cancel" text="Cancel" />
-                  <Button fx:id="save" layoutX="649.0" layoutY="13.0" mnemonicParsing="false" onAction="#handle_save" text="Save" />
+                  <VBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label text="Loan Plan:">
+                                 <font>
+                                    <Font name="Arial Bold" size="20.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </Label>
+                              <HBox alignment="BOTTOM_LEFT" prefHeight="25.0" prefWidth="880.0" spacing="10.0">
+                                 <children>
+                                    <VBox alignment="BOTTOM_LEFT" prefHeight="57.0" prefWidth="201.0">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <TextField fx:id="plan_search" prefHeight="31.0" prefWidth="200.0" promptText="Search Loan Type">
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <Region prefHeight="31.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+                                    <Label text="Selected Plan ID:">
+                                       <font>
+                                          <Font name="Arial Bold" size="14.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </Label>
+                                    <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="57.0" prefWidth="50.0">
+                                       <children>
+                                          <HBox prefHeight="31.0" prefWidth="166.0">
+                                             <children>
+                                                <TextField fx:id="plan_id_disp" editable="false" prefHeight="31.0" prefWidth="200.0">
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <Label layoutX="221.0" layoutY="41.0" text="Selected Plan Type:">
+                                       <font>
+                                          <Font name="Arial Bold" size="14.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </Label>
+                                    <VBox alignment="BOTTOM_LEFT" layoutX="355.0" layoutY="10.0" prefHeight="57.0" prefWidth="200.0">
+                                       <children>
+                                          <HBox prefHeight="31.0" prefWidth="166.0">
+                                             <children>
+                                                <TextField fx:id="plan_type_disp" editable="false" prefHeight="31.0" prefWidth="200.0">
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </HBox>
+                              <TableView fx:id="planTable" prefHeight="100.0" prefWidth="880.0" VBox.vgrow="ALWAYS">
+                                <columns>
+                                  <TableColumn fx:id="plan_id" prefWidth="75.0" text="Plan ID" />
+                                    <TableColumn fx:id="plan_type_name" prefWidth="296.0" text="Loan Type" />
+                                    <TableColumn fx:id="plan_term" minWidth="0.0" prefWidth="115.0" text="Term" />
+                                    <TableColumn fx:id="plan_interest" prefWidth="78.0" text="Interest" />
+                                    <TableColumn fx:id="plan_penalty" prefWidth="94.0" text="Penalty" />
+                                </columns>
+                              </TableView>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                     <children>
+                        <Button fx:id="cancel" mnemonicParsing="false" onAction="#handle_cancel" text="Cancel" />
+                        <Button fx:id="save" mnemonicParsing="false" onAction="#handle_save" text="Save" />
+                     </children>
+                  </HBox>
                </children>
-            </Pane>
+            </VBox>
          </bottom>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
       </BorderPane>
    </children>
 </StackPane>

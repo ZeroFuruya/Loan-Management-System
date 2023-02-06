@@ -2,7 +2,7 @@ package e2p.icotp.model;
 
 import java.time.LocalDate;
 
-import e2p.icotp.util.custom.DateUtil;
+import e2p.icotp.util.custom.date.DateUtil;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleLongProperty;

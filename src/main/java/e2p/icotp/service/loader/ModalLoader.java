@@ -56,12 +56,12 @@ public class ModalLoader {
         controller.load(app, loaner, isEdit, mc);
     }
 
-    public static void load_loan_update(App app, Loan loan, boolean isEdit, MainController mc)
+    public static void load_loan_update(App app, Loan loan, boolean isEdit, MainController mc, Loaner loaner)
             throws IOException {
         FXMLLoader loader = load_modal(app, "modal/LOAN");
 
         LoanController controller = loader.getController();
-        controller.load(app, loan, isEdit, mc);
+        controller.load(app, loan, isEdit, mc, loaner);
     }
 
     public static void load_loan_type_update(App app, LoanType loan_type, boolean isEdit, MainController mc)

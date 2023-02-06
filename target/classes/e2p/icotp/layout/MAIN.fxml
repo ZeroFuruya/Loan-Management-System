@@ -55,9 +55,9 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="902.0" styleClass="dept-tab-container">
                            <children>
-                              <Label prefHeight="19.0" prefWidth="415.0" styleClass="label-bright" text="Loaner's Informations" textFill="WHITE">
+                              <Label prefHeight="19.0" prefWidth="415.0" styleClass="label-dark" text="Loaner's Informations" textFill="WHITE">
                                  <font>
-                                    <Font name="Arial" size="30.0" />
+                                    <Font name="Gisha" size="30.0" />
                                  </font>
                               </Label>
                            </children>
@@ -67,7 +67,7 @@
                         </HBox>
                         <VBox alignment="TOP_CENTER" prefHeight="365.0" prefWidth="1038.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="573.0" prefWidth="974.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" prefHeight="573.0" prefWidth="974.0" spacing="10.0" VBox.vgrow="ALWAYS">
                                  <children>
                                     <HBox maxWidth="400.0" minWidth="303.0" prefHeight="286.0" prefWidth="303.0">
                                        <children>
@@ -81,13 +81,17 @@
                                                 </TableView>
                                                 <HBox>
                                                    <children>
-                                                      <TextField fx:id="loaner_search" HBox.hgrow="ALWAYS" />
+                                                      <TextField fx:id="loaner_search" promptText="Search..." HBox.hgrow="ALWAYS">
+                                                         <font>
+                                                            <Font name="Arial" size="12.0" />
+                                                         </font></TextField>
                                                    </children>
                                                 </HBox>
                                              </children>
                                           </VBox>
                                        </children>
                                     </HBox>
+                                    <Region prefHeight="371.0" prefWidth="2.0" styleClass="dept-tab-container" />
                                     <VBox HBox.hgrow="ALWAYS">
                                        <children>
                                           <TabPane prefHeight="297.0" prefWidth="548.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
@@ -106,7 +110,10 @@
                                                                               <TableColumn fx:id="loan_loan_type" prefWidth="223.0" text="Loan Type" />
                                                                            </columns>
                                                                         </TableView>
-                                                                        <TextField fx:id="loan_search" />
+                                                                        <TextField fx:id="loan_search" promptText="Search...">
+                                                                           <font>
+                                                                              <Font name="Arial" size="12.0" />
+                                                                           </font></TextField>
                                                                      </children>
                                                                   </VBox>
                                                                   <VBox fx:id="loan_information_container" HBox.hgrow="ALWAYS">
@@ -115,7 +122,7 @@
                                                                            <children>
                                                                               <Label styleClass="label-bright" text="Status: ">
                                                                                  <font>
-                                                                                    <Font name="Arial" size="30.0" />
+                                                                                    <Font name="Arial Bold" size="25.0" />
                                                                                  </font>
                                                                               </Label>
                                                                               <ImageView fx:id="status_image" fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
@@ -123,72 +130,189 @@
                                                                         </HBox>
                                                                         <VBox spacing="10.0" VBox.vgrow="ALWAYS">
                                                                            <children>
-                                                                              <HBox>
+                                                                              <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                                                  <children>
+                                                                                    <HBox alignment="CENTER_LEFT" prefWidth="70.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Loan ID" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="loan_id_label" styleClass="label-bright" text="Loan ID" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
+                                                                                       </font>
+                                                                                    </Label>
+                                                                                    <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="1.0" styleClass="dividers" />
+                                                                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefWidth="70.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Plan ID" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
+                                                                                    <Label fx:id="loan_plan_label" layoutX="10.0" layoutY="10.0" styleClass="label-bright" text="Loan Plan ID" textFill="WHITE">
+                                                                                       <font>
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox spacing="10.0">
+                                                                              <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                                                  <children>
+                                                                                    <HBox alignment="CENTER_LEFT" prefWidth="70.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Release" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="loan_release_date_label" styleClass="label-bright" text="Release" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                     <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="1.0" styleClass="dividers" HBox.hgrow="NEVER" />
+                                                                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefWidth="70.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Maturity" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="loan_maturity_date_label" styleClass="label-bright" text="Maturity" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                     <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="1.0" styleClass="dividers" />
+                                                                                    <HBox alignment="CENTER_LEFT" layoutX="167.0" layoutY="10.0" prefWidth="70.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Term" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="loan_term_label" styleClass="label-bright" text="Term" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox spacing="10.0">
+                                                                              <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                                                  <children>
+                                                                                    <HBox alignment="CENTER_LEFT" prefWidth="70.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Principal" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="loan_principal_label" styleClass="label-bright" text="Principal" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                     <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="1.0" styleClass="dividers" />
+                                                                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefWidth="70.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Interest" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="loan_interest_label" styleClass="label-bright" text="Interest" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                     <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="1.0" styleClass="dividers" />
+                                                                                    <HBox alignment="CENTER_LEFT" layoutX="169.0" layoutY="10.0" prefWidth="70.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Penalty" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="loan_penalty_label" styleClass="label-bright" text="Penalty" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <Label fx:id="loan_due_label" styleClass="label-bright" text="Due" textFill="WHITE">
-                                                                                 <font>
-                                                                                    <Font size="20.0" />
-                                                                                 </font>
-                                                                              </Label>
-                                                                              <Label fx:id="loan_paid_label" styleClass="label-bright" text="Paid" textFill="WHITE">
-                                                                                 <font>
-                                                                                    <Font size="20.0" />
-                                                                                 </font>
-                                                                              </Label>
-                                                                              <Label fx:id="loan_balance_label" styleClass="label-bright" text="Balance" textFill="WHITE">
-                                                                                 <font>
-                                                                                    <Font size="20.0" />
-                                                                                 </font>
-                                                                              </Label>
+                                                                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                                                 <children>
+                                                                                    <HBox alignment="CENTER_LEFT" prefWidth="70.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Due" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
+                                                                                    <Label fx:id="loan_due_label" styleClass="label-bright" text="Due" textFill="WHITE">
+                                                                                       <font>
+                                                                                          <Font name="Arial" size="15.0" />
+                                                                                       </font>
+                                                                                    </Label>
+                                                                                 </children>
+                                                                              </HBox>
+                                                                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                                                 <children>
+                                                                                    <HBox alignment="CENTER_LEFT" prefWidth="70.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Paid" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
+                                                                                    <Label fx:id="loan_paid_label" styleClass="label-bright" text="Paid" textFill="WHITE">
+                                                                                       <font>
+                                                                                          <Font name="Arial" size="15.0" />
+                                                                                       </font>
+                                                                                    </Label>
+                                                                                 </children>
+                                                                              </HBox>
+                                                                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                                                 <children>
+                                                                                    <HBox alignment="CENTER_LEFT" prefWidth="70.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Balance" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
+                                                                                    <Label fx:id="loan_balance_label" styleClass="label-bright" text="Balance" textFill="WHITE">
+                                                                                       <font>
+                                                                                          <Font name="Arial" size="15.0" />
+                                                                                       </font>
+                                                                                    </Label>
+                                                                                 </children>
+                                                                              </HBox>
                                                                            </children>
                                                                         </VBox>
                                                                      </children>
@@ -197,9 +321,9 @@
                                                             </HBox>
                                                             <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
                                                                <children>
-                                                                  <Button fx:id="loan_edit_button" mnemonicParsing="false" onAction="#handle_loan_edit" text="Modify" />
-                                                                  <Button fx:id="loan_add_button" mnemonicParsing="false" onAction="#handle_loan_add" text="New" />
-                                                                  <Button fx:id="loan_remove_button" mnemonicParsing="false" onAction="#handle_loan_remove" text="Remove" />
+                                                                  <Button fx:id="loan_edit_button" disable="true" mnemonicParsing="false" onAction="#handle_loan_edit" text="Modify" />
+                                                                  <Button fx:id="loan_add_button" disable="true" mnemonicParsing="false" onAction="#handle_loan_add" text="New" />
+                                                                  <Button fx:id="loan_remove_button" disable="true" mnemonicParsing="false" onAction="#handle_loan_remove" text="Remove" />
                                                                </children>
                                                             </HBox>
                                                          </children>
@@ -228,38 +352,65 @@
                                                                      <children>
                                                                         <VBox spacing="10.0" VBox.vgrow="ALWAYS">
                                                                            <children>
-                                                                              <HBox>
+                                                                              <HBox alignment="CENTER_LEFT" prefHeight="50.0">
                                                                                  <children>
                                                                                     <Label fx:id="payment_date_label" styleClass="label-bright" text="Date" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="30.0" />
+                                                                                          <Font name="Arial Bold" size="25.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox>
+                                                                              <HBox spacing="10.0">
                                                                                  <children>
+                                                                                    <HBox alignment="CENTER_LEFT" prefWidth="90.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Loan ID" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="payment_loan_id_label" styleClass="label-bright" text="Loan ID" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox>
+                                                                              <HBox spacing="10.0">
                                                                                  <children>
+                                                                                    <HBox alignment="CENTER_LEFT" prefWidth="90.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Payment ID" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="payment_id_label" styleClass="label-bright" text="Payment ID" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox>
+                                                                              <HBox spacing="10.0">
                                                                                  <children>
+                                                                                    <HBox alignment="CENTER_LEFT" prefWidth="90.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Amount" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="payment_amount_label" styleClass="label-bright" text="Amount" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
@@ -302,47 +453,83 @@
                                                                      <children>
                                                                         <VBox fx:id="collateral_information_container" spacing="10.0" VBox.vgrow="ALWAYS">
                                                                            <children>
-                                                                              <HBox>
+                                                                              <HBox alignment="CENTER_LEFT" prefHeight="50.0">
                                                                                  <children>
                                                                                     <Label fx:id="collateral_status_label" styleClass="label-bright" text="Status:" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="30.0" />
+                                                                                          <Font name="Arial Bold" size="25.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox>
+                                                                              <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                                                  <children>
+                                                                                    <HBox prefWidth="90.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Loan ID" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="collateral_loan_id_label" styleClass="label-bright" text="Loan ID" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox>
+                                                                              <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                                                  <children>
+                                                                                    <HBox prefWidth="90.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Collateral ID" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="collateral_id_label" styleClass="label-bright" text="Collateral ID" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox>
+                                                                              <HBox alignment="CENTER_LEFT" spacing="10.0">
                                                                                  <children>
+                                                                                    <HBox prefWidth="90.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Loan Type" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="collateral_type_label" styleClass="label-bright" text="Loan Type" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
-                                                                              <HBox layoutX="10.0" layoutY="145.0">
+                                                                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="145.0" spacing="10.0">
                                                                                  <children>
+                                                                                    <HBox prefWidth="90.0">
+                                                                                       <children>
+                                                                                          <Label styleClass="label-bright" text="Collateral" textFill="WHITE">
+                                                                                             <font>
+                                                                                                <Font name="Arial Bold" size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
                                                                                     <Label fx:id="collateral_label" styleClass="label-bright" text="Collateral" textFill="WHITE">
                                                                                        <font>
-                                                                                          <Font size="20.0" />
+                                                                                          <Font name="Arial" size="15.0" />
                                                                                        </font>
                                                                                     </Label>
                                                                                  </children>
@@ -374,16 +561,24 @@
                               <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
                            </padding>
                         </VBox>
+                        <Region prefHeight="2.0" prefWidth="1178.0" styleClass="dept-tab-container">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Region>
                         <VBox prefHeight="166.0" prefWidth="1038.0">
                            <children>
-                              <HBox fx:id="loaner_name_container">
+                              <HBox fx:id="loaner_name_container" alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="1138.0">
                                  <children>
                                     <Label fx:id="loaner_name_label" styleClass="label-bright" text="Name Of D. Loaner" textFill="WHITE">
                                        <font>
-                                          <Font size="30.0" />
+                                          <Font name="Arial Bold" size="25.0" />
                                        </font>
                                     </Label>
                                  </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
                               </HBox>
                               <HBox>
                                  <children>
@@ -394,43 +589,180 @@
                                     </ImageView>
                                     <HBox fx:id="loaner_information_container">
                                        <children>
-                                          <VBox prefHeight="150.0" prefWidth="316.0" spacing="10.0">
+                                          <VBox prefHeight="149.0" prefWidth="500.0" spacing="10.0">
                                              <children>
-                                                <Label fx:id="loaner_id_label" styleClass="label-bright" text="0001" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="20.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label fx:id="loaner_address_label" styleClass="label-bright" text="Skyrim, Falkreath" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="20.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label fx:id="loaner_birthdate_label" styleClass="label-bright" text="January 99, 9999" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="20.0" />
-                                                   </font>
-                                                </Label>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="125.0">
+                                                         <children>
+                                                            <Label styleClass="label-bright" text="ID" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="17.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label fx:id="loaner_id_label" styleClass="label-bright" text="0001" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial" size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="125.0">
+                                                         <children>
+                                                            <Label styleClass="label-bright" text="Address" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="17.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label fx:id="loaner_address_label" styleClass="label-bright" text="Skyrim, Falkreath" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial" size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="125.0">
+                                                         <children>
+                                                            <Label styleClass="label-bright" text="Birthdate" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="17.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label fx:id="loaner_birthdate_label" styleClass="label-bright" text="January 99, 9999" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial" size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="125.0">
+                                                         <children>
+                                                            <Label styleClass="label-bright" text="Birth Place" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="17.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label fx:id="loaner_place_birth_label" styleClass="label-bright" text="place of birth" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial" size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="125.0">
+                                                         <children>
+                                                            <Label styleClass="label-bright" text="Email" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="17.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label fx:id="loaner_email_label" styleClass="label-bright" text="email" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial" size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
                                              </children>
                                              <padding>
                                                 <Insets left="10.0" />
                                              </padding>
                                           </VBox>
-                                          <VBox prefHeight="150.0" prefWidth="316.0" spacing="10.0">
+                                          <VBox prefHeight="150.0" prefWidth="500.0" spacing="10.0">
                                              <padding>
                                                 <Insets left="10.0" />
                                              </padding>
                                              <children>
-                                                <Label fx:id="loaner_phone_label" styleClass="label-bright" text="9123134716" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="20.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label fx:id="loaner_social_label" styleClass="label-bright" text="134245" textFill="WHITE">
-                                                   <font>
-                                                      <Font size="20.0" />
-                                                   </font>
-                                                </Label>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="150.0">
+                                                         <children>
+                                                            <Label styleClass="label-bright" text="Contact#" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="17.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label fx:id="loaner_phone_label" styleClass="label-bright" text="9123134716" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial" size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="150.0">
+                                                         <children>
+                                                            <Label styleClass="label-bright" text="Social Security#" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="17.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label fx:id="loaner_social_label" styleClass="label-bright" text="134245" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial" size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="150.0">
+                                                         <children>
+                                                            <Label styleClass="label-bright" text="Citizenship" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="17.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label fx:id="loaner_citizen_label" styleClass="label-bright" text="citizenship" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial" size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="150.0">
+                                                         <children>
+                                                            <Label styleClass="label-bright" text="Civil Status" textFill="WHITE">
+                                                               <font>
+                                                                  <Font name="Arial Bold" size="17.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </HBox>
+                                                      <Label fx:id="loaner_civil_label" styleClass="label-bright" text="civil status" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Arial" size="17.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </VBox>
                                        </children>

@@ -14,16 +14,17 @@ import e2p.icotp.model.Payment;
 import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanPlanDAO;
-import e2p.icotp.util.custom.DateUtil;
-import e2p.icotp.util.custom.DoubleTextFieldFormatter;
-import e2p.icotp.util.custom.IDTextFieldFormatter;
-import e2p.icotp.util.custom.LoanTypeListCell;
-import e2p.icotp.util.custom.LoanTypeStringConverter;
 import e2p.icotp.util.custom.RandomIDGenerator;
+import e2p.icotp.util.custom.cbox.LoanTypeListCell;
+import e2p.icotp.util.custom.cbox.LoanTypeStringConverter;
+import e2p.icotp.util.custom.date.DateUtil;
+import e2p.icotp.util.custom.formatters.DoubleTextFieldFormatter;
+import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -136,6 +137,14 @@ public class MainController {
     Label loaner_phone_label;
     @FXML
     Label loaner_social_label;
+    @FXML
+    Label loaner_place_birth_label;
+    @FXML
+    Label loaner_email_label;
+    @FXML
+    Label loaner_citizen_label;
+    @FXML
+    Label loaner_civil_label;
 
     @FXML
     Button loaner_edit_button;
@@ -155,6 +164,8 @@ public class MainController {
 
     @FXML
     Label loan_id_label;
+    @FXML
+    Label loan_plan_label;
     @FXML
     Label loan_release_date_label;
     @FXML
@@ -356,12 +367,12 @@ public class MainController {
     // ----------------------------------------------------------------------------------
     @FXML
     private void handle_loan_edit() throws IOException {
-        ModalLoader.load_loan_update(app, loan, true, this);
+        ModalLoader.load_loan_update(app, loan, true, this, loaner);
     }
 
     @FXML
     private void handle_loan_add() throws IOException {
-        ModalLoader.load_loan_update(app, new Loan(), false, this);
+        ModalLoader.load_loan_update(app, new Loan(), false, this, loaner);
     }
 
     @FXML
@@ -550,6 +561,12 @@ public class MainController {
     }
 
     private void init_table_listeners() {
+
+        loan_add_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
+        loan_edit_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull()
+                .or(loanTable.getSelectionModel().selectedItemProperty().isNull()));
+        loan_remove_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull()
+                .or(loanTable.getSelectionModel().selectedItemProperty().isNull()));
 
         // LOANER ------------------------------------------
         loanerTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
@@ -808,19 +825,31 @@ public class MainController {
             return String.format("%s", loaner.getName());
         }, loaner.getNameProperty()));
         loaner_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loaner ID: %d", loaner.getLoaner_id());
+            return String.format("%d", loaner.getLoaner_id());
         }, loaner.getLoaner_idProperty()));
         loaner_address_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Address: %s", loaner.getAddress());
+            return String.format("%s", loaner.getAddress());
         }, loaner.getAddressProperty()));
+        loaner_place_birth_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%s", loaner.getPlaceOfBirth());
+        }, loaner.getPlaceOfBirthProperty()));
+        loaner_email_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%s", loaner.getEmail());
+        }, loaner.getEmailProperty()));
+        loaner_citizen_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%s", loaner.getCitizenship());
+        }, loaner.getCitizenshipProperty()));
+        loaner_civil_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%s", loaner.getCivilStatus());
+        }, loaner.getCivilStatusProperty()));
         loaner_phone_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Phone: %d", loaner.getPhone());
+            return String.format("%d", loaner.getPhone());
         }, loaner.getPhoneProperty()));
         loaner_birthdate_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Birthdate: %s", loaner.getBirthdate());
+            return String.format("%s", DateUtil.format(loaner.getBirthdate()));
         }, loaner.getBirthdateProperty()));
         loaner_social_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Social Security: %d", loaner.getSocial_security());
+            return String.format("%d", loaner.getSocial_security());
         }, loaner.getSocial_securityProperty()));
 
         loaner_edit_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
@@ -829,34 +858,37 @@ public class MainController {
 
     private void _init_loan_bindings() {
         loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loan ID: %d", loan.getLoan_id());
+            return String.format("%d", loan.getLoan_id());
         }, loan.getLoanID_Property()));
+        loan_plan_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%d", loan.getLoanPlan().getId().get());
+        }, loan.getLoanPlan().getId()));
         loan_release_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Release: %s", DateUtil.localizeDate(loan.getRelease_date()));
+            return String.format("%s", DateUtil.localizeDate(loan.getRelease_date()));
         }, loan.getRelease_date_Property()));
         loan_term_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Term: %d", loan.getTerm());
+            return String.format("%d", loan.getTerm());
         }, loan.getTermProperty()));
         loan_maturity_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Maturity: %s", DateUtil.localizeDate(loan.getMaturity_date()));
+            return String.format("%s", DateUtil.localizeDate(loan.getMaturity_date()));
         }, loan.getMaturity_date_Property()));
         loan_principal_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Principal: $%s", format.format(loan.getPrincipal()));
+            return String.format("$%s", format.format(loan.getPrincipal()));
         }, loan.getPrincipalProperty()));
         loan_interest_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Interest: %.2f" + "%%", loan.getInterest());
+            return String.format("%.2f" + "%%", loan.getInterest());
         }, loan.getInterestProperty()));
         loan_penalty_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Penalty: %.2f" + "%%", loan.getPenalty());
+            return String.format("%.2f" + "%%", loan.getPenalty());
         }, loan.getPenaltyProperty()));
         loan_due_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Due: Day %d of every month", loan.getDue());
+            return String.format("Day %d of every month", loan.getDue());
         }, loan.getDueProperty()));
         loan_paid_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Paid: $%s", format.format(loan.getPaid()));
+            return String.format("$%s", format.format(loan.getPaid()));
         }, loan.getPaidProperty()));
         loan_balance_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Balance: $%s", format.format(loan.getBalance()));
+            return String.format("$%s", format.format(loan.getBalance()));
         }, loan.getBalanceProperty()));
 
         status_image_setter(loan.getStatus());
@@ -867,32 +899,32 @@ public class MainController {
 
     private void _init_payment_bindings() {
         payment_loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loan ID: %d", payment.getLoan_id_Property().get().getLoan_id());
+            return String.format("%d", payment.getLoan_id_Property().get().getLoan_id());
         }, payment.getLoan_id_Property().get().getLoanID_Property()));
         payment_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Payment ID: %d", payment.getPayment_id());
+            return String.format("%d", payment.getPayment_id());
         }, payment.getPayment_id_Property()));
         payment_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Date: %s", DateUtil.localizeDate(payment.getPaymentDate()));
+            return String.format("%s", DateUtil.localizeDate(payment.getPaymentDate()));
         }, payment.getPayment_date_Property()));
         payment_amount_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Amount: $%s", format.format(payment.getPayment_amount()));
+            return String.format("$%s", format.format(payment.getPayment_amount()));
         }, payment.getPayment_amount_Property()));
 
     }
 
     private void _init_collateral_bindings() {
         collateral_loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loan ID: %d", collateral.getLoan_id().getLoan_id());
+            return String.format("%d", collateral.getLoan_id().getLoan_id());
         }, collateral.getLoan_id().getLoanID_Property()));
         collateral_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Collateral ID: %d", collateral.getCollateral_id());
+            return String.format("%d", collateral.getCollateral_id());
         }, collateral.getCollateralId_property()));
         collateral_type_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loan Type: %s", collateral.getPlan_id().getType().get().getName().get());
+            return String.format("%s", collateral.getPlan_id().getType().get().getName().get());
         }, collateral.getPlan_id().getType().get().getName()));
         collateral_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Collateral: %s", collateral.getCollateral());
+            return String.format("%s", collateral.getCollateral());
         }, collateral.getCollateral_property()));
     }
 
