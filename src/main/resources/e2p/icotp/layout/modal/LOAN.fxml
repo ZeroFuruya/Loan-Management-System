@@ -55,7 +55,7 @@
                               </Label>
                               <HBox>
                                  <children>
-                                    <TextField fx:id="loan_id" disable="true" editable="false" prefHeight="25.0" prefWidth="196.0" promptText="Loan ID:">
+                                    <TextField fx:id="loan_id" disable="true" editable="false" prefHeight="25.0" prefWidth="196.0" promptText="ID">
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
@@ -77,7 +77,7 @@
                                           <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                        </graphic>
                                        <tooltip>
-                                          <Tooltip fx:id="releaseDateTT1" text="Empty Tooltip" />
+                                          <Tooltip text="Empty Tooltip" />
                                        </tooltip>
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -124,7 +124,7 @@
                                  <children>
                                     <VBox>
                                        <children>
-                                          <DatePicker fx:id="release_date" editable="false" prefHeight="25.0" prefWidth="189.0" />
+                                          <DatePicker fx:id="release_date" editable="false" prefHeight="25.0" prefWidth="189.0" promptText="Release Date" />
                                           <HBox fx:id="releaseDate_icon" alignment="CENTER_LEFT">
                                              <children>
                                                 <Label styleClass="label-red" text="Invalid Feild" textFill="RED">
@@ -137,7 +137,7 @@
                                                       <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                                    </graphic>
                                                    <tooltip>
-                                                      <Tooltip fx:id="releaseDateTT" text="Empty Tooltip" />
+                                                      <Tooltip text="Empty Tooltip" />
                                                    </tooltip>
                                                    <padding>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -149,50 +149,6 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <Label text="Maturity Date:">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                                 <font>
-                                    <Font name="Arial Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <HBox>
-                                 <children>
-                                    <VBox HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <DatePicker fx:id="maturity_date" editable="false" prefHeight="25.0" prefWidth="204.0" VBox.vgrow="ALWAYS" />
-                                          <HBox fx:id="maturityDate_icon" alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
-                                                   <font>
-                                                      <Font name="Arial Bold" size="12.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label>
-                                                   <graphic>
-                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
-                                                   </graphic>
-                                                   <tooltip>
-                                                      <Tooltip fx:id="maturityDateTT" text="Empty Tooltip" />
-                                                   </tooltip>
-                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                   </padding>
-                                                </Label>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="279.0" prefWidth="200.0">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <children>
                               <Label text="Term:">
                                  <font>
                                     <Font name="Arial Bold" size="14.0" />
@@ -205,7 +161,7 @@
                                  <children>
                                     <VBox>
                                        <children>
-                                          <TextField fx:id="term" prefHeight="25.0" prefWidth="194.0" promptText="Term">
+                                          <TextField fx:id="term" disable="true" editable="false" prefHeight="25.0" prefWidth="194.0" promptText="Term">
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </padding>
@@ -225,7 +181,51 @@
                                                       <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                                    </graphic>
                                                    <tooltip>
-                                                      <Tooltip fx:id="termTT" text="Empty Tooltip" />
+                                                      <Tooltip text="Empty Tooltip" />
+                                                   </tooltip>
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="279.0" prefWidth="200.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <children>
+                              <Label text="Maturity Date:">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <VBox HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <DatePicker fx:id="maturity_date" disable="true" editable="false" prefHeight="25.0" prefWidth="204.0" promptText="Maturity Date" VBox.vgrow="ALWAYS" />
+                                          <HBox fx:id="maturityDate_icon" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                                   </graphic>
+                                                   <tooltip>
+                                                      <Tooltip text="Empty Tooltip" />
                                                    </tooltip>
                                                    <padding>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -249,7 +249,7 @@
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
-                                          <TextField fx:id="due" prefHeight="25.0" prefWidth="194.0" promptText="Due">
+                                          <TextField fx:id="due" disable="true" editable="false" prefHeight="25.0" prefWidth="194.0" promptText="Due">
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </padding>
@@ -269,7 +269,7 @@
                                                       <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                                    </graphic>
                                                    <tooltip>
-                                                      <Tooltip fx:id="dueTT" text="Empty Tooltip" />
+                                                      <Tooltip text="Empty Tooltip" />
                                                    </tooltip>
                                                    <padding>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -300,7 +300,7 @@
                                  <children>
                                     <VBox>
                                        <children>
-                                          <TextField fx:id="interest" prefHeight="25.0" prefWidth="193.0" promptText="Interest">
+                                          <TextField fx:id="interest" disable="true" editable="false" prefHeight="25.0" prefWidth="193.0" promptText="Interest">
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </padding>
@@ -320,7 +320,51 @@
                                                       <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                                    </graphic>
                                                    <tooltip>
-                                                      <Tooltip fx:id="interestTT" text="Empty Tooltip" />
+                                                      <Tooltip text="Empty Tooltip" />
+                                                   </tooltip>
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Label text="Penalty:">
+                                 <padding>
+                                    <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <TextField fx:id="penalty" disable="true" editable="false" prefHeight="25.0" prefWidth="187.0" promptText="Penalty">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <HBox fx:id="penalty_icon" alignment="CENTER_LEFT">
+                                             <children>
+                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label>
+                                                   <graphic>
+                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                                   </graphic>
+                                                   <tooltip>
+                                                      <Tooltip text="Empty Tooltip" />
                                                    </tooltip>
                                                    <padding>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -354,7 +398,7 @@
                                           </TextField>
                                           <HBox fx:id="principal_icon" alignment="CENTER_LEFT">
                                              <children>
-                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
+                                                <Label fx:id="principal_tt" styleClass="label-red" text="Invalid Field" textFill="RED">
                                                    <font>
                                                       <Font name="Arial Bold" size="12.0" />
                                                    </font>
@@ -364,51 +408,7 @@
                                                       <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                                    </graphic>
                                                    <tooltip>
-                                                      <Tooltip fx:id="principalTT" text="Empty Tooltip" />
-                                                   </tooltip>
-                                                   <padding>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                                   </padding>
-                                                </Label>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                              <Label text="Penalty:">
-                                 <padding>
-                                    <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-                                 </padding>
-                                 <font>
-                                    <Font name="Arial Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <HBox>
-                                 <children>
-                                    <VBox>
-                                       <children>
-                                          <TextField fx:id="penalty" prefHeight="25.0" prefWidth="187.0" promptText="Penalty">
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                             </padding>
-                                             <font>
-                                                <Font name="Arial" size="12.0" />
-                                             </font>
-                                          </TextField>
-                                          <HBox fx:id="penalty_icon" alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
-                                                   <font>
-                                                      <Font name="Arial Bold" size="12.0" />
-                                                   </font>
-                                                </Label>
-                                                <Label>
-                                                   <graphic>
-                                                      <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
-                                                   </graphic>
-                                                   <tooltip>
-                                                      <Tooltip fx:id="penaltyTT" text="Empty Tooltip" />
+                                                      <Tooltip text="Empty Tooltip" />
                                                    </tooltip>
                                                    <padding>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -526,8 +526,11 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" spacing="10.0">
                      <children>
+                        <Button fx:id="save" mnemonicParsing="false" onAction="#handle_save" text="Save">
+                           <tooltip>
+                              <Tooltip fx:id="save_tt" text="Empty Tooltip" />
+                           </tooltip></Button>
                         <Button fx:id="cancel" mnemonicParsing="false" onAction="#handle_cancel" text="Cancel" />
-                        <Button fx:id="save" mnemonicParsing="false" onAction="#handle_save" text="Save" />
                      </children>
                   </HBox>
                </children>

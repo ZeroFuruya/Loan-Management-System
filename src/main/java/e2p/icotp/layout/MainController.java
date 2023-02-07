@@ -2,6 +2,7 @@ package e2p.icotp.layout;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.factory.TypesFactory;
@@ -13,7 +14,9 @@ import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.service.loader.ModalLoader;
+import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanPlanDAO;
+import e2p.icotp.service.server.dao.LoanerDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.cbox.LoanTypeListCell;
 import e2p.icotp.util.custom.cbox.LoanTypeStringConverter;
@@ -23,9 +26,13 @@ import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -184,6 +191,10 @@ public class MainController {
     Label loan_paid_label;
     @FXML
     Label loan_balance_label;
+    @FXML
+    Label loan_next_due_label;
+    @FXML
+    Label loan_next_amount_label;
 
     @FXML
     Button loan_edit_button;
@@ -197,6 +208,13 @@ public class MainController {
 
     @FXML
     ImageView status_image;
+
+    @FXML
+    HBox loan_next_box;
+
+    // NEXT LOAN
+    ObjectProperty<LocalDate> next_due = new SimpleObjectProperty<>(LocalDate.now());
+    DoubleProperty next_amount = new SimpleDoubleProperty(0);
 
     // TABLE COLS - Payment-----------------------------------------------------
     @FXML
@@ -341,6 +359,8 @@ public class MainController {
     LoanPlan og_loan_plan = new LoanPlan();
     LoanPlan loan_plan = new LoanPlan();
 
+    BooleanProperty isEdit = new SimpleBooleanProperty(false);
+
     NumberFormat format = NumberFormat.getInstance();
     TextFormatter<Number> interest_formatter;
     TextFormatter<Number> penalty_formatter;
@@ -350,21 +370,30 @@ public class MainController {
     // --------------------------------------------------------------------------------
     @FXML
     private void handle_loaner_edit() throws IOException {
-        ModalLoader.load_loaner_update(app, loaner, true, this);
+        isEdit.set(true);
+        ModalLoader.load_loaner_update(app, loaner, isEdit.get(), this);
     }
 
     @FXML
     private void handle_loaner_add() throws IOException {
-        ModalLoader.load_loaner_update(app, new Loaner(), false, this);
+        isEdit.set(false);
+        ModalLoader.load_loaner_update(app, new Loaner(), isEdit.get(), this);
     }
 
     @FXML
     private void handle_loaner_remove() {
+        LoanerDAO.remove(og_loaner);
         app.loanerMasterlist().remove(og_loaner);
     }
 
     // LOAN BUTTON HANDLES
     // ----------------------------------------------------------------------------------
+    BooleanProperty doRefresh = new SimpleBooleanProperty(false);
+
+    public BooleanProperty getDoRefresh() {
+        return this.doRefresh;
+    }
+
     @FXML
     private void handle_loan_edit() throws IOException {
         ModalLoader.load_loan_update(app, loan, true, this, loaner);
@@ -377,7 +406,10 @@ public class MainController {
 
     @FXML
     private void handle_loan_remove() {
+        LoanDAO.remove(og_loan);
         app.loanMasterList().remove(og_loan);
+        load_loan_table();
+        refresh_loan_list();
     }
 
     public void load(App app) {
@@ -893,6 +925,12 @@ public class MainController {
 
         status_image_setter(loan.getStatus());
 
+        if (loan.getStatus().equals(LoanStatus.OPEN)) {
+            loan_next_box.setVisible(true);
+        } else {
+            loan_next_box.setVisible(false);
+        }
+
         loan_edit_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
         loan_remove_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
     }
@@ -1089,8 +1127,41 @@ public class MainController {
         });
     }
 
+    private void save_loan() {
+        if (isEdit.get()) {
+            app.loanMasterList().remove(og_loan);
+            app.loanMasterList().add(loan);
+        } else {
+            app.loanMasterList().add(loan);
+        }
+    }
+
+    private void loan_next_logic() {
+        if (paymentList.isEmpty()) {
+            return;
+        }
+        int year_diff = loan.getMaturity_date().getYear() - loan.getRelease_date().getYear();
+        paymentList.forEach(payment -> {
+            for (int year = loan.getRelease_date().getMonthValue(); year <= year_diff; year++) {
+                for (int month = loan.getRelease_date().getMonthValue(); month <= 12; month++) {
+                    // TODO find out if paid on current month
+                    if (payment.getPaymentDate().getMonthValue() == month) {
+
+                    }
+                }
+                // TODO find out if paid all months on current year
+            }
+        });
+    }
+
     // GETTERS AND SETTERS
     public ObservableList<Loan> getLoanObservableList() {
         return loanObservableList;
+    }
+
+    public void setLoan(Loan val) {
+        this.loan = val;
+
+        save_loan();
     }
 }

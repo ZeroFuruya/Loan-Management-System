@@ -313,6 +313,46 @@
                                                                                     </Label>
                                                                                  </children>
                                                                               </HBox>
+                                                                              <HBox fx:id="loan_next_box" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                                                 <children>
+                                                                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                                                       <children>
+                                                                                          <HBox alignment="CENTER_LEFT">
+                                                                                             <children>
+                                                                                                <Label styleClass="label-bright" text="Next Due">
+                                                                                                   <font>
+                                                                                                      <Font name="Arial Bold" size="15.0" />
+                                                                                                   </font>
+                                                                                                </Label>
+                                                                                             </children>
+                                                                                          </HBox>
+                                                                                          <Label fx:id="loan_next_due_label" styleClass="label-bright" text="Next Due">
+                                                                                             <font>
+                                                                                                <Font size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
+                                                                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                                                       <children>
+                                                                                          <VBox alignment="CENTER_LEFT">
+                                                                                             <children>
+                                                                                                <Label styleClass="label-bright" text="Amount">
+                                                                                                   <font>
+                                                                                                      <Font name="Arial Bold" size="15.0" />
+                                                                                                   </font>
+                                                                                                </Label>
+                                                                                             </children>
+                                                                                          </VBox>
+                                                                                          <Label fx:id="loan_next_amount_label" styleClass="label-bright" text="Next Due">
+                                                                                             <font>
+                                                                                                <Font size="15.0" />
+                                                                                             </font>
+                                                                                          </Label>
+                                                                                       </children>
+                                                                                    </HBox>
+                                                                                 </children>
+                                                                              </HBox>
                                                                            </children>
                                                                         </VBox>
                                                                      </children>

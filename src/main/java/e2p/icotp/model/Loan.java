@@ -25,7 +25,7 @@ public class Loan {
     private DoubleProperty principal;
     private DoubleProperty interest;
     private DoubleProperty penalty;
-    private LongProperty due;
+    private IntegerProperty due;
     private DoubleProperty paid;
     private DoubleProperty balance;
     private StringProperty status;
@@ -34,7 +34,7 @@ public class Loan {
             long term,
             LocalDate maturity_date,
             double principal,
-            double interest, double penalty, long due, double paid, double balance, String status) {
+            double interest, double penalty, int due, double paid, double balance, String status) {
 
         this.loan_id = new SimpleIntegerProperty(loan_id);
         this.loaner_id = new SimpleObjectProperty<>(loaner_id);
@@ -46,7 +46,7 @@ public class Loan {
         this.principal = new SimpleDoubleProperty(principal);
         this.interest = new SimpleDoubleProperty(interest);
         this.penalty = new SimpleDoubleProperty(penalty);
-        this.due = new SimpleLongProperty(due);
+        this.due = new SimpleIntegerProperty(due);
         this.paid = new SimpleDoubleProperty(paid);
         this.balance = new SimpleDoubleProperty(balance);
         this.status = new SimpleStringProperty(status);
@@ -103,7 +103,7 @@ public class Loan {
         this.penalty.set(penalty);
     }
 
-    public void setDue(long due) {
+    public void setDue(int due) {
         this.due.set(due);
     }
 
@@ -156,15 +156,15 @@ public class Loan {
         return this.interest.get();
     }
 
-    public Double getPenalty() {
+    public double getPenalty() {
         return this.penalty.get();
     }
 
-    public Long getDue() {
+    public int getDue() {
         return this.due.get();
     }
 
-    public Double getPaid() {
+    public double getPaid() {
         return this.paid.get();
     }
 
@@ -217,7 +217,7 @@ public class Loan {
         return this.penalty;
     }
 
-    public LongProperty getDueProperty() {
+    public IntegerProperty getDueProperty() {
         return this.due;
     }
 
