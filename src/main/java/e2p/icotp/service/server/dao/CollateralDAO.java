@@ -98,7 +98,7 @@ public class CollateralDAO {
         // int loan_id
         params.add(new SQLParam(Types.INTEGER, "collateral_id", collateral.getCollateral_id()));
         // int loan_id
-        params.add(new SQLParam(Types.INTEGER, "plan_id", collateral.getPlan_id().getId().get()));
+        params.add(new SQLParam(Types.INTEGER, "plan_id", collateral.getPlan_id().getIdProperty().get()));
         // String collateral
         params.add(new SQLParam(Types.VARCHAR, "collateral", collateral.getCollateral()));
         // String collateral

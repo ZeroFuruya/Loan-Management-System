@@ -52,7 +52,7 @@ public class LogInLoader {
     }
 
     public static void load_sign_up(App app) throws IOException {
-        FXMLLoader loader = load_modal(app, "accounts/SIGNUP");
+        FXMLLoader loader = load_modal(app, "layout/accounts/SIGNUP");
 
         SignUpController controller = loader.getController();
         controller.load(app);

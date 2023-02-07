@@ -6,7 +6,7 @@ import javafx.util.StringConverter;
 public class LoanPlanStringConverter extends StringConverter<LoanPlan> {
     @Override
     public String toString(LoanPlan object) {
-        return object.getType().get().getName().get();
+        return object.getTypeProperty().get().getName().get();
     }
 
     @Override

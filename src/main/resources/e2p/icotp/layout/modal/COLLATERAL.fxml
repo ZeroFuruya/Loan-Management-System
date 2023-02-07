@@ -24,7 +24,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                      <font>
-                        <Font size="40.0" />
+                        <Font name="Arial" size="30.0" />
                      </font>
                   </Label>
                </children>
@@ -40,18 +40,14 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="17.0" />
                            </font>
                         </Label>
                         <HBox>
                            <children>
                               <VBox>
                                  <children>
-                                    <TextField fx:id="loanerId" prefHeight="27.0" prefWidth="182.0">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </TextField>
+                                    <TextField fx:id="loanerId" prefHeight="27.0" prefWidth="182.0" />
                                     <HBox fx:id="loanerIdLabel" alignment="CENTER_LEFT">
                                        <children>
                                           <Label text="Invalid Field" textFill="RED">
@@ -88,7 +84,7 @@
                      <children>
                         <Label text="Loan ID:">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="17.0" />
                            </font>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -98,11 +94,7 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <TextField fx:id="loanId" prefHeight="27.0" prefWidth="197.0">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </TextField>
+                                    <TextField fx:id="loanId" prefHeight="27.0" prefWidth="197.0" />
                                     <HBox fx:id="loanIdLabel" alignment="CENTER_LEFT">
                                        <children>
                                           <Label text="Invalid Field" textFill="RED">
@@ -147,18 +139,14 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <font>
-                              <Font size="20.0" />
+                              <Font name="Arial" size="17.0" />
                            </font>
                         </Label>
                         <HBox>
                            <children>
                               <VBox>
                                  <children>
-                                    <TextField fx:id="collateral" prefHeight="27.0" prefWidth="203.0">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </TextField>
+                                    <TextField fx:id="collateralTF" prefHeight="27.0" prefWidth="203.0" />
                                     <HBox fx:id="collateralLabel" alignment="CENTER_LEFT">
                                        <children>
                                           <Label text="Invalid Field" textFill="RED">

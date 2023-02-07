@@ -62,8 +62,8 @@ public class App extends Application {
 
         System.out.println("======================================");
         loan_planCache.forEach(loan -> {
-            System.out.println(loan.getId().get());
-            System.out.println(loan.getType().get().getName().get());
+            System.out.println(loan.getIdProperty().get());
+            System.out.println(loan.getTypeProperty().get().getName().get());
         });
     }
     private void initialize_signUp(){

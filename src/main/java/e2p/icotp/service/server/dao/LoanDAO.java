@@ -50,7 +50,7 @@ public class LoanDAO {
             loan_plan = LoanPlanDAO.getLoanPlanByID(plan_id);
         }
 
-        int type_id = loan_plan.getType().get().getId().get();
+        int type_id = loan_plan.getTypeProperty().get().getId().get();
         LoanType loan_type;
         if (type_id <= 0) {
             loan_type = new LoanType();

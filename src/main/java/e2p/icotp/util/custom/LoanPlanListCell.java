@@ -10,7 +10,7 @@ public class LoanPlanListCell extends ListCell<LoanPlan> {
         if (loan_plan == null || empty) {
             setText(null);
         } else {
-            setText(loan_plan.getType().get().getName().get());
+            setText(loan_plan.getTypeProperty().get().getName().get());
         }
     }
 }

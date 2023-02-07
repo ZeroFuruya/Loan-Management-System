@@ -445,24 +445,24 @@ public class MainController {
             return collateral.getValue().getLoan_id().getLoanID_Property().asObject();
         });
         collateral_loan_type.setCellValueFactory(collateral -> {
-            return collateral.getValue().getPlan_id().getType().get().getName();
+            return collateral.getValue().getPlan_id().getTypeProperty().get().getName();
         });
 
         // LOAN PLAN TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         plan_id.setCellValueFactory(plan -> {
-            return plan.getValue().getId().asObject();
+            return plan.getValue().getIdProperty().asObject();
         });
         plan_type_name.setCellValueFactory(plan -> {
-            return plan.getValue().getType().get().getName();
+            return plan.getValue().getTypeProperty().get().getName();
         });
         plan_term.setCellValueFactory(plan -> {
-            return plan.getValue().getTerm().asObject();
+            return plan.getValue().getTermProperty().asObject();
         });
         plan_interest.setCellValueFactory(plan -> {
-            return plan.getValue().getInterest().asObject();
+            return plan.getValue().getInterestProperty().asObject();
         });
         plan_penalty.setCellValueFactory(plan -> {
-            return plan.getValue().getPenalty().asObject();
+            return plan.getValue().getPenaltyProperty().asObject();
         });
         loanPlanTable.setItems(loanPlanList);
     }
@@ -667,7 +667,7 @@ public class MainController {
                     return true;
                 }
 
-                return p.getPlan_id().getType().get().getName().get().toLowerCase().contains(nv.toLowerCase());
+                return p.getPlan_id().getTypeProperty().get().getName().get().toLowerCase().contains(nv.toLowerCase());
             });
         });
     }
@@ -889,8 +889,8 @@ public class MainController {
             return String.format("Collateral ID: %d", collateral.getCollateral_id());
         }, collateral.getCollateralId_property()));
         collateral_type_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loan Type: %s", collateral.getPlan_id().getType().get().getName().get());
-        }, collateral.getPlan_id().getType().get().getName()));
+            return String.format("Loan Type: %s", collateral.getPlan_id().getTypeProperty().get().getName().get());
+        }, collateral.getPlan_id().getTypeProperty().get().getName()));
         collateral_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("Collateral: %s", collateral.getCollateral());
         }, collateral.getCollateral_property()));
@@ -961,11 +961,11 @@ public class MainController {
                     return true;
                 }
 
-                if (Integer.toString(p.getId().get()).toLowerCase().contains(nv.toLowerCase())) {
+                if (Integer.toString(p.getIdProperty().get()).toLowerCase().contains(nv.toLowerCase())) {
                     return true;
                 }
 
-                return p.getType().get().getName().get().toLowerCase().contains(nv.toLowerCase());
+                return p.getTypeProperty().get().getName().get().toLowerCase().contains(nv.toLowerCase());
             });
         });
         edit_toggle.selectedProperty().addListener((o, ov, nv) -> {
@@ -990,12 +990,12 @@ public class MainController {
 
     void plan_load_fields() {
         if (edit_toggle.isSelected()) {
-            plan_id_tf.setText(loan_plan.getId().get() + "");
+            plan_id_tf.setText(loan_plan.getIdProperty().get() + "");
         }
-        plan_type_cbox.getSelectionModel().select(loan_plan.getType().get());
-        plan_term_tf.setText(loan_plan.getTerm().get() + "");
-        plan_interest_tf.setText(loan_plan.getInterest().get() + "");
-        plan_penalty_tf.setText(loan_plan.getPenalty().get() + "");
+        plan_type_cbox.getSelectionModel().select(loan_plan.getTypeProperty().get());
+        plan_term_tf.setText(loan_plan.getTermProperty().get() + "");
+        plan_interest_tf.setText(loan_plan.getInterestProperty().get() + "");
+        plan_penalty_tf.setText(loan_plan.getPenaltyProperty().get() + "");
     }
 
     void plan_clear_fields() {
@@ -1029,11 +1029,11 @@ public class MainController {
     }
 
     void plan_modify_listener() {
-        loan_plan.getId().set(Integer.parseInt(plan_id_tf.textProperty().get()));
-        loan_plan.getType().set(plan_type_cbox.getSelectionModel().getSelectedItem());
-        loan_plan.getTerm().set(Long.parseLong(plan_term_tf.textProperty().get()));
-        loan_plan.getInterest().set(Double.parseDouble(plan_interest_tf.textProperty().get()));
-        loan_plan.getPenalty().set(Double.parseDouble(plan_penalty_tf.textProperty().get()));
+        loan_plan.getIdProperty().set(Integer.parseInt(plan_id_tf.textProperty().get()));
+        loan_plan.getTypeProperty().set(plan_type_cbox.getSelectionModel().getSelectedItem());
+        loan_plan.getTermProperty().set(Long.parseLong(plan_term_tf.textProperty().get()));
+        loan_plan.getInterestProperty().set(Double.parseDouble(plan_interest_tf.textProperty().get()));
+        loan_plan.getPenaltyProperty().set(Double.parseDouble(plan_penalty_tf.textProperty().get()));
     }
 
     long final_num = 0;
@@ -1049,7 +1049,7 @@ public class MainController {
         final_num = Long.parseLong(string_val);
 
         app.loanPlanMasterlist().forEach(loan_plan -> {
-            if (loan_plan.getId().get() == final_num) {
+            if (loan_plan.getIdProperty().get() == final_num) {
                 generate_id();
             } else {
                 plan_id_tf.textProperty().set(final_num + "");

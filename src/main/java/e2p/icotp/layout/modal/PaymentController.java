@@ -1,6 +1,11 @@
 package e2p.icotp.layout.modal;
 
+import java.time.LocalDate;
+
 import e2p.icotp.App;
+import e2p.icotp.model.Loan;
+import e2p.icotp.model.Loaner;
+import e2p.icotp.model.Payment;
 import e2p.icotp.service.loader.ModalLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -55,6 +60,9 @@ public class PaymentController {
     private Tooltip paymentAmountTT;
 
     private App app;
+    private Payment payment;
+    private Loan loan;
+    private Loaner loaner;
 
     @FXML
     private void handle_cancel() {
@@ -69,6 +77,7 @@ public class PaymentController {
     public void load(App app) {
         this.app = app;
         load_bindings();
+        modify_payment_listener();
     }
 
     private void load_bindings() {
@@ -81,5 +90,13 @@ public class PaymentController {
         save.disableProperty().bind(
                 lastname_icon.visibleProperty().or(loanerID_icon.visibleProperty()).or(loanId_icon.visibleProperty())
                         .or(paymentAmount_icon.visibleProperty()).or(paymentAmount_icon.visibleProperty()));
+    }
+
+    private void modify_payment_listener(){
+        loan.setLoan_id(Integer.parseInt(loan_id.textProperty().get()));
+        loaner.setLoaner_id(Long.parseLong(loaner_id.textProperty().get()));
+        loaner.setName(lastname.textProperty().get());
+        payment.setPayment_date(LocalDate.parse(payment_date.promptTextProperty().get()));
+        payment.setPayment_amount(Double.parseDouble(payment_amount.textProperty().get()));
     }
 }
