@@ -7,9 +7,11 @@ import e2p.icotp.layout.MainController;
 import e2p.icotp.layout.modal.LoanController;
 import e2p.icotp.layout.modal.LoanTypesController;
 import e2p.icotp.layout.modal.LoanerController;
+import e2p.icotp.layout.modal.PaymentController;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
+import e2p.icotp.model.Payment;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -62,6 +64,15 @@ public class ModalLoader {
 
         LoanController controller = loader.getController();
         controller.load(app, loan, isEdit, mc, loaner);
+    }
+
+    public static void load_payment_update(App app, Loan loan, boolean isEdit, MainController mc, Loaner loaner,
+            Payment payment)
+            throws IOException {
+        FXMLLoader loader = load_modal(app, "modal/PAYMENT");
+
+        PaymentController controller = loader.getController();
+        controller.load(app, loan, isEdit, mc, loaner, payment);
     }
 
     public static void load_loan_type_update(App app, LoanType loan_type, boolean isEdit, MainController mc)

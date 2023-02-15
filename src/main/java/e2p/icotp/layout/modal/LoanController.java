@@ -14,13 +14,10 @@ import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
+import e2p.icotp.util.custom.formatters.DoubleTextFieldFormatter;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -32,6 +29,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 
@@ -108,6 +106,8 @@ public class LoanController {
     private LoanPlan loan_plan = new LoanPlan();
     private boolean isEdit;
 
+    TextFormatter<Number> principal_formatter;
+
     NumberFormat format = NumberFormat.getInstance();
     private MainController mc;
 
@@ -147,6 +147,9 @@ public class LoanController {
         this.loan = loan;
         this.isEdit = isEdit;
         this.loaner = loaner;
+
+        principal_formatter = new DoubleTextFieldFormatter();
+        principal.setTextFormatter(principal_formatter);
 
         format.setGroupingUsed(true);
 
@@ -291,14 +294,6 @@ public class LoanController {
     }
 
     // CUSTOMS
-    private void loan_logic() {
-
-    }
-
-    private void over_due_listener() {
-
-    }
-
     private void modify_loan_plan_field_listener() {
         LocalDate tempDate = release_date.getValue().plusDays(loan_plan.getTerm().get());
         LocalDate matureDate = LocalDate.of(tempDate.getYear(), tempDate.getMonthValue(),
