@@ -448,10 +448,10 @@ public class MainController {
 
     @FXML
     private void handle_payment_remove() {
-        LoanDAO.remove(og_loan);
-        app.loanMasterList().remove(og_loan);
-        load_loan_table();
-        refresh_loan_list();
+        // LoanDAO.remove(og_loan);
+        // app.loanMasterList().remove(og_loan);
+        // load_loan_table();
+        // refresh_loan_list();
     }
 
     public void load(App app) {
@@ -996,8 +996,8 @@ public class MainController {
             return String.format("$%s", format.format(payment.getPayment_amount()));
         }, payment.getPayment_amount_Property()));
 
-        payment_edit_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
-        payment_remove_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
+        payment_edit_button.disableProperty().bind(paymentTable.selectionModelProperty().isNull());
+        payment_remove_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
 
     }
 
@@ -1211,12 +1211,14 @@ public class MainController {
                 loan_next_amount_label.textProperty().set(format.format(monthly_payment) + "");
                 next_due_err.visibleProperty().set(false);
                 next_amount_err.visibleProperty().set(false);
+                next_amount.set(monthly_payment);
             } else {
                 loan_next_amount_label.textProperty().set(format.format(penalty_payment) + "");
                 loan_overdue_label.textProperty().set("Overdue");
                 loan_penalty_amount_label.textProperty().set("Amount + Penalty");
                 next_due_err.visibleProperty().set(true);
                 next_amount_err.visibleProperty().set(true);
+                next_amount.set(penalty_payment);
             }
             return;
         }
@@ -1242,10 +1244,12 @@ public class MainController {
                                 loan_penalty_amount_label.textProperty().set("Amount + Penalty");
                                 next_due_err.visibleProperty().set(true);
                                 next_amount_err.visibleProperty().set(true);
+                                next_amount.set(penalty_payment);
                             } else {
                                 loan_next_amount_label.textProperty().set(format.format(monthly_payment) + "");
                                 next_due_err.visibleProperty().set(false);
                                 next_amount_err.visibleProperty().set(false);
+                                next_amount.set(monthly_payment);
                             }
                             break;
                         }
@@ -1260,10 +1264,12 @@ public class MainController {
                                 loan_penalty_amount_label.textProperty().set("Amount + Penalty");
                                 next_due_err.visibleProperty().set(true);
                                 next_amount_err.visibleProperty().set(true);
+                                next_amount.set(penalty_payment);
                             } else {
                                 loan_next_amount_label.textProperty().set(format.format(monthly_payment) + "");
                                 next_due_err.visibleProperty().set(false);
                                 next_amount_err.visibleProperty().set(false);
+                                next_amount.set(monthly_payment);
                             }
                             break;
                         }
@@ -1285,6 +1291,6 @@ public class MainController {
     }
 
     public String getTotalDueAmount() {
-        return loan_next_amount_label.textProperty().get();
+        return String.format("%.2f", next_amount.get());
     }
 }

@@ -388,7 +388,7 @@
                                  <children>
                                     <VBox>
                                        <children>
-                                          <TextField fx:id="principal" prefHeight="25.0" prefWidth="187.0" promptText="Principal">
+                                          <TextField fx:id="principal" onKeyTyped="#_valid_input" prefHeight="25.0" prefWidth="187.0" promptText="Principal">
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </padding>

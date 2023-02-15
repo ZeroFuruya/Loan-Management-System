@@ -2,6 +2,7 @@ package e2p.icotp.layout.modal;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
@@ -11,15 +12,17 @@ import e2p.icotp.model.Payment;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.PaymentDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
+import e2p.icotp.util.custom.ValidateTextField;
 import e2p.icotp.util.custom.formatters.DoubleTextFieldFormatter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
 public class PaymentController {
@@ -51,9 +54,9 @@ public class PaymentController {
 
     // TOOLTIPS
     @FXML
-    private Tooltip paymentDateTT;
+    private Label paymentDateTT;
     @FXML
-    private Tooltip paymentAmountTT;
+    private Label paymentAmountTT;
 
     private App app;
     private Loan loan;
@@ -62,8 +65,6 @@ public class PaymentController {
     private Loaner loaner;
     private Payment payment;
     private Payment og_payment;
-
-    TextFormatter<Number> payment_formatter;
 
     @FXML
     private void handle_cancel() {
@@ -96,9 +97,6 @@ public class PaymentController {
         this.payment = payment;
         this.og_payment = payment;
 
-        payment_formatter = new DoubleTextFieldFormatter();
-        payment_amount.setTextFormatter(payment_formatter);
-
         load_bindings();
         init_listeners();
         if (isEdit) {
@@ -115,7 +113,7 @@ public class PaymentController {
 
     private void load_bindings() {
         paymentDate_icon.visibleProperty().bind(payment_date.promptTextProperty().isEmpty());
-        paymentAmount_icon.visibleProperty().bind(payment_amount.textProperty().isEmpty());
+        paymentAmount_icon.setVisible(false);
 
         save.disableProperty().bind(paymentAmount_icon.visibleProperty().or(paymentAmount_icon.visibleProperty()));
     }
@@ -129,7 +127,55 @@ public class PaymentController {
     private void init_add_listeners() {
         generate_id();
         payment_date.valueProperty().set(LocalDate.now());
-        payment_amount.textProperty().set(mc.getTotalDueAmount()); // TODO FIX FORMAT
+        payment_amount.textProperty().set(mc.getTotalDueAmount());
+    }
+
+    // TEXTFIELD VALIDATORS
+    private static String regex = "-?(([1-9][0-9]{0,15})|0)?(\\.[0-9]{0,2})?";
+    Pattern pattern = Pattern.compile(regex);
+    public final int DOT = 46;
+    public int dot = 46;
+
+    @FXML
+    private void _valid_input(KeyEvent k) {
+        if (payment_amount.textProperty().get().isEmpty()) {
+            paymentAmount_icon.visibleProperty().set(true);
+            paymentAmountTT.textProperty().set("Field must not be Empty");
+            return;
+        } else {
+            paymentAmount_icon.visibleProperty().set(false);
+        }
+
+        ValidateTextField validator = new ValidateTextField();
+        validator.validateDigit(payment_amount, k, dot);
+
+        // TODO PUT THIS OUTSIDE/BEFORE _valid_input
+        if (payment_amount.textProperty().get().toLowerCase().contains(".")) {
+            dot = ValidateTextField.NOT_DOT;
+        } else {
+            dot = DOT;
+        }
+
+        if (Double.parseDouble(payment_amount.getText()) < Double.parseDouble(mc.getTotalDueAmount())) {
+            paymentAmount_icon.visibleProperty().set(true);
+            paymentAmountTT.textProperty().set("Payment should be full");
+            return;
+        } else {
+            paymentAmount_icon.visibleProperty().set(false);
+        }
+
+        if (Double.parseDouble(payment_amount.getText()) > loan.getBalance()) {
+            paymentAmount_icon.visibleProperty().set(true);
+            paymentAmountTT.textProperty().set("Payment should not surpass balance");
+            return;
+        }
+
+        if (!pattern.matcher(payment_amount.getText()).matches()) {
+            paymentAmount_icon.visibleProperty().set(true);
+            paymentAmountTT.textProperty().set("Invalid Input");
+        } else {
+            paymentAmount_icon.visibleProperty().set(false);
+        }
     }
 
     private void modify_payment_listener() {

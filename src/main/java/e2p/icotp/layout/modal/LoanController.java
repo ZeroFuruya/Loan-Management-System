@@ -3,6 +3,7 @@ package e2p.icotp.layout.modal;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
@@ -14,7 +15,7 @@ import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
-import e2p.icotp.util.custom.formatters.DoubleTextFieldFormatter;
+import e2p.icotp.util.custom.ValidateTextField;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -29,8 +30,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
 public class LoanController {
@@ -106,13 +107,14 @@ public class LoanController {
     private LoanPlan loan_plan = new LoanPlan();
     private boolean isEdit;
 
-    TextFormatter<Number> principal_formatter;
-
     NumberFormat format = NumberFormat.getInstance();
     private MainController mc;
 
     private FilteredList<LoanPlan> loanPlanList;
     private ObservableList<Payment> paymentList = FXCollections.observableArrayList();
+
+    private static String regex = "-?(([1-9][0-9]{0,15})|0)?(\\.[0-9]{0,2})?";
+    Pattern pattern = Pattern.compile(regex);
 
     // PAID
     private double total_paid = 0.0d;
@@ -147,9 +149,6 @@ public class LoanController {
         this.loan = loan;
         this.isEdit = isEdit;
         this.loaner = loaner;
-
-        principal_formatter = new DoubleTextFieldFormatter();
-        principal.setTextFormatter(principal_formatter);
 
         format.setGroupingUsed(true);
 
@@ -235,13 +234,15 @@ public class LoanController {
 
         principal.textProperty().addListener((o, ov, nv) -> {
             if (!nv.isEmpty()) {
-                if (Double.parseDouble(nv) < 1000.0) {
+                if (nv.length() < 4) {
                     minLoan.set(true);
                 } else {
                     minLoan.set(false);
                 }
             }
         });
+
+        principal_icon.setVisible(false);
 
         plan_id.prefWidthProperty().bind(planTable.widthProperty().multiply(0.16));
         plan_type_name.prefWidthProperty().bind(planTable.widthProperty().multiply(0.35));
@@ -252,17 +253,16 @@ public class LoanController {
         term_icon.visibleProperty().bind(term.textProperty().isEmpty());
         releaseDate_icon.visibleProperty().bind(release_date.valueProperty().isNull());
         maturityDate_icon.visibleProperty().bind(maturity_date.valueProperty().isNull());
-        principal_icon.visibleProperty().bind(principal.textProperty().isEmpty().or(minLoan));
+
         interest_icon.visibleProperty().bind(interest.textProperty().isEmpty());
         penalty_icon.visibleProperty().bind(penalty.textProperty().isEmpty());
         due_icon.visibleProperty().bind(due.textProperty().isEmpty());
 
-        principal_tt.textProperty().bind(Bindings.when(minLoan).then("Minimum Loan is 1000").otherwise("Empty Field"));
         save_tt.textProperty().bind(Bindings.when(planTable.getSelectionModel().selectedItemProperty().isNull())
                 .then("Select Loan Plan First").otherwise("Fill All Fields First"));
 
         save.disableProperty()
-                .bind(plan_id_disp.textProperty().isEqualTo("0").or(minLoan));
+                .bind(plan_id_disp.textProperty().isEqualTo("0").or(principal_icon.visibleProperty()));
 
         if (isEdit) {
             loan_id.setText(loan.getLoan_id() + "");
@@ -282,7 +282,7 @@ public class LoanController {
             term.setText(loan.getTerm() + "");
             release_date.setValue(LocalDate.now());
             maturity_date.setValue(LocalDate.now());
-            principal.setText("0.0");
+            principal.setText("1000");
             interest.setText("0.0");
             penalty.setText("0.0");
             due.setText(LocalDate.now().getDayOfMonth() + "");
@@ -349,6 +349,50 @@ public class LoanController {
                 loan_id.textProperty().set(final_num + "");
             }
         });
+    }
+
+    public final int DOT = 46;
+    public int dot = 46;
+
+    @FXML
+    private void _valid_input(KeyEvent k) {
+        if (principal.textProperty().get().isEmpty()) {
+            principal_icon.visibleProperty().set(true);
+            principal_tt.textProperty().set("Field must not be Empty");
+            return;
+        } else {
+            principal_icon.visibleProperty().set(false);
+        }
+
+        ValidateTextField validator = new ValidateTextField();
+        validator.validateDigit(principal, k, dot);
+
+        if (principal.textProperty().get().toLowerCase().contains(".")) {
+            dot = ValidateTextField.NOT_DOT;
+        } else {
+            dot = DOT;
+        }
+
+        if (Double.parseDouble(principal.getText()) < 1000.0) {
+            principal_icon.visibleProperty().set(true);
+            principal_tt.textProperty().set("Minimum Loan is $1000.00");
+            return;
+        } else {
+            principal_icon.visibleProperty().set(false);
+        }
+
+        if (Double.parseDouble(principal.getText()) > 999999999999999.99) {
+            principal_icon.visibleProperty().set(true);
+            principal_tt.textProperty().set("Maximum Loan is $999,999,999,999,999.99");
+            return;
+        }
+
+        if (!pattern.matcher(principal.getText()).matches()) {
+            principal_icon.visibleProperty().set(true);
+            principal_tt.textProperty().set("Invalid Input");
+        } else {
+            principal_icon.visibleProperty().set(false);
+        }
     }
 
     private void notify_changes() throws SQLException {

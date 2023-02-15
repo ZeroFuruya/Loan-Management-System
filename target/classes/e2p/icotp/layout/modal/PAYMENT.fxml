@@ -151,7 +151,7 @@
                                           <DatePicker fx:id="payment_date" editable="false" promptText=" 1/11/111" />
                                           <HBox fx:id="paymentDate_icon" alignment="CENTER_LEFT">
                                              <children>
-                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
+                                                <Label fx:id="paymentDateTT" styleClass="label-red" text="Invalid Field" textFill="RED">
                                                    <font>
                                                       <Font name="Arial Bold" size="12.0" />
                                                    </font>
@@ -161,7 +161,7 @@
                                                       <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                                    </graphic>
                                                    <tooltip>
-                                                      <Tooltip fx:id="paymentDateTT" text="Empty Tooltip" />
+                                                      <Tooltip text="Empty Tooltip" />
                                                    </tooltip>
                                                    <padding>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -179,7 +179,7 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <VBox maxWidth="170.0" minWidth="170.0" prefHeight="285.0" prefWidth="170.0">
+                        <VBox maxWidth="386.0" minWidth="170.0" prefHeight="100.0" prefWidth="386.0" HBox.hgrow="ALWAYS">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -194,16 +194,16 @@
                               </Label>
                               <HBox>
                                  <children>
-                                    <VBox>
+                                    <VBox HBox.hgrow="ALWAYS">
                                        <children>
-                                          <TextField fx:id="payment_amount" promptText="Payment Amount">
+                                          <TextField fx:id="payment_amount" onKeyTyped="#_valid_input" promptText="Payment Amount">
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </padding>
                                           </TextField>
                                           <HBox fx:id="paymentAmount_icon" alignment="CENTER_LEFT">
                                              <children>
-                                                <Label styleClass="label-red" text="Invalid Field" textFill="RED">
+                                                <Label fx:id="paymentAmountTT" styleClass="label-red" text="Invalid Field" textFill="RED">
                                                    <font>
                                                       <Font name="Arial Bold" size="12.0" />
                                                    </font>
@@ -213,7 +213,7 @@
                                                       <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                                    </graphic>
                                                    <tooltip>
-                                                      <Tooltip fx:id="paymentAmountTT" text="Empty Tooltip" />
+                                                      <Tooltip text="Empty Tooltip" />
                                                    </tooltip>
                                                    <padding>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
