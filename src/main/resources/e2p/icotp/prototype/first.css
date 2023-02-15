@@ -21,9 +21,9 @@
     background-color: #d04615;
     border-style: solid;
     border-radius: 10px;
-    -fx-background-radius: 10px;
+    -background-radius: 10px;
     border-right-width: 50px;
-    border-bottom-width: 50pborder-color: #3d1608;
+    border-bottom-width: 50 pborder-color #3d1608;
 
 }
 

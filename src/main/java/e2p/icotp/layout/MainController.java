@@ -1093,4 +1093,5 @@ public class MainController {
     public ObservableList<Loan> getLoanObservableList() {
         return loanObservableList;
     }
+    
 }
