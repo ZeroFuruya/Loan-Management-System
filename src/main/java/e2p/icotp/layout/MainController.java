@@ -465,6 +465,8 @@ public class MainController {
         loaner_name_container.setVisible(false);
         loan_information_container.setVisible(false);
         payment_information_container.setVisible(false);
+        payments_box.setVisible(false);
+        collateral_box.setVisible(false);
 
         loanTypeList = new FilteredList<>(app.loanTypeMasterlist(), p -> true);
 
@@ -597,6 +599,9 @@ public class MainController {
         plans_button.disableProperty().bind(plans_button.selectedProperty());
         plans_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
 
+        payment_edit_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
+        payment_remove_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
+
     }
 
     private void init_togbutton_listeners() {
@@ -655,6 +660,8 @@ public class MainController {
                 _init_loaner_bindings();
                 loan_information_container.setVisible(false);
                 payment_information_container.setVisible(false);
+                payments_box.setVisible(false);
+                collateral_box.setVisible(false);
             } else {
                 load_empty_loan_table();
                 refresh_loan_list();
@@ -664,6 +671,8 @@ public class MainController {
                 loan_information_container.setVisible(false);
                 payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
+                payments_box.setVisible(false);
+                collateral_box.setVisible(false);
             }
         });
         loaner_search.textProperty().addListener((o, ov, nv) -> {
@@ -683,7 +692,6 @@ public class MainController {
         // LOAN --------------------------------------------
         loanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (nv != null) {
-                loan_information_container.setVisible(true);
                 og_loan = nv;
                 loan = og_loan;
                 load_payment_table();
@@ -691,10 +699,15 @@ public class MainController {
                 load_collateral_table();
                 refresh_collateral_list();
                 _init_loan_bindings();
+                loan_information_container.setVisible(true);
+                payments_box.setVisible(true);
+                collateral_box.setVisible(true);
             } else {
                 loan_information_container.setVisible(false);
                 payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
+                payments_box.setVisible(false);
+                collateral_box.setVisible(false);
             }
 
         });
@@ -863,7 +876,7 @@ public class MainController {
     @FXML
     private void loan_tab_transitions() {
         FadeTransition translate = new FadeTransition();
-        translate.setNode(loans_box);
+        translate.setNode(loan_information_container);
         translate.setDuration(Duration.millis(400));
         translate.setInterpolator(Interpolator.EASE_IN);
         translate.setFromValue(0);
@@ -966,7 +979,6 @@ public class MainController {
         }, loan.getBalanceProperty()));
 
         status_image_setter(loan.getStatus());
-
         if (loan.getStatus().equals(LoanStatus.OPEN)) {
             loan_next_box.setVisible(true);
             // TODO add if else for Mothly or Daily or Annually
@@ -995,10 +1007,6 @@ public class MainController {
         payment_amount_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("$%s", format.format(payment.getPayment_amount()));
         }, payment.getPayment_amount_Property()));
-
-        payment_edit_button.disableProperty().bind(paymentTable.selectionModelProperty().isNull());
-        payment_remove_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
-
     }
 
     private void _init_collateral_bindings() {

@@ -1,6 +1,7 @@
 package e2p.icotp.util.custom;
 
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class ValidateTextField {
@@ -19,6 +20,7 @@ public class ValidateTextField {
     public void validateDigit(TextField textField, KeyEvent event, int dot) {
 
         char currentKeyTyped = event.getCharacter().charAt(0);
+        KeyCode keyCode = event.getCode();
 
         final Boolean INVALID_KEY = (!Character.isDigit(currentKeyTyped)) &&
                 (currentKeyTyped != BACK_SCPACE) &&
@@ -27,6 +29,10 @@ public class ValidateTextField {
                 (currentKeyTyped != dot);
 
         try {
+
+            if (keyCode.isArrowKey()) {
+                return;
+            }
 
             if (INVALID_KEY) {
                 String replaceText = textField.getText().replace(Character.toString(currentKeyTyped), "");

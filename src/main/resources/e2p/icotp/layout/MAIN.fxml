@@ -119,7 +119,7 @@
                                                       </VBox>
                                                       <TabPane>
                                                          <tabs>
-                                                            <Tab closable="false" text="Info">
+                                                            <Tab fx:id="loans_button" closable="false" onSelectionChanged="#loan_tab_transitions" text="Info">
                                                                <content>
                                                                   <VBox fx:id="loan_information_container">
                                                                      <children>
@@ -388,7 +388,7 @@
                                                                   </VBox>
                                                                </content>
                                                             </Tab>
-                                                            <Tab fx:id="payments_button" closable="false" text="Payments">
+                                                            <Tab fx:id="payments_button" closable="false" onSelectionChanged="#payment_tab_transitions" text="Payments">
                                                                <content>
                                                                   <VBox fx:id="payments_box" prefHeight="200.0" prefWidth="100.0">
                                                                      <children>

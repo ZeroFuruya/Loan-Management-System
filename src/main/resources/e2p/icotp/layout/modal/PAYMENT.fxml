@@ -196,7 +196,7 @@
                                  <children>
                                     <VBox HBox.hgrow="ALWAYS">
                                        <children>
-                                          <TextField fx:id="payment_amount" onKeyTyped="#_valid_input" promptText="Payment Amount">
+                                          <TextField fx:id="payment_amount" onKeyPressed="#init_validation" onKeyTyped="#_valid_input" promptText="Payment Amount">
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </padding>

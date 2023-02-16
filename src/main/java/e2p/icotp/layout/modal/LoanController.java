@@ -395,6 +395,18 @@ public class LoanController {
         }
     }
 
+    @FXML
+    void init_validation(KeyEvent k) {
+        ValidateTextField validator = new ValidateTextField();
+        validator.validateDigit(principal, k, dot);
+
+        if (principal.textProperty().get().toLowerCase().contains(".")) {
+            dot = ValidateTextField.NOT_DOT;
+        } else {
+            dot = DOT;
+        }
+    }
+
     private void notify_changes() throws SQLException {
         app.loanMasterList().setAll(LoanDAO.getMasterlist());
     }

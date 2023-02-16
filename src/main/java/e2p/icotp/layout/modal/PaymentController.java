@@ -13,7 +13,6 @@ import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.PaymentDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.ValidateTextField;
-import e2p.icotp.util.custom.formatters.DoubleTextFieldFormatter;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -21,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
@@ -74,6 +72,11 @@ public class PaymentController {
     @FXML
     private void handle_save() throws SQLException {
         modify_payment_listener();
+        System.out.println(payment.getPayment_id());
+        System.out.println(payment.getLoaner_id().getName());
+        System.out.println(payment.getLoan_id().getLoanType().getName().get());
+        System.out.println(payment.getPaymentDate().getMonth());
+        System.out.println(payment.getPayment_amount());
         if (isEdit.get()) {
             PaymentDAO.update(payment);
             app.paymentMasterlist().remove(og_payment);
@@ -138,6 +141,22 @@ public class PaymentController {
 
     @FXML
     private void _valid_input(KeyEvent k) {
+        check_input(k);
+    }
+
+    @FXML
+    void init_validation(KeyEvent k) {
+        ValidateTextField validator = new ValidateTextField();
+        validator.validateDigit(payment_amount, k, dot);
+
+        if (payment_amount.textProperty().get().toLowerCase().contains(".")) {
+            dot = ValidateTextField.NOT_DOT;
+        } else {
+            dot = DOT;
+        }
+    }
+
+    private void check_input(KeyEvent k) {
         if (payment_amount.textProperty().get().isEmpty()) {
             paymentAmount_icon.visibleProperty().set(true);
             paymentAmountTT.textProperty().set("Field must not be Empty");
@@ -149,7 +168,6 @@ public class PaymentController {
         ValidateTextField validator = new ValidateTextField();
         validator.validateDigit(payment_amount, k, dot);
 
-        // TODO PUT THIS OUTSIDE/BEFORE _valid_input
         if (payment_amount.textProperty().get().toLowerCase().contains(".")) {
             dot = ValidateTextField.NOT_DOT;
         } else {

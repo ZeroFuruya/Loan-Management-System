@@ -33,7 +33,7 @@ public class PaymentDAO {
     }
 
     public static Payment paymentData(CachedRowSet crs) throws SQLException {
-        int payment_id = (crs.getInt("payment_id"));
+        long payment_id = (crs.getLong("payment_id"));
         int loaner_id = (crs.getInt("loaner_id"));
         Loaner loaner;
         if (loaner_id <= 0) {
@@ -61,16 +61,16 @@ public class PaymentDAO {
         params.add(new SQLParam(Types.BIGINT, "payment_id", payment.getPayment_id()));
 
         // LOANER ID
-        params.add(new SQLParam(Types.BIGINT, "loaner_id", payment.getLoaner_id()));
+        params.add(new SQLParam(Types.BIGINT, "loaner_id", payment.getLoaner_id().getLoaner_id()));
 
         // LOAN ID
-        params.add(new SQLParam(Types.BIGINT, "loan_id", payment.getLoan_id()));
+        params.add(new SQLParam(Types.INTEGER, "loan_id", payment.getLoan_id().getLoan_id()));
 
         // PAYMENT DATE
         params.add(new SQLParam(Types.DATE, "payment_date", payment.getPaymentDate()));
 
         // PAYMENT AMOUNT
-        params.add(new SQLParam(Types.DOUBLE, "payment_amount", payment.getPayment_amount()));
+        params.add(new SQLParam(Types.DECIMAL, "payment_amount", payment.getPayment_amount()));
 
         return params;
     }
