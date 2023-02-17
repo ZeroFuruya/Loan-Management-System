@@ -10,9 +10,11 @@ import e2p.icotp.model.Loan;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import e2p.icotp.service.loader.ModalLoader;
+import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.ValidateTextField;
+import e2p.icotp.util.custom.date.DateUtil;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -55,9 +57,12 @@ public class PaymentController {
     private Label paymentDateTT;
     @FXML
     private Label paymentAmountTT;
+    @FXML
+    private Label date_paid;
 
     private App app;
     private Loan loan;
+    private Loan og_loan;
     BooleanProperty isEdit = new SimpleBooleanProperty(false);
     private MainController mc;
     private Loaner loaner;
@@ -77,6 +82,11 @@ public class PaymentController {
         System.out.println(payment.getLoan_id().getLoanType().getName().get());
         System.out.println(payment.getPaymentDate().getMonth());
         System.out.println(payment.getPayment_amount());
+        // TODO UPDATE LOAN
+
+        loan.setPaid(payment.getPayment_amount() + loan.getPaid());
+        loan.setBalance(loan.getBalance() - payment.getPayment_amount());
+
         if (isEdit.get()) {
             PaymentDAO.update(payment);
             app.paymentMasterlist().remove(og_payment);
@@ -85,6 +95,11 @@ public class PaymentController {
             PaymentDAO.insert(payment);
             app.paymentMasterlist().add(payment);
         }
+
+        LoanDAO.update(loan);
+        app.loanMasterList().remove(og_loan);
+        app.loanMasterList().add(loan);
+
         notify_changes();
         mc.load_loan_table();
         mc.refresh_loan_list();
@@ -94,6 +109,7 @@ public class PaymentController {
     public void load(App app, Loan loan, boolean isEdit, MainController mc, Loaner loaner, Payment payment) {
         this.app = app;
         this.loan = loan;
+        this.og_loan = loan;
         this.isEdit.set(isEdit);
         this.mc = mc;
         this.loaner = loaner;
@@ -103,6 +119,8 @@ public class PaymentController {
         load_bindings();
         init_listeners();
         if (isEdit) {
+            loan.setPaid(loan.getPaid() - payment.getPayment_amount());
+            loan.setBalance(loan.getBalance() + payment.getPayment_amount());
             init_insert_listeners();
         } else {
             init_add_listeners();
@@ -122,6 +140,7 @@ public class PaymentController {
     }
 
     private void init_insert_listeners() {
+        date_paid.setText(DateUtil.localizeDate(LocalDate.now()));
         payment_id.textProperty().set(payment.getPayment_id() + "");
         payment_date.valueProperty().set(payment.getPaymentDate());
         payment_amount.textProperty().set(payment.getPayment_amount() + "");
@@ -129,7 +148,8 @@ public class PaymentController {
 
     private void init_add_listeners() {
         generate_id();
-        payment_date.valueProperty().set(LocalDate.now());
+        date_paid.setText(DateUtil.localizeDate(payment.getDatePaymentProperty().get()));
+        payment_date.valueProperty().set(mc.getNextDueDate());
         payment_amount.textProperty().set(mc.getTotalDueAmount());
     }
 
@@ -227,5 +247,6 @@ public class PaymentController {
 
     private void notify_changes() throws SQLException {
         app.paymentMasterlist().setAll(PaymentDAO.getMasterlist());
+        app.loanMasterList().setAll(LoanDAO.getMasterlist());
     }
 }

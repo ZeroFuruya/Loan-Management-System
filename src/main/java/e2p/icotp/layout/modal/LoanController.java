@@ -308,6 +308,8 @@ public class LoanController {
 
     private void modify_loan_listener() {
 
+        // TODO FIX PAYMENT
+
         paymentList.forEach(payment -> {
             total_paid_tmp = payment.getPayment_amount();
             total_paid = total_paid + total_paid_tmp;

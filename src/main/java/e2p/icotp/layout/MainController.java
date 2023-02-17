@@ -656,6 +656,7 @@ public class MainController {
                 refresh_loan_list();
                 clear_payment_table();
                 _init_loaner_bindings();
+                loan_information_container.setVisible(true);
                 payment_information_container.setVisible(false);
                 payments_box.setVisible(false);
                 collateral_box.setVisible(false);
@@ -700,7 +701,6 @@ public class MainController {
                 payments_box.setVisible(true);
                 collateral_box.setVisible(true);
             } else {
-                loan_information_container.setVisible(false);
                 payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
                 payments_box.setVisible(false);
@@ -1247,7 +1247,9 @@ public class MainController {
             next_due_err.setVisible(true);
             next_amount_err.setVisible(true);
             if (days_skipped < total_days) {
-                loan_next_due_label.setText("Overdue for " + days_skipped + " days");
+                next_due_date.plusDays(days_skipped);
+                loan_next_due_label.setText(DateUtil.localizeDate(next_due_date));
+                // TODO TOTAL PENALTY PAYMENT IF OVERDUE FOR MANY MONTHS
                 loan_next_amount_label.setText(format.format(penalty_payment));
                 next_amount.set(penalty_payment);
                 return;
@@ -1299,5 +1301,9 @@ public class MainController {
 
     public String getTotalDueAmount() {
         return String.format("%.2f", next_amount.get());
+    }
+
+    public LocalDate getNextDueDate() {
+        return next_due_date;
     }
 }
