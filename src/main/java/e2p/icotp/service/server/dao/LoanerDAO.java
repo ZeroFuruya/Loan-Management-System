@@ -67,8 +67,8 @@ public class LoanerDAO {
     }
 
     // Remove
-    public static void remove(int loaner_id) {
-        SQLParam idParam = new SQLParam(Types.BIGINT, "loaner_id", loaner_id);
+    public static void remove(Loaner loaner_id) {
+        SQLParam idParam = new SQLParam(Types.BIGINT, "loaner_id", loaner_id.getLoaner_id());
         SQLCommand.deleteById("loaners", idParam);
     }
 

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #c4aead;" styleClass="dept-tab-container" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.LoanerController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="800.0" styleClass="dept-tab-container" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.LoanerController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
@@ -57,7 +57,7 @@
                                     </TextField>
                                     <HBox fx:id="name_icon" alignment="CENTER_LEFT" spacing="2.0">
                                        <children>
-                                          <Label text="Invalid Field" textFill="RED">
+                                          <Label styleClass="label-red" text="Invalid Field" textFill="RED">
                                              <font>
                                                 <Font name="Arial Bold" size="12.0" />
                                              </font>
@@ -98,7 +98,7 @@
                                     </TextField>
                                     <HBox fx:id="address_icon" alignment="CENTER_LEFT" spacing="2.0">
                                        <children>
-                                          <Label text="Invalid Field" textFill="RED">
+                                          <Label styleClass="label-red" text="Invalid Field" textFill="RED">
                                              <font>
                                                 <Font name="Arial Bold" size="12.0" />
                                              </font>
@@ -139,7 +139,7 @@
                                     </TextField>
                                     <HBox fx:id="socialSecurity_icon" alignment="CENTER_LEFT" spacing="2.0">
                                        <children>
-                                          <Label text="Invalid Field" textFill="RED">
+                                          <Label styleClass="label-red" text="Invalid Field" textFill="RED">
                                              <font>
                                                 <Font name="Arial Bold" size="12.0" />
                                              </font>
@@ -187,7 +187,7 @@
                                     </TextField>
                                     <HBox fx:id="contact_icon" alignment="CENTER_LEFT" spacing="2.0">
                                        <children>
-                                          <Label text="Invalid Field" textFill="RED">
+                                          <Label styleClass="label-red" text="Invalid Field" textFill="RED">
                                              <font>
                                                 <Font name="Arial Bold" size="12.0" />
                                              </font>
@@ -228,7 +228,7 @@
                                     </TextField>
                                     <HBox fx:id="civilStatus_icon" alignment="CENTER_LEFT" spacing="2.0">
                                        <children>
-                                          <Label text="Invalid Field" textFill="RED">
+                                          <Label styleClass="label-red" text="Invalid Field" textFill="RED">
                                              <font>
                                                 <Font name="Arial Bold" size="12.0" />
                                              </font>
@@ -269,7 +269,7 @@
                                     </TextField>
                                     <HBox fx:id="placeOfBirth_icon" alignment="CENTER_LEFT" spacing="2.0">
                                        <children>
-                                          <Label text="Invalid Field" textFill="RED">
+                                          <Label styleClass="label-red" text="Invalid Field" textFill="RED">
                                              <font>
                                                 <Font name="Arial Bold" size="12.0" />
                                              </font>
@@ -317,7 +317,7 @@
                                     </TextField>
                                     <HBox fx:id="email_icon" alignment="CENTER_LEFT" spacing="2.0">
                                        <children>
-                                          <Label text="Invalid Field" textFill="RED">
+                                          <Label styleClass="label-red" text="Invalid Field" textFill="RED">
                                              <font>
                                                 <Font name="Arial Bold" size="12.0" />
                                              </font>
@@ -358,7 +358,7 @@
                                     </TextField>
                                     <HBox fx:id="citizenship_icon" alignment="CENTER_LEFT" spacing="2.0">
                                        <children>
-                                          <Label text="Invalid Field" textFill="RED">
+                                          <Label styleClass="label-red" text="Invalid Field" textFill="RED">
                                              <font>
                                                 <Font name="Arial Bold" size="12.0" />
                                              </font>
@@ -402,7 +402,7 @@
                                     <DatePicker fx:id="birthday" editable="false" prefHeight="25.0" prefWidth="177.0" />
                                     <HBox fx:id="birthday_icon" alignment="CENTER_LEFT" spacing="2.0">
                                        <children>
-                                          <Label text="Invalid Field" textFill="RED">
+                                          <Label styleClass="label-red" text="Invalid Field" textFill="RED">
                                              <font>
                                                 <Font name="Arial Bold" size="12.0" />
                                              </font>
@@ -443,7 +443,7 @@
                                     </TextField>
                                     <HBox fx:id="loanerId_icon" alignment="CENTER_LEFT" spacing="2.0">
                                        <children>
-                                          <Label text="Invalid Field" textFill="RED">
+                                          <Label styleClass="label-red" text="Invalid Field" textFill="RED">
                                              <font>
                                                 <Font name="Arial Bold" size="12.0" />
                                              </font>

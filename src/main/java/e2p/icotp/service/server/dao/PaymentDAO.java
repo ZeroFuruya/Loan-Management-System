@@ -33,7 +33,7 @@ public class PaymentDAO {
     }
 
     public static Payment paymentData(CachedRowSet crs) throws SQLException {
-        int payment_id = (crs.getInt("payment_id"));
+        long payment_id = (crs.getLong("payment_id"));
         int loaner_id = (crs.getInt("loaner_id"));
         Loaner loaner;
         if (loaner_id <= 0) {
@@ -50,8 +50,9 @@ public class PaymentDAO {
         }
         LocalDate payment_date = (crs.getDate("payment_date").toLocalDate());
         double payment_amount = (crs.getDouble("payment_amount"));
+        LocalDate date_payment = (crs.getDate("date_pay").toLocalDate());
 
-        return new Payment(payment_id, loaner, loan, payment_date, payment_amount);
+        return new Payment(payment_id, loaner, loan, payment_date, payment_amount, date_payment);
     }
 
     public static ArrayList<SQLParam> parameters(Payment payment) {
@@ -61,16 +62,19 @@ public class PaymentDAO {
         params.add(new SQLParam(Types.BIGINT, "payment_id", payment.getPayment_id()));
 
         // LOANER ID
-        params.add(new SQLParam(Types.BIGINT, "loaner_id", payment.getLoaner_id()));
+        params.add(new SQLParam(Types.BIGINT, "loaner_id", payment.getLoaner_id().getLoaner_id()));
 
         // LOAN ID
-        params.add(new SQLParam(Types.BIGINT, "loan_id", payment.getLoan_id()));
+        params.add(new SQLParam(Types.INTEGER, "loan_id", payment.getLoan_id().getLoan_id()));
 
         // PAYMENT DATE
         params.add(new SQLParam(Types.DATE, "payment_date", payment.getPaymentDate()));
 
         // PAYMENT AMOUNT
-        params.add(new SQLParam(Types.DOUBLE, "payment_amount", payment.getPayment_amount()));
+        params.add(new SQLParam(Types.DECIMAL, "payment_amount", payment.getPayment_amount()));
+
+        // PAYMENT DAY
+        params.add(new SQLParam(Types.DATE, "date_pay", payment.getDatePaymentProperty().get()));
 
         return params;
     }
@@ -91,6 +95,6 @@ public class PaymentDAO {
     public static void updateById(Payment payment, long target_id) {
         SQLParam idParam = new SQLParam(Types.BIGINT, "payment_id", target_id);
         ArrayList<SQLParam> params = parameters(payment);
-        SQLCommand.updateById("payment_id", params, idParam);
+        SQLCommand.updateById("payments", params, idParam);
     }
 }

@@ -2,6 +2,7 @@ package e2p.icotp.service.server.dao;
 
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -76,19 +77,21 @@ public class LoanDAO {
     }
 
     public static ArrayList<SQLParam> parameters(Loan loan) {
+        DecimalFormat df = new DecimalFormat("#");
+        df.setMaximumFractionDigits(2);
         ArrayList<SQLParam> params = new ArrayList<>();
 
         // LOAN_ID
-        params.add(new SQLParam(Types.BIGINT, "loan_id", loan.getLoan_id()));
+        params.add(new SQLParam(Types.INTEGER, "loan_id", loan.getLoan_id()));
 
         // LOANER ID
-        params.add(new SQLParam(Types.BIGINT, "loaner_id", loan.getLoaner_id()));
+        params.add(new SQLParam(Types.BIGINT, "loaner_id", loan.getLoaner_id().getLoaner_id()));
 
         // TYPE ID
-        params.add(new SQLParam(Types.INTEGER, "type_id", loan.getLoaner_id()));
+        params.add(new SQLParam(Types.INTEGER, "type_id", loan.getLoanType().getId().get()));
 
-        // LOAN AMOUNT
-        params.add(new SQLParam(Types.DOUBLE, "loan_amount", loan.getLoaner_id()));
+        // LOAN_ID
+        params.add(new SQLParam(Types.INTEGER, "plan_id", loan.getLoanPlan().getId().get()));
 
         // RELEASE DATE
         params.add(new SQLParam(Types.DATE, "release_date", loan.getRelease_date()));
@@ -100,22 +103,22 @@ public class LoanDAO {
         params.add(new SQLParam(Types.DATE, "maturity_date", loan.getMaturity_date()));
 
         // PRINCIPAL
-        params.add(new SQLParam(Types.DOUBLE, "principal", loan.getPrincipal()));
+        params.add(new SQLParam(Types.DECIMAL, "principal", loan.getPrincipal()));
 
         // INTEREST
-        params.add(new SQLParam(Types.DOUBLE, "interest", loan.getInterest()));
+        params.add(new SQLParam(Types.DECIMAL, "interest", loan.getInterest()));
 
         // PENALTY
-        params.add(new SQLParam(Types.DOUBLE, "penalty", loan.getPenalty()));
+        params.add(new SQLParam(Types.DECIMAL, "penalty", loan.getPenalty()));
 
         // DUE
-        params.add(new SQLParam(Types.BIGINT, "due", loan.getDue()));
+        params.add(new SQLParam(Types.INTEGER, "due", loan.getDue()));
 
         // PAID
-        params.add(new SQLParam(Types.DOUBLE, "paid", loan.getPaid()));
+        params.add(new SQLParam(Types.DECIMAL, "paid", loan.getPaid()));
 
         // BALANCE
-        params.add(new SQLParam(Types.DOUBLE, "balance", loan.getBalance()));
+        params.add(new SQLParam(Types.DECIMAL, "balance", loan.getBalance()));
 
         // STATUS
         params.add(new SQLParam(Types.VARCHAR, "status", loan.getStatus()));
@@ -134,11 +137,11 @@ public class LoanDAO {
 
     public static void remove(Loan loan) {
         SQLCommand.deleteById("loans",
-                new SQLParam(Types.BIGINT, "degreeID", loan.getLoan_id()));
+                new SQLParam(Types.INTEGER, "loan_id", loan.getLoan_id()));
     }
 
     public static void updateById(Loan loan, int target_id) {
-        SQLParam idParam = new SQLParam(Types.BIGINT, "loan_id", target_id);
+        SQLParam idParam = new SQLParam(Types.INTEGER, "loan_id", target_id);
         ArrayList<SQLParam> params = parameters(loan);
         SQLCommand.updateById("loans", params, idParam);
 
