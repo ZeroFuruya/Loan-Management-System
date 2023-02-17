@@ -63,15 +63,15 @@ public class App extends Application {
         System.out.println("======================================");
         loan_planCache.forEach(loan -> {
             System.out.println(loan.getIdProperty().get());
-            System.out.println(loan.getTypeProperty().get().getName().get());
+            System.out.println(loan.getTypeProperty().get().getName().get());   
         });
     }
     private void initialize_signUp(){
-        signUpList.add(new SignUp("123", "123", "123"));
+        signUpList.add(new SignUp(" ", " ", " "));
     }
 
     private void initialize_login(){
-        loginList.add(new Login("aloe", "123"));
+        loginList.add(new Login(" ", " "));
     }
 
     public void initializa_main() throws IOException {

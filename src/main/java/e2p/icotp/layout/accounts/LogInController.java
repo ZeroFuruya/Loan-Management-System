@@ -1,9 +1,11 @@
 package e2p.icotp.layout.accounts;
 
+import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import e2p.icotp.App;
 import e2p.icotp.service.loader.LogInLoader;
+import e2p.icotp.service.loader.ModalLoader;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -37,13 +39,14 @@ public class LogInController {
     private Hyperlink signUp;
 
     @FXML
-    private void handle_signUp() {
-
+    private void handle_signUp() throws IOException {
+        LogInLoader.load_sign_up(app);
     }
 
     @FXML
     private void handle_login() {
         login = new Login(usernameTF.getText(), passwordFieldPF.getText());
+
         app.getSignUpList().forEach(user -> {
             if (user.getUsername().equals(login.getUsername()) && user.getPassword().equals(login.getPassword()))
                 ;
@@ -53,10 +56,12 @@ public class LogInController {
         });
         if (loginAtomic.get()) {
             LogInLoader.modal_close(app);
-        } else {
+        } 
+        buttonClick();
+    }
 
-        }
-
+    private void buttonClick(){
+        ModalLoader.modal_close(app);
     }
 
     private App app;

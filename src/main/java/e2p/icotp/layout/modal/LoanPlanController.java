@@ -87,6 +87,7 @@ public class LoanPlanController {
         loanPlan.setInterest(Double.parseDouble(interest.textProperty().get()));
         loanPlan.setPenalty(Double.parseDouble(monthlyPenalty.textProperty().get()));
         
+        
     }
 
 }
