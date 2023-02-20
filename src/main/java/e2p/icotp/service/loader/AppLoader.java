@@ -1,9 +1,12 @@
 package e2p.icotp.service.loader;
 
+import java.io.File;
 import java.io.IOException;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
+import e2p.icotp.service.RegistryService;
+import e2p.icotp.service.XMLService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -39,12 +42,14 @@ public class AppLoader {
         MainController controller = loader.getController();
         controller.load(app);
 
-        // // Gets and Unwraps XML file
-        // File xml = RegistryService.getXML_FromRegistry();
-        // if (xml != null) {
-        // app.getAccountList().setAll(XMLService.unwrap_accountXML(app, xml));
-        // }
-
+        // Gets and Unwraps XML file
+        File xml = RegistryService.getXML_FromRegistry();
+        if(xml != null){
+            app.getSignUpList().setAll(XMLService.unwrap_signUpXML(app, xml));
+            // app.getLoginList().setAll(XMLService.unwrap_loginXML(app, xml));
+        }
+        
+        LogInLoader.load_sign_up(app);
         // LogInLoader.load_log_in(app);
     }
 }
