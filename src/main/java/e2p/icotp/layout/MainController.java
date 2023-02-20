@@ -15,6 +15,7 @@ import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import e2p.icotp.model.Enums.LoanStatus;
+import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanPlanDAO;
@@ -381,6 +382,16 @@ public class MainController {
     TextFormatter<Number> interest_formatter;
     TextFormatter<Number> penalty_formatter;
     TextFormatter<Long> term_formatter;
+
+    @FXML
+    private void handle_login() throws IOException {
+        LogInLoader.load_log_in(app);
+    }
+
+    @FXML
+    private void handle_signup() throws IOException {
+        LogInLoader.load_sign_up(app);
+    }
 
     // LOANER BUTTON HANDLES
     // --------------------------------------------------------------------------------
