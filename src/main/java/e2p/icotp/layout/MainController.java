@@ -2,6 +2,9 @@ package e2p.icotp.layout;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.factory.TypesFactory;
@@ -13,18 +16,24 @@ import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.service.loader.ModalLoader;
+import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanPlanDAO;
-import e2p.icotp.util.custom.DateUtil;
-import e2p.icotp.util.custom.DoubleTextFieldFormatter;
-import e2p.icotp.util.custom.IDTextFieldFormatter;
-import e2p.icotp.util.custom.LoanTypeListCell;
-import e2p.icotp.util.custom.LoanTypeStringConverter;
+import e2p.icotp.service.server.dao.LoanerDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
+import e2p.icotp.util.custom.cbox.LoanTypeListCell;
+import e2p.icotp.util.custom.cbox.LoanTypeStringConverter;
+import e2p.icotp.util.custom.date.DateUtil;
+import e2p.icotp.util.custom.formatters.DoubleTextFieldFormatter;
+import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -54,6 +63,8 @@ public class MainController {
     // CONSTANTS
     // private static final int fit_width = 200;
     // private static final int fit_height = 50;
+    @FXML
+    Button refresh_button;
 
     // STACKPANE-----------------------------------------------------
     @FXML
@@ -136,6 +147,14 @@ public class MainController {
     Label loaner_phone_label;
     @FXML
     Label loaner_social_label;
+    @FXML
+    Label loaner_place_birth_label;
+    @FXML
+    Label loaner_email_label;
+    @FXML
+    Label loaner_citizen_label;
+    @FXML
+    Label loaner_civil_label;
 
     @FXML
     Button loaner_edit_button;
@@ -156,6 +175,8 @@ public class MainController {
     @FXML
     Label loan_id_label;
     @FXML
+    Label loan_plan_label;
+    @FXML
     Label loan_release_date_label;
     @FXML
     Label loan_term_label;
@@ -173,6 +194,14 @@ public class MainController {
     Label loan_paid_label;
     @FXML
     Label loan_balance_label;
+    @FXML
+    Label loan_next_due_label;
+    @FXML
+    Label loan_next_amount_label;
+    @FXML
+    Label loan_overdue_label;
+    @FXML
+    Label loan_penalty_amount_label;
 
     @FXML
     Button loan_edit_button;
@@ -182,10 +211,22 @@ public class MainController {
     Button loan_remove_button;
 
     @FXML
+    Label next_due_err;
+    @FXML
+    Label next_amount_err;
+
+    @FXML
     TextField loan_search;
 
     @FXML
     ImageView status_image;
+
+    @FXML
+    HBox loan_next_box;
+
+    // NEXT LOAN
+    ObjectProperty<LocalDate> next_due = new SimpleObjectProperty<>(LocalDate.now());
+    DoubleProperty next_amount = new SimpleDoubleProperty(0);
 
     // TABLE COLS - Payment-----------------------------------------------------
     @FXML
@@ -194,6 +235,10 @@ public class MainController {
     TableColumn<Payment, Integer> payment_loan_id;
     @FXML
     TableColumn<Payment, String> payment_loaner_name;
+    @FXML
+    TableColumn<Payment, String> payment_due_dates;
+    @FXML
+    TableColumn<Payment, String> payment_payment_date;
 
     @FXML
     Label payment_loan_id_label;
@@ -218,7 +263,7 @@ public class MainController {
     @FXML
     TableColumn<Collateral, Integer> collateral_id;
     @FXML
-    TableColumn<Collateral, Integer> collateral_loan_id;
+    TableColumn<Collateral, String> collateral_status;
     @FXML
     TableColumn<Collateral, String> collateral_loan_type;
 
@@ -330,6 +375,8 @@ public class MainController {
     LoanPlan og_loan_plan = new LoanPlan();
     LoanPlan loan_plan = new LoanPlan();
 
+    BooleanProperty isEdit = new SimpleBooleanProperty(false);
+
     NumberFormat format = NumberFormat.getInstance();
     TextFormatter<Number> interest_formatter;
     TextFormatter<Number> penalty_formatter;
@@ -339,34 +386,72 @@ public class MainController {
     // --------------------------------------------------------------------------------
     @FXML
     private void handle_loaner_edit() throws IOException {
-        ModalLoader.load_loaner_update(app, loaner, true, this);
+        isEdit.set(true);
+        ModalLoader.load_loaner_update(app, loaner, isEdit.get(), this);
     }
 
     @FXML
     private void handle_loaner_add() throws IOException {
-        ModalLoader.load_loaner_update(app, new Loaner(), false, this);
+        isEdit.set(false);
+        ModalLoader.load_loaner_update(app, new Loaner(), isEdit.get(), this);
     }
 
     @FXML
     private void handle_loaner_remove() {
+        LoanerDAO.remove(og_loaner);
         app.loanerMasterlist().remove(og_loaner);
     }
 
     // LOAN BUTTON HANDLES
     // ----------------------------------------------------------------------------------
+    BooleanProperty doRefresh = new SimpleBooleanProperty(false);
+
+    public BooleanProperty getDoRefresh() {
+        return this.doRefresh;
+    }
+
     @FXML
     private void handle_loan_edit() throws IOException {
-        ModalLoader.load_loan_update(app, loan, true, this);
+        ModalLoader.load_loan_update(app, loan, true, this, loaner);
     }
 
     @FXML
     private void handle_loan_add() throws IOException {
-        ModalLoader.load_loan_update(app, new Loan(), false, this);
+        ModalLoader.load_loan_update(app, new Loan(), false, this, loaner);
     }
 
     @FXML
     private void handle_loan_remove() {
+        LoanDAO.remove(og_loan);
         app.loanMasterList().remove(og_loan);
+        load_loan_table();
+        refresh_loan_list();
+    }
+
+    // PAYMENT BUTTON HANDLES
+    // ----------------------------------------------------------------------------------
+    BooleanProperty doPaymentRefresh = new SimpleBooleanProperty(false);
+
+    public BooleanProperty doPaymentRefresh() {
+        return this.doRefresh;
+    }
+
+    @FXML
+    private void handle_payment_edit() throws IOException {
+        ModalLoader.load_payment_update(app, loan, true, this, loaner, payment);
+    }
+
+    @FXML
+    private void handle_payment_add() throws IOException {
+        ModalLoader.load_payment_update(app, loan, false, this, loaner, payment);
+    }
+
+    @FXML
+    private void handle_payment_remove() {
+        // LoanDAO.remove(og_loan);
+        // app.loanMasterList().remove(og_loan);
+        // load_loan_table();
+        // refresh_loan_list();
     }
 
     public void load(App app) {
@@ -378,8 +463,9 @@ public class MainController {
 
         loaner_information_container.setVisible(false);
         loaner_name_container.setVisible(false);
-        loan_information_container.setVisible(false);
         payment_information_container.setVisible(false);
+        payments_box.setVisible(false);
+        collateral_box.setVisible(false);
 
         loanTypeList = new FilteredList<>(app.loanTypeMasterlist(), p -> true);
 
@@ -435,34 +521,40 @@ public class MainController {
         payment_loaner_name.setCellValueFactory(payment -> {
             return payment.getValue().getLoan_id_Property().get().getLoanerID_Property().get().getNameProperty();
         });
+        payment_due_dates.setCellValueFactory(payment -> {
+            return DateUtil.localizeDateProperty(payment.getValue().getPayment_date_Property().get());
+        });
+        payment_payment_date.setCellValueFactory(payment -> {
+            return DateUtil.localizeDateProperty(payment.getValue().getDatePaymentProperty().get());
+        });
 
         // COLLATERAL TABLE
         // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         collateral_id.setCellValueFactory(collateral -> {
             return collateral.getValue().getCollateralId_property().asObject();
         });
-        collateral_loan_id.setCellValueFactory(collateral -> {
-            return collateral.getValue().getLoan_id().getLoanID_Property().asObject();
+        collateral_status.setCellValueFactory(collateral -> {
+            return collateral.getValue().getStatusProperty();
         });
         collateral_loan_type.setCellValueFactory(collateral -> {
-            return collateral.getValue().getPlan_id().getTypeProperty().get().getName();
+            return collateral.getValue().getPlan_id().getType().get().getName();
         });
 
         // LOAN PLAN TABLE =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         plan_id.setCellValueFactory(plan -> {
-            return plan.getValue().getIdProperty().asObject();
+            return plan.getValue().getId().asObject();
         });
         plan_type_name.setCellValueFactory(plan -> {
-            return plan.getValue().getTypeProperty().get().getName();
+            return plan.getValue().getType().get().getName();
         });
         plan_term.setCellValueFactory(plan -> {
-            return plan.getValue().getTermProperty().asObject();
+            return plan.getValue().getTerm().asObject();
         });
         plan_interest.setCellValueFactory(plan -> {
-            return plan.getValue().getInterestProperty().asObject();
+            return plan.getValue().getInterest().asObject();
         });
         plan_penalty.setCellValueFactory(plan -> {
-            return plan.getValue().getPenaltyProperty().asObject();
+            return plan.getValue().getPenalty().asObject();
         });
         loanPlanTable.setItems(loanPlanList);
     }
@@ -492,7 +584,7 @@ public class MainController {
         payment_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
         payment_loaner_name.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.750));
         collateral_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.3));
-        collateral_loan_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
+        collateral_status.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
         collateral_loan_type.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.700));
 
         // HOME
@@ -511,6 +603,12 @@ public class MainController {
         plans_box.visibleProperty().bind(plans_button.selectedProperty());
         plans_button.disableProperty().bind(plans_button.selectedProperty());
         plans_button.prefHeightProperty().bind(toggle_btn_container.heightProperty().multiply(0.125));
+
+        loan_edit_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
+        loan_remove_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
+
+        payment_edit_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
+        payment_remove_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
 
     }
 
@@ -551,6 +649,12 @@ public class MainController {
 
     private void init_table_listeners() {
 
+        loan_add_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
+        loan_edit_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull()
+                .or(loanTable.getSelectionModel().selectedItemProperty().isNull()));
+        loan_remove_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull()
+                .or(loanTable.getSelectionModel().selectedItemProperty().isNull()));
+
         // LOANER ------------------------------------------
         loanerTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (nv != null) {
@@ -562,8 +666,10 @@ public class MainController {
                 refresh_loan_list();
                 clear_payment_table();
                 _init_loaner_bindings();
-                loan_information_container.setVisible(false);
+                loan_information_container.setVisible(true);
                 payment_information_container.setVisible(false);
+                payments_box.setVisible(false);
+                collateral_box.setVisible(false);
             } else {
                 load_empty_loan_table();
                 refresh_loan_list();
@@ -573,6 +679,8 @@ public class MainController {
                 loan_information_container.setVisible(false);
                 payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
+                payments_box.setVisible(false);
+                collateral_box.setVisible(false);
             }
         });
         loaner_search.textProperty().addListener((o, ov, nv) -> {
@@ -592,7 +700,6 @@ public class MainController {
         // LOAN --------------------------------------------
         loanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (nv != null) {
-                loan_information_container.setVisible(true);
                 og_loan = nv;
                 loan = og_loan;
                 load_payment_table();
@@ -600,10 +707,14 @@ public class MainController {
                 load_collateral_table();
                 refresh_collateral_list();
                 _init_loan_bindings();
+                loan_information_container.setVisible(true);
+                payments_box.setVisible(true);
+                collateral_box.setVisible(true);
             } else {
-                loan_information_container.setVisible(false);
                 payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
+                payments_box.setVisible(false);
+                collateral_box.setVisible(false);
             }
 
         });
@@ -667,7 +778,7 @@ public class MainController {
                     return true;
                 }
 
-                return p.getPlan_id().getTypeProperty().get().getName().get().toLowerCase().contains(nv.toLowerCase());
+                return p.getPlan_id().getType().get().getName().get().toLowerCase().contains(nv.toLowerCase());
             });
         });
     }
@@ -772,7 +883,7 @@ public class MainController {
     @FXML
     private void loan_tab_transitions() {
         FadeTransition translate = new FadeTransition();
-        translate.setNode(loans_box);
+        translate.setNode(loan_information_container);
         translate.setDuration(Duration.millis(400));
         translate.setInterpolator(Interpolator.EASE_IN);
         translate.setFromValue(0);
@@ -808,19 +919,31 @@ public class MainController {
             return String.format("%s", loaner.getName());
         }, loaner.getNameProperty()));
         loaner_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loaner ID: %d", loaner.getLoaner_id());
+            return String.format("%d", loaner.getLoaner_id());
         }, loaner.getLoaner_idProperty()));
         loaner_address_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Address: %s", loaner.getAddress());
+            return String.format("%s", loaner.getAddress());
         }, loaner.getAddressProperty()));
+        loaner_place_birth_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%s", loaner.getPlaceOfBirth());
+        }, loaner.getPlaceOfBirthProperty()));
+        loaner_email_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%s", loaner.getEmail());
+        }, loaner.getEmailProperty()));
+        loaner_citizen_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%s", loaner.getCitizenship());
+        }, loaner.getCitizenshipProperty()));
+        loaner_civil_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%s", loaner.getCivilStatus());
+        }, loaner.getCivilStatusProperty()));
         loaner_phone_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Phone: %d", loaner.getPhone());
+            return String.format("%d", loaner.getPhone());
         }, loaner.getPhoneProperty()));
         loaner_birthdate_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Birthdate: %s", loaner.getBirthdate());
+            return String.format("%s", DateUtil.format(loaner.getBirthdate()));
         }, loaner.getBirthdateProperty()));
         loaner_social_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Social Security: %d", loaner.getSocial_security());
+            return String.format("%d", loaner.getSocial_security());
         }, loaner.getSocial_securityProperty()));
 
         loaner_edit_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
@@ -828,71 +951,80 @@ public class MainController {
     }
 
     private void _init_loan_bindings() {
+        System.out.println(loan.getPrincipal());
         loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loan ID: %d", loan.getLoan_id());
+            return String.format("%d", loan.getLoan_id());
         }, loan.getLoanID_Property()));
+        loan_plan_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%d", loan.getLoanPlan().getId().get());
+        }, loan.getLoanPlan().getId()));
         loan_release_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Release: %s", DateUtil.localizeDate(loan.getRelease_date()));
+            return String.format("%s", DateUtil.localizeDate(loan.getRelease_date()));
         }, loan.getRelease_date_Property()));
         loan_term_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Term: %d", loan.getTerm());
+            return String.format("%d", loan.getTerm());
         }, loan.getTermProperty()));
         loan_maturity_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Maturity: %s", DateUtil.localizeDate(loan.getMaturity_date()));
+            return String.format("%s", DateUtil.localizeDate(loan.getMaturity_date()));
         }, loan.getMaturity_date_Property()));
         loan_principal_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Principal: $%s", format.format(loan.getPrincipal()));
+            return String.format("$%s", format.format(loan.getPrincipal()));
         }, loan.getPrincipalProperty()));
         loan_interest_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Interest: %.2f" + "%%", loan.getInterest());
+            return String.format("%.2f" + "%%", loan.getInterest());
         }, loan.getInterestProperty()));
         loan_penalty_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Penalty: %.2f" + "%%", loan.getPenalty());
+            return String.format("%.2f" + "%%", loan.getPenalty());
         }, loan.getPenaltyProperty()));
         loan_due_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Due: Day %d of every month", loan.getDue());
+            return String.format("Day %d of every month", loan.getDue());
         }, loan.getDueProperty()));
         loan_paid_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Paid: $%s", format.format(loan.getPaid()));
+            return String.format("$%s", format.format(loan.getPaid()));
         }, loan.getPaidProperty()));
         loan_balance_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Balance: $%s", format.format(loan.getBalance()));
+            return String.format("$%s", format.format(loan.getBalance()));
         }, loan.getBalanceProperty()));
 
         status_image_setter(loan.getStatus());
+        loan_next_logic_monthly();
+        if (loan.getStatus().equals(LoanStatus.OPEN)) {
+            // TODO add if else for Mothly or Daily or Annually
+            // TODO GET PAYMENT FREQUENCY FROM LOAN OBJECT
+            loan_next_box.setVisible(true);
+        } else {
+            loan_next_box.setVisible(false);
+        }
 
-        loan_edit_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
-        loan_remove_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
     }
 
     private void _init_payment_bindings() {
         payment_loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loan ID: %d", payment.getLoan_id_Property().get().getLoan_id());
+            return String.format("%d", payment.getLoan_id_Property().get().getLoan_id());
         }, payment.getLoan_id_Property().get().getLoanID_Property()));
         payment_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Payment ID: %d", payment.getPayment_id());
+            return String.format("%d", payment.getPayment_id());
         }, payment.getPayment_id_Property()));
         payment_date_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Date: %s", DateUtil.localizeDate(payment.getPaymentDate()));
+            return String.format("%s", DateUtil.localizeDate(payment.getPaymentDate()));
         }, payment.getPayment_date_Property()));
         payment_amount_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Amount: $%s", format.format(payment.getPayment_amount()));
+            return String.format("$%s", format.format(payment.getPayment_amount()));
         }, payment.getPayment_amount_Property()));
-
     }
 
     private void _init_collateral_bindings() {
-        collateral_loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loan ID: %d", collateral.getLoan_id().getLoan_id());
+        collateral_status_label.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("%d", collateral.getLoan_id().getLoan_id());
         }, collateral.getLoan_id().getLoanID_Property()));
         collateral_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Collateral ID: %d", collateral.getCollateral_id());
+            return String.format("%d", collateral.getCollateral_id());
         }, collateral.getCollateralId_property()));
         collateral_type_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Loan Type: %s", collateral.getPlan_id().getTypeProperty().get().getName().get());
-        }, collateral.getPlan_id().getTypeProperty().get().getName()));
+            return String.format("%s", collateral.getPlan_id().getType().get().getName().get());
+        }, collateral.getPlan_id().getType().get().getName()));
         collateral_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Collateral: %s", collateral.getCollateral());
+            return String.format("%s", collateral.getCollateral());
         }, collateral.getCollateral_property()));
     }
 
@@ -961,21 +1093,21 @@ public class MainController {
                     return true;
                 }
 
-                if (Integer.toString(p.getIdProperty().get()).toLowerCase().contains(nv.toLowerCase())) {
+                if (Integer.toString(p.getId().get()).toLowerCase().contains(nv.toLowerCase())) {
                     return true;
                 }
 
-                return p.getTypeProperty().get().getName().get().toLowerCase().contains(nv.toLowerCase());
+                return p.getType().get().getName().get().toLowerCase().contains(nv.toLowerCase());
             });
         });
         edit_toggle.selectedProperty().addListener((o, ov, nv) -> {
             if (edit_toggle.isSelected()) {
                 plan_load_fields();
-                edit_toggle.textProperty().set("Edit");
+                edit_toggle.textProperty().set("Editing...");
             } else {
                 generate_id();
                 plan_clear_fields();
-                edit_toggle.textProperty().set("Add");
+                edit_toggle.textProperty().set("Adding...");
             }
         });
     }
@@ -990,12 +1122,12 @@ public class MainController {
 
     void plan_load_fields() {
         if (edit_toggle.isSelected()) {
-            plan_id_tf.setText(loan_plan.getIdProperty().get() + "");
+            plan_id_tf.setText(loan_plan.getId().get() + "");
         }
-        plan_type_cbox.getSelectionModel().select(loan_plan.getTypeProperty().get());
-        plan_term_tf.setText(loan_plan.getTermProperty().get() + "");
-        plan_interest_tf.setText(loan_plan.getInterestProperty().get() + "");
-        plan_penalty_tf.setText(loan_plan.getPenaltyProperty().get() + "");
+        plan_type_cbox.getSelectionModel().select(loan_plan.getType().get());
+        plan_term_tf.setText(loan_plan.getTerm().get() + "");
+        plan_interest_tf.setText(loan_plan.getInterest().get() + "");
+        plan_penalty_tf.setText(loan_plan.getPenalty().get() + "");
     }
 
     void plan_clear_fields() {
@@ -1029,11 +1161,11 @@ public class MainController {
     }
 
     void plan_modify_listener() {
-        loan_plan.getIdProperty().set(Integer.parseInt(plan_id_tf.textProperty().get()));
-        loan_plan.getTypeProperty().set(plan_type_cbox.getSelectionModel().getSelectedItem());
-        loan_plan.getTermProperty().set(Long.parseLong(plan_term_tf.textProperty().get()));
-        loan_plan.getInterestProperty().set(Double.parseDouble(plan_interest_tf.textProperty().get()));
-        loan_plan.getPenaltyProperty().set(Double.parseDouble(plan_penalty_tf.textProperty().get()));
+        loan_plan.getId().set(Integer.parseInt(plan_id_tf.textProperty().get()));
+        loan_plan.getType().set(plan_type_cbox.getSelectionModel().getSelectedItem());
+        loan_plan.getTerm().set(Long.parseLong(plan_term_tf.textProperty().get()));
+        loan_plan.getInterest().set(Double.parseDouble(plan_interest_tf.textProperty().get()));
+        loan_plan.getPenalty().set(Double.parseDouble(plan_penalty_tf.textProperty().get()));
     }
 
     long final_num = 0;
@@ -1049,7 +1181,7 @@ public class MainController {
         final_num = Long.parseLong(string_val);
 
         app.loanPlanMasterlist().forEach(loan_plan -> {
-            if (loan_plan.getIdProperty().get() == final_num) {
+            if (loan_plan.getId().get() == final_num) {
                 generate_id();
             } else {
                 plan_id_tf.textProperty().set(final_num + "");
@@ -1057,8 +1189,142 @@ public class MainController {
         });
     }
 
+    private void save_loan() {
+        if (isEdit.get()) {
+            app.loanMasterList().remove(og_loan);
+            app.loanMasterList().add(loan);
+        } else {
+            app.loanMasterList().add(loan);
+        }
+    }
+
+    BooleanProperty over_due_for_month = new SimpleBooleanProperty(false);
+
+    LocalDate next_due_date = LocalDate.now();
+    long days_skipped = 0;
+    long total_days = 0;
+
+    long add_months_ctr = 0;
+
+    // TODO payment frequency, do all logics here, add payment extension
+    // TODO get total penalty payment if overdue for several months
+    // TODO collect collateral if loan not paid past maturity date
+    // TODO change loan_plan : interest and penalty to percentage
+    // TODO add loan_plan : payment frequency : daily, monthly, annually
+    // TODO make an invoice for each payment done
+    // TODO add security more by putting confirmations every after tasks
+    // TODO make statistics
+    // TODO add forget password
+    // TODO think of more features to add after the important bits are done
+
+    private void loan_next_logic_monthly() {
+        long total_years = (long) loan.getTerm() / 365;
+        long total_months = (long) total_years * 12;
+
+        long penalty_day = loan.getDue() + 3; // TODO change 3 to payment_extension
+
+        double interest_val = (loan.getPrincipal() / total_months) * loan.getInterest();
+        double penalty_val = (loan.getPrincipal() / total_months) * loan.getPenalty();
+        double monthly_payment = loan.getPrincipal() / total_months + interest_val;
+        double penalty_payment = loan.getPrincipal() / total_months + penalty_val;
+
+        LocalDate first_due_date = LocalDate.of(loan.getRelease_date().getYear(),
+                loan.getRelease_date().getMonthValue() + 1, loan.getDue());
+        next_due_date = LocalDate.of(loan.getRelease_date().getYear(),
+                loan.getRelease_date().getMonthValue() + 1, loan.getDue());
+
+        long year_today = LocalDate.now().getYear();
+        long day_today = LocalDate.now().getDayOfYear();
+
+        total_days = ChronoUnit.DAYS.between(first_due_date, loan.getMaturity_date());
+
+        long year_today_ctr = year_today;
+        long day_today_ctr = day_today;
+
+        days_skipped = ChronoUnit.DAYS.between(first_due_date, LocalDate.now());
+
+        YearMonth yearMonth_next_due = YearMonth.of(next_due_date.getYear(), next_due_date.getMonthValue());
+
+        boolean payment_exist = !paymentList.isEmpty();
+
+        System.out.printf("term = %d \ndays_between = %d", loan.getTerm(),
+                ChronoUnit.DAYS.between(first_due_date, loan.getMaturity_date()));
+
+        if (!payment_exist) {
+            if (days_skipped > total_days) {
+                loan_next_due_label.setText("Past Maturity Date");
+                loan_next_amount_label.setText("Seize any collaterals or Take legal action");
+                return;
+            }
+
+            if (days_skipped <= 0) {
+                loan_next_due_label.setText(DateUtil.localizeDate(first_due_date));
+                loan_next_amount_label.setText(format.format(monthly_payment));
+                next_amount.set(monthly_payment);
+                next_due_err.setVisible(false);
+                next_amount_err.setVisible(false);
+                return;
+            }
+            next_due_err.setVisible(true);
+            next_amount_err.setVisible(true);
+            if (days_skipped < total_days) {
+                next_due_date.plusDays(days_skipped);
+                loan_next_due_label.setText("Overdue for " + days_skipped + " days");
+                // TODO TOTAL PENALTY PAYMENT IF OVERDUE FOR MANY MONTHS
+                loan_next_amount_label.setText(format.format(penalty_payment));
+                next_amount.set(penalty_payment);
+                return;
+            }
+            return;
+        }
+        paymentList.forEach(pay -> {
+            if (YearMonth.of(pay.getPaymentDate().getYear(), pay.getPaymentDate().getMonthValue())
+                    .compareTo(yearMonth_next_due) == 0) {
+                add_months_ctr++;
+                next_due_date = next_due_date.plusMonths(add_months_ctr);
+
+                if (days_skipped > total_days) {
+                    loan_next_due_label.setText("Past Maturity Date");
+                    loan_next_amount_label.setText("Seize any collaterals or Take legal action");
+                    return;
+                }
+
+                if (days_skipped <= 0) {
+                    loan_next_due_label.setText(DateUtil.localizeDate(next_due_date));
+                    loan_next_amount_label.setText(format.format(monthly_payment));
+                    next_amount.set(monthly_payment);
+                    next_due_err.setVisible(false);
+                    next_amount_err.setVisible(false);
+                    return;
+                }
+                next_due_err.setVisible(true);
+                next_amount_err.setVisible(true);
+                if (days_skipped < total_days) {
+                    loan_next_due_label.setText("Overdue for " + days_skipped + " days");
+                    loan_next_amount_label.setText(format.format(penalty_payment));
+                    next_amount.set(penalty_payment);
+                    return;
+                }
+            }
+        });
+    }
+
     // GETTERS AND SETTERS
     public ObservableList<Loan> getLoanObservableList() {
         return loanObservableList;
+    }
+
+    public void setLoan(Loan val) {
+        this.loan = val;
+
+        save_loan();
+    }
+
+    public String getTotalDueAmount() {
+        return String.format("%.2f", next_amount.get());
+    }
+
+    public LocalDate getNextDueDate() {
+        return next_due_date;
     }
 }
