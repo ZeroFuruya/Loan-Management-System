@@ -384,7 +384,7 @@ public class MainController {
     TextFormatter<Long> term_formatter;
 
     @FXML
-    private void handle_login() throws IOException {
+    private void handle_login() throws IOException{
         LogInLoader.load_log_in(app);
     }
 
