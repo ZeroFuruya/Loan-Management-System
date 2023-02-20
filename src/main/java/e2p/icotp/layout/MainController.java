@@ -30,10 +30,8 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -203,6 +201,8 @@ public class MainController {
     Label loan_overdue_label;
     @FXML
     Label loan_penalty_amount_label;
+    @FXML
+    Label loan_total_unpaid_label;
 
     @FXML
     Button loan_edit_button;
@@ -1282,7 +1282,8 @@ public class MainController {
             }
             next_due_err.setVisible(true);
             next_amount_err.setVisible(true);
-            if (days_skipped < total_days) {
+            if (days_skipped < total_days + 3) {
+                // TODO precise day penalty addition ---------------------------
                 loan.setNextPayment(penalty_payment);
                 loan_next_due_label.setText("Overdue for " + days_skipped + " days");
                 loan_next_amount_label.setText(format.format(loan.getNextPayment()));
@@ -1314,6 +1315,7 @@ public class MainController {
                 next_due_err.setVisible(true);
                 next_amount_err.setVisible(true);
                 if (days_skipped < total_days + 3) {
+                    // TODO precise day penalty addition ---------------------------
                     loan.setNextPayment(penalty_payment);
                     loan_next_due_label.setText("Overdue for " + days_skipped + " days");
                     loan_next_amount_label.setText(format.format(loan.getNextPayment()));
