@@ -127,7 +127,9 @@ public class LoanController {
 
     @FXML
     private void handle_save() throws SQLException {
+        modify_loan_plan_field_listener();
         modify_loan_listener();
+
         if (isEdit) {
             LoanDAO.update(loan);
             app.loanMasterList().remove(og_loan);
@@ -295,8 +297,8 @@ public class LoanController {
 
     // CUSTOMS
     private void modify_loan_plan_field_listener() {
-        LocalDate tempDate = release_date.getValue().plusDays(loan_plan.getTerm().get());
-        LocalDate matureDate = LocalDate.of(tempDate.getYear(), tempDate.getMonthValue() + 1,
+        LocalDate tempDate = release_date.getValue().plusDays(loan_plan.getTerm().get() + 30);
+        LocalDate matureDate = LocalDate.of(tempDate.getYear(), tempDate.getMonthValue(),
                 release_date.getValue().getDayOfMonth());
 
         term.setText(loan_plan.getTerm().get() + "");

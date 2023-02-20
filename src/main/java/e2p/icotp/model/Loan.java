@@ -29,12 +29,13 @@ public class Loan {
     private DoubleProperty paid;
     private DoubleProperty balance;
     private StringProperty status;
+    private DoubleProperty next_payment;
 
     public Loan(int loan_id, Loaner loaner_id, LoanType loan_type, LoanPlan loan_plan, LocalDate release_date,
             long term,
             LocalDate maturity_date,
             double principal,
-            double interest, double penalty, int due, double paid, double balance, String status) {
+            double interest, double penalty, int due, double paid, double balance, String status, double next_payment) {
 
         this.loan_id = new SimpleIntegerProperty(loan_id);
         this.loaner_id = new SimpleObjectProperty<>(loaner_id);
@@ -50,16 +51,19 @@ public class Loan {
         this.paid = new SimpleDoubleProperty(paid);
         this.balance = new SimpleDoubleProperty(balance);
         this.status = new SimpleStringProperty(status);
+        this.next_payment = new SimpleDoubleProperty(next_payment);
     }
 
     public Loan() {
-        this(0, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
-                LoanStatus.APPLICATION);
+        this(0, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0.0, 0.0, 0.0, 0,
+                0.0, 0.0,
+                LoanStatus.APPLICATION, 0.0);
     }
 
     public Loan(int id) {
-        this(id, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
-                LoanStatus.APPLICATION);
+        this(id, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0.0, 0.0, 0.0, 0,
+                0.0, 0.0,
+                LoanStatus.APPLICATION, 0.0);
     }
 
     // SETTERS
@@ -119,6 +123,10 @@ public class Loan {
         this.status.set(val);
     }
 
+    public void setNextPayment(double next_payment) {
+        this.next_payment.set(next_payment);
+    }
+
     // GETTERS
     public int getLoan_id() {
         return this.loan_id.get();
@@ -176,6 +184,10 @@ public class Loan {
         return this.status.get();
     }
 
+    public double getNextPayment() {
+        return this.next_payment.get();
+    }
+
     // PROPERTY GETTERS
     public IntegerProperty getLoanID_Property() {
         return this.loan_id;
@@ -231,5 +243,9 @@ public class Loan {
 
     public StringProperty getStatusProperty() {
         return this.status;
+    }
+
+    public DoubleProperty getNextPaymentProperty() {
+        return this.next_payment;
     }
 }

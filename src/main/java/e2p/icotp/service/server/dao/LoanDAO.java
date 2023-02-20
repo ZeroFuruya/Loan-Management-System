@@ -69,11 +69,12 @@ public class LoanDAO {
         double paid = (crs.getDouble("paid"));
         double balance = (crs.getDouble("balance"));
         String status = (crs.getString("status"));
+        double next_payment = (crs.getDouble("next_payment"));
 
         return new Loan(loan_id, loaner, loan_type, loan_plan, release_date, term, maturity_date, principal, interest,
                 penalty, due,
                 paid,
-                balance, status);
+                balance, status, next_payment);
     }
 
     public static ArrayList<SQLParam> parameters(Loan loan) {
@@ -122,6 +123,9 @@ public class LoanDAO {
 
         // STATUS
         params.add(new SQLParam(Types.VARCHAR, "status", loan.getStatus()));
+
+        // NEXT AMOUNT
+        params.add(new SQLParam(Types.DECIMAL, "next_payment", loan.getNextPayment()));
 
         return params;
     }
