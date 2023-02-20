@@ -64,25 +64,18 @@ public class App extends Application {
         loan_planCache = LoanPlanDAO.getMasterlist();
 
         System.out.println("======================================");
-// <<<<<<< HEAD
-        loan_planCache.forEach(loan -> {
-            System.out.println(loan.getIdProperty().get());
-            System.out.println(loan.getTypeProperty().get().getName().get());});   
-// =======
         loanerCache.forEach(loan -> {
             temp = loan.getLoaner_id();
             final_temp = final_temp + temp;
             System.out.println(final_temp);
-// >>>>>>> main
         });
     }
-
-    private void initialize_signUp() {
-        signUpList.add(new SignUp(" ", " ", " "));
+    private void initialize_signUp(){
+        signUpList.add(new SignUp("123", "123", "123"));
     }
 
-    private void initialize_login() {
-        loginList.add(new Login(" ", " "));
+    private void initialize_login(){
+        loginList.add(new Login("aloe", "123"));
     }
 
     public void initializa_main() throws IOException {
@@ -128,14 +121,14 @@ public class App extends Application {
     }
 
     // Accounts
-    public ObservableList<SignUp> getSignUpList() {
+    public ObservableList<SignUp> getSignUpList(){
         return this.signUpList;
     }
-
-    public ObservableList<Login> getLoginList() {
+    public ObservableList<Login> getLoginList(){
         return this.loginList;
     }
 
+    
     public static void main(String[] args) {
         launch();
     }
