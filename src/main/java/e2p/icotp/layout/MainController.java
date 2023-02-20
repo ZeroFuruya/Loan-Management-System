@@ -1222,7 +1222,6 @@ public class MainController {
     long add_months_ctr = 0;
 
     // TODO payment frequency, do all logics here, add payment extension
-    // TODO get total penalty payment if overdue for several months
     // TODO collect collateral if loan not paid past maturity date
     // TODO change loan_plan : interest and penalty to percentage
     // TODO add loan_plan : payment frequency : daily, monthly, annually
@@ -1296,7 +1295,7 @@ public class MainController {
                     .compareTo(yearMonth_next_due) == 0) {
                 add_months_ctr++;
 
-                // TODO reset day skipped if paid
+                // TODO reset day skipped if paid ---------------------------
 
                 if (days_skipped > total_days + 3) {
                     loan_next_due_label.setText("Past Maturity Date");
