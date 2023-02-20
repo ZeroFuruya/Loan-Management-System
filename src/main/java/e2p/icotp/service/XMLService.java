@@ -14,32 +14,34 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
 public class XMLService {
-    public static ArrayList<SignUp> unwrap_signUpXML(App app, File xml){   //-- converts xml File into java readable File --
+    public static ArrayList<SignUp> unwrap_signUpXML(App app, File xml) { // -- converts xml File into java readable
+                                                                          // File --
         ArrayList<SignUp> signUpList = new ArrayList<>();
 
-        try{
+        try {
             JAXBContext context = JAXBContext.newInstance(SignUpWrapper.class);
             Unmarshaller um = context.createUnmarshaller();
 
             SignUpWrapper unWrapper = (SignUpWrapper) um.unmarshal(xml);
             signUpList.clear();
+
             signUpList.addAll(unWrapper.getSignUpList());
             RegistryService.setXML_toRegistry(app, xml);
-        }
-        catch( JAXBException e){
+            
+        } catch (JAXBException e) {
             e.printStackTrace();
         }
 
         return signUpList;
-    } 
+    }
 
-    public static void wrap_signUpXML(App app, File xml){
+    public static void wrap_signUpXML(App app, File xml) {
         try {
             JAXBContext context = JAXBContext.newInstance(SignUpWrapper.class);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-            SignUpWrapper wrapper  = new SignUpWrapper();
+            SignUpWrapper wrapper = new SignUpWrapper();
             wrapper.setAccountList(app.getSignUpList());
 
             m.marshal(wrapper, xml);
@@ -50,15 +52,15 @@ public class XMLService {
     }
 
     // --------------------------------------------------------------------------------
-    
-    public static ArrayList<Login> unwrap_loginXML(App app, File xml){
+
+    public static ArrayList<Login> unwrap_loginXML(App app, File xml) {
         ArrayList<Login> loginList = new ArrayList<>();
 
         try {
             JAXBContext context = JAXBContext.newInstance(LoginWrapper.class);
             Unmarshaller um = context.createUnmarshaller();
 
-            LoginWrapper unWrapper = (LoginWrapper) um.unmarshal(xml); 
+            LoginWrapper unWrapper = (LoginWrapper) um.unmarshal(xml);
             loginList.clear();
             loginList.addAll(unWrapper.getLoginList());
             RegistryService.setXML_toRegistry(app, xml);
@@ -68,7 +70,7 @@ public class XMLService {
         return loginList;
     }
 
-    public static void wrap_loginXML(App app, File xml){
+    public static void wrap_loginXML(App app, File xml) {
         try {
             JAXBContext context = JAXBContext.newInstance(LoginWrapper.class);
             Marshaller m = context.createMarshaller();

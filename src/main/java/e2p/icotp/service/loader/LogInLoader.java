@@ -8,7 +8,6 @@ import e2p.icotp.layout.accounts.SignUpController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 public class LogInLoader {
@@ -16,7 +15,7 @@ public class LogInLoader {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(App.class.getResource("layout/" + fxml + ".fxml"));
 
-        BorderPane pane = loader.load();
+        StackPane pane = loader.load();
 
         StackPane modal = new StackPane(pane);
         modal.getStyleClass().add("login-bg");
@@ -45,7 +44,7 @@ public class LogInLoader {
     }
 
     public static void load_log_in(App app) throws IOException {
-        FXMLLoader loader = load_modal(app, "layout/accounts/LOGIN");
+        FXMLLoader loader = load_modal(app, "accounts/LOGIN");
 
         LogInController controller = loader.getController();
         controller.load(app);

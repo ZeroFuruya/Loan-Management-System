@@ -12,20 +12,22 @@ public class SignUp {
         this("", "","");
     }
 
+    public SignUp(SignUp signUp){
+        this(signUp.getUsername(), signUp.getPassword(), signUp.getConfirmPassWord());
+    }
+
+
     public SignUp(String username, String password, String confirmPassword){
         this.username = new SimpleStringProperty(username);
         this.password = new SimpleStringProperty(password);
         this.confirmPassword = new SimpleStringProperty(confirmPassword);
     }
 
-    public SignUp(SignUp signUp){
-        this(signUp.getUsername(), signUp.getPassword(), signUp.getConfirmPassWord());
-    }
     
 
     // Setters
     public void setUsername(String username){
-        this.username.set(username);;
+        this.username.set(username);
     }
     public void setPassword(String password){
         this.password.set(password);

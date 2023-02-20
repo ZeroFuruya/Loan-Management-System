@@ -1,6 +1,7 @@
 package e2p.icotp.layout.modal;
 
 import e2p.icotp.App;
+import e2p.icotp.model.LoanPlan;
 import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.service.loader.ModalLoader;
 import javafx.fxml.FXML;
@@ -53,6 +54,7 @@ public class LoanPlanController {
     private Tooltip monthlyPenaltyTT;
 
     private App app;
+    private LoanPlan loanPlan;
 
     @FXML
     private void handle_cancel() {
@@ -67,6 +69,7 @@ public class LoanPlanController {
     public void load(App app) {
         this.app = app;
         load_bindings();
+        modify_loanPlan_listener();
     }
 
     private void load_bindings() {
@@ -78,4 +81,13 @@ public class LoanPlanController {
         save.disableProperty().bind(installment_icon.visibleProperty().or(interest_icon.visibleProperty())
                 .or(repayment_icon.visibleProperty()).or(monthlyPenalty_icon.visibleProperty()));
     }
+
+    private void modify_loanPlan_listener(){
+        loanPlan.setTerm(Long.parseLong(installment.textProperty().get()));
+        loanPlan.setInterest(Double.parseDouble(interest.textProperty().get()));
+        loanPlan.setPenalty(Double.parseDouble(monthlyPenalty.textProperty().get()));
+        
+        
+    }
+
 }
