@@ -82,12 +82,11 @@ public class LoanPlanController {
                 .or(repayment_icon.visibleProperty()).or(monthlyPenalty_icon.visibleProperty()));
     }
 
-    private void modify_loanPlan_listener(){
-        loanPlan.setTerm(Long.parseLong(installment.textProperty().get()));
-        loanPlan.setInterest(Double.parseDouble(interest.textProperty().get()));
-        loanPlan.setPenalty(Double.parseDouble(monthlyPenalty.textProperty().get()));
-        
-        
+    private void modify_loanPlan_listener() {
+        loanPlan.getTerm().set(Long.parseLong(installment.textProperty().get()));
+        loanPlan.getInterest().set(Double.parseDouble(interest.textProperty().get()));
+        loanPlan.getPenalty().set(Double.parseDouble(monthlyPenalty.textProperty().get()));
+
     }
 
 }
