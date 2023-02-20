@@ -997,6 +997,7 @@ public class MainController {
             return String.format("$%s", format.format(loan.getBalance()));
         }, loan.getBalanceProperty()));
 
+        loan_next_logic_monthly();
         status_image_setter(loan.getStatus());
         loan_next_logic_monthly();
         if (loan.getStatus().equals(LoanStatus.OPEN)) {
@@ -1048,6 +1049,10 @@ public class MainController {
             case LoanStatus.OPEN:
                 status_image
                         .setImage(new Image(App.class.getResourceAsStream("assets/images/open2-removebg-preview.png")));
+                break;
+            case LoanStatus.PAID:
+                status_image
+                        .setImage(new Image(App.class.getResourceAsStream("assets/images/paid1-removebg-preview.png")));
                 break;
         }
     }
@@ -1222,7 +1227,7 @@ public class MainController {
     // TODO collect collateral if loan not paid past maturity date
     // TODO change loan_plan : interest and penalty to percentage
     // TODO add loan_plan : payment frequency : daily, monthly, annually
-    // TODO make an invoice for each payment done
+    // TODO make an invoice for each payment done, change calculator included
     // TODO add security more by putting confirmations every after tasks
     // TODO make statistics
     // TODO add forget password
@@ -1261,6 +1266,10 @@ public class MainController {
         System.out.printf("term = %d \ndays_between = %d", loan.getTerm(),
                 ChronoUnit.DAYS.between(first_due_date, loan.getMaturity_date()));
 
+        if (loan.getBalance() <= 0.0d) {
+            loan.setStatus(LoanStatus.PAID);
+        }
+
         if (!payment_exist) {
             if (days_skipped > total_days) {
                 loan_next_due_label.setText("Past Maturity Date");
@@ -1281,9 +1290,10 @@ public class MainController {
             if (days_skipped < total_days) {
                 next_due_date.plusDays(days_skipped);
                 loan_next_due_label.setText("Overdue for " + days_skipped + " days");
-                // TODO TOTAL PENALTY PAYMENT IF OVERDUE FOR MANY MONTHS
-                loan_next_amount_label.setText(format.format(penalty_payment));
-                next_amount.set(penalty_payment);
+                // TODO add due payment in loan table ----------------
+                double total_penalty_payment = (double) penalty_payment * (days_skipped / 30.417);
+                loan_next_amount_label.setText(format.format(total_penalty_payment));
+                next_amount.set(total_penalty_payment);
                 return;
             }
             return;
@@ -1312,8 +1322,9 @@ public class MainController {
                 next_amount_err.setVisible(true);
                 if (days_skipped < total_days) {
                     loan_next_due_label.setText("Overdue for " + days_skipped + " days");
-                    loan_next_amount_label.setText(format.format(penalty_payment));
-                    next_amount.set(penalty_payment);
+                    double total_penalty_payment = (double) penalty_payment * (days_skipped / 30.417);
+                    loan_next_amount_label.setText(format.format(total_penalty_payment));
+                    next_amount.set(total_penalty_payment);
                     return;
                 }
             }
