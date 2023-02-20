@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -62,7 +61,7 @@
                               </Label>
                               <HBox>
                                  <children>
-                                    <PasswordField fx:id="passwordPF" onAction="#handle_passwordField" onKeyTyped="#passwordFieldKeyTyped" prefHeight="25.0" prefWidth="383.0" promptText="Create Password" HBox.hgrow="ALWAYS" />
+                                    <PasswordField fx:id="passwordPF" prefHeight="25.0" prefWidth="383.0" promptText="Create Password" HBox.hgrow="ALWAYS" />
                                     <Label fx:id="passwordLabel" translateX="-27.0">
                                        <graphic>
                                           <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
@@ -82,16 +81,6 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <HBox alignment="CENTER_LEFT" spacing="5.0">
-                           <children>
-                              <ToggleButton fx:id="showPasswordButton" mnemonicParsing="false" onAction="#handle_showPasswordButton" text="Show password" />
-                              <Label fx:id="shownPasswordLabel" text="shown password" textFill="#f80000">
-                                 <font>
-                                    <Font name="Arial Bold" size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
                         <VBox>
                            <children>
                               <Label text="Confirm Password:">
@@ -117,7 +106,6 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <ToggleButton fx:id="confirmPasswordButton" mnemonicParsing="false" text="Confirm password" />
                         <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#handle_signUp" prefHeight="37.0" prefWidth="392.0" text="SignUp ">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -136,7 +124,7 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <Hyperlink fx:id="logIn" onAction="#handle_loginLink" text="Login">
+                              <Hyperlink fx:id="logIn" text="Login">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>

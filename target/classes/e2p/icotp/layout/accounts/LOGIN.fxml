@@ -60,10 +60,10 @@
                               </Label>
                               <HBox>
                                  <children>
-                                    <PasswordField fx:id="passwordFieldPF" prefHeight="25.0" prefWidth="364.0" promptText="Password" />
-                                    <Label fx:id="passwordLabel" translateX="-27.0">
+                                    <PasswordField fx:id="passwordFieldPF" prefHeight="25.0" prefWidth="592.0" promptText="Password" />
+                                    <Label translateX="-27.0">
                                        <graphic>
-                                          <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
+                                          <FontIcon fx:id="passwordLabel" iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
                                        </graphic>
                                        <tooltip>
                                           <Tooltip fx:id="passwordTT" text="Empty Tooltip" />
