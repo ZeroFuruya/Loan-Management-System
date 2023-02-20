@@ -384,7 +384,7 @@
                                                                                                             <Font name="Arial Bold" size="15.0" />
                                                                                                          </font>
                                                                                                       </Label>
-                                                                                                      <Label fx:id="loan_next_amount_label1" prefHeight="21.0" prefWidth="174.0" styleClass="label-bright" text="Unpaid">
+                                                                                                      <Label fx:id="loan_total_unpaid_label" prefHeight="21.0" prefWidth="174.0" styleClass="label-bright" text="Unpaid">
                                                                                                          <font>
                                                                                                             <Font size="15.0" />
                                                                                                          </font>
