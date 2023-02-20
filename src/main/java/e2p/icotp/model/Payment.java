@@ -15,18 +15,20 @@ public class Payment {
     private ObjectProperty<Loan> loan_id;
     private ObjectProperty<LocalDate> payment_date;
     private DoubleProperty payment_amount;
+    private ObjectProperty<LocalDate> date_payment;
 
     public Payment(long payment_id, Loaner loaner_id, Loan loan_id,
-            LocalDate payment_date, double payment_amount) {
+            LocalDate payment_date, double payment_amount, LocalDate date_payment) {
         this.payment_id = new SimpleLongProperty(payment_id);
         this.loaner_id = new SimpleObjectProperty<>(loaner_id);
         this.loan_id = new SimpleObjectProperty<>(loan_id);
         this.payment_date = new SimpleObjectProperty<>(payment_date);
         this.payment_amount = new SimpleDoubleProperty(payment_amount);
+        this.date_payment = new SimpleObjectProperty<>(date_payment);
     }
 
     public Payment() {
-        this(0, new Loaner(), new Loan(), LocalDate.now(), 0.0);
+        this(0, new Loaner(), new Loan(), LocalDate.now(), 0.0, LocalDate.now());
     }
 
     // SETTERS
@@ -90,5 +92,9 @@ public class Payment {
 
     public DoubleProperty getPayment_amount_Property() {
         return payment_amount;
+    }
+
+    public ObjectProperty<LocalDate> getDatePaymentProperty() {
+        return date_payment;
     }
 }
