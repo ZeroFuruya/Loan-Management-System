@@ -1,6 +1,5 @@
 package e2p.icotp.model;
 
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
@@ -29,59 +28,25 @@ public class LoanPlan {
         this(0, new LoanType(), 0, 0, 0);
     }
 
-    // SETTERS 
-    public void setPlan_id(int plan_id){
-        this.setPlan_id(plan_id);
-    }
-    public void setLoan_type(LoanType loan_Type){
-        this.setLoan_type(loan_Type);
-    } 
-    public void setTerm(Long term){
-        this.term.set(term);
-    }
-    public void setInterest(double interest){
-        this.interest.set(interest);
-    }
-    public void setPenalty(double penalty){
-        this.penalty.set(penalty);
-    }
-
-    // GETTERS
-    public int getPlan_id(){
-        return this.plan_id.get();
-    }
-    public LoanType getLoanType(){
-        return this.loan_type.get();
-    }
-    public long getTerm(){
-        return this.term.get();
-    }
-    public double getInterest(){
-        return this.interest.get();
-    }
-    public double getPenalty(){
-        return this.penalty.get();
-    }
-
     // PROPERTY GETTERS
 
-    public IntegerProperty getIdProperty() {
+    public IntegerProperty getId() {
         return this.plan_id;
     }
 
-    public ObjectProperty<LoanType> getTypeProperty() {
+    public ObjectProperty<LoanType> getType() {
         return this.loan_type;
     }
 
-    public LongProperty getTermProperty() {
+    public LongProperty getTerm() {
         return this.term;
     }
 
-    public DoubleProperty getInterestProperty() {
+    public DoubleProperty getInterest() {
         return this.interest;
     }
 
-    public DoubleProperty getPenaltyProperty() {
+    public DoubleProperty getPenalty() {
         return this.penalty;
     }
 }

@@ -44,12 +44,9 @@ public class AppLoader {
 
         // Gets and Unwraps XML file
         File xml = RegistryService.getXML_FromRegistry();
-        if(xml != null){
+        if (xml != null) {
             app.getSignUpList().setAll(XMLService.unwrap_signUpXML(app, xml));
             // app.getLoginList().setAll(XMLService.unwrap_loginXML(app, xml));
         }
-        
-        LogInLoader.load_sign_up(app);
-        // LogInLoader.load_log_in(app);
     }
 }
