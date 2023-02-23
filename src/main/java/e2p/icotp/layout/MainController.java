@@ -1282,7 +1282,7 @@ public class MainController {
             }
             next_due_err.setVisible(true);
             next_amount_err.setVisible(true);
-            if (days_skipped < total_days) {
+            if (days_skipped < total_days) { // TODO CHANGE CONDITION TO LOCALDATE_NOW > NEXT_DUE_DATE
                 // TODO precise day penalty addition ---------------------------
                 loan.setNextPayment(penalty_payment);
                 loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
