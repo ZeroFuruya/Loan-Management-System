@@ -130,11 +130,17 @@ public class LoanController {
         modify_loan_plan_field_listener();
         modify_loan_listener();
 
+        LocalDate first_due_date = LocalDate.of(loan.getRelease_date().getYear(),
+                loan.getRelease_date().getMonthValue(), loan.getDue());
+        first_due_date = first_due_date.plusMonths(1);
+
         if (isEdit) {
+            loan.setNextDueDate(loan.getNextDueDate());
             LoanDAO.update(loan);
             app.loanMasterList().remove(og_loan);
             app.loanMasterList().add(loan);
         } else {
+            loan.setNextDueDate(first_due_date);
             LoanDAO.insert(loan);
             app.loanMasterList().add(loan);
         }
@@ -279,6 +285,9 @@ public class LoanController {
             plan_id_disp.setText(loan.getLoanPlan().getId().get() + "");
             plan_type_disp.setText(loan.getLoanPlan().getType().get().getName().get());
             status.getSelectionModel().select(loan.getStatus());
+            if (loan.getStatus().toLowerCase().contains(LoanStatus.OPEN.toLowerCase())) {
+                release_date.disableProperty().set(true);
+            }
         } else {
             generate_id();
             term.setText(loan.getTerm() + "");
@@ -321,9 +330,7 @@ public class LoanController {
         loan.setLoaner_id(loaner);
         loan.setLoanType(loan_plan.getType().get());
         loan.setLoanPlan(loan_plan);
-        loan.setRelease_date(release_date.getValue());
         loan.setTerm(Integer.parseInt(term.getText()));
-        loan.setMaturity_date(maturity_date.getValue());
         loan.setPrincipal(Double.parseDouble(principal.getText()));
         loan.setInterest(Double.parseDouble(interest.getText()));
         loan.setPenalty(Double.parseDouble(penalty.getText()));
@@ -331,7 +338,8 @@ public class LoanController {
         loan.setPaid(total_paid);
         loan.setBalance(Double.parseDouble(principal.getText()) - total_paid);
         loan.setStatus(status.getSelectionModel().getSelectedItem());
-
+        loan.setRelease_date(release_date.getValue());
+        loan.setMaturity_date(maturity_date.getValue());
     }
 
     private long final_num = 0;

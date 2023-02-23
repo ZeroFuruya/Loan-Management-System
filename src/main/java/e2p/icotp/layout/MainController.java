@@ -1250,16 +1250,16 @@ public class MainController {
         long year_today = LocalDate.now().getYear();
         long day_today = LocalDate.now().getDayOfYear();
 
-        total_days = ChronoUnit.DAYS.between(first_due_date, loan.getMaturity_date());
+        total_days = ChronoUnit.DAYS.between(loan.getNextDueDate(), loan.getMaturity_date());
 
-        days_skipped = ChronoUnit.DAYS.between(first_due_date, LocalDate.now());
+        days_skipped = ChronoUnit.DAYS.between(loan.getNextDueDate(), LocalDate.now());
 
         YearMonth yearMonth_next_due = YearMonth.of(next_due_date.getYear(), next_due_date.getMonthValue());
 
         boolean payment_exist = !paymentList.isEmpty();
 
         System.out.printf("term = %d \ndays_between = %d", loan.getTerm(),
-                ChronoUnit.DAYS.between(first_due_date, loan.getMaturity_date()));
+                ChronoUnit.DAYS.between(loan.getNextDueDate(), loan.getMaturity_date()));
 
         if (loan.getBalance() <= 0.0d) {
             loan.setStatus(LoanStatus.PAID);
@@ -1274,7 +1274,7 @@ public class MainController {
 
             if (days_skipped <= 0) {
                 loan.setNextPayment(monthly_payment);
-                loan_next_due_label.setText(DateUtil.localizeDate(first_due_date));
+                loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                 loan_next_amount_label.setText(format.format(loan.getNextPayment()));
                 next_due_err.setVisible(false);
                 next_amount_err.setVisible(false);
@@ -1282,10 +1282,10 @@ public class MainController {
             }
             next_due_err.setVisible(true);
             next_amount_err.setVisible(true);
-            if (days_skipped < total_days + 3) {
+            if (days_skipped < total_days) {
                 // TODO precise day penalty addition ---------------------------
                 loan.setNextPayment(penalty_payment);
-                loan_next_due_label.setText("Overdue for " + days_skipped + " days");
+                loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                 loan_next_amount_label.setText(format.format(loan.getNextPayment()));
                 return;
             }
@@ -1298,7 +1298,7 @@ public class MainController {
 
                 // TODO reset day skipped if paid ---------------------------
 
-                if (days_skipped > total_days + 3) {
+                if (days_skipped > total_days) {
                     loan_next_due_label.setText("Past Maturity Date");
                     loan_next_amount_label.setText("Seize any collaterals or Take legal action");
                     return;
@@ -1306,7 +1306,7 @@ public class MainController {
 
                 if (days_skipped <= 0) {
                     loan.setNextPayment(monthly_payment);
-                    loan_next_due_label.setText(DateUtil.localizeDate(next_due_date));
+                    loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                     loan_next_amount_label.setText(format.format(loan.getNextPayment()));
                     next_due_err.setVisible(false);
                     next_amount_err.setVisible(false);
@@ -1314,10 +1314,10 @@ public class MainController {
                 }
                 next_due_err.setVisible(true);
                 next_amount_err.setVisible(true);
-                if (days_skipped < total_days + 3) {
+                if (days_skipped < total_days) {
                     // TODO precise day penalty addition ---------------------------
                     loan.setNextPayment(penalty_payment);
-                    loan_next_due_label.setText("Overdue for " + days_skipped + " days");
+                    loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                     loan_next_amount_label.setText(format.format(loan.getNextPayment()));
                     return;
                 }

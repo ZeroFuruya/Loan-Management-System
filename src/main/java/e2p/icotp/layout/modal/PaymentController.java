@@ -65,7 +65,6 @@ public class PaymentController {
     private Loan og_loan;
     BooleanProperty isEdit = new SimpleBooleanProperty(false);
     private MainController mc;
-    private LocalDate next_due_date_exc = LocalDate.now();
     private Loaner loaner;
     private Payment payment;
     private Payment og_payment;
@@ -83,7 +82,7 @@ public class PaymentController {
 
         loan.setPaid(payment.getPayment_amount() + loan.getPaid());
         loan.setBalance(loan.getBalance() - payment.getPayment_amount());
-        loan.setNextPayment(loan.getNextPayment() - payment.getPayment_amount());
+        loan.setNextDueDate(loan.getNextDueDate().plusMonths(1));
 
         mc.setNextDueDate(pay_ctr);
 
@@ -115,14 +114,6 @@ public class PaymentController {
         this.loaner = loaner;
         this.payment = payment;
         this.og_payment = payment;
-        this.next_due_date_exc = mc.getNextDueDate();
-
-        app.paymentMasterlist().forEach(pay -> {
-            if (pay.getLoan_id().getLoan_id() == loan.getLoan_id()) {
-                pay_ctr++;
-            }
-        });
-        this.next_due_date_exc = next_due_date_exc.plusMonths(pay_ctr);
 
         load_bindings();
         init_listeners();
@@ -159,8 +150,8 @@ public class PaymentController {
     private void init_add_listeners() {
         generate_id();
         date_paid.setText(DateUtil.localizeDate(LocalDate.now()));
-        payment_date.valueProperty().set(next_due_date_exc);
-        payment_date_label.textProperty().set(DateUtil.localizeDate(next_due_date_exc));
+        payment_date.valueProperty().set(loan.getNextDueDate());
+        payment_date_label.textProperty().set(DateUtil.localizeDate(loan.getNextDueDate()));
         payment_amount.textProperty().set(mc.getTotalDueAmount());
 
         payment.getDatePaymentProperty().set(LocalDate.now());

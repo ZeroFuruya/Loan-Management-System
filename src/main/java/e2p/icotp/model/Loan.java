@@ -30,12 +30,14 @@ public class Loan {
     private DoubleProperty balance;
     private StringProperty status;
     private DoubleProperty next_payment;
+    private ObjectProperty<LocalDate> next_due_date;
 
     public Loan(int loan_id, Loaner loaner_id, LoanType loan_type, LoanPlan loan_plan, LocalDate release_date,
             long term,
             LocalDate maturity_date,
             double principal,
-            double interest, double penalty, int due, double paid, double balance, String status, double next_payment) {
+            double interest, double penalty, int due, double paid, double balance, String status, double next_payment,
+            LocalDate next_due_date) {
 
         this.loan_id = new SimpleIntegerProperty(loan_id);
         this.loaner_id = new SimpleObjectProperty<>(loaner_id);
@@ -52,18 +54,19 @@ public class Loan {
         this.balance = new SimpleDoubleProperty(balance);
         this.status = new SimpleStringProperty(status);
         this.next_payment = new SimpleDoubleProperty(next_payment);
+        this.next_due_date = new SimpleObjectProperty<>(next_due_date);
     }
 
     public Loan() {
         this(0, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0.0, 0.0, 0.0, 0,
                 0.0, 0.0,
-                LoanStatus.APPLICATION, 0.0);
+                LoanStatus.APPLICATION, 0.0, LocalDate.now());
     }
 
     public Loan(int id) {
         this(id, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0.0, 0.0, 0.0, 0,
                 0.0, 0.0,
-                LoanStatus.APPLICATION, 0.0);
+                LoanStatus.APPLICATION, 0.0, LocalDate.now());
     }
 
     // SETTERS
@@ -127,6 +130,10 @@ public class Loan {
         this.next_payment.set(next_payment);
     }
 
+    public void setNextDueDate(LocalDate next_due_date) {
+        this.next_due_date.set(next_due_date);
+    }
+
     // GETTERS
     public int getLoan_id() {
         return this.loan_id.get();
@@ -188,6 +195,10 @@ public class Loan {
         return this.next_payment.get();
     }
 
+    public LocalDate getNextDueDate() {
+        return this.next_due_date.get();
+    }
+
     // PROPERTY GETTERS
     public IntegerProperty getLoanID_Property() {
         return this.loan_id;
@@ -247,5 +258,9 @@ public class Loan {
 
     public DoubleProperty getNextPaymentProperty() {
         return this.next_payment;
+    }
+
+    public ObjectProperty<LocalDate> getNextdueDateProperty() {
+        return this.next_due_date;
     }
 }
