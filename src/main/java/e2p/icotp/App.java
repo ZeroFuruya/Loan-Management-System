@@ -75,7 +75,7 @@ public class App extends Application {
     }
 
     private void initialize_login(){
-        loginList.add(new Login("aloe", "123"));
+        loginList.add(new Login("123", "123"));
     }
 
     public void initializa_main() throws IOException {

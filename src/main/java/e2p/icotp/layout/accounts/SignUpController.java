@@ -65,6 +65,8 @@ public class SignUpController implements Initializable {
 
     private App app;
     private SignUp signUp;
+    private SignUp password;
+    private SignUp confirmPassword;
 
     @FXML
     void passwordFieldKeyTyped(KeyEvent event) {
@@ -118,9 +120,8 @@ public class SignUpController implements Initializable {
                 XMLService.wrap_signUpXML(app, newXml);
             }
         }
-
+        // verification();
         buttonClick();
-
     }
 
     @FXML
@@ -147,8 +148,9 @@ public class SignUpController implements Initializable {
         BooleanBinding passwordMatches = Bindings.createBooleanBinding(() -> {
 
             // validatePassword();
+            verification();
             return !app.getSignUpList().stream().anyMatch(
-                    pass -> signUp == pass);
+                    pass -> password == pass);
 
         }, confirmPassPF.textProperty());
 
@@ -163,8 +165,9 @@ public class SignUpController implements Initializable {
         confirmPassTT.textProperty()
                 .bind(Bindings.when(passwordMatches).then("Password not match").otherwise("Invalid Confirmation"));
         // validatePassword();
-        signUpButton.disableProperty().bind(usernameLabel.visibleProperty().or(passwordLabel.visibleProperty().or(passwordMatches))
-                .or(confirmPassLabel.visibleProperty()));
+        signUpButton.disableProperty()
+                .bind(usernameLabel.visibleProperty().or(passwordLabel.visibleProperty().or(passwordMatches))
+                        .or(confirmPassLabel.visibleProperty()));
 
     }
 
@@ -182,6 +185,19 @@ public class SignUpController implements Initializable {
             alert.showAndWait();
         }
         return false;
+    }
+
+    private void verification() {
+        if (password != null) {
+            passwordPF.textProperty().get().equals(confirmPassPF.textProperty().get());
+
+            password.setPassword(passwordPF.textProperty().get());
+            confirmPassword.setConfirmPassword(password.getPassword());
+
+        } else {
+            app.getSignUpList();
+        }
+
     }
 
 }

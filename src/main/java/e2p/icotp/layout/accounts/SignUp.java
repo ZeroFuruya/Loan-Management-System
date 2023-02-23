@@ -23,6 +23,9 @@ public class SignUp {
         this.confirmPassword = new SimpleStringProperty(confirmPassword);
     }
 
+  
+    
+
     
 
     // Setters
@@ -33,7 +36,7 @@ public class SignUp {
         this.password.set(password);
     }
     public void setConfirmPassword(String confirmPassword){
-        this.confirmPassword.set(confirmPassword);
+        this.password.set(confirmPassword);
     }
 
     // Getters
@@ -44,7 +47,7 @@ public class SignUp {
         return this.password.get();
     }
     public String getConfirmPassWord(){
-        return this.confirmPassword.get();
+        return this.password.get();
     }
 
     // Properties
@@ -55,6 +58,6 @@ public class SignUp {
         return this.password;
     }
     public StringProperty getConfirmPasswordProperty(){
-        return this.confirmPassword;
+        return this.password;
     }
 }

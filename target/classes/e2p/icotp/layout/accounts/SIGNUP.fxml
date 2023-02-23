@@ -62,7 +62,7 @@
                               </Label>
                               <HBox>
                                  <children>
-                                    <PasswordField fx:id="passwordPF" onAction="#handle_passwordField" onKeyTyped="#passwordFieldKeyTyped" prefHeight="25.0" prefWidth="383.0" promptText="Create Password" HBox.hgrow="ALWAYS" />
+                                    <PasswordField fx:id="passwordPF" onKeyTyped="#passwordFieldKeyTyped" prefHeight="25.0" prefWidth="383.0" promptText="Create Password" HBox.hgrow="ALWAYS" />
                                     <Label fx:id="passwordLabel" translateX="-27.0">
                                        <graphic>
                                           <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
