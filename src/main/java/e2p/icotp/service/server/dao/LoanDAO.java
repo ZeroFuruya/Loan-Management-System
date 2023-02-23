@@ -70,11 +70,12 @@ public class LoanDAO {
         double balance = (crs.getDouble("balance"));
         String status = (crs.getString("status"));
         double next_payment = (crs.getDouble("next_payment"));
+        LocalDate next_due_date = (crs.getDate("next_due_date").toLocalDate());
 
         return new Loan(loan_id, loaner, loan_type, loan_plan, release_date, term, maturity_date, principal, interest,
                 penalty, due,
                 paid,
-                balance, status, next_payment);
+                balance, status, next_payment, next_due_date);
     }
 
     public static ArrayList<SQLParam> parameters(Loan loan) {
@@ -126,6 +127,9 @@ public class LoanDAO {
 
         // NEXT AMOUNT
         params.add(new SQLParam(Types.DECIMAL, "next_payment", loan.getNextPayment()));
+
+        // NEXT DUE DATE
+        params.add(new SQLParam(Types.DATE, "next_due_date", loan.getNextDueDate()));
 
         return params;
     }
