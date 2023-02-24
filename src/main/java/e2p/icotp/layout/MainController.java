@@ -961,7 +961,10 @@ public class MainController {
     }
 
     private void _init_loan_bindings() {
-        System.out.println(loan.getPrincipal());
+        if (loan == null)
+            return;
+        payment_add_button.disableProperty().bind(loan.getStatusProperty().isEqualTo(LoanStatus.APPLICATION));
+
         loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("%d", loan.getLoan_id());
         }, loan.getLoanID_Property()));
@@ -1219,6 +1222,9 @@ public class MainController {
     long days_skipped = 0;
     long total_days = 0;
 
+    long months_skipped = 0;
+    double total_unpaid_penalty = 0.0d;
+
     long add_months_ctr = 0;
 
     // TODO payment frequency, do all logics here, add payment extension
@@ -1250,16 +1256,17 @@ public class MainController {
         long year_today = LocalDate.now().getYear();
         long day_today = LocalDate.now().getDayOfYear();
 
-        total_days = ChronoUnit.DAYS.between(loan.getNextDueDate(), loan.getMaturity_date());
-
         days_skipped = ChronoUnit.DAYS.between(loan.getNextDueDate(), LocalDate.now());
+        total_days = ChronoUnit.DAYS.between(loan.getNextDueDate(), loan.getMaturity_date());
+        months_skipped = ChronoUnit.MONTHS.between(loan.getNextDueDate(), LocalDate.now());
+
+        loan.getTotalUnpaidProperty().set(penalty_val * months_skipped);
+
+        loan_total_unpaid_label.setText(format.format(loan.getTotalUnpaidProperty().get()));
 
         YearMonth yearMonth_next_due = YearMonth.of(next_due_date.getYear(), next_due_date.getMonthValue());
 
         boolean payment_exist = !paymentList.isEmpty();
-
-        System.out.printf("term = %d \ndays_between = %d", loan.getTerm(),
-                ChronoUnit.DAYS.between(loan.getNextDueDate(), loan.getMaturity_date()));
 
         if (loan.getBalance() <= 0.0d) {
             loan.setStatus(LoanStatus.PAID);
@@ -1272,7 +1279,7 @@ public class MainController {
                 return;
             }
 
-            if (days_skipped <= 0) {
+            if (LocalDate.now().isBefore(loan.getNextDueDate()) || LocalDate.now().isEqual(loan.getNextDueDate())) {
                 loan.setNextPayment(monthly_payment);
                 loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                 loan_next_amount_label.setText(format.format(loan.getNextPayment()));
@@ -1282,8 +1289,9 @@ public class MainController {
             }
             next_due_err.setVisible(true);
             next_amount_err.setVisible(true);
-            if (days_skipped < total_days) { // TODO CHANGE CONDITION TO LOCALDATE_NOW > NEXT_DUE_DATE
+            if (LocalDate.now().isAfter(loan.getNextDueDate())) {
                 // TODO precise day penalty addition ---------------------------
+                System.out.println("PENALTY");
                 loan.setNextPayment(penalty_payment);
                 loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                 loan_next_amount_label.setText(format.format(loan.getNextPayment()));
@@ -1304,7 +1312,7 @@ public class MainController {
                     return;
                 }
 
-                if (days_skipped <= 0) {
+                if (LocalDate.now().isBefore(loan.getNextDueDate()) || LocalDate.now().isEqual(loan.getNextDueDate())) {
                     loan.setNextPayment(monthly_payment);
                     loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                     loan_next_amount_label.setText(format.format(loan.getNextPayment()));
@@ -1314,7 +1322,7 @@ public class MainController {
                 }
                 next_due_err.setVisible(true);
                 next_amount_err.setVisible(true);
-                if (days_skipped < total_days) {
+                if (LocalDate.now().isAfter(loan.getNextDueDate())) {
                     // TODO precise day penalty addition ---------------------------
                     loan.setNextPayment(penalty_payment);
                     loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));

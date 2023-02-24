@@ -227,11 +227,12 @@ public class LoanController {
 
     private void load_cboxes() {
         // STATUS
-        status.getItems().add(LoanStatus.APPLICATION);
         status.getItems().add(LoanStatus.CLOSED);
         status.getItems().add(LoanStatus.OPEN);
-        status.getItems().add(LoanStatus.PAID);
         status.getSelectionModel().select(0);
+        if (!paymentList.isEmpty())
+            return;
+        status.getItems().add(LoanStatus.APPLICATION);
     }
 
     private void load_bindings() {
@@ -286,6 +287,8 @@ public class LoanController {
             plan_type_disp.setText(loan.getLoanPlan().getType().get().getName().get());
             status.getSelectionModel().select(loan.getStatus());
             if (loan.getStatus().toLowerCase().contains(LoanStatus.OPEN.toLowerCase())) {
+                if (paymentList.isEmpty())
+                    return;
                 release_date.disableProperty().set(true);
             }
         } else {
