@@ -25,19 +25,22 @@ public class Loan {
     private DoubleProperty principal;
     private DoubleProperty interest;
     private DoubleProperty penalty;
+    private StringProperty payment_frequency;
     private IntegerProperty due;
     private DoubleProperty paid;
     private DoubleProperty balance;
     private StringProperty status;
     private DoubleProperty next_payment;
     private ObjectProperty<LocalDate> next_due_date;
+    private DoubleProperty total_unpaid;
 
     public Loan(int loan_id, Loaner loaner_id, LoanType loan_type, LoanPlan loan_plan, LocalDate release_date,
             long term,
             LocalDate maturity_date,
             double principal,
-            double interest, double penalty, int due, double paid, double balance, String status, double next_payment,
-            LocalDate next_due_date) {
+            double interest, double penalty, String payment_frequency, int due, double paid, double balance,
+            String status, double next_payment,
+            LocalDate next_due_date, double total_unpaid) {
 
         this.loan_id = new SimpleIntegerProperty(loan_id);
         this.loaner_id = new SimpleObjectProperty<>(loaner_id);
@@ -49,24 +52,36 @@ public class Loan {
         this.principal = new SimpleDoubleProperty(principal);
         this.interest = new SimpleDoubleProperty(interest);
         this.penalty = new SimpleDoubleProperty(penalty);
+        this.payment_frequency = new SimpleStringProperty(payment_frequency);
         this.due = new SimpleIntegerProperty(due);
         this.paid = new SimpleDoubleProperty(paid);
         this.balance = new SimpleDoubleProperty(balance);
         this.status = new SimpleStringProperty(status);
         this.next_payment = new SimpleDoubleProperty(next_payment);
         this.next_due_date = new SimpleObjectProperty<>(next_due_date);
+        this.total_unpaid = new SimpleDoubleProperty(total_unpaid);
     }
 
     public Loan() {
-        this(0, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0.0, 0.0, 0.0, 0,
-                0.0, 0.0,
-                LoanStatus.APPLICATION, 0.0, LocalDate.now());
+        this(0, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0.0, 0.0, 0.0, "", 0,
+                0.0, 0.0, LoanStatus.APPLICATION, 0.0, LocalDate.now(), 0.0);
     }
 
     public Loan(int id) {
-        this(id, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0.0, 0.0, 0.0, 0,
+        this(id, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0.0, 0.0, 0.0, "",
+                0,
                 0.0, 0.0,
-                LoanStatus.APPLICATION, 0.0, LocalDate.now());
+                LoanStatus.APPLICATION, 0.0, LocalDate.now(), 0.0);
+    }
+
+    // NEWLY ADDED PROPERTIES GETTER
+
+    public StringProperty getPaymentFrequencyProperty() {
+        return this.payment_frequency;
+    }
+
+    public DoubleProperty getTotalUnpaidProperty() {
+        return this.total_unpaid;
     }
 
     // SETTERS
