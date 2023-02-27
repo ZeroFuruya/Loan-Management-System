@@ -135,7 +135,11 @@ public class LoanController {
         first_due_date = first_due_date.plusMonths(1);
 
         if (isEdit) {
-            loan.setNextDueDate(loan.getNextDueDate());
+            if (!paymentList.isEmpty()) {
+                loan.setNextDueDate(loan.getNextDueDate());
+            } else {
+                loan.setNextDueDate(first_due_date);
+            }
             LoanDAO.update(loan);
             app.loanMasterList().remove(og_loan);
             app.loanMasterList().add(loan);
@@ -287,9 +291,9 @@ public class LoanController {
             plan_type_disp.setText(loan.getLoanPlan().getType().get().getName().get());
             status.getSelectionModel().select(loan.getStatus());
             if (loan.getStatus().toLowerCase().contains(LoanStatus.OPEN.toLowerCase())) {
-                if (paymentList.isEmpty())
-                    return;
-                release_date.disableProperty().set(true);
+                // release_date.disableProperty().set(true);
+                // TODO MOVE PAYMENT FREQUENCY TO LOAN PLAN
+                // status.getItems().remove(LoanStatus.APPLICATION);
             }
         } else {
             generate_id();

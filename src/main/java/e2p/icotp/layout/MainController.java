@@ -1010,6 +1010,11 @@ public class MainController {
             loan_next_box.setVisible(false);
         }
 
+        loan_edit_button.disableProperty().bind(
+                loanTable.getSelectionModel().selectedItemProperty().isNull().or(Bindings.createBooleanBinding(() -> {
+                    return paymentList.isEmpty() ? false : true;
+                }, paymentList)));
+
     }
 
     private void _init_payment_bindings() {
@@ -1260,7 +1265,13 @@ public class MainController {
         total_days = ChronoUnit.DAYS.between(loan.getNextDueDate(), loan.getMaturity_date());
         months_skipped = ChronoUnit.MONTHS.between(loan.getNextDueDate(), LocalDate.now());
 
-        loan.getTotalUnpaidProperty().set(penalty_val * months_skipped);
+        if (months_skipped <= 0) {
+            loan.getTotalUnpaidProperty().set(penalty_payment * 0);
+            System.out.println("after " + loan.getTotalUnpaidProperty().get());
+        } else {
+            loan.getTotalUnpaidProperty().set(penalty_payment * months_skipped);
+            System.out.println("after " + loan.getTotalUnpaidProperty().get());
+        }
 
         loan_total_unpaid_label.setText(format.format(loan.getTotalUnpaidProperty().get()));
 
@@ -1323,7 +1334,7 @@ public class MainController {
                 next_due_err.setVisible(true);
                 next_amount_err.setVisible(true);
                 if (LocalDate.now().isAfter(loan.getNextDueDate())) {
-                    // TODO precise day penalty addition ---------------------------
+                    // TODO precise day penalty addition -------------------------------
                     loan.setNextPayment(penalty_payment);
                     loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                     loan_next_amount_label.setText(format.format(loan.getNextPayment()));
