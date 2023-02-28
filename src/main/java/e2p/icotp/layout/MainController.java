@@ -466,6 +466,7 @@ public class MainController {
 
     @FXML
     private void handle_payment_remove() {
+        // TODO MAKE SCAN UNPAID/REMOVED PAYMENTS
         if (loan == null)
             return;
         loan.setNextDueDate(loan.getNextDueDate().minusMonths(1));
