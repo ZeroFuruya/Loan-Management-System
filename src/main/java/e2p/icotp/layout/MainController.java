@@ -1244,7 +1244,6 @@ public class MainController {
             next_due_err.setVisible(true);
             next_amount_err.setVisible(true);
             if (LocalDate.now().isAfter(loan.getNextDueDate())) {
-                // TODO precise day penalty addition ---------------------------
                 System.out.println("PENALTY");
                 loan.setNextPayment(penalty_payment);
                 loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
@@ -1257,8 +1256,6 @@ public class MainController {
             if (YearMonth.of(pay.getPaymentDate().getYear(), pay.getPaymentDate().getMonthValue())
                     .compareTo(yearMonth_next_due) == 0) {
                 add_months_ctr++;
-
-                // TODO reset day skipped if paid ---------------------------
 
                 if (days_skipped > total_days) {
                     loan_next_due_label.setText("Past Maturity Date");
@@ -1277,7 +1274,6 @@ public class MainController {
                 next_due_err.setVisible(true);
                 next_amount_err.setVisible(true);
                 if (LocalDate.now().isAfter(loan.getNextDueDate())) {
-                    // TODO precise day penalty addition -------------------------------
                     loan.setNextPayment(penalty_payment);
                     loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                     loan_next_amount_label.setText(format.format(loan.getNextPayment()));
