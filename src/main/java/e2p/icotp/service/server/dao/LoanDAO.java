@@ -65,17 +65,19 @@ public class LoanDAO {
         double principal = (crs.getDouble("principal"));
         double interest = (crs.getDouble("interest"));
         double penalty = (crs.getDouble("penalty"));
+        String payment_frequency = (crs.getString("payment_frequency"));
         int due = (crs.getInt("due"));
         double paid = (crs.getDouble("paid"));
         double balance = (crs.getDouble("balance"));
         String status = (crs.getString("status"));
         double next_payment = (crs.getDouble("next_payment"));
         LocalDate next_due_date = (crs.getDate("next_due_date").toLocalDate());
+        double total_unpaid = (crs.getDouble("total_unpaid"));
 
         return new Loan(loan_id, loaner, loan_type, loan_plan, release_date, term, maturity_date, principal, interest,
-                penalty, due,
+                penalty, payment_frequency, due,
                 paid,
-                balance, status, next_payment, next_due_date);
+                balance, status, next_payment, next_due_date, total_unpaid);
     }
 
     public static ArrayList<SQLParam> parameters(Loan loan) {
@@ -113,6 +115,9 @@ public class LoanDAO {
         // PENALTY
         params.add(new SQLParam(Types.DECIMAL, "penalty", loan.getPenalty()));
 
+        // PAYMENT_FREQUENCY
+        params.add(new SQLParam(Types.VARCHAR, "payment_frequency", loan.getPaymentFrequencyProperty().get()));
+
         // DUE
         params.add(new SQLParam(Types.INTEGER, "due", loan.getDue()));
 
@@ -130,6 +135,9 @@ public class LoanDAO {
 
         // NEXT DUE DATE
         params.add(new SQLParam(Types.DATE, "next_due_date", loan.getNextDueDate()));
+
+        // TOTAL UNPAID
+        params.add(new SQLParam(Types.DECIMAL, "total_unpaid", loan.getTotalUnpaidProperty().get()));
 
         return params;
     }

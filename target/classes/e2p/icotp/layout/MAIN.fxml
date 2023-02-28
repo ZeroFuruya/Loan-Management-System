@@ -55,7 +55,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0">
+                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0" visible="false">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="902.0" styleClass="dept-tab-container">
                            <children>
@@ -676,7 +676,7 @@
                                  <children>
                                     <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../../../Pictures/Decks/heartSymbol.jpg" />
+                                          <Image url="@../../../../../../../../../Pictures/prince_id.png" />
                                        </image>
                                     </ImageView>
                                     <HBox fx:id="loaner_information_container">
@@ -912,7 +912,7 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="plans_box" prefHeight="200.0" prefWidth="100.0" visible="false">
+                  <VBox fx:id="plans_box" prefHeight="200.0" prefWidth="100.0">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
@@ -934,6 +934,7 @@
                                       <columns>
                                         <TableColumn fx:id="plan_id" prefWidth="133.66665649414062" text="Plan ID" />
                                         <TableColumn fx:id="plan_type_name" prefWidth="155.66665649414062" text="Loan Type" />
+                                          <TableColumn fx:id="plan_payment_mode" prefWidth="155.66665649414062" text="Payment Mode" />
                                           <TableColumn fx:id="plan_term" prefWidth="155.66665649414062" text="Term" />
                                           <TableColumn fx:id="plan_interest" prefWidth="155.66665649414062" text="Interest" />
                                           <TableColumn fx:id="plan_penalty" prefWidth="155.66665649414062" text="Penalty" />
@@ -979,6 +980,26 @@
                                           </Label>
                                           <ComboBox fx:id="plan_type_cbox" prefHeight="31.0" prefWidth="202.0" />
                                           <HBox fx:id="plan_type_err" alignment="CENTER" prefHeight="24.0" prefWidth="185.0" spacing="5.0">
+                                             <children>
+                                                <Label styleClass="label-red" text="Invalid Field">
+                                                   <font>
+                                                      <Font name="Arial Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <FontIcon fill="RED" iconLiteral="fas-times" iconSize="15" styleClass="label-red" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" layoutX="255.0" layoutY="10.0" prefHeight="321.0" prefWidth="185.0" spacing="5.0">
+                                       <children>
+                                          <Label styleClass="label-bright" text="Payment Mode">
+                                             <font>
+                                                <Font name="Arial" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="payment_mode_cbox" prefHeight="31.0" prefWidth="202.0" />
+                                          <HBox fx:id="payment_mode_err" alignment="CENTER" prefHeight="24.0" prefWidth="185.0" spacing="5.0">
                                              <children>
                                                 <Label styleClass="label-red" text="Invalid Field">
                                                    <font>
