@@ -147,7 +147,7 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <TextField fx:id="plan_term_tf" disable="true" editable="false">
+                                    <TextField fx:id="plan_term_tf">
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
@@ -195,7 +195,7 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <TextField fx:id="plan_interest_tf" disable="true" editable="false">
+                                    <TextField fx:id="plan_interest_tf">
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
@@ -243,7 +243,7 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <TextField fx:id="plan_penalty_tf" disable="true" editable="false">
+                                    <TextField fx:id="plan_penalty_tf">
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
@@ -283,8 +283,8 @@
          <bottom>
             <HBox alignment="CENTER_RIGHT" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="plan_save_button" mnemonicParsing="false" onAction="#handle_save" text="Save" />
-                  <Button fx:id="plan_cancel_button" mnemonicParsing="false" onAction="#handle_cancel" text="Cancel" />
+                  <Button fx:id="plan_save_button" mnemonicParsing="false" onAction="#handle_save_plan" text="Save" />
+                  <Button fx:id="plan_cancel_button" mnemonicParsing="false" onAction="#handle_cancel_plan" text="Cancel" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

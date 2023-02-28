@@ -281,6 +281,30 @@
                                     </VBox>
                                  </children>
                               </HBox>
+                              <HBox layoutX="15.0" layoutY="124.0">
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Payment Mode">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Arial Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="plan_payment_mode_tf" disable="true" editable="false" prefHeight="25.0" prefWidth="194.0" promptText="Due" text="Payment Mode">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="200.0">
@@ -509,10 +533,14 @@
                                 <columns>
                                   <TableColumn fx:id="plan_id" prefWidth="75.0" text="Plan ID" />
                                     <TableColumn fx:id="plan_type_name" prefWidth="296.0" text="Loan Type" />
+                                    <TableColumn fx:id="plan_payment_mode" prefWidth="94.0" text="Payment Mode" />
                                     <TableColumn fx:id="plan_term" minWidth="0.0" prefWidth="115.0" text="Term" />
                                     <TableColumn fx:id="plan_interest" prefWidth="78.0" text="Interest" />
                                     <TableColumn fx:id="plan_penalty" prefWidth="94.0" text="Penalty" />
                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                            <padding>

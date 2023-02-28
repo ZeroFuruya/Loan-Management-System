@@ -21,6 +21,7 @@ import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanPlanDAO;
 import e2p.icotp.service.server.dao.LoanerDAO;
+import e2p.icotp.service.server.dao.PaymentDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.cbox.LoanTypeListCell;
 import e2p.icotp.util.custom.cbox.LoanTypeStringConverter;
@@ -30,6 +31,7 @@ import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -381,8 +383,8 @@ public class MainController {
     Collateral collateral = new Collateral();
     LoanType og_loan_type = new LoanType();
     LoanType loan_type = new LoanType();
-    LoanPlan og_loan_plan;
-    LoanPlan loan_plan;
+    LoanPlan og_loan_plan = new LoanPlan();
+    LoanPlan loan_plan = new LoanPlan();
 
     BooleanProperty isEdit = new SimpleBooleanProperty(false);
 
@@ -464,17 +466,15 @@ public class MainController {
 
     @FXML
     private void handle_payment_remove() {
-        // LoanDAO.remove(og_loan);
-        // app.loanMasterList().remove(og_loan);
-        // load_loan_table();
-        // refresh_loan_list();
-    }
-
-    // PAYMENT BUTTON HANDLES
-    // ----------------------------------------------------------------------------------
-    @FXML
-    private void handle_remove_plan() {
-        app.loanPlanMasterlist().remove(og_loan_plan);
+        if (loan == null)
+            return;
+        loan.setNextDueDate(loan.getNextDueDate().minusMonths(1));
+        loan.getTotalUnpaidProperty().set(loan.getTotalUnpaidProperty().get() + payment.getPayment_amount());
+        loan.getBalanceProperty().set(loan.getBalanceProperty().get() + payment.getPayment_amount());
+        PaymentDAO.remove(og_payment);
+        app.paymentMasterlist().remove(og_payment);
+        load_loan_table();
+        refresh_loan_list();
     }
 
     // LOAN PLAN HANDLES
@@ -483,12 +483,16 @@ public class MainController {
         ModalLoader.load_loan_plan_update(app, new LoanPlan(), false, this, loanTypeList);
     }
 
-    // TODO BUTTON CONDITIONS
     @FXML
     private void handle_modify_loan_plan() throws IOException {
-        ModalLoader.load_loan_plan_update(app, new LoanPlan(loan_plan), true, this, loanTypeList);
+        ModalLoader.load_loan_plan_update(app, loan_plan, true, this, loanTypeList);
     }
 
+    @FXML
+    private void handle_remove_plan() {
+        LoanPlanDAO.remove(og_loan_plan.getId().get());
+        app.loanPlanMasterlist().remove(og_loan_plan);
+    }
     // START HERE ------------------------------------------------------------------
 
     public void load(App app) {
@@ -642,6 +646,23 @@ public class MainController {
         payment_edit_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
         payment_remove_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
 
+        BooleanProperty planIs = new SimpleBooleanProperty(false);
+        BooleanBinding planIsUsed = Bindings.createBooleanBinding(() -> {
+            app.loanMasterList().forEach(loan -> {
+                app.loanPlanMasterlist().forEach(plan -> {
+                    if (loan.getLoanPlan().getId().get() == plan.getId().get()) {
+                        planIs.set(true);
+                        return;
+                    }
+                });
+            });
+            return planIs.get();
+        }, app.loanMasterList());
+
+        plan_modify_button.disableProperty()
+                .bind(loanPlanTable.getSelectionModel().selectedItemProperty().isNull().or(planIsUsed));
+        plan_remove_button.disableProperty()
+                .bind(loanPlanTable.getSelectionModel().selectedItemProperty().isNull().or(planIsUsed));
     }
 
     private void init_togbutton_listeners() {
@@ -1112,8 +1133,8 @@ public class MainController {
     // TODO POPUP MODAL
     private void init_plans() {
         loanPlanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
-            og_loan_plan = new LoanPlan(nv);
-            loan_plan = new LoanPlan(og_loan_plan);
+            og_loan_plan = nv;
+            loan_plan = og_loan_plan;
         });
         plan_search.textProperty().addListener((o, ov, nv) -> {
             loanPlanList.setPredicate(p -> {

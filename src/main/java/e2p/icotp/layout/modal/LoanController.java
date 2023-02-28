@@ -12,6 +12,7 @@ import e2p.icotp.model.LoanPlan;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import e2p.icotp.model.Enums.LoanStatus;
+import e2p.icotp.model.Enums.PaymentFrequency;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
@@ -58,6 +59,8 @@ public class LoanController {
     @FXML
     private TextField plan_search;
     @FXML
+    private TextField plan_payment_mode_tf;
+    @FXML
     private ComboBox<String> status;
 
     @FXML
@@ -66,6 +69,8 @@ public class LoanController {
     TableColumn<LoanPlan, Integer> plan_id;
     @FXML
     TableColumn<LoanPlan, String> plan_type_name;
+    @FXML
+    TableColumn<LoanPlan, String> plan_payment_mode;
     @FXML
     TableColumn<LoanPlan, Long> plan_term;
     @FXML
@@ -194,6 +199,9 @@ public class LoanController {
         plan_penalty.setCellValueFactory(plan -> {
             return plan.getValue().getPenalty().asObject();
         });
+        plan_payment_mode.setCellValueFactory(plan -> {
+            return plan.getValue().getPaymentFrequencyProperty();
+        });
         planTable.setItems(loanPlanList);
 
         planTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
@@ -290,9 +298,10 @@ public class LoanController {
             plan_id_disp.setText(loan.getLoanPlan().getId().get() + "");
             plan_type_disp.setText(loan.getLoanPlan().getType().get().getName().get());
             status.getSelectionModel().select(loan.getStatus());
+            plan_payment_mode_tf.setText(loan.getPaymentFrequencyProperty().get());
             if (loan.getStatus().toLowerCase().contains(LoanStatus.OPEN.toLowerCase())) {
                 // release_date.disableProperty().set(true);
-                // TODO MOVE PAYMENT FREQUENCY TO LOAN PLAN
+                // TODO PAYMENT FREQUENCY
                 // status.getItems().remove(LoanStatus.APPLICATION);
             }
         } else {
@@ -307,6 +316,7 @@ public class LoanController {
             plan_id_disp.setText("0");
             plan_type_disp.setText("Nothing is selected");
             status.getSelectionModel().select(LoanStatus.APPLICATION);
+            plan_payment_mode_tf.setText(PaymentFrequency.MONTHLY);
         }
 
     }
@@ -322,6 +332,7 @@ public class LoanController {
         interest.setText(loan_plan.getInterest().get() + "");
         penalty.setText(loan_plan.getPenalty().get() + "");
         due.setText(release_date.getValue().getDayOfMonth() + "");
+        plan_payment_mode_tf.setText(loan_plan.getPaymentFrequencyProperty().get());
     }
 
     private void modify_loan_listener() {

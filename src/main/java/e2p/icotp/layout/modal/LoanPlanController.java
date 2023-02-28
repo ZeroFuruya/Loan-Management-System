@@ -20,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 
 public class LoanPlanController {
@@ -66,25 +65,16 @@ public class LoanPlanController {
 
     FilteredList<LoanType> loanTypeList;
 
-    @FXML
-    private void handle_cancel() {
-        ModalLoader.modal_close(app);
-    }
-
-    @FXML
-    private void handle_save() {
-
-    }
-
     public void load(App app, LoanPlan loan_plan, boolean isEdit, MainController mc,
             FilteredList<LoanType> loanTypeList) {
         this.app = app;
-        this.og_loan_plan = new LoanPlan(loan_plan);
+        this.og_loan_plan = loan_plan;
         this.loan_plan = new LoanPlan(loan_plan);
         this.isEdit = new SimpleBooleanProperty(isEdit);
         this.mc = mc;
         this.loanTypeList = new FilteredList<>(loanTypeList, p -> true);
-        init_plans();
+
+        System.out.println(loan_plan.getType().get().getName().get());
 
         interest_formatter = new DoubleTextFieldFormatter();
         penalty_formatter = new DoubleTextFieldFormatter();
@@ -93,12 +83,13 @@ public class LoanPlanController {
         plan_interest_tf.setTextFormatter(interest_formatter);
         plan_penalty_tf.setTextFormatter(penalty_formatter);
         plan_term_tf.setTextFormatter(term_formatter);
+
+        init_plans();
     }
 
     private void init_plans() {
         // TODO ADD A POP UP MODAL (IF PLAN TYPES IS EMPTY)
         // TODO IF THE SELECTED LOAN PLAN IS CURRENTLY BEING USED, DISABLE MODIFY
-        generate_id();
         plan_type_cbox.disableProperty().bind(isEdit);
         plan_term_err.visibleProperty()
                 .bind(plan_term_tf.textProperty().isEmpty().or(plan_term_tf.textProperty().isEqualTo("0")));
@@ -113,6 +104,7 @@ public class LoanPlanController {
                 .or(plan_interest_err.visibleProperty()).or(plan_penalty_err.visibleProperty())
                 .or(payment_mode_err.visibleProperty()));
         plan_init_cbox();
+        plan_load_fields();
     }
 
     void plan_init_cbox() {
@@ -129,20 +121,19 @@ public class LoanPlanController {
     }
 
     void plan_load_fields() {
+        payment_mode_cbox.getSelectionModel().select(loan_plan.getPaymentFrequencyProperty().get());
+        System.out.println(loan_plan.getTerm().get() + "");
+        plan_term_tf.setText(loan_plan.getTerm().get() + "");
+        System.out.println(loan_plan.getInterest().get() + "");
+        plan_interest_tf.setText(loan_plan.getInterest().get() + "");
+        System.out.println(loan_plan.getPenalty().get() + "");
+        plan_penalty_tf.setText(loan_plan.getPenalty().get() + "");
         if (isEdit.get()) {
             plan_id_tf.setText(loan_plan.getId().get() + "");
             plan_type_cbox.getSelectionModel().select(loan_plan.getType().get());
+            return;
         }
-        payment_mode_cbox.getSelectionModel().select(loan_plan.getPaymentFrequencyProperty().get());
-        plan_term_tf.setText(loan_plan.getTerm().get() + "");
-        plan_interest_tf.setText(loan_plan.getInterest().get() + "");
-        plan_penalty_tf.setText(loan_plan.getPenalty().get() + "");
-    }
-
-    void plan_clear_fields() {
-        plan_term_tf.setText("0");
-        plan_interest_tf.setText("0.0");
-        plan_penalty_tf.setText("0.0");
+        generate_id();
     }
 
     @FXML
@@ -151,24 +142,21 @@ public class LoanPlanController {
 
         if (isEdit.get()) {
             LoanPlanDAO.update(loan_plan);
-            app.loanPlanMasterlist().add(loan_plan);
             app.loanPlanMasterlist().remove(og_loan_plan);
-            plan_clear_fields();
-
+            app.loanPlanMasterlist().add(loan_plan);
         } else {
             og_loan_plan = new LoanPlan();
             loan_plan = og_loan_plan;
             plan_modify_listener();
             LoanPlanDAO.insert(loan_plan);
             app.loanPlanMasterlist().add(loan_plan);
-            plan_clear_fields();
         }
+        ModalLoader.modal_close(app);
     }
 
     @FXML
     private void handle_cancel_plan() {
-        app.loanPlanMasterlist().remove(og_loan_plan);
-        plan_clear_fields();
+        ModalLoader.modal_close(app);
     }
 
     void plan_modify_listener() {
