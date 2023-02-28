@@ -307,39 +307,41 @@ public class MainController {
     TableColumn<LoanPlan, String> plan_payment_mode;
 
     @FXML
-    ToggleButton edit_toggle;
-    BooleanProperty plan_isEdit = new SimpleBooleanProperty(false);
-
+    Button plan_add_button;
     @FXML
-    TextField plan_id_tf;
-    @FXML
-    TextField plan_term_tf;
-    @FXML
-    TextField plan_interest_tf;
-    @FXML
-    TextField plan_penalty_tf;
-    @FXML
-    TextField plan_search;
-    @FXML
-    ComboBox<LoanType> plan_type_cbox;
-    @FXML
-    ComboBox<String> payment_mode_cbox;
-
-    @FXML
-    Button plan_save_button;
+    Button plan_modify_button;
     @FXML
     Button plan_remove_button;
 
+    // @FXML
+    // ToggleButton edit_toggle;
+    // BooleanProperty plan_isEdit = new SimpleBooleanProperty(false);
+
+    // @FXML
+    // TextField plan_id_tf;
+    // @FXML
+    // TextField plan_term_tf;
+    // @FXML
+    // TextField plan_interest_tf;
+    // @FXML
+    // TextField plan_penalty_tf;
     @FXML
-    HBox plan_type_err;
-    @FXML
-    HBox plan_term_err;
-    @FXML
-    HBox plan_interest_err;
-    @FXML
-    HBox plan_penalty_err;
-    @FXML
-    HBox payment_mode_err;
+    TextField plan_search;
+    // @FXML
+    // ComboBox<LoanType> plan_type_cbox;
+    // @FXML
+    // ComboBox<String> payment_mode_cbox;
+
+    // @FXML
+    // HBox plan_type_err;
+    // @FXML
+    // HBox plan_term_err;
+    // @FXML
+    // HBox plan_interest_err;
+    // @FXML
+    // HBox plan_penalty_err;
+    // @FXML
+    // HBox payment_mode_err;
 
     // SCROLLPANE-----------------------------------------------------
     @FXML
@@ -379,15 +381,12 @@ public class MainController {
     Collateral collateral = new Collateral();
     LoanType og_loan_type = new LoanType();
     LoanType loan_type = new LoanType();
-    LoanPlan og_loan_plan = new LoanPlan();
-    LoanPlan loan_plan = new LoanPlan();
+    LoanPlan og_loan_plan;
+    LoanPlan loan_plan;
 
     BooleanProperty isEdit = new SimpleBooleanProperty(false);
 
     NumberFormat format = NumberFormat.getInstance();
-    TextFormatter<Number> interest_formatter;
-    TextFormatter<Number> penalty_formatter;
-    TextFormatter<Long> term_formatter;
 
     @FXML
     private void handle_login() throws IOException {
@@ -471,6 +470,27 @@ public class MainController {
         // refresh_loan_list();
     }
 
+    // PAYMENT BUTTON HANDLES
+    // ----------------------------------------------------------------------------------
+    @FXML
+    private void handle_remove_plan() {
+        app.loanPlanMasterlist().remove(og_loan_plan);
+    }
+
+    // LOAN PLAN HANDLES
+    @FXML
+    private void handle_add_loan_plan() throws IOException {
+        ModalLoader.load_loan_plan_update(app, new LoanPlan(), false, this, loanTypeList);
+    }
+
+    // TODO BUTTON CONDITIONS
+    @FXML
+    private void handle_modify_loan_plan() throws IOException {
+        ModalLoader.load_loan_plan_update(app, new LoanPlan(loan_plan), true, this, loanTypeList);
+    }
+
+    // START HERE ------------------------------------------------------------------
+
     public void load(App app) {
         this.app = app;
         format.setGroupingUsed(true);
@@ -486,20 +506,12 @@ public class MainController {
 
         loanTypeList = new FilteredList<>(app.loanTypeMasterlist(), p -> true);
 
-        interest_formatter = new DoubleTextFieldFormatter();
-        penalty_formatter = new DoubleTextFieldFormatter();
-        term_formatter = new IDTextFieldFormatter();
-
-        plan_interest_tf.setTextFormatter(interest_formatter);
-        plan_penalty_tf.setTextFormatter(penalty_formatter);
-        plan_term_tf.setTextFormatter(term_formatter);
-
         init_tables();
         init_bindings();
         init_togbutton_listeners();
         init_table_listeners();
-        _init_types();
         init_plans();
+        _init_types();
         init_anims();
     }
 
@@ -1097,40 +1109,11 @@ public class MainController {
     // LOAN PLAN ---------------------------------------------------------
     // LOAN PLAN ---------------------------------------------------------
     // LOAN PLAN ---------------------------------------------------------
+    // TODO POPUP MODAL
     private void init_plans() {
-        // TODO ADD A POP UP MODAL (IF PLAN TYPES IS EMPTY)
-        // TODO IF THE SELECTED LOAN PLAN IS CURRENTLY BEING USED, DISABLE MODIFY
-        generate_id();
-        plan_type_cbox.disableProperty().bind(edit_toggle.selectedProperty());
-        plan_term_err.visibleProperty()
-                .bind(plan_term_tf.textProperty().isEmpty().or(plan_term_tf.textProperty().isEqualTo("0")));
-        plan_interest_err.visibleProperty()
-                .bind(plan_interest_tf.textProperty().isEmpty().or(plan_interest_tf.textProperty().isEqualTo("0.0")));
-        plan_penalty_err.visibleProperty()
-                .bind(plan_penalty_tf.textProperty().isEmpty().or(plan_penalty_tf.textProperty().isEqualTo("0.0")));
-        plan_type_err.visibleProperty().bind(plan_type_cbox.getSelectionModel().selectedItemProperty().isNull());
-        payment_mode_err.visibleProperty().bind(payment_mode_cbox.getSelectionModel().selectedItemProperty().isNull());
-
-        plan_save_button.disableProperty().bind(plan_type_err.visibleProperty().or(plan_term_err.visibleProperty())
-                .or(plan_interest_err.visibleProperty()).or(plan_penalty_err.visibleProperty())
-                .or(payment_mode_err.visibleProperty()).or(Bindings.createBooleanBinding(() -> {
-                    return app.loanTypeMasterlist().isEmpty() ? true : false;
-                }, app.loanTypeMasterlist())));
-        plan_init_cbox();
-        plan_remove_button.disableProperty().bind(loanPlanTable.getSelectionModel().selectedItemProperty().isNull());
         loanPlanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
-            if (nv != null) {
-                og_loan_plan = nv;
-                loan_plan = og_loan_plan;
-                if (edit_toggle.isSelected()) {
-                    plan_load_fields();
-                } else {
-                    plan_clear_fields();
-                }
-            } else {
-                og_loan_plan = new LoanPlan();
-                loan_plan = og_loan_plan;
-            }
+            og_loan_plan = new LoanPlan(nv);
+            loan_plan = new LoanPlan(og_loan_plan);
         });
         plan_search.textProperty().addListener((o, ov, nv) -> {
             loanPlanList.setPredicate(p -> {
@@ -1147,105 +1130,6 @@ public class MainController {
 
                 return p.getType().get().getName().get().toLowerCase().contains(nv.toLowerCase());
             });
-        });
-        edit_toggle.selectedProperty().addListener((o, ov, nv) -> {
-            if (edit_toggle.isSelected()) {
-                plan_load_fields();
-                edit_toggle.textProperty().set("Editing...");
-            } else {
-                generate_id();
-                plan_clear_fields();
-                edit_toggle.textProperty().set("Adding...");
-            }
-        });
-    }
-
-    void plan_init_cbox() {
-        plan_type_cbox.setCellFactory(cell -> new LoanTypeListCell());
-        plan_type_cbox.setButtonCell(new LoanTypeListCell());
-        plan_type_cbox.getItems().addAll(loanTypeList);
-        plan_type_cbox.setConverter(new LoanTypeStringConverter());
-        plan_type_cbox.setPromptText("Loan Type");
-
-        payment_mode_cbox.getItems().add(PaymentFrequency.DAILY);
-        payment_mode_cbox.getItems().add(PaymentFrequency.MONTHLY);
-        payment_mode_cbox.getItems().add(PaymentFrequency.YEARLY);
-        payment_mode_cbox.setPromptText("Payment Mode");
-    }
-
-    void plan_load_fields() {
-        if (edit_toggle.isSelected()) {
-            plan_id_tf.setText(loan_plan.getId().get() + "");
-            plan_type_cbox.getSelectionModel().select(loan_plan.getType().get());
-        }
-        payment_mode_cbox.getSelectionModel().select(loan_plan.getPaymentFrequencyProperty().get());
-        plan_term_tf.setText(loan_plan.getTerm().get() + "");
-        plan_interest_tf.setText(loan_plan.getInterest().get() + "");
-        plan_penalty_tf.setText(loan_plan.getPenalty().get() + "");
-    }
-
-    void plan_clear_fields() {
-        plan_type_cbox.getSelectionModel().select(0);
-        plan_term_tf.setText("0");
-        plan_interest_tf.setText("0.0");
-        plan_penalty_tf.setText("0.0");
-    }
-
-    @FXML
-    void handle_save_plan() {
-        plan_modify_listener();
-
-        if (edit_toggle.isSelected()) {
-            LoanPlanDAO.update(loan_plan);
-            app.loanPlanMasterlist().add(loan_plan);
-            app.loanPlanMasterlist().remove(og_loan_plan);
-            plan_clear_fields();
-
-        } else {
-            LoanPlanDAO.insert(loan_plan);
-            app.loanPlanMasterlist().add(loan_plan);
-            plan_clear_fields();
-        }
-    }
-
-    @FXML
-    private void handle_remove_plan() {
-        app.loanPlanMasterlist().remove(og_loan_plan);
-        plan_clear_fields();
-    }
-
-    void plan_modify_listener() {
-        loan_plan.getId().set(Integer.parseInt(plan_id_tf.textProperty().get()));
-        loan_plan.getType().set(plan_type_cbox.getSelectionModel().getSelectedItem());
-        loan_plan.getTerm().set(Long.parseLong(plan_term_tf.textProperty().get()));
-        loan_plan.getInterest().set(Double.parseDouble(plan_interest_tf.textProperty().get()));
-        loan_plan.getPenalty().set(Double.parseDouble(plan_penalty_tf.textProperty().get()));
-        loan_plan.getPaymentFrequencyProperty().set(payment_mode_cbox.getSelectionModel().getSelectedItem());
-    }
-
-    long final_num = 0;
-
-    private void generate_id() {
-        String temp_val;
-        String string_val = "";
-        for (int i = 0; i < 4; i++) {
-            int initial_num = RandomIDGenerator.getRandomNumber();
-            temp_val = Integer.toString(initial_num);
-            string_val = temp_val + string_val;
-        }
-        final_num = Long.parseLong(string_val);
-
-        if (app.loanMasterList().isEmpty()) {
-            plan_id_tf.textProperty().set(final_num + "");
-            return;
-        }
-
-        app.loanPlanMasterlist().forEach(loan_plan -> {
-            if (loan_plan.getId().get() == final_num) {
-                generate_id();
-            } else {
-                plan_id_tf.textProperty().set(final_num + "");
-            }
         });
     }
 
