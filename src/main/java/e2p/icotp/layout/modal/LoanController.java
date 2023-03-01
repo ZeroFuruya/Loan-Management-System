@@ -140,7 +140,16 @@ public class LoanController {
 
         LocalDate first_due_date = LocalDate.of(loan.getRelease_date().getYear(),
                 loan.getRelease_date().getMonthValue(), loan.getDue());
-        first_due_date = first_due_date.plusMonths(1);
+
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.MONTHLY)) {
+            first_due_date = first_due_date.plusMonths(1);
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.DAILY)) {
+            first_due_date = first_due_date.plusDays(1);
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.YEARLY)) {
+            first_due_date = first_due_date.plusYears(1);
+        }
 
         total_months = ChronoUnit.MONTHS.between(first_due_date, loan.getMaturity_date());
 

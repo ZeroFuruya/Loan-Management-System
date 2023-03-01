@@ -1187,10 +1187,11 @@ public class MainController {
 
     double monthly_payment_getter = 0;
 
-    // TODO payment frequency, do all logics here, add payment extension
-    // TODO collect collateral if loan not paid past maturity date
+    // TODO REMOVE ALL PAYMENT IF LOANER IS DELETED
+    // TODO WORK ON DAILY AND YEARLY LOGIC
+
+    // TODO COLLATERAL LOGIC
     // TODO change loan_plan : interest and penalty to percentage
-    // TODO add loan_plan : payment frequency : daily, monthly, annually
     // TODO make an invoice for each payment done, change calculator included
     // TODO add security more by putting confirmations every after tasks
     // TODO make statistics
