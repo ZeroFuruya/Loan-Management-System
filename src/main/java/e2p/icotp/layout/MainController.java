@@ -418,6 +418,7 @@ public class MainController {
     @FXML
     private void handle_loaner_remove() {
         // TODO REMOVE ALL PAYMENT IF LOANER IS DELETED
+        // TODO WORK ON DAILY AND YEARLY LOGIC
         LoanerDAO.remove(og_loaner);
         app.loanerMasterlist().remove(og_loaner);
     }
@@ -443,6 +444,7 @@ public class MainController {
     @FXML
     private void handle_loan_remove() {
         // TODO REMOVE ALL PAYMENT IF LOAN IS DELETED
+        // TODO DISABLE REMOVE LOAN ONLY IF STATUS IS OPEN
         // PaymentDAO.removeByLoanId(, og_loan.getLoan_id());
         // app.paymentMasterlist().removeAll(paymentList);
         LoanDAO.remove(og_loan);
@@ -471,7 +473,7 @@ public class MainController {
 
     @FXML
     private void handle_payment_remove() {
-        // TODO FIX REMOVED PAYMENTS
+        // TODO DISABLE REMOVING PAYMENTS
         if (loan == null)
             return;
         loan.setNextDueDate(loan.getNextDueDate().minusMonths(1));
