@@ -20,7 +20,7 @@ public class Payment {
     public Payment(long payment_id, Loaner loaner_id, Loan loan_id,
             LocalDate payment_date, double payment_amount, LocalDate date_payment) {
         this.payment_id = new SimpleLongProperty(payment_id);
-        this.loaner_id = new SimpleObjectProperty<>(loaner_id);
+        this.loaner_id = new SimpleObjectProperty<>(new Loaner(loaner_id));
         this.loan_id = new SimpleObjectProperty<>(loan_id);
         this.payment_date = new SimpleObjectProperty<>(payment_date);
         this.payment_amount = new SimpleDoubleProperty(payment_amount);

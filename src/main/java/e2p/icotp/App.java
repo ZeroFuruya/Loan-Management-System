@@ -32,6 +32,7 @@ public class App extends Application {
     private ObservableList<Loan> loanCache;
     private ObservableList<Loaner> loanerCache;
     private ObservableList<Payment> paymentCache;
+    private ObservableList<Payment> removedPaymentCache;
     private ObservableList<LoanType> loan_typeCache;
     private ObservableList<LoanPlan> loan_planCache;
 
@@ -59,6 +60,7 @@ public class App extends Application {
         loanCache = LoanDAO.getMasterlist();
         loanerCache = LoanerDAO.getMasterlist();
         paymentCache = PaymentDAO.getMasterlist();
+        removedPaymentCache = RemovedPaymentDAO.getMasterlist();
         collateralCache = CollateralDAO.getMasterlist();
         loan_typeCache = LoanTypeDAO.getMasterlist();
         loan_planCache = LoanPlanDAO.getMasterlist();
@@ -70,11 +72,12 @@ public class App extends Application {
             System.out.println(final_temp);
         });
     }
-    private void initialize_signUp(){
+
+    private void initialize_signUp() {
         signUpList.add(new SignUp("123", "123", "123"));
     }
 
-    private void initialize_login(){
+    private void initialize_login() {
         loginList.add(new Login("aloe", "123"));
     }
 
@@ -112,6 +115,10 @@ public class App extends Application {
         return paymentCache;
     }
 
+    public ObservableList<Payment> removedPaymentMasterlist() {
+        return removedPaymentCache;
+    }
+
     public ObservableList<LoanType> loanTypeMasterlist() {
         return loan_typeCache;
     }
@@ -121,14 +128,14 @@ public class App extends Application {
     }
 
     // Accounts
-    public ObservableList<SignUp> getSignUpList(){
+    public ObservableList<SignUp> getSignUpList() {
         return this.signUpList;
     }
-    public ObservableList<Login> getLoginList(){
+
+    public ObservableList<Login> getLoginList() {
         return this.loginList;
     }
 
-    
     public static void main(String[] args) {
         launch();
     }

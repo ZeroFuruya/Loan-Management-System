@@ -119,7 +119,6 @@ public class PaymentController {
         init_listeners();
         if (isEdit) {
             loan.setPaid(loan.getPaid() - payment.getPayment_amount());
-            loan.setBalance(loan.getBalance() + payment.getPayment_amount());
             init_insert_listeners();
         } else {
             init_add_listeners();

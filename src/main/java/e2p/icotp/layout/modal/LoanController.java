@@ -3,6 +3,7 @@ package e2p.icotp.layout.modal;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.regex.Pattern;
 
 import e2p.icotp.App;
@@ -12,6 +13,7 @@ import e2p.icotp.model.LoanPlan;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import e2p.icotp.model.Enums.LoanStatus;
+import e2p.icotp.model.Enums.PaymentFrequency;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
@@ -58,6 +60,8 @@ public class LoanController {
     @FXML
     private TextField plan_search;
     @FXML
+    private TextField plan_payment_mode_tf;
+    @FXML
     private ComboBox<String> status;
 
     @FXML
@@ -66,6 +70,8 @@ public class LoanController {
     TableColumn<LoanPlan, Integer> plan_id;
     @FXML
     TableColumn<LoanPlan, String> plan_type_name;
+    @FXML
+    TableColumn<LoanPlan, String> plan_payment_mode;
     @FXML
     TableColumn<LoanPlan, Long> plan_term;
     @FXML
@@ -120,6 +126,8 @@ public class LoanController {
     private double total_paid = 0.0d;
     private double total_paid_tmp = 0.0d;
 
+    long total_months = 0;
+
     @FXML
     private void handle_cancel() {
         ModalLoader.modal_close(app);
@@ -132,9 +140,21 @@ public class LoanController {
 
         LocalDate first_due_date = LocalDate.of(loan.getRelease_date().getYear(),
                 loan.getRelease_date().getMonthValue(), loan.getDue());
-        first_due_date = first_due_date.plusMonths(1);
+
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.MONTHLY)) {
+            first_due_date = first_due_date.plusMonths(1);
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.DAILY)) {
+            first_due_date = first_due_date.plusDays(1);
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.YEARLY)) {
+            first_due_date = first_due_date.plusYears(1);
+        }
+
+        total_months = ChronoUnit.MONTHS.between(first_due_date, loan.getMaturity_date());
 
         if (isEdit) {
+            loan.setBalance(loan.getBalance());
             if (!paymentList.isEmpty()) {
                 loan.setNextDueDate(loan.getNextDueDate());
             } else {
@@ -144,6 +164,7 @@ public class LoanController {
             app.loanMasterList().remove(og_loan);
             app.loanMasterList().add(loan);
         } else {
+            loan.setBalance(total_months * mc.getMonthlyPayment());
             loan.setNextDueDate(first_due_date);
             LoanDAO.insert(loan);
             app.loanMasterList().add(loan);
@@ -193,6 +214,9 @@ public class LoanController {
         });
         plan_penalty.setCellValueFactory(plan -> {
             return plan.getValue().getPenalty().asObject();
+        });
+        plan_payment_mode.setCellValueFactory(plan -> {
+            return plan.getValue().getPaymentFrequencyProperty();
         });
         planTable.setItems(loanPlanList);
 
@@ -290,9 +314,10 @@ public class LoanController {
             plan_id_disp.setText(loan.getLoanPlan().getId().get() + "");
             plan_type_disp.setText(loan.getLoanPlan().getType().get().getName().get());
             status.getSelectionModel().select(loan.getStatus());
+            plan_payment_mode_tf.setText(loan.getPaymentFrequencyProperty().get());
             if (loan.getStatus().toLowerCase().contains(LoanStatus.OPEN.toLowerCase())) {
                 // release_date.disableProperty().set(true);
-                // TODO MOVE PAYMENT FREQUENCY TO LOAN PLAN
+                // TODO PAYMENT FREQUENCY
                 // status.getItems().remove(LoanStatus.APPLICATION);
             }
         } else {
@@ -307,13 +332,16 @@ public class LoanController {
             plan_id_disp.setText("0");
             plan_type_disp.setText("Nothing is selected");
             status.getSelectionModel().select(LoanStatus.APPLICATION);
+            plan_payment_mode_tf.setText(PaymentFrequency.MONTHLY);
         }
 
     }
 
     // CUSTOMS
     private void modify_loan_plan_field_listener() {
-        LocalDate tempDate = release_date.getValue().plusDays(loan_plan.getTerm().get() + 30);
+
+        LocalDate tempDate = release_date.getValue()
+                .plusMonths((long) Math.ceil(loan_plan.getTerm().get() / 30.417) + 1);
         LocalDate matureDate = LocalDate.of(tempDate.getYear(), tempDate.getMonthValue(),
                 release_date.getValue().getDayOfMonth());
 
@@ -322,6 +350,7 @@ public class LoanController {
         interest.setText(loan_plan.getInterest().get() + "");
         penalty.setText(loan_plan.getPenalty().get() + "");
         due.setText(release_date.getValue().getDayOfMonth() + "");
+        plan_payment_mode_tf.setText(loan_plan.getPaymentFrequencyProperty().get());
     }
 
     private void modify_loan_listener() {
@@ -343,7 +372,6 @@ public class LoanController {
         loan.setPenalty(Double.parseDouble(penalty.getText()));
         loan.setDue(Integer.parseInt(due.getText()));
         loan.setPaid(total_paid);
-        loan.setBalance(Double.parseDouble(principal.getText()) - total_paid);
         loan.setStatus(status.getSelectionModel().getSelectedItem());
         loan.setRelease_date(release_date.getValue());
         loan.setMaturity_date(maturity_date.getValue());
