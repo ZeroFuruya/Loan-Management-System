@@ -81,7 +81,6 @@ public class PaymentController {
         modify_payment_listener();
 
         loan.setPaid(payment.getPayment_amount() + loan.getPaid());
-        loan.setBalance(loan.getBalance() - payment.getPayment_amount());
         loan.setNextDueDate(loan.getNextDueDate().plusMonths(1));
 
         mc.setNextDueDate(pay_ctr);
@@ -119,7 +118,6 @@ public class PaymentController {
         init_listeners();
         if (isEdit) {
             loan.setPaid(loan.getPaid() - payment.getPayment_amount());
-            loan.setBalance(loan.getBalance() + payment.getPayment_amount());
             init_insert_listeners();
         } else {
             init_add_listeners();

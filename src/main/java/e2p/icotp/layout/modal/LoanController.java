@@ -323,9 +323,13 @@ public class LoanController {
 
     // CUSTOMS
     private void modify_loan_plan_field_listener() {
-        LocalDate tempDate = release_date.getValue().plusDays(loan_plan.getTerm().get() + 30);
+
+        LocalDate tempDate = release_date.getValue()
+                .plusMonths((long) Math.ceil(loan_plan.getTerm().get() / 30.417) + 1);
         LocalDate matureDate = LocalDate.of(tempDate.getYear(), tempDate.getMonthValue(),
                 release_date.getValue().getDayOfMonth());
+
+        // TODO FIX MATURE DATE
 
         term.setText(loan_plan.getTerm().get() + "");
         maturity_date.setValue(matureDate);
@@ -354,7 +358,6 @@ public class LoanController {
         loan.setPenalty(Double.parseDouble(penalty.getText()));
         loan.setDue(Integer.parseInt(due.getText()));
         loan.setPaid(total_paid);
-        loan.setBalance(Double.parseDouble(principal.getText()) - total_paid);
         loan.setStatus(status.getSelectionModel().getSelectedItem());
         loan.setRelease_date(release_date.getValue());
         loan.setMaturity_date(maturity_date.getValue());

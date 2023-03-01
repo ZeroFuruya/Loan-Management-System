@@ -1039,11 +1039,13 @@ public class MainController {
         loan_paid_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("$%s", format.format(loan.getPaid()));
         }, loan.getPaidProperty()));
+
+        loan_next_logic_monthly();
+
         loan_balance_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("$%s", format.format(loan.getBalance()));
         }, loan.getBalanceProperty()));
 
-        loan_next_logic_monthly();
         status_image_setter(loan.getStatus());
         loan_next_logic_monthly();
         if (loan.getStatus().equals(LoanStatus.OPEN)) {
@@ -1169,11 +1171,11 @@ public class MainController {
     LocalDate next_due_date = LocalDate.now();
     long days_skipped = 0;
     long total_days = 0;
+    long total_months = 0;
 
     long months_skipped = 0;
+    long removed_payments_months = 0;
     double total_unpaid_penalty = 0.0d;
-
-    long add_months_ctr = 0;
 
     // TODO payment frequency, do all logics here, add payment extension
     // TODO collect collateral if loan not paid past maturity date
@@ -1186,13 +1188,7 @@ public class MainController {
     // TODO think of more features to add after the important bits are done
 
     private void loan_next_logic_monthly() {
-        long total_years = (long) loan.getTerm() / 365;
-        long total_months = (long) total_years * 12;
-
-        double interest_val = (loan.getPrincipal() / total_months) * loan.getInterest();
-        double penalty_val = (loan.getPrincipal() / total_months) * loan.getPenalty();
-        double monthly_payment = loan.getPrincipal() / total_months + interest_val;
-        double penalty_payment = loan.getPrincipal() / total_months + penalty_val;
+        total_months = 0;
 
         LocalDate first_due_date = LocalDate.of(loan.getRelease_date().getYear(),
                 loan.getRelease_date().getMonthValue(), loan.getDue());
@@ -1201,28 +1197,38 @@ public class MainController {
                 loan.getRelease_date().getMonthValue(), loan.getDue());
         next_due_date = next_due_date.plusMonths(1);
 
-        long year_today = LocalDate.now().getYear();
-        long day_today = LocalDate.now().getDayOfYear();
+        total_months = ChronoUnit.MONTHS.between(first_due_date, loan.getMaturity_date());
+
+        double interest_val = (loan.getPrincipal() / total_months) * loan.getInterest();
+        double penalty_val = (loan.getPrincipal() / total_months) * loan.getPenalty();
+        double monthly_payment = loan.getPrincipal() / total_months + interest_val;
+        double penalty_payment = loan.getPrincipal() / total_months + penalty_val;
 
         days_skipped = ChronoUnit.DAYS.between(loan.getNextDueDate(), LocalDate.now());
         total_days = ChronoUnit.DAYS.between(loan.getNextDueDate(), loan.getMaturity_date());
         months_skipped = ChronoUnit.MONTHS.between(loan.getNextDueDate(), LocalDate.now());
 
+        boolean payment_exist = !paymentList.isEmpty();
+
         if (months_skipped <= 0) {
             loan.getTotalUnpaidProperty().set(penalty_payment * 0);
-            System.out.println("after " + loan.getTotalUnpaidProperty().get());
         } else {
             loan.getTotalUnpaidProperty().set(penalty_payment * months_skipped);
-            System.out.println("after " + loan.getTotalUnpaidProperty().get());
         }
-
-        loan_total_unpaid_label.setText(format.format(loan.getTotalUnpaidProperty().get()));
 
         YearMonth yearMonth_next_due = YearMonth.of(next_due_date.getYear(), next_due_date.getMonthValue());
 
-        boolean payment_exist = !paymentList.isEmpty();
+        double total_balance = monthly_payment * (total_months - months_skipped);
+        if (months_skipped > 0) {
+            total_balance = total_balance + (penalty_payment * months_skipped);
+        }
 
-        if (loan.getBalance() <= 0.0d) {
+        loan.setBalance(total_balance - loan.getPaid());
+
+        loan_total_unpaid_label.setText(format.format(loan.getTotalUnpaidProperty().get()));
+
+        if (YearMonth.of(loan.getNextDueDate().getYear(), loan.getNextDueDate().getMonthValue()).compareTo(
+                YearMonth.of(loan.getMaturity_date().getYear(), loan.getMaturity_date().getMonthValue())) > 0) {
             loan.setStatus(LoanStatus.PAID);
         }
 
@@ -1244,7 +1250,6 @@ public class MainController {
             next_due_err.setVisible(true);
             next_amount_err.setVisible(true);
             if (LocalDate.now().isAfter(loan.getNextDueDate())) {
-                System.out.println("PENALTY");
                 loan.setNextPayment(penalty_payment);
                 loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                 loan_next_amount_label.setText(format.format(loan.getNextPayment()));
@@ -1255,7 +1260,6 @@ public class MainController {
         paymentList.forEach(pay -> {
             if (YearMonth.of(pay.getPaymentDate().getYear(), pay.getPaymentDate().getMonthValue())
                     .compareTo(yearMonth_next_due) == 0) {
-                add_months_ctr++;
 
                 if (days_skipped > total_days) {
                     loan_next_due_label.setText("Past Maturity Date");

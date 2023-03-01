@@ -74,8 +74,6 @@ public class LoanPlanController {
         this.mc = mc;
         this.loanTypeList = new FilteredList<>(loanTypeList, p -> true);
 
-        System.out.println(loan_plan.getType().get().getName().get());
-
         interest_formatter = new DoubleTextFieldFormatter();
         penalty_formatter = new DoubleTextFieldFormatter();
         term_formatter = new IDTextFieldFormatter();
@@ -122,11 +120,8 @@ public class LoanPlanController {
 
     void plan_load_fields() {
         payment_mode_cbox.getSelectionModel().select(loan_plan.getPaymentFrequencyProperty().get());
-        System.out.println(loan_plan.getTerm().get() + "");
         plan_term_tf.setText(loan_plan.getTerm().get() + "");
-        System.out.println(loan_plan.getInterest().get() + "");
         plan_interest_tf.setText(loan_plan.getInterest().get() + "");
-        System.out.println(loan_plan.getPenalty().get() + "");
         plan_penalty_tf.setText(loan_plan.getPenalty().get() + "");
         if (isEdit.get()) {
             plan_id_tf.setText(loan_plan.getId().get() + "");
