@@ -81,6 +81,7 @@ public class PaymentController {
         modify_payment_listener();
 
         loan.setPaid(payment.getPayment_amount() + loan.getPaid());
+        loan.setBalance(loan.getBalance() - payment.getPayment_amount());
         loan.setNextDueDate(loan.getNextDueDate().plusMonths(1));
 
         mc.setNextDueDate(pay_ctr);

@@ -22,6 +22,7 @@ import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanPlanDAO;
 import e2p.icotp.service.server.dao.LoanerDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
+import e2p.icotp.service.server.dao.RemovedPaymentDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.cbox.LoanTypeListCell;
 import e2p.icotp.util.custom.cbox.LoanTypeStringConverter;
@@ -416,6 +417,7 @@ public class MainController {
 
     @FXML
     private void handle_loaner_remove() {
+        // TODO REMOVE ALL PAYMENT IF LOANER IS DELETED
         LoanerDAO.remove(og_loaner);
         app.loanerMasterlist().remove(og_loaner);
     }
@@ -440,6 +442,9 @@ public class MainController {
 
     @FXML
     private void handle_loan_remove() {
+        // TODO REMOVE ALL PAYMENT IF LOAN IS DELETED
+        // PaymentDAO.removeByLoanId(, og_loan.getLoan_id());
+        // app.paymentMasterlist().removeAll(paymentList);
         LoanDAO.remove(og_loan);
         app.loanMasterList().remove(og_loan);
         load_loan_table();
@@ -466,12 +471,14 @@ public class MainController {
 
     @FXML
     private void handle_payment_remove() {
-        // TODO MAKE SCAN UNPAID/REMOVED PAYMENTS
+        // TODO FIX REMOVED PAYMENTS
         if (loan == null)
             return;
         loan.setNextDueDate(loan.getNextDueDate().minusMonths(1));
         loan.getTotalUnpaidProperty().set(loan.getTotalUnpaidProperty().get() + payment.getPayment_amount());
         loan.getBalanceProperty().set(loan.getBalanceProperty().get() + payment.getPayment_amount());
+        RemovedPaymentDAO.insert(og_payment);
+        app.removedPaymentMasterlist().add(og_payment);
         PaymentDAO.remove(og_payment);
         app.paymentMasterlist().remove(og_payment);
         load_loan_table();
@@ -1166,16 +1173,17 @@ public class MainController {
         }
     }
 
-    BooleanProperty over_due_for_month = new SimpleBooleanProperty(false);
-
     LocalDate next_due_date = LocalDate.now();
     long days_skipped = 0;
     long total_days = 0;
     long total_months = 0;
+    long total_months_paid = 0;
 
     long months_skipped = 0;
     long removed_payments_months = 0;
     double total_unpaid_penalty = 0.0d;
+
+    double monthly_payment_getter = 0;
 
     // TODO payment frequency, do all logics here, add payment extension
     // TODO collect collateral if loan not paid past maturity date
@@ -1204,6 +1212,8 @@ public class MainController {
         double monthly_payment = loan.getPrincipal() / total_months + interest_val;
         double penalty_payment = loan.getPrincipal() / total_months + penalty_val;
 
+        monthly_payment_getter = monthly_payment;
+
         days_skipped = ChronoUnit.DAYS.between(loan.getNextDueDate(), LocalDate.now());
         total_days = ChronoUnit.DAYS.between(loan.getNextDueDate(), loan.getMaturity_date());
         months_skipped = ChronoUnit.MONTHS.between(loan.getNextDueDate(), LocalDate.now());
@@ -1218,12 +1228,7 @@ public class MainController {
 
         YearMonth yearMonth_next_due = YearMonth.of(next_due_date.getYear(), next_due_date.getMonthValue());
 
-        double total_balance = monthly_payment * (total_months - months_skipped);
-        if (months_skipped > 0) {
-            total_balance = total_balance + (penalty_payment * months_skipped);
-        }
-
-        loan.setBalance(total_balance - loan.getPaid());
+        loan.setBalance(loan.getBalance() - loan.getPaid());
 
         loan_total_unpaid_label.setText(format.format(loan.getTotalUnpaidProperty().get()));
 
@@ -1308,5 +1313,9 @@ public class MainController {
 
     public LocalDate setNextDueDate(long val) {
         return next_due_date = next_due_date.plusMonths(val);
+    }
+
+    public double getMonthlyPayment() {
+        return this.monthly_payment_getter;
     }
 }

@@ -14,12 +14,11 @@ import e2p.icotp.service.server.core.SQLCommand;
 import e2p.icotp.service.server.core.SQLParam;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
-public class PaymentDAO {
+public class RemovedPaymentDAO {
     public static ObservableList<Payment> getMasterlist() throws SQLException {
         ObservableList<Payment> masterlist = FXCollections.observableArrayList();
-        CachedRowSet crs = SQLCommand.selectAll("payments");
+        CachedRowSet crs = SQLCommand.selectAll("removed_payments");
 
         while (crs.next()) {
             masterlist.add(paymentData(crs));
@@ -82,7 +81,7 @@ public class PaymentDAO {
 
     public static void insert(Payment payment) {
         ArrayList<SQLParam> params = parameters(payment);
-        SQLCommand.insert("payments", params);
+        SQLCommand.insert("removed_payments", params);
     }
 
     public static void update(Payment payment) {
@@ -90,18 +89,19 @@ public class PaymentDAO {
     }
 
     public static void remove(Payment payment) {
-        SQLCommand.deleteById("payments", new SQLParam(Types.BIGINT, "payment_id", payment.getPayment_id()));
+        SQLCommand.deleteById("removed_payments", new SQLParam(Types.BIGINT, "payment_id", payment.getPayment_id()));
     }
 
     // public static void removeByLoanId(FilteredList<Payment> paymentList, Loan
     // loan_id) {
-    // SQLCommand.deleteById("payments", new SQLParam(Types.INTEGER, "loan_id",
+    // SQLCommand.deleteById("removed_payments", new SQLParam(Types.INTEGER,
+    // "loan_id",
     // payment.getLoan_id().getLoan_id()));
     // }
 
     public static void updateById(Payment payment, long target_id) {
         SQLParam idParam = new SQLParam(Types.BIGINT, "payment_id", target_id);
         ArrayList<SQLParam> params = parameters(payment);
-        SQLCommand.updateById("payments", params, idParam);
+        SQLCommand.updateById("removed_payments", params, idParam);
     }
 }

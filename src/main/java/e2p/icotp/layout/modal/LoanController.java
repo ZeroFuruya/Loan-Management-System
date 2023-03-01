@@ -3,6 +3,7 @@ package e2p.icotp.layout.modal;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.regex.Pattern;
 
 import e2p.icotp.App;
@@ -125,6 +126,8 @@ public class LoanController {
     private double total_paid = 0.0d;
     private double total_paid_tmp = 0.0d;
 
+    long total_months = 0;
+
     @FXML
     private void handle_cancel() {
         ModalLoader.modal_close(app);
@@ -139,7 +142,10 @@ public class LoanController {
                 loan.getRelease_date().getMonthValue(), loan.getDue());
         first_due_date = first_due_date.plusMonths(1);
 
+        total_months = ChronoUnit.MONTHS.between(first_due_date, loan.getMaturity_date());
+
         if (isEdit) {
+            loan.setBalance(loan.getBalance());
             if (!paymentList.isEmpty()) {
                 loan.setNextDueDate(loan.getNextDueDate());
             } else {
@@ -149,6 +155,7 @@ public class LoanController {
             app.loanMasterList().remove(og_loan);
             app.loanMasterList().add(loan);
         } else {
+            loan.setBalance(total_months * mc.getMonthlyPayment());
             loan.setNextDueDate(first_due_date);
             LoanDAO.insert(loan);
             app.loanMasterList().add(loan);
@@ -328,8 +335,6 @@ public class LoanController {
                 .plusMonths((long) Math.ceil(loan_plan.getTerm().get() / 30.417) + 1);
         LocalDate matureDate = LocalDate.of(tempDate.getYear(), tempDate.getMonthValue(),
                 release_date.getValue().getDayOfMonth());
-
-        // TODO FIX MATURE DATE
 
         term.setText(loan_plan.getTerm().get() + "");
         maturity_date.setValue(matureDate);
