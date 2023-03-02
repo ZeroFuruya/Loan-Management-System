@@ -506,7 +506,6 @@
                                                                            <children>
                                                                               <Button fx:id="payment_edit_button" mnemonicParsing="false" onAction="#handle_payment_edit" text="Modify Payment" />
                                                                               <Button fx:id="payment_add_button" mnemonicParsing="false" onAction="#handle_payment_add" text="New Payment" />
-                                                                              <Button fx:id="payment_remove_button" mnemonicParsing="false" onAction="#handle_payment_remove" text="Remove Payment" />
                                                                            </children>
                                                                         </HBox>
                                                                      </children>

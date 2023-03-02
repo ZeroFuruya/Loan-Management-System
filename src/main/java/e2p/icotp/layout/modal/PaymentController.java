@@ -9,6 +9,7 @@ import e2p.icotp.layout.MainController;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
+import e2p.icotp.model.Enums.PaymentFrequency;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
@@ -82,9 +83,17 @@ public class PaymentController {
 
         loan.setPaid(payment.getPayment_amount() + loan.getPaid());
         loan.setBalance(loan.getBalance() - payment.getPayment_amount());
-        loan.setNextDueDate(loan.getNextDueDate().plusMonths(1));
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.MONTHLY)) {
+            loan.setNextDueDate(loan.getNextDueDate().plusMonths(1));
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.DAILY)) {
+            loan.setNextDueDate(loan.getNextDueDate().plusDays(1));
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.YEARLY)) {
+            loan.setNextDueDate(loan.getNextDueDate().plusYears(1));
+        }
 
-        mc.setNextDueDate(pay_ctr);
+        mc.setNextDueDate(pay_ctr); // TODO FIX -------------------------
 
         if (isEdit.get()) {
             PaymentDAO.update(payment);
