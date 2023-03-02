@@ -43,9 +43,9 @@ public class Loan {
             LocalDate next_due_date, double total_unpaid) {
 
         this.loan_id = new SimpleIntegerProperty(loan_id);
-        this.loaner_id = new SimpleObjectProperty<>(loaner_id);
-        this.loan_type = new SimpleObjectProperty<>(loan_type);
-        this.loan_plan = new SimpleObjectProperty<>(loan_plan);
+        this.loaner_id = new SimpleObjectProperty<>(new Loaner(loaner_id));
+        this.loan_type = new SimpleObjectProperty<>(new LoanType(loan_type));
+        this.loan_plan = new SimpleObjectProperty<>(new LoanPlan(loan_plan));
         this.release_date = new SimpleObjectProperty<>(release_date);
         this.term = new SimpleLongProperty(term);
         this.maturity_date = new SimpleObjectProperty<>(maturity_date);
@@ -72,6 +72,13 @@ public class Loan {
                 0,
                 0.0, 0.0,
                 LoanStatus.APPLICATION, 0.0, LocalDate.now(), 0.0);
+    }
+
+    public Loan(Loan loan) {
+        this(loan.getLoan_id(), loan.getLoaner_id(), loan.getLoanType(), loan.getLoanPlan(), loan.getRelease_date(),
+                loan.getTerm(), loan.getMaturity_date(), loan.getPrincipal(), loan.getInterest(), loan.getPenalty(),
+                loan.getPaymentFrequencyProperty().get(), loan.getDue(), loan.getPaid(), loan.getBalance(),
+                loan.getStatus(), loan.getNextPayment(), loan.getNextDueDate(), loan.getTotalUnpaidProperty().get());
     }
 
     // NEWLY ADDED PROPERTIES GETTER

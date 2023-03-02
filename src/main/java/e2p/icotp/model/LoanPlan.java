@@ -22,7 +22,7 @@ public class LoanPlan {
 
     public LoanPlan(int plan, LoanType type, long term, double interest, double penalty, String payment_frequency) {
         this.plan_id = new SimpleIntegerProperty(plan);
-        this.loan_type = new SimpleObjectProperty<>(type);
+        this.loan_type = new SimpleObjectProperty<>(new LoanType(type));
         this.term = new SimpleLongProperty(term);
         this.interest = new SimpleDoubleProperty(interest);
         this.penalty = new SimpleDoubleProperty(penalty);
@@ -31,6 +31,11 @@ public class LoanPlan {
 
     public LoanPlan() {
         this(0, new LoanType(), 0, 0, 0, PaymentFrequency.MONTHLY);
+    }
+
+    public LoanPlan(LoanPlan loanPlan) {
+        this(loanPlan.getId().get(), loanPlan.getType().get(), loanPlan.getTerm().get(), loanPlan.getInterest().get(),
+                loanPlan.getPenalty().get(), loanPlan.getPaymentFrequencyProperty().get());
     }
 
     // NEWLY ADDED PROPERTIES GETTER
