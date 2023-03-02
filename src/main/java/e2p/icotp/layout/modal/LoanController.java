@@ -150,32 +150,27 @@ public class LoanController {
         if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.MONTHLY.toLowerCase())) {
             first_due_date = first_due_date.plusMonths(1);
             total_months = ChronoUnit.MONTHS.between(first_due_date, loan.getMaturity_date());
+            total_months = total_months + 1;
             double interest_val = (loan.getPrincipal() / total_months) * loan.getInterest();
-            payment = loan.getPrincipal() / total_months + interest_val;
+            payment = (loan.getPrincipal() / total_months) + interest_val;
             total_additional = total_months;
         }
         if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.DAILY.toLowerCase())) {
             first_due_date = first_due_date.plusDays(1);
             total_days = ChronoUnit.DAYS.between(first_due_date, loan.getMaturity_date());
+            total_days = total_days + 1;
             double interest_val = (loan.getPrincipal() / total_days) * loan.getInterest();
-            payment = loan.getPrincipal() / total_days + interest_val;
+            payment = (loan.getPrincipal() / total_days) + interest_val;
             total_additional = total_days;
         }
         if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.YEARLY.toLowerCase())) {
             first_due_date = first_due_date.plusYears(1);
             total_years = ChronoUnit.YEARS.between(first_due_date, loan.getMaturity_date());
+            total_years = total_years + 1;
             double interest_val = (loan.getPrincipal() / total_years) * loan.getInterest();
-            payment = loan.getPrincipal() / total_years + interest_val;
+            payment = (loan.getPrincipal() / total_years) + interest_val;
             total_additional = total_years;
         }
-
-        System.out.println(total_days);
-        System.out.println(total_months);
-        System.out.println(total_years);
-        System.out.println(payment);
-        loan.setNextPayment(payment);
-        System.out.println(loan.getNextPayment());
-
         if (isEdit) {
             loan.setBalance(loan.getBalance());
             if (!paymentList.isEmpty()) {
@@ -372,25 +367,22 @@ public class LoanController {
         if (loan_plan.getPaymentFrequencyProperty().get().toLowerCase()
                 .contains(PaymentFrequency.MONTHLY.toLowerCase())) {
             tempDate = release_date.getValue()
-                    .plusMonths((long) Math.ceil(loan_plan.getTerm().get() / 30.417) + 1);
+                    .plusMonths((long) Math.ceil(loan_plan.getTerm().get() / 30.417));
             matureDate = LocalDate.of(tempDate.getYear(), tempDate.getMonthValue(),
                     release_date.getValue().getDayOfMonth());
-            System.out.println("MONTHLY");
         }
         if (loan_plan.getPaymentFrequencyProperty().get().toLowerCase()
                 .contains(PaymentFrequency.DAILY.toLowerCase())) {
             tempDate = release_date.getValue().plusDays(loan_plan.getTerm().get());
             matureDate = LocalDate.of(tempDate.getYear(), tempDate.getMonthValue(),
                     tempDate.getDayOfMonth());
-            System.out.println("DAILY");
         }
         if (loan_plan.getPaymentFrequencyProperty().get().toLowerCase()
                 .contains(PaymentFrequency.YEARLY.toLowerCase())) {
             tempDate = release_date.getValue()
-                    .plusYears((long) Math.ceil(loan_plan.getTerm().get() / 365) + 1);
+                    .plusYears((long) Math.ceil(loan_plan.getTerm().get() / 365));
             matureDate = LocalDate.of(tempDate.getYear(), release_date.getValue().getMonthValue(),
                     release_date.getValue().getDayOfMonth());
-            System.out.println("YEARLY");
         }
 
         System.out.println(matureDate);

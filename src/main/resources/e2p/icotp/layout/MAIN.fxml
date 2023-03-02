@@ -504,7 +504,6 @@
                                                                         </HBox>
                                                                         <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
                                                                            <children>
-                                                                              <Button fx:id="payment_edit_button" mnemonicParsing="false" onAction="#handle_payment_edit" text="Modify Payment" />
                                                                               <Button fx:id="payment_add_button" mnemonicParsing="false" onAction="#handle_payment_add" text="New Payment" />
                                                                            </children>
                                                                         </HBox>
