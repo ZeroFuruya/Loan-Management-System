@@ -47,6 +47,7 @@ public class CollateralController {
     @FXML
     void handle_save() {
         modify_collateral_listener();
+        // TODO FINISH THIS SHIT ------------------------
     }
 
     @FXML
