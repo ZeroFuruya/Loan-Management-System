@@ -626,8 +626,8 @@
                                                                         </HBox>
                                                                         <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="815.0" spacing="10.0">
                                                                            <children>
-                                                                              <Button fx:id="collateral_modify_button" mnemonicParsing="false" text="Modify" />
-                                                                              <Button fx:id="collateral_add_button" layoutX="774.0" layoutY="10.0" mnemonicParsing="false" text="New" />
+                                                                              <Button fx:id="collateral_modify_button" mnemonicParsing="false" onAction="#handle_modify_collateral" text="Modify" />
+                                                                              <Button fx:id="collateral_add_button" layoutX="774.0" layoutY="10.0" mnemonicParsing="false" onAction="#handle_add_collateral" text="New" />
                                                                               <Button fx:id="collateral_remove_button" layoutX="774.0" layoutY="10.0" mnemonicParsing="false" text="Remove" />
                                                                            </children>
                                                                         </HBox>

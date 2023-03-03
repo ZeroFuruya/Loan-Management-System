@@ -500,6 +500,23 @@ public class MainController {
         LoanPlanDAO.remove(og_loan_plan.getId().get());
         app.loanPlanMasterlist().remove(og_loan_plan);
     }
+
+    // COLLATERAL HANDLES
+    @FXML
+    private void handle_add_collateral() throws IOException {
+        ModalLoader.load_collateral(app, loan, false, this, collateral);
+    }
+
+    @FXML
+    private void handle_modify_collateral() throws IOException {
+        ModalLoader.load_collateral(app, loan, true, this, collateral);
+    }
+
+    @FXML
+    private void handle_remove_collateral() {
+        LoanPlanDAO.remove(og_loan_plan.getId().get());
+        app.loanPlanMasterlist().remove(og_loan_plan);
+    }
     // START HERE ------------------------------------------------------------------
 
     public void load(App app) {
@@ -1071,9 +1088,19 @@ public class MainController {
         if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.YEARLY.toLowerCase())) {
             loan_next_logic_yearly();
         }
-        loan_due_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Day %d of every month", loan.getDue());
-        }, loan.getDueProperty())); // TODO FIX THIS SHIT
+
+        if (loan.getPaymentFrequencyProperty().get().equals(PaymentFrequency.DAILY)) {
+            loan_due_label.setText("Everyday");
+        }
+        if (loan.getPaymentFrequencyProperty().get().equals(PaymentFrequency.MONTHLY)) {
+            loan_due_label.setText("Day " + loan.getDue() + " of every month");
+        }
+        if (loan.getPaymentFrequencyProperty().get().equals(PaymentFrequency.YEARLY)) {
+            loan_due_label.setText(
+                    loan.getMaturity_date().getMonth().name() + " " + loan.getMaturity_date().getDayOfMonth()
+                            + " of every year");
+        }
+
         if (loan.getStatus().equals(LoanStatus.OPEN)) {
             loan_next_box.setVisible(true);
         }
@@ -1434,6 +1461,10 @@ public class MainController {
             loan_next_amount_label.setText(format.format(loan.getNextPayment()));
             return;
         }
+    }
+
+    // COLLATERAL
+    private void load_collateral_logic() {
     }
 
     // GETTERS AND SETTERS
