@@ -116,6 +116,7 @@ public class PaymentController {
         notify_changes();
         mc.load_loan_table();
         mc.refresh_loan_list();
+        mc.selectLoan();
         ModalLoader.modal_close(app);
     }
 
