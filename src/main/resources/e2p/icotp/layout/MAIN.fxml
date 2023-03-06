@@ -54,7 +54,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0">
+                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0" visible="false">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="902.0" styleClass="dept-tab-container">
                            <children>
@@ -106,7 +106,7 @@
                                                             <TableView fx:id="loanTable" maxWidth="285.0" minWidth="285.0" prefHeight="559.0" prefWidth="285.0" VBox.vgrow="ALWAYS">
                                                                <columns>
                                                                   <TableColumn fx:id="loan_id" prefWidth="75.0" text="Loan ID" />
-                                                                  <TableColumn fx:id="loan_loan_type" prefWidth="223.0" text="Loan Type" />
+                                                                  <TableColumn fx:id="loan_loan_type" prefWidth="207.0" text="Loan Type" />
                                                                </columns>
                                                             </TableView>
                                                             <TextField fx:id="loan_search" promptText="Search...">
@@ -124,13 +124,26 @@
                                                                      <children>
                                                                         <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="366.0" VBox.vgrow="NEVER">
                                                                            <children>
-                                                                              <Label styleClass="label-bright" text="Status: ">
-                                                                                 <font>
-                                                                                    <Font name="Arial Bold" size="25.0" />
-                                                                                 </font>
-                                                                              </Label>
-                                                                              <ImageView fx:id="status_image" fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                                                              <Region prefHeight="50.0" prefWidth="89.0" HBox.hgrow="ALWAYS" />
+                                                                              <HBox alignment="CENTER_LEFT">
+                                                                                 <children>
+                                                                                    <Label styleClass="label-bright" text="Status: ">
+                                                                                       <font>
+                                                                                          <Font name="Arial Bold" size="25.0" />
+                                                                                       </font>
+                                                                                    </Label>
+                                                                                    <ImageView fx:id="status_image" fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                                                                 </children>
+                                                                              </HBox>
+                                                                              <Region prefHeight="50.0" prefWidth="35.0" HBox.hgrow="ALWAYS" />
+                                                                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="140.0">
+                                                                                 <children>
+                                                                                    <Label fx:id="loan_frequency" styleClass="label-bright" text="Frequency">
+                                                                                       <font>
+                                                                                          <Font name="Arial Bold" size="25.0" />
+                                                                                       </font>
+                                                                                    </Label>
+                                                                                 </children>
+                                                                              </HBox>
                                                                            </children>
                                                                         </HBox>
                                                                         <VBox spacing="10.0" VBox.vgrow="ALWAYS">
@@ -421,10 +434,12 @@
                                                                                        <columns>
                                                                                           <TableColumn fx:id="payment_id" prefWidth="75.0" text="Payment ID" />
                                                                                           <TableColumn fx:id="payment_loan_id" prefWidth="75.0" text="Loan ID" />
-                                                                                          <TableColumn fx:id="payment_due_dates" prefWidth="78.0" text="Due Dates" />
-                                                                                          <TableColumn fx:id="payment_loaner_name" prefWidth="130.0" text="Loaner Name" />
+                                                                                          <TableColumn fx:id="payment_due_dates" prefWidth="78.0" text="Due Date" />
                                                                                           <TableColumn fx:id="payment_payment_date" prefWidth="165.0" text="Payment Date" />
                                                                                        </columns>
+                                                                                       <columnResizePolicy>
+                                                                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                                                       </columnResizePolicy>
                                                                                     </TableView>
                                                                                     <TextField fx:id="payment_search" />
                                                                                     <VBox fx:id="payment_information_container" VBox.vgrow="ALWAYS">
@@ -433,7 +448,7 @@
                                                                                              <children>
                                                                                                 <HBox alignment="CENTER_LEFT" prefHeight="50.0">
                                                                                                    <children>
-                                                                                                      <Label fx:id="payment_date_label" styleClass="label-bright" text="Date" textFill="WHITE">
+                                                                                                      <Label fx:id="payment_date_label" styleClass="label-bright" text="Payment Date" textFill="WHITE">
                                                                                                          <font>
                                                                                                             <Font name="Arial Bold" size="25.0" />
                                                                                                          </font>
@@ -470,6 +485,24 @@
                                                                                                          </children>
                                                                                                       </HBox>
                                                                                                       <Label fx:id="payment_id_label" styleClass="label-bright" text="Payment ID" textFill="WHITE">
+                                                                                                         <font>
+                                                                                                            <Font name="Arial" size="15.0" />
+                                                                                                         </font>
+                                                                                                      </Label>
+                                                                                                   </children>
+                                                                                                </HBox>
+                                                                                                <HBox layoutX="10.0" layoutY="77.0" spacing="10.0">
+                                                                                                   <children>
+                                                                                                      <HBox alignment="CENTER_LEFT" prefWidth="90.0">
+                                                                                                         <children>
+                                                                                                            <Label styleClass="label-bright" text="Due Date" textFill="WHITE">
+                                                                                                               <font>
+                                                                                                                  <Font name="Arial Bold" size="15.0" />
+                                                                                                               </font>
+                                                                                                            </Label>
+                                                                                                         </children>
+                                                                                                      </HBox>
+                                                                                                      <Label fx:id="payment_due_date_label" styleClass="label-bright" text="Due Date" textFill="WHITE">
                                                                                                          <font>
                                                                                                             <Font name="Arial" size="15.0" />
                                                                                                          </font>
@@ -527,6 +560,9 @@
                                                                                                 <TableColumn fx:id="collateral_loan_type" prefWidth="171.0" text="Loan Type" />
                                                                                                 <TableColumn fx:id="collateral_status" prefWidth="102.0" text="Status" />
                                                                                              </columns>
+                                                                                             <columnResizePolicy>
+                                                                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                                                             </columnResizePolicy>
                                                                                           </TableView>
                                                                                        </children>
                                                                                     </HBox>
@@ -628,7 +664,7 @@
                                                                            <children>
                                                                               <Button fx:id="collateral_modify_button" mnemonicParsing="false" onAction="#handle_modify_collateral" text="Modify" />
                                                                               <Button fx:id="collateral_add_button" layoutX="774.0" layoutY="10.0" mnemonicParsing="false" onAction="#handle_add_collateral" text="New" />
-                                                                              <Button fx:id="collateral_remove_button" layoutX="774.0" layoutY="10.0" mnemonicParsing="false" text="Remove" />
+                                                                              <Button fx:id="collateral_remove_button" layoutX="774.0" layoutY="10.0" mnemonicParsing="false" onAction="#handle_remove_collateral" text="Remove" />
                                                                            </children>
                                                                         </HBox>
                                                                      </children>
@@ -875,14 +911,14 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="types_box" prefHeight="200.0" prefWidth="100.0" visible="false">
+                  <VBox fx:id="types_box" prefHeight="200.0" prefWidth="100.0">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="1040.0">
                            <children>
-                              <Label styleClass="label-bright" text="Loaner's Informations" textFill="WHITE">
+                              <Label styleClass="label-bright" text="Loan Types" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="40.0" />
                                  </font>

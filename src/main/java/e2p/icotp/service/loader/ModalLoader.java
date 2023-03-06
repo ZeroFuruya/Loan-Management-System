@@ -110,12 +110,13 @@ public class ModalLoader {
         controller.load(app, loan_plan, isEdit, mc, loanTypeList);
     }
 
-    public static void load_collateral(App app, Loan loan, boolean isEdit, MainController mc, Collateral collateral)
+    public static void load_collateral(App app, Loan loan, Loaner loaner, boolean isEdit, MainController mc,
+            Collateral collateral)
             throws IOException {
         FXMLLoader loader = load_modal(app, "modal/COLLATERAL");
 
         CollateralController controller = loader.getController();
-        controller.load(app, loan, isEdit, mc, collateral);
+        controller.load(app, loan, loaner, isEdit, mc, collateral);
     }
 
     // public static void load_degree_update(App app) throws IOException {
