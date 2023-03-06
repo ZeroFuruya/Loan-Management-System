@@ -9,6 +9,7 @@ import e2p.icotp.layout.MainController;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
+import e2p.icotp.model.Enums.PaymentFrequency;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
@@ -69,8 +70,6 @@ public class PaymentController {
     private Payment payment;
     private Payment og_payment;
 
-    private long pay_ctr = 0;
-
     @FXML
     private void handle_cancel() {
         ModalLoader.modal_close(app);
@@ -80,11 +79,26 @@ public class PaymentController {
     private void handle_save() throws SQLException {
         modify_payment_listener();
 
-        loan.setPaid(payment.getPayment_amount() + loan.getPaid());
-        loan.setBalance(loan.getBalance() - payment.getPayment_amount());
-        loan.setNextDueDate(loan.getNextDueDate().plusMonths(1));
+        LocalDate next_due_date = loan.getNextDueDate();
 
-        mc.setNextDueDate(pay_ctr);
+        loan.setPaid(payment.getPayment_amount() + loan.getPaid());
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.MONTHLY.toLowerCase())) {
+            next_due_date = next_due_date.plusMonths(1);
+            loan.setNextDueDate(next_due_date);
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.DAILY.toLowerCase())) {
+            next_due_date = next_due_date.plusDays(1);
+            loan.setNextDueDate(next_due_date);
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.YEARLY.toLowerCase())) {
+            next_due_date = next_due_date.plusYears(1);
+            loan.setNextDueDate(next_due_date);
+        }
+
+        System.out.println(loan.getBalance());
+        System.out.println(payment.getPayment_amount());
+        loan.setBalance(loan.getBalance() - payment.getPayment_amount());
+        System.out.println(loan.getBalance());
 
         if (isEdit.get()) {
             PaymentDAO.update(payment);
@@ -102,6 +116,7 @@ public class PaymentController {
         notify_changes();
         mc.load_loan_table();
         mc.refresh_loan_list();
+        mc.selectLoan();
         ModalLoader.modal_close(app);
     }
 

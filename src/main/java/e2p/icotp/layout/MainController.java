@@ -3,6 +3,8 @@ package e2p.icotp.layout;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.MonthDay;
+import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 
@@ -22,15 +24,10 @@ import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanPlanDAO;
 import e2p.icotp.service.server.dao.LoanerDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
-import e2p.icotp.service.server.dao.RemovedPaymentDAO;
-import e2p.icotp.util.custom.RandomIDGenerator;
-import e2p.icotp.util.custom.cbox.LoanTypeListCell;
-import e2p.icotp.util.custom.cbox.LoanTypeStringConverter;
 import e2p.icotp.util.custom.date.DateUtil;
-import e2p.icotp.util.custom.formatters.DoubleTextFieldFormatter;
-import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -44,14 +41,12 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -253,12 +248,12 @@ public class MainController {
     @FXML
     Label payment_amount_label;
 
-    @FXML
-    Button payment_edit_button;
+    // @FXML
+    // Button payment_edit_button;
     @FXML
     Button payment_add_button;
-    @FXML
-    Button payment_remove_button;
+    // @FXML
+    // Button payment_remove_button;
 
     @FXML
     TextField payment_search;
@@ -445,8 +440,8 @@ public class MainController {
     private void handle_loan_remove() {
         // TODO REMOVE ALL PAYMENT IF LOAN IS DELETED
         // TODO DISABLE REMOVE LOAN ONLY IF STATUS IS OPEN
-        // PaymentDAO.removeByLoanId(, og_loan.getLoan_id());
-        // app.paymentMasterlist().removeAll(paymentList);
+        PaymentDAO.removeByLoanId(og_loan);
+        app.paymentMasterlist().removeAll(paymentList);
         LoanDAO.remove(og_loan);
         app.loanMasterList().remove(og_loan);
         load_loan_table();
@@ -471,21 +466,23 @@ public class MainController {
         ModalLoader.load_payment_update(app, loan, false, this, loaner, payment);
     }
 
-    @FXML
-    private void handle_payment_remove() {
-        // TODO DISABLE REMOVING PAYMENTS
-        if (loan == null)
-            return;
-        loan.setNextDueDate(loan.getNextDueDate().minusMonths(1));
-        loan.getTotalUnpaidProperty().set(loan.getTotalUnpaidProperty().get() + payment.getPayment_amount());
-        loan.getBalanceProperty().set(loan.getBalanceProperty().get() + payment.getPayment_amount());
-        RemovedPaymentDAO.insert(og_payment);
-        app.removedPaymentMasterlist().add(og_payment);
-        PaymentDAO.remove(og_payment);
-        app.paymentMasterlist().remove(og_payment);
-        load_loan_table();
-        refresh_loan_list();
-    }
+    // @FXML
+    // private void handle_payment_remove() {
+    // // TODO DISABLE REMOVING PAYMENTS
+    // if (loan == null)
+    // return;
+    // loan.setNextDueDate(loan.getNextDueDate().minusMonths(1));
+    // loan.getTotalUnpaidProperty().set(loan.getTotalUnpaidProperty().get() +
+    // payment.getPayment_amount());
+    // loan.getBalanceProperty().set(loan.getBalanceProperty().get() +
+    // payment.getPayment_amount());
+    // RemovedPaymentDAO.insert(og_payment);
+    // app.removedPaymentMasterlist().add(og_payment);
+    // PaymentDAO.remove(og_payment);
+    // app.paymentMasterlist().remove(og_payment);
+    // load_loan_table();
+    // refresh_loan_list();
+    // }
 
     // LOAN PLAN HANDLES
     @FXML
@@ -503,6 +500,23 @@ public class MainController {
         LoanPlanDAO.remove(og_loan_plan.getId().get());
         app.loanPlanMasterlist().remove(og_loan_plan);
     }
+
+    // COLLATERAL HANDLES
+    @FXML
+    private void handle_add_collateral() throws IOException {
+        ModalLoader.load_collateral(app, loan, false, this, collateral);
+    }
+
+    @FXML
+    private void handle_modify_collateral() throws IOException {
+        ModalLoader.load_collateral(app, loan, true, this, collateral);
+    }
+
+    @FXML
+    private void handle_remove_collateral() {
+        LoanPlanDAO.remove(og_loan_plan.getId().get());
+        app.loanPlanMasterlist().remove(og_loan_plan);
+    }
     // START HERE ------------------------------------------------------------------
 
     public void load(App app) {
@@ -515,6 +529,7 @@ public class MainController {
         loaner_information_container.setVisible(false);
         loaner_name_container.setVisible(false);
         payment_information_container.setVisible(false);
+        collateral_information_container.setVisible(false);
         payments_box.setVisible(false);
         collateral_box.setVisible(false);
 
@@ -653,8 +668,8 @@ public class MainController {
         loan_edit_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
         loan_remove_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
 
-        payment_edit_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
-        payment_remove_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
+        // payment_edit_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
+        // payment_remove_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
 
         BooleanProperty planIs = new SimpleBooleanProperty(false);
         BooleanBinding planIsUsed = Bindings.createBooleanBinding(() -> {
@@ -731,6 +746,7 @@ public class MainController {
                 _init_loaner_bindings();
                 loan_information_container.setVisible(true);
                 payment_information_container.setVisible(false);
+                collateral_information_container.setVisible(false);
                 payments_box.setVisible(false);
                 collateral_box.setVisible(false);
             } else {
@@ -771,6 +787,7 @@ public class MainController {
                 refresh_collateral_list();
                 _init_loan_bindings();
                 loan_information_container.setVisible(true);
+                collateral_information_container.setVisible(true);
                 payments_box.setVisible(true);
                 collateral_box.setVisible(true);
             } else {
@@ -1016,7 +1033,8 @@ public class MainController {
     private void _init_loan_bindings() {
         if (loan == null)
             return;
-        payment_add_button.disableProperty().bind(loan.getStatusProperty().isEqualTo(LoanStatus.APPLICATION));
+
+        loan_next_box.setVisible(false);
 
         loan_id_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("%d", loan.getLoan_id());
@@ -1042,27 +1060,55 @@ public class MainController {
         loan_penalty_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("%.2f" + "%%", loan.getPenalty());
         }, loan.getPenaltyProperty()));
-        loan_due_label.textProperty().bind(Bindings.createStringBinding(() -> {
-            return String.format("Day %d of every month", loan.getDue());
-        }, loan.getDueProperty()));
         loan_paid_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("$%s", format.format(loan.getPaid()));
         }, loan.getPaidProperty()));
 
-        loan_next_logic_monthly();
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.DAILY.toLowerCase())) {
+            loan_next_logic_daily();
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.MONTHLY.toLowerCase())) {
+            loan_next_logic_monthly();
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.YEARLY.toLowerCase())) {
+            loan_next_logic_yearly();
+        }
 
         loan_balance_label.textProperty().bind(Bindings.createStringBinding(() -> {
             return String.format("$%s", format.format(loan.getBalance()));
         }, loan.getBalanceProperty()));
 
         status_image_setter(loan.getStatus());
-        loan_next_logic_monthly();
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.DAILY.toLowerCase())) {
+            loan_next_logic_daily();
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.MONTHLY.toLowerCase())) {
+            loan_next_logic_monthly();
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.YEARLY.toLowerCase())) {
+            loan_next_logic_yearly();
+        }
+
+        if (loan.getPaymentFrequencyProperty().get().equals(PaymentFrequency.DAILY)) {
+            loan_due_label.setText("Everyday");
+        }
+        if (loan.getPaymentFrequencyProperty().get().equals(PaymentFrequency.MONTHLY)) {
+            loan_due_label.setText("Day " + loan.getDue() + " of every month");
+        }
+        if (loan.getPaymentFrequencyProperty().get().equals(PaymentFrequency.YEARLY)) {
+            loan_due_label.setText(
+                    loan.getMaturity_date().getMonth().name() + " " + loan.getMaturity_date().getDayOfMonth()
+                            + " of every year");
+        }
+
         if (loan.getStatus().equals(LoanStatus.OPEN)) {
-            // TODO add if else for Mothly or Daily or Annually
-            // TODO GET PAYMENT FREQUENCY FROM LOAN OBJECT
             loan_next_box.setVisible(true);
+        }
+
+        if (loan.getStatus().equals(LoanStatus.PAID)) {
+            payment_add_button.setDisable(true);
         } else {
-            loan_next_box.setVisible(false);
+            payment_add_button.setDisable(false);
         }
 
         loan_edit_button.disableProperty().bind(
@@ -1175,7 +1221,8 @@ public class MainController {
         }
     }
 
-    LocalDate next_due_date = LocalDate.now();
+    LocalDate next_due_date_month = LocalDate.now();
+    LocalDate next_due_date_day = LocalDate.now();
     long days_skipped = 0;
     long total_days = 0;
     long total_months = 0;
@@ -1186,9 +1233,6 @@ public class MainController {
     double total_unpaid_penalty = 0.0d;
 
     double monthly_payment_getter = 0;
-
-    // TODO REMOVE ALL PAYMENT IF LOANER IS DELETED
-    // TODO WORK ON DAILY AND YEARLY LOGIC
 
     // TODO COLLATERAL LOGIC
     // TODO change loan_plan : interest and penalty to percentage
@@ -1204,11 +1248,12 @@ public class MainController {
         LocalDate first_due_date = LocalDate.of(loan.getRelease_date().getYear(),
                 loan.getRelease_date().getMonthValue(), loan.getDue());
         first_due_date = first_due_date.plusMonths(1);
-        next_due_date = LocalDate.of(loan.getRelease_date().getYear(),
+        next_due_date_month = LocalDate.of(loan.getRelease_date().getYear(),
                 loan.getRelease_date().getMonthValue(), loan.getDue());
-        next_due_date = next_due_date.plusMonths(1);
+        next_due_date_month = next_due_date_month.plusMonths(1);
 
         total_months = ChronoUnit.MONTHS.between(first_due_date, loan.getMaturity_date());
+        total_months = total_months + 1;
 
         double interest_val = (loan.getPrincipal() / total_months) * loan.getInterest();
         double penalty_val = (loan.getPrincipal() / total_months) * loan.getPenalty();
@@ -1229,9 +1274,7 @@ public class MainController {
             loan.getTotalUnpaidProperty().set(penalty_payment * months_skipped);
         }
 
-        YearMonth yearMonth_next_due = YearMonth.of(next_due_date.getYear(), next_due_date.getMonthValue());
-
-        loan.setBalance(loan.getBalance() - loan.getPaid());
+        YearMonth yearMonth_next_due = YearMonth.of(next_due_date_month.getYear(), next_due_date_month.getMonthValue());
 
         loan_total_unpaid_label.setText(format.format(loan.getTotalUnpaidProperty().get()));
 
@@ -1295,9 +1338,151 @@ public class MainController {
         });
     }
 
+    long daily_total_days = 0;
+
+    private void loan_next_logic_daily() {
+        daily_total_days = 0;
+
+        LocalDate first_due_date = LocalDate.of(loan.getRelease_date().getYear(),
+                loan.getRelease_date().getMonthValue(), loan.getDue());
+        first_due_date = first_due_date.plusDays(1);
+        next_due_date_day = LocalDate.of(loan.getRelease_date().getYear(),
+                loan.getRelease_date().getMonthValue(), loan.getDue());
+        next_due_date_day = next_due_date_day.plusDays(1);
+
+        daily_total_days = ChronoUnit.DAYS.between(first_due_date, loan.getMaturity_date());
+        daily_total_days = daily_total_days + 1;
+
+        double interest_val = (loan.getPrincipal() / daily_total_days) * loan.getInterest();
+        double penalty_val = (loan.getPrincipal() / daily_total_days) * loan.getPenalty();
+        double daily_payment = loan.getPrincipal() / daily_total_days + interest_val;
+        double penalty_payment = loan.getPrincipal() / daily_total_days + penalty_val;
+
+        days_skipped = ChronoUnit.DAYS.between(loan.getNextDueDate(), LocalDate.now());
+        total_days = ChronoUnit.DAYS.between(loan.getNextDueDate(), loan.getMaturity_date());
+
+        if (days_skipped <= 0) {
+            loan.getTotalUnpaidProperty().set(penalty_payment * 0);
+        } else {
+            loan.getTotalUnpaidProperty().set(penalty_payment * days_skipped);
+        }
+
+        // YearMonth yearMonth_next_due = YearMonth.of(next_due_date.getYear(),
+        // next_due_date.getMonthValue());
+
+        loan_total_unpaid_label.setText(format.format(loan.getTotalUnpaidProperty().get()));
+
+        if (loan.getNextDueDate().isAfter(loan.getMaturity_date())) {
+            loan.setStatus(LoanStatus.PAID);
+        }
+
+        if (days_skipped > total_days) {
+            loan_next_due_label.setText("Past Maturity Date");
+            loan_next_amount_label.setText("Seize any collaterals or Take legal action");
+            return;
+        }
+
+        if (LocalDate.now().isBefore(loan.getNextDueDate()) || LocalDate.now().isEqual(loan.getNextDueDate())) {
+            loan.setNextPayment(daily_payment);
+            loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
+            loan_next_amount_label.setText(format.format(loan.getNextPayment()));
+            next_due_err.setVisible(false);
+            next_amount_err.setVisible(false);
+            return;
+        }
+        next_due_err.setVisible(true);
+        next_amount_err.setVisible(true);
+        if (LocalDate.now().isAfter(loan.getNextDueDate())) {
+            loan.setNextPayment(penalty_payment);
+            loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
+            loan_next_amount_label.setText(format.format(loan.getNextPayment()));
+            return;
+        }
+    }
+
+    long yearly_total_years = 0;
+
+    private void loan_next_logic_yearly() {
+        // TODO DO THIS TOMMORRRROROROROROOW ----------------
+        yearly_total_years = 0;
+
+        LocalDate first_due_date = LocalDate.of(loan.getRelease_date().getYear(),
+                loan.getRelease_date().getMonthValue(), loan.getDue());
+        first_due_date = first_due_date.plusYears(1);
+        next_due_date_day = LocalDate.of(loan.getRelease_date().getYear(),
+                loan.getRelease_date().getMonthValue(), loan.getDue());
+        next_due_date_day = next_due_date_day.plusYears(1);
+
+        yearly_total_years = ChronoUnit.YEARS.between(first_due_date, loan.getMaturity_date());
+        yearly_total_years = yearly_total_years + 1;
+
+        double interest_val = (loan.getPrincipal() / yearly_total_years) * loan.getInterest();
+        double penalty_val = (loan.getPrincipal() / yearly_total_years) * loan.getPenalty();
+        double daily_payment = loan.getPrincipal() / yearly_total_years + interest_val;
+        double penalty_payment = loan.getPrincipal() / yearly_total_years + penalty_val;
+
+        days_skipped = ChronoUnit.DAYS.between(loan.getNextDueDate(), LocalDate.now());
+        total_days = ChronoUnit.DAYS.between(loan.getNextDueDate(), loan.getMaturity_date());
+
+        if (days_skipped <= 0) {
+            loan.getTotalUnpaidProperty().set(penalty_payment * 0);
+        } else {
+            loan.getTotalUnpaidProperty().set(penalty_payment * days_skipped);
+        }
+
+        // YearMonth yearMonth_next_due = YearMonth.of(next_due_date.getYear(),
+        // next_due_date.getMonthValue());
+
+        loan_total_unpaid_label.setText(format.format(loan.getTotalUnpaidProperty().get()));
+
+        if (loan.getNextDueDate().isAfter(loan.getMaturity_date())) {
+            loan.setStatus(LoanStatus.PAID);
+        }
+
+        if (days_skipped > total_days) {
+            loan_next_due_label.setText("Past Maturity Date");
+            loan_next_amount_label.setText("Seize any collaterals or Take legal action");
+            return;
+        }
+
+        if (LocalDate.now().isBefore(loan.getNextDueDate()) || LocalDate.now().isEqual(loan.getNextDueDate())) {
+            loan.setNextPayment(daily_payment);
+            loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
+            loan_next_amount_label.setText(format.format(loan.getNextPayment()));
+            next_due_err.setVisible(false);
+            next_amount_err.setVisible(false);
+            return;
+        }
+        next_due_err.setVisible(true);
+        next_amount_err.setVisible(true);
+        if (LocalDate.now().isAfter(loan.getNextDueDate())) {
+            loan.setNextPayment(penalty_payment);
+            loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
+            loan_next_amount_label.setText(format.format(loan.getNextPayment()));
+            return;
+        }
+    }
+
+    // COLLATERAL
+    private void load_collateral_logic() {
+    }
+
     // GETTERS AND SETTERS
     public ObservableList<Loan> getLoanObservableList() {
         return loanObservableList;
+    }
+
+    public void selectLoan() {
+        loanTable.getSelectionModel().select(loan);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                loanTable.requestFocus();
+                loanTable.getSelectionModel().select(loan);
+                loanTable.getFocusModel().focus(0);
+                loanTable.scrollTo(loan);
+            }
+        });
     }
 
     public void setLoan(Loan val) {
@@ -1308,17 +1493,5 @@ public class MainController {
 
     public String getTotalDueAmount() {
         return String.format("%.2f", loan.getNextPayment());
-    }
-
-    public LocalDate getNextDueDate() {
-        return next_due_date;
-    }
-
-    public LocalDate setNextDueDate(long val) {
-        return next_due_date = next_due_date.plusMonths(val);
-    }
-
-    public double getMonthlyPayment() {
-        return this.monthly_payment_getter;
     }
 }

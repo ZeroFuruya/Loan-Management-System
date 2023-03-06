@@ -14,7 +14,6 @@ import e2p.icotp.service.server.core.SQLCommand;
 import e2p.icotp.service.server.core.SQLParam;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 public class PaymentDAO {
     public static ObservableList<Payment> getMasterlist() throws SQLException {
@@ -93,11 +92,10 @@ public class PaymentDAO {
         SQLCommand.deleteById("payments", new SQLParam(Types.BIGINT, "payment_id", payment.getPayment_id()));
     }
 
-    // public static void removeByLoanId(FilteredList<Payment> paymentList, Loan
-    // loan_id) {
-    // SQLCommand.deleteById("payments", new SQLParam(Types.INTEGER, "loan_id",
-    // payment.getLoan_id().getLoan_id()));
-    // }
+    public static void removeByLoanId(Loan loan_id) {
+        SQLCommand.deleteById("payments", new SQLParam(Types.INTEGER, "loan_id",
+                loan_id.getLoan_id()));
+    }
 
     public static void updateById(Payment payment, long target_id) {
         SQLParam idParam = new SQLParam(Types.BIGINT, "payment_id", target_id);
