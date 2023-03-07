@@ -56,6 +56,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
 public class MainController {
@@ -1169,12 +1170,12 @@ public class MainController {
         types_container.prefWidthProperty().bind(types_scroll_pane.widthProperty().subtract(18));
         types_container.setSpacing(10);
         loanTypeList.forEach(type -> {
-            Label label1 = TypesFactory.createLabel(type.getId().get() + "", 17);
+            Label label1 = TypesFactory.createLabel(type.getId().get() + "", FontWeight.BOLD, 20);
             HBox val1 = TypesFactory.createLabelContainer(label1, types_container, 0.0d, 0.05, Pos.CENTER, 1);
-            Label label2 = TypesFactory.createLabel(type.getName().get(), 17);
+            Label label2 = TypesFactory.createLabel(type.getName().get(), FontWeight.SEMI_BOLD, 30);
             HBox val2 = TypesFactory.createLabelContainer(label2, types_container, 0.0d, 0.95, Pos.CENTER_LEFT, 1);
-            Label label3 = TypesFactory.createLabel(type.getDesc().get(), 14);
-            HBox val3 = TypesFactory.createLabelContainer(label3, types_container, 300, 1, Pos.CENTER_LEFT, 0);
+            Label label3 = TypesFactory.createLabel(type.getDesc().get(), FontWeight.NORMAL, 17);
+            HBox val3 = TypesFactory.createLabelContainer(label3, types_container, 500, 1, Pos.CENTER_LEFT, 0);
 
             types_container.getChildren()
                     .add(TypesFactory.createVBox(TypesFactory.createHBox(val1, val2), TypesFactory.createHBox(val3,

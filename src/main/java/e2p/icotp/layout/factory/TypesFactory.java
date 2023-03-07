@@ -24,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class TypesFactory {
     public static HBox createHBox(Node children3, Node button) {
@@ -67,7 +68,7 @@ public class TypesFactory {
         HBox hbox = new HBox(children);
         hbox.setBackground(Background.fill(Color.rgb(0, 0, 0, 0)));
         hbox.prefWidthProperty().bind(width.widthProperty().multiply(value));
-        hbox.prefHeightProperty().set((height));
+        hbox.prefHeightProperty().bind(width.heightProperty().multiply(height));
         hbox.setBorder(new Border(
                 new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3),
                         new BorderWidths(border))));
@@ -76,10 +77,10 @@ public class TypesFactory {
         return hbox;
     }
 
-    public static Label createLabel(String text, double font_size) {
+    public static Label createLabel(String text, FontWeight ft, double font_size) {
         Label label = new Label(text);
         label.wrapTextProperty().set(true);
-        label.setFont(Font.font("Arial", font_size));
+        label.setFont(Font.font(text, ft, font_size));
         label.setAlignment(Pos.CENTER);
         label.setTextFill(Color.WHITE);
         label.getStyleClass().add("label-bright");
