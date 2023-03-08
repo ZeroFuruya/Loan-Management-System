@@ -1241,7 +1241,7 @@ public class MainController {
 
     double monthly_payment_getter = 0;
 
-    // TODO make an invoice for each payment done, change calculator included
+    // TODO make an invoice for each payment done
     // TODO add security more by putting confirmations every after tasks
     // TODO make statistics
     // TODO add forget password

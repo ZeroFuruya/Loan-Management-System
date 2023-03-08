@@ -470,7 +470,7 @@
          <bottom>
             <HBox alignment="CENTER_RIGHT" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="upload_img" mnemonicParsing="false" onAction="#handle_cancel" text="Upload Image" />
+                  <Button fx:id="upload_img" mnemonicParsing="false" onAction="#handle_upload_image" text="Upload Image" />
                   <Button fx:id="cancel" mnemonicParsing="false" onAction="#handle_cancel" text="Cancel" />
                   <Button fx:id="save" mnemonicParsing="false" onAction="#handle_save" text="Save" />
                </children>

@@ -128,6 +128,11 @@ public class LoanerController {
         ModalLoader.modal_close(app);
     }
 
+    @FXML
+    void handle_upload_image() {
+        // TODO HANDLE UPLOAD
+    }
+
     public void load(App app, Loaner loaner, boolean isEdit, MainController mc) {
         this.app = app;
         this.loaner = loaner;
