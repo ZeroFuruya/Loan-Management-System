@@ -1,5 +1,6 @@
 package e2p.icotp.layout;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -7,6 +8,8 @@ import java.time.MonthDay;
 import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
+
+import org.apache.commons.io.FilenameUtils;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.factory.TypesFactory;
@@ -26,6 +29,7 @@ import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanPlanDAO;
 import e2p.icotp.service.server.dao.LoanerDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
+import e2p.icotp.util.FileUtil;
 import e2p.icotp.util.custom.date.DateUtil;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
@@ -351,6 +355,9 @@ public class MainController {
     ScrollPane types_scroll_pane;
     @FXML
     VBox types_container;
+
+    @FXML
+    ImageView pfp;
 
     // APP
     // ------------------------------------------------------------------------------------------
@@ -712,6 +719,8 @@ public class MainController {
         });
     }
 
+    File pfpFile;
+
     private void init_table_listeners() {
 
         loan_add_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
@@ -738,6 +747,14 @@ public class MainController {
 
                 init_plans();
                 // collateral_box.setVisible(false);
+                pfpFile = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() + FileUtil.FS + "id_picture.jpg");
+                if (pfpFile.exists()) {
+                    pfp.setImage(new Image(pfpFile.getAbsolutePath()));
+                } else {
+                    // TODO pfp.setImage(new
+                    // Image(App.class.getResourceAsStream("assets/images/blank_pfp.png")));
+                }
+
             } else {
                 load_empty_loan_table();
                 refresh_loan_list();
@@ -1489,6 +1506,10 @@ public class MainController {
                 loanTable.scrollTo(loan);
             }
         });
+    }
+
+    public ImageView getPfp() {
+        return pfp;
     }
 
     public void setLoan(Loan val) {

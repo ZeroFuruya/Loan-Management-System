@@ -22,6 +22,8 @@ public class FileUtil {
     public static final String FS = FileSystems.getDefault().getSeparator();
     public static final String ROOT = System.getenv("APPDATA") + FS + "@thesisManager" + FS;
     public static final String DATA_DIR = ROOT + ".data" + FS;
+    public static final String CUSTOM_DIR = "C:" + FS + "Program Files" + FS + "Zephyr Loan Management System" + FS
+            + "data" + FS;
 
     public static final String TEMP_DIR = ROOT + ".temp" + FS;
     public static final String CACHE_DIR = ROOT + ".cache" + FS;

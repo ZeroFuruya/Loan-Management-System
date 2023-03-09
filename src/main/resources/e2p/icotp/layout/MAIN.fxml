@@ -54,7 +54,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0" visible="false">
+                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="902.0" styleClass="dept-tab-container">
                            <children>
@@ -707,7 +707,7 @@
                               </HBox>
                               <HBox>
                                  <children>
-                                    <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="pfp" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../../../../../../../../Pictures/prince_id.png" />
                                        </image>
@@ -911,7 +911,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="types_box" prefHeight="200.0" prefWidth="100.0">
+                  <VBox fx:id="types_box" prefHeight="200.0" prefWidth="100.0" visible="false">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
