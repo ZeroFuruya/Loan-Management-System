@@ -1,6 +1,9 @@
 package e2p.icotp.layout.modal;
 
+import java.io.File;
 import java.sql.SQLException;
+
+import org.apache.commons.io.FilenameUtils;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
@@ -9,6 +12,7 @@ import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanerDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
+import e2p.icotp.util.FileUtil;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.date.LocalizeDateConverter;
 import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
@@ -20,7 +24,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class LoanerController {
     @FXML
@@ -106,7 +114,11 @@ public class LoanerController {
 
     private MainController mc;
 
+    private File pfpFile;
+
     long final_num = 0;
+
+    FileChooser fc = new FileChooser();
 
     @FXML
     private void handle_cancel() {
@@ -114,18 +126,38 @@ public class LoanerController {
     }
 
     @FXML
-    private void handle_save() throws SQLException {
+    private void handle_save() throws Exception {
         modify_loaner_listener();
         if (isEdit.get()) {
             LoanerDAO.update(loaner);
             app.loanerMasterlist().remove(og_loaner);
             app.loanerMasterlist().add(loaner);
         } else {
+            if (pfpFile != null) {
+                FileUtil.create_dir(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() + FileUtil.FS);
+                String ext = FilenameUtils.getExtension(pfpFile.getAbsolutePath());
+                System.out.println("Extension: " + ext);
+                File destination = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() +
+                        FileUtil.FS + "id_picture." + ext);
+                FileUtil.copy_to_destination(pfpFile, destination);
+            }
             LoanerDAO.insert(loaner);
             app.loanerMasterlist().add(loaner);
         }
         notify_changes();
         ModalLoader.modal_close(app);
+    }
+
+    @FXML
+    void handle_upload_image() {
+        // TODO HANDLE UPLOAD
+        ExtensionFilter jpeg_filter = new ExtensionFilter("JPEG Files", "*.jpeg", "*.jpg");
+        ExtensionFilter png_filter = new ExtensionFilter("PNG Files", "*.png");
+
+        fc.getExtensionFilters().addAll(jpeg_filter, png_filter);
+        fc.setTitle("Upload Profile Picture");
+        fc.setInitialDirectory(new File(System.getProperty("user.home")));
+        pfpFile = fc.showOpenDialog(app.getMainStage());
     }
 
     public void load(App app, Loaner loaner, boolean isEdit, MainController mc) {

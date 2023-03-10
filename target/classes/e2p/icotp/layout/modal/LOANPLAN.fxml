@@ -147,11 +147,15 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <TextField fx:id="plan_term_tf">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </TextField>
+                                    <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <TextField fx:id="plan_term_tf" prefHeight="31.0" prefWidth="151.0" HBox.hgrow="ALWAYS">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
                                     <HBox fx:id="plan_term_err" alignment="CENTER_LEFT">
                                        <children>
                                           <Label styleClass="label-red" text="Invalid Field" textFill="RED">
@@ -181,9 +185,9 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </VBox>
-                  <VBox layoutX="680.0" layoutY="10.0" prefHeight="335.0" prefWidth="180.0">
+                  <VBox layoutX="680.0" layoutY="10.0" prefHeight="335.0" prefWidth="180.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Interest">
+                        <Label text="Interest in %">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -195,11 +199,24 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <TextField fx:id="plan_interest_tf">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </TextField>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <TextField fx:id="plan_interest_tf" prefHeight="31.0" prefWidth="216.0" HBox.hgrow="ALWAYS">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </TextField>
+                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label prefHeight="17.0" prefWidth="34.0" text="\%" VBox.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="Arial" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
                                     <HBox fx:id="plan_interest_err" alignment="CENTER_LEFT">
                                        <children>
                                           <Label styleClass="label-red" text="Invalid Field" textFill="RED">
@@ -231,7 +248,7 @@
                   </VBox>
                   <VBox layoutX="770.0" layoutY="10.0" prefHeight="335.0" prefWidth="180.0">
                      <children>
-                        <Label text="Penalty">
+                        <Label text="Penalty in %">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -243,11 +260,24 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <TextField fx:id="plan_penalty_tf">
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </TextField>
+                                    <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <TextField fx:id="plan_penalty_tf" prefHeight="31.0" prefWidth="157.0" HBox.hgrow="ALWAYS">
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </TextField>
+                                          <VBox alignment="CENTER" prefHeight="31.0" prefWidth="39.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label prefHeight="17.0" prefWidth="34.0" text="\%" VBox.vgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="Arial" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
                                     <HBox fx:id="plan_penalty_err" alignment="CENTER_LEFT">
                                        <children>
                                           <Label styleClass="label-red" text="Invalid Field" textFill="RED">

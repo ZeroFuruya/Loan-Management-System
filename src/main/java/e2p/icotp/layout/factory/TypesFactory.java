@@ -14,8 +14,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -26,12 +24,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class TypesFactory {
-    public static HBox createHBox(Node children1, Node children2, Node children3, Button button) {
-        HBox hbox = new HBox(children1, children2, children3, button);
+    public static HBox createHBox(Node children3, Node button) {
+        HBox hbox = new HBox(children3, button);
         hbox.setBackground(Background.fill(Color.rgb(0, 0, 0, 0)));
-        hbox.setPrefHeight(100.0f);
+        // hbox.setPrefHeight(100.0f);
         hbox.setBorder(new Border(
                 new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), new BorderWidths(0.5))));
         hbox.setAlignment(Pos.CENTER_LEFT);
@@ -46,10 +45,30 @@ public class TypesFactory {
         return hbox;
     }
 
-    public static HBox createLabelContainer(Node children, VBox width, double value, Pos pos, double border) {
+    public static VBox createVBox(Node labelTitle, Node hbox) {
+        VBox vbox = new VBox(labelTitle, hbox);
+        vbox.setBackground(Background.fill(Color.rgb(0, 0, 0, 0)));
+        vbox.setPrefHeight(200f);
+        vbox.setBorder(new Border(
+                new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), new BorderWidths(0.5))));
+        vbox.setAlignment(Pos.CENTER_LEFT);
+        vbox.setOnMouseEntered(e -> {
+            if (e.getClickCount() == 1) {
+                vbox.prefHeight(vbox.getHeight() * 2);
+            }
+        });
+
+        // DropShadow dsfx = new DropShadow(null, Color.WHITE, 1, 1, 0, 0);
+        // vbox.setEffect(dsfx);
+        return vbox;
+    }
+
+    public static HBox createLabelContainer(Node children, VBox width, double height, double value, Pos pos,
+            double border) {
         HBox hbox = new HBox(children);
         hbox.setBackground(Background.fill(Color.rgb(0, 0, 0, 0)));
         hbox.prefWidthProperty().bind(width.widthProperty().multiply(value));
+        hbox.prefHeightProperty().bind(width.heightProperty().multiply(height));
         hbox.setBorder(new Border(
                 new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(3),
                         new BorderWidths(border))));
@@ -58,10 +77,10 @@ public class TypesFactory {
         return hbox;
     }
 
-    public static Label createLabel(String text, double font_size) {
+    public static Label createLabel(String text, FontWeight ft, double font_size) {
         Label label = new Label(text);
         label.wrapTextProperty().set(true);
-        label.setFont(Font.font("Arial", font_size));
+        label.setFont(Font.font(text, ft, font_size));
         label.setAlignment(Pos.CENTER);
         label.setTextFill(Color.WHITE);
         label.getStyleClass().add("label-bright");

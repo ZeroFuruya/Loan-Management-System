@@ -158,8 +158,8 @@ public class LoanPlanController {
         loan_plan.getId().set(Integer.parseInt(plan_id_tf.textProperty().get()));
         loan_plan.getType().set(plan_type_cbox.getSelectionModel().getSelectedItem());
         loan_plan.getTerm().set(Long.parseLong(plan_term_tf.textProperty().get()));
-        loan_plan.getInterest().set(Double.parseDouble(plan_interest_tf.textProperty().get()));
-        loan_plan.getPenalty().set(Double.parseDouble(plan_penalty_tf.textProperty().get()));
+        loan_plan.getInterest().set(Double.parseDouble(plan_interest_tf.textProperty().get()) / 100);
+        loan_plan.getPenalty().set(Double.parseDouble(plan_penalty_tf.textProperty().get()) / 100);
         loan_plan.getPaymentFrequencyProperty().set(payment_mode_cbox.getSelectionModel().getSelectedItem());
     }
 
