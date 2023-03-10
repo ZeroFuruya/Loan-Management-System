@@ -3,7 +3,7 @@ package e2p.icotp.layout.accounts;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class SignUp {
+    public class SignUp {
     StringProperty username;
     StringProperty password;
     StringProperty confirmPassword;

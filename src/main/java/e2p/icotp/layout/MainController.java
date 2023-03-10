@@ -390,6 +390,7 @@ public class MainController {
 
     @FXML
     private void handle_signup() throws IOException {
+        app.getSignUpList();
         LogInLoader.load_sign_up(app);
     }
 

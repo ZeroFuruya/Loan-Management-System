@@ -55,6 +55,8 @@ public class LogInLoader {
 
         SignUpController controller = loader.getController();
         controller.load(app);
+       
+
     }
 
 }

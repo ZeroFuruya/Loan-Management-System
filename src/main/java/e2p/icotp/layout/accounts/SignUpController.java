@@ -146,9 +146,9 @@ public class SignUpController implements Initializable {
         }, usernameTF.textProperty());
 
         BooleanBinding passwordMatches = Bindings.createBooleanBinding(() -> {
-
             // validatePassword();
             verification();
+
             return !app.getSignUpList().stream().anyMatch(
                     pass -> password == pass);
 
@@ -166,8 +166,8 @@ public class SignUpController implements Initializable {
                 .bind(Bindings.when(passwordMatches).then("Password not match").otherwise("Invalid Confirmation"));
         // validatePassword();
         signUpButton.disableProperty()
-                .bind(usernameLabel.visibleProperty().or(passwordLabel.visibleProperty().or(passwordMatches))
-                        .or(confirmPassLabel.visibleProperty()));
+                .bind(usernameLabel.visibleProperty().or(passwordLabel.visibleProperty())
+                        .or(confirmPassLabel.visibleProperty().or(passwordMatches)));
 
     }
 
@@ -188,15 +188,11 @@ public class SignUpController implements Initializable {
     }
 
     private void verification() {
-        if (password != null) {
-            passwordPF.textProperty().get().equals(confirmPassPF.textProperty().get());
+        if (app.getSignUpList() == null)
+            if (confirmPassPF.textProperty().get().equals(passwordPF.textProperty().get())) {
 
-            password.setPassword(passwordPF.textProperty().get());
-            confirmPassword.setConfirmPassword(password.getPassword());
-
-        } else {
-            app.getSignUpList();
-        }
+                password.getConfirmPassWord().equals(password.getPassword());
+            }
 
     }
 
