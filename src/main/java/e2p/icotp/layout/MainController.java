@@ -9,6 +9,7 @@ import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import e2p.icotp.App;
@@ -423,9 +424,9 @@ public class MainController {
     }
 
     @FXML
-    private void handle_loaner_remove() {
+    private void handle_loaner_remove() throws IOException {
         // TODO REMOVE ALL PAYMENT IF LOANER IS DELETED
-        // TODO WORK ON DAILY AND YEARLY LOGIC
+        FileUtils.deleteDirectory(new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id()));
         LoanerDAO.remove(og_loaner);
         app.loanerMasterlist().remove(og_loaner);
     }
@@ -721,6 +722,19 @@ public class MainController {
 
     File pfpFile;
 
+    private String listFilesForFolder(final File folder) {
+        String filename = folder.getAbsolutePath();
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolder(fileEntry);
+            } else {
+                filename = folder.getAbsolutePath() + FileUtil.FS + fileEntry.getName();
+                break;
+            }
+        }
+        return filename;
+    }
+
     private void init_table_listeners() {
 
         loan_add_button.disableProperty().bind(loanerTable.getSelectionModel().selectedItemProperty().isNull());
@@ -747,12 +761,12 @@ public class MainController {
 
                 init_plans();
                 // collateral_box.setVisible(false);
-                pfpFile = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() + FileUtil.FS + "id_picture.jpg");
+                pfpFile = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id());
                 if (pfpFile.exists()) {
+                    pfpFile = new File(listFilesForFolder(pfpFile));
                     pfp.setImage(new Image(pfpFile.getAbsolutePath()));
                 } else {
-                    // TODO pfp.setImage(new
-                    // Image(App.class.getResourceAsStream("assets/images/blank_pfp.png")));
+                    pfp.setImage(new Image(App.class.getResourceAsStream("assets/images/blank_pfp.png")));
                 }
 
             } else {
@@ -1504,6 +1518,19 @@ public class MainController {
                 loanTable.getSelectionModel().select(loan);
                 loanTable.getFocusModel().focus(0);
                 loanTable.scrollTo(loan);
+            }
+        });
+    }
+
+    public void selectLoaner() {
+        loanerTable.getSelectionModel().select(loaner);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                loanerTable.requestFocus();
+                loanerTable.getSelectionModel().select(loaner);
+                loanerTable.getFocusModel().focus(0);
+                loanerTable.scrollTo(loaner);
             }
         });
     }

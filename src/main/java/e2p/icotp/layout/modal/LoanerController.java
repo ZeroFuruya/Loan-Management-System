@@ -3,6 +3,7 @@ package e2p.icotp.layout.modal;
 import java.io.File;
 import java.sql.SQLException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import e2p.icotp.App;
@@ -24,8 +25,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -128,23 +127,27 @@ public class LoanerController {
     @FXML
     private void handle_save() throws Exception {
         modify_loaner_listener();
+        File old_file = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id());
+        old_file.mkdirs();
         if (isEdit.get()) {
             LoanerDAO.update(loaner);
             app.loanerMasterlist().remove(og_loaner);
             app.loanerMasterlist().add(loaner);
         } else {
-            if (pfpFile != null) {
-                FileUtil.create_dir(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() + FileUtil.FS);
-                String ext = FilenameUtils.getExtension(pfpFile.getAbsolutePath());
-                System.out.println("Extension: " + ext);
-                File destination = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() +
-                        FileUtil.FS + "id_picture." + ext);
-                FileUtil.copy_to_destination(pfpFile, destination);
-            }
             LoanerDAO.insert(loaner);
             app.loanerMasterlist().add(loaner);
         }
+        if (pfpFile != null) {
+            FileUtil.create_dir(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() + FileUtil.FS);
+            String ext = FilenameUtils.getExtension(pfpFile.getAbsolutePath());
+            File destination = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() +
+                    FileUtil.FS + "!!!id_picture." + ext);
+            FileUtil.convert_png_to_destination(pfpFile, destination);
+        }
         notify_changes();
+        mc.load_loan_table();
+        mc.refresh_loan_list();
+        mc.selectLoaner();
         ModalLoader.modal_close(app);
     }
 

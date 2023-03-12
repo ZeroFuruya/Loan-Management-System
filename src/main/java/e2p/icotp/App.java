@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -60,17 +61,10 @@ public class App extends Application {
         loanCache = LoanDAO.getMasterlist();
         loanerCache = LoanerDAO.getMasterlist();
         paymentCache = PaymentDAO.getMasterlist();
-        removedPaymentCache = RemovedPaymentDAO.getMasterlist();
+        removedPaymentCache = PaymentDAO.getMasterlist();
         collateralCache = CollateralDAO.getMasterlist();
         loan_typeCache = LoanTypeDAO.getMasterlist();
         loan_planCache = LoanPlanDAO.getMasterlist();
-
-        System.out.println("======================================");
-        loanerCache.forEach(loan -> {
-            temp = loan.getLoaner_id();
-            final_temp = final_temp + temp;
-            System.out.println(final_temp);
-        });
     }
 
     private void initialize_signUp() {
