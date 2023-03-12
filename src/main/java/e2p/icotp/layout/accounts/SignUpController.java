@@ -88,6 +88,7 @@ public class SignUpController {
         AccountDAO.insert(user);
         app.accountsMasterlist().add(user);
         ModalLoader.modal_close(app);
+        LogInLoader.load_log_in(app);
 
         // TODO DECRYPT PASS ON LOG IN
     }
