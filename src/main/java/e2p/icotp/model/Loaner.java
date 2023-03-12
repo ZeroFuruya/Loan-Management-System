@@ -51,13 +51,19 @@ public class Loaner {
     }
 
     public Loaner() {
-        this(0, "", "", 0, "", LocalDate.now(), 0, "", "", "");
+        this(0, "", "", 0, "", LocalDate.of(2000, 1, 1), 0, "", "", "");
     }
 
     public Loaner(Loaner loaner) {
-        this(loaner.getLoaner_id(), loaner.getName(), loaner.getAddress(), loaner.getPhone(), loaner.getEmail(),
+        this(loaner.getLoaner_id(),
+                loaner.getName(),
+                loaner.getAddress(),
+                loaner.getPhone(),
+                loaner.getEmail(),
                 loaner.getBirthdate(),
-                loaner.getSocial_security(), loaner.getCitizenship(), loaner.getPlaceOfBirth(),
+                loaner.getSocial_security(),
+                loaner.getCitizenship(),
+                loaner.getPlaceOfBirth(),
                 loaner.getCivilStatus());
     }
 

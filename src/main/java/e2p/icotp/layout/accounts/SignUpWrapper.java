@@ -6,17 +6,17 @@ import java.util.List;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="users")
+@XmlRootElement(name = "users")
 public class SignUpWrapper {
 
-    private List<SignUp> signUpList = new ArrayList<SignUp>();
+    private List<Account> signUpList = new ArrayList<Account>();
 
     @XmlElement(name = "users")
-    public List<SignUp> getSignUpList(){
+    public List<Account> getSignUpList() {
         return signUpList;
     }
 
-    public void setAccountList(List<SignUp> list){
+    public void setAccountList(List<Account> list) {
         signUpList = list;
     }
 

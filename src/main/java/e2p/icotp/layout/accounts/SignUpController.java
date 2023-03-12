@@ -1,24 +1,22 @@
 package e2p.icotp.layout.accounts;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 
 import e2p.icotp.App;
-import e2p.icotp.service.RegistryService;
-import e2p.icotp.service.XMLService;
 import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
-import e2p.icotp.util.FileUtil;
+import e2p.icotp.service.server.dao.AccountDAO;
+import e2p.icotp.util.custom.RandomIDGenerator;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -26,10 +24,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 
-public class SignUpController implements Initializable {
+public class SignUpController {
     @FXML
     private TextField usernameTF;
     @FXML
@@ -38,13 +35,9 @@ public class SignUpController implements Initializable {
     private PasswordField confirmPassPF;
 
     @FXML
-    private Label usernameLabel;
+    private Label usernameErr;
     @FXML
-    private Label passwordLabel;
-    @FXML
-    private Label confirmPassLabel;
-    @FXML
-    private Label shownPasswordLabel;
+    private Label passwordNoMatchErr;
 
     @FXML
     private Tooltip usernameTT;
@@ -64,29 +57,16 @@ public class SignUpController implements Initializable {
     private Hyperlink logIn;
 
     private App app;
-    private SignUp signUp;
+    private Account user;
+    SecretKey myDesKey;
+    byte[] textEncrypted;
 
     @FXML
     void passwordFieldKeyTyped(KeyEvent event) {
-        shownPasswordLabel.textProperty().bind(Bindings.concat(passwordPF.getText()));
-
     }
 
     @FXML
     void handle_showPasswordButton(ActionEvent event) {
-        if (showPasswordButton.isSelected()) {
-            shownPasswordLabel.setVisible(true);
-            shownPasswordLabel.textProperty().bind(Bindings.concat(passwordPF.getText()));
-            showPasswordButton.setText("Hide");
-        } else {
-            shownPasswordLabel.setVisible(false);
-            showPasswordButton.setText("show");
-        }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        shownPasswordLabel.setVisible(true);
     }
 
     @FXML
@@ -97,30 +77,19 @@ public class SignUpController implements Initializable {
 
     @FXML
     void handle_signUp() throws Exception {
-        signUp = new SignUp(usernameTF.getText(), passwordPF.getText(), confirmPassPF.getText());
-        app.getSignUpList().add(signUp);
+        // Encrypt Pass
+        String encryptedPass = encryptPassword(passwordPF.getText());
+        String encodedKey = Base64.getEncoder().encodeToString(myDesKey.getEncoded());
 
-        app.getSignUpList().forEach(p -> {
-            System.out.println(p.getUsername());
-        });
+        generate_id();
+        user.setUsername(usernameTF.getText());
+        user.setPassword(encryptedPass);
+        user.setPassKey(encodedKey);
+        AccountDAO.insert(user);
+        app.accountsMasterlist().add(user);
+        ModalLoader.modal_close(app);
 
-        File xml = RegistryService.getXML_FromRegistry();
-        if (xml != null) {
-            XMLService.wrap_signUpXML(app, xml);
-        } else {
-            FileUtil.create_dir(FileUtil.DATA_DIR + "Admin_users" + FileUtil.FS);
-            File newXml = new File(FileUtil.DATA_DIR + "Admin_users" + FileUtil.FS + "users_accounts_xml");
-
-            if (newXml != null) {
-                if (!newXml.getPath().endsWith(".xml")) {
-                    newXml = new File(newXml.getPath() + ".xml");
-                }
-                XMLService.wrap_signUpXML(app, newXml);
-            }
-        }
-
-        buttonClick();
-
+        // TODO DECRYPT PASS ON LOG IN
     }
 
     @FXML
@@ -128,60 +97,100 @@ public class SignUpController implements Initializable {
         LogInLoader.load_log_in(app);
     }
 
-    private void buttonClick() {
-        ModalLoader.modal_close(app);
-    }
-
     public void load(App app) {
         this.app = app;
+        user = new Account();
         init_bindings();
     }
 
     private void init_bindings() {
 
         BooleanBinding signUpList = Bindings.createBooleanBinding(() -> {
-            return app.getSignUpList().stream()
+            return app.accountsMasterlist().stream()
                     .anyMatch(users -> usernameTF.textProperty().get().equals(users.getUsername()));
         }, usernameTF.textProperty());
 
-        BooleanBinding passwordMatches = Bindings.createBooleanBinding(() -> {
+        usernameErr.textProperty().set("Username already taken");
+        usernameErr.visibleProperty().bind(signUpList);
 
-            // validatePassword();
-            return !app.getSignUpList().stream().anyMatch(
-                    pass -> signUp == pass);
-
-        }, confirmPassPF.textProperty());
-
-        usernameLabel.visibleProperty().bind(usernameTF.textProperty().isEmpty().or(signUpList));
-        passwordLabel.visibleProperty().bind(passwordPF.textProperty().isEmpty().or(signUpList));
-        confirmPassLabel.visibleProperty()
-                .bind(confirmPassPF.textProperty().isEmpty().or(signUpList));
-
-        usernameTT.textProperty()
-                .bind(Bindings.when(signUpList).then("Account already exists. ").otherwise("Invalid Username "));
-
-        confirmPassTT.textProperty()
-                .bind(Bindings.when(passwordMatches).then("Password not match").otherwise("Invalid Confirmation"));
-        // validatePassword();
-        signUpButton.disableProperty().bind(usernameLabel.visibleProperty().or(passwordLabel.visibleProperty().or(passwordMatches))
-                .or(confirmPassLabel.visibleProperty()));
+        passwordNoMatchErr.textProperty()
+                .bind(Bindings.when(passwordPF.textProperty().isEqualTo(confirmPassPF.textProperty()))
+                        .then("").otherwise("Password doesn't match"));
+        signUpButton.disableProperty().bind(Bindings.createBooleanBinding(() -> {
+            return usernameErr.textProperty().isEqualTo("Password doesn't match").get() ? true : false;
+        }, usernameErr.textProperty()));
 
     }
 
-    private boolean validatePassword() {
-        Pattern pattern = Pattern.compile("((?=.*\\\\d)(?=.*[a-z])(?=.*[@#$%]).{6,15})");
-        Matcher match = pattern.matcher(passwordPF.getText());
-        if (match.matches()) {
-            return true;
-        } else {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Validate Password");
-            alert.setHeaderText(null);
-            alert.setContentText(
-                    "Password must contain at least one (Digit, Lowercase, Uppercase and Special Character) and length must be between 6 - 15 ");
-            alert.showAndWait();
+    private SecretKey generateKey() throws NoSuchAlgorithmException {
+        // Generating objects of KeyGenerator &
+        // SecretKey
+        KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
+        SecretKey myDesKey = keygenerator.generateKey();
+
+        return myDesKey;
+    }
+
+    private String encryptPassword(String pass) throws NoSuchAlgorithmException {
+        String s = "";
+        myDesKey = generateKey();
+        try {
+            // Creating object of Cipher
+            Cipher desCipher;
+            desCipher = Cipher.getInstance("DES");
+
+            // Creating byte array to store string
+            byte[] text = pass.getBytes("UTF8");
+
+            // Encrypting text
+            desCipher.init(Cipher.ENCRYPT_MODE, myDesKey);
+            textEncrypted = desCipher.doFinal(text);
+
+            // Converting encrypted byte array to string
+            s = new String(textEncrypted);
+            System.out.println(s);
+        } catch (Exception e) {
+            System.out.println("Exception");
         }
-        return false;
+        return s;
     }
 
+    // private void decryptPassword(byte[] textEncrypted) {
+    // try {
+
+    // Cipher desCipher;
+    // desCipher = Cipher.getInstance("DES");
+
+    // // Decrypting text
+    // desCipher.init(Cipher.DECRYPT_MODE, myDesKey);
+    // byte[] textDecrypted = desCipher.doFinal(textEncrypted);
+
+    // // Converting decrypted byte array to string
+    // String s = new String(textDecrypted);
+    // System.out.println(s);
+    // } catch (Exception e) {
+    // System.out.println(e);
+    // }
+    // }
+
+    int final_num = 0;
+
+    private void generate_id() {
+        String temp_val;
+        String string_val = "";
+        for (int i = 0; i < 4; i++) {
+            int initial_num = RandomIDGenerator.getRandomNumber();
+            temp_val = Integer.toString(initial_num);
+            string_val = temp_val + string_val;
+        }
+        final_num = Integer.parseInt(string_val);
+
+        app.loanPlanMasterlist().forEach(loan_plan -> {
+            if (loan_plan.getId().get() == final_num) {
+                generate_id();
+            } else {
+                user.setAccountId(final_num);
+            }
+        });
+    }
 }

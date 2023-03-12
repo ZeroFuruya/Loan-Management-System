@@ -24,8 +24,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -128,23 +126,27 @@ public class LoanerController {
     @FXML
     private void handle_save() throws Exception {
         modify_loaner_listener();
+        File old_file = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id());
+        old_file.mkdirs();
         if (isEdit.get()) {
             LoanerDAO.update(loaner);
             app.loanerMasterlist().remove(og_loaner);
             app.loanerMasterlist().add(loaner);
         } else {
-            if (pfpFile != null) {
-                FileUtil.create_dir(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() + FileUtil.FS);
-                String ext = FilenameUtils.getExtension(pfpFile.getAbsolutePath());
-                System.out.println("Extension: " + ext);
-                File destination = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() +
-                        FileUtil.FS + "id_picture." + ext);
-                FileUtil.copy_to_destination(pfpFile, destination);
-            }
             LoanerDAO.insert(loaner);
             app.loanerMasterlist().add(loaner);
         }
+        if (pfpFile != null) {
+            FileUtil.create_dir(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() + FileUtil.FS);
+            String ext = FilenameUtils.getExtension(pfpFile.getAbsolutePath());
+            File destination = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() +
+                    FileUtil.FS + "!!!id_picture." + ext);
+            FileUtil.convert_png_to_destination(pfpFile, destination);
+        }
         notify_changes();
+        mc.load_loan_table();
+        mc.refresh_loan_list();
+        mc.selectLoaner();
         ModalLoader.modal_close(app);
     }
 
@@ -166,6 +168,10 @@ public class LoanerController {
         this.og_loaner = loaner;
         this.isEdit = new SimpleBooleanProperty(isEdit);
         this.mc = mc;
+
+        System.out.println("Citizenship" + loaner.getCitizenship());
+        System.out.println("Civil Status" + loaner.getCivilStatus());
+        System.out.println("Place of Birth" + loaner.getPlaceOfBirth());
 
         init_bindings();
         init_fields();
@@ -207,7 +213,9 @@ public class LoanerController {
 
         if (isEdit.get()) {
             loaner_id.textProperty().set(loaner.getLoaner_id() + "");
+            System.out.println("Entered " + isEdit.get());
         } else {
+            System.out.println("Entered " + isEdit.get());
             generate_id();
         }
 
@@ -231,11 +239,19 @@ public class LoanerController {
             string_val = temp_val + string_val;
         }
         final_num = Long.parseLong(string_val);
-
+        System.out.println(final_num);
+        if (app.loanerMasterlist().isEmpty()) {
+            System.out.println("Entered appmasterlist");
+            loaner_id.textProperty().set(final_num + "");
+            return;
+        }
         app.loanerMasterlist().forEach(loaner -> {
+            System.out.println("Entered foreach");
             if (loaner.getLoaner_id() == final_num) {
+                System.out.println("Entered foreach ifelse if");
                 generate_id();
             } else {
+                System.out.println("Entered foreach ifelse else");
                 loaner_id.textProperty().set(final_num + "");
             }
         });

@@ -22,19 +22,16 @@ public class FileUtil {
     public static final String FS = FileSystems.getDefault().getSeparator();
     public static final String ROOT = System.getenv("APPDATA") + FS + "@thesisManager" + FS;
     public static final String DATA_DIR = ROOT + ".data" + FS;
-    public static final String CUSTOM_DIR = "C:" + FS + "Program Files" + FS + "Zephyr Loan Management System" + FS
-            + "data" + FS;
+    public static final String CUSTOM_DIR = "C:" + FS + "Zephyr Loan Management System" + FS + "data" + FS;
 
-    public static final String TEMP_DIR = ROOT + ".temp" + FS;
-    public static final String CACHE_DIR = ROOT + ".cache" + FS;
-    public static final String SERVER_DIR = ROOT + ".server" + FS;
+    public static final String TEMP_DIR = CUSTOM_DIR + ".temp" + FS;
+    public static final String CACHE_DIR = CUSTOM_DIR + ".cache" + FS;
+    public static final String SERVER_DIR = CUSTOM_DIR + ".server" + FS;
 
     public static void init_appdata() throws Exception {
         try {
-            create_dir(ROOT);
+            create_dir(CUSTOM_DIR);
 
-            // data dir
-            create_dir(DATA_DIR);
             // temp dir
             create_dir(TEMP_DIR);
             hide(TEMP_DIR);

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import e2p.icotp.layout.accounts.Login;
-import e2p.icotp.layout.accounts.SignUp;
+import e2p.icotp.layout.accounts.Account;
 import e2p.icotp.model.Collateral;
 import e2p.icotp.service.server.dao.*;
 import e2p.icotp.util.FileUtil;
@@ -35,9 +35,8 @@ public class App extends Application {
     private ObservableList<Payment> removedPaymentCache;
     private ObservableList<LoanType> loan_typeCache;
     private ObservableList<LoanPlan> loan_planCache;
+    private ObservableList<Account> accountsCache;
 
-    // Accounts
-    private ObservableList<SignUp> signUpList = FXCollections.observableArrayList();
     private ObservableList<Login> loginList = FXCollections.observableArrayList();
     // STASH UPDATE COMMENT
 
@@ -46,8 +45,6 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.mainStage = stage;
-        initialize_signUp();
-        initialize_login();
         FileUtil.init_appdata();
         load_cache();
         initializa_main();
@@ -64,21 +61,11 @@ public class App extends Application {
         collateralCache = CollateralDAO.getMasterlist();
         loan_typeCache = LoanTypeDAO.getMasterlist();
         loan_planCache = LoanPlanDAO.getMasterlist();
+        accountsCache = AccountDAO.getMasterlist();
 
-        System.out.println("======================================");
-        loanerCache.forEach(loan -> {
-            temp = loan.getLoaner_id();
-            final_temp = final_temp + temp;
-            System.out.println(final_temp);
+        accountsCache.forEach(account -> {
+            System.out.println(account.getUsername());
         });
-    }
-
-    private void initialize_signUp() {
-        signUpList.add(new SignUp("123", "123", "123"));
-    }
-
-    private void initialize_login() {
-        loginList.add(new Login("aloe", "123"));
     }
 
     public void initializa_main() throws IOException {
@@ -128,8 +115,8 @@ public class App extends Application {
     }
 
     // Accounts
-    public ObservableList<SignUp> getSignUpList() {
-        return this.signUpList;
+    public ObservableList<Account> accountsMasterlist() {
+        return this.accountsCache;
     }
 
     public ObservableList<Login> getLoginList() {

@@ -6,17 +6,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
-<?import org.kordamp.ikonli.javafx.StackedFontIcon?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.accounts.SignUpController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="467.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.accounts.SignUpController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
@@ -26,75 +22,49 @@
                      <children>
                         <VBox>
                            <children>
-                              <Label text="Username:">
+                              <Label styleClass="label-bright" text="Username:">
                                  <font>
                                     <Font name="Arial" size="17.0" />
                                  </font>
                               </Label>
-                              <HBox>
+                              <HBox VBox.vgrow="ALWAYS">
                                  <children>
-                                    <TextField fx:id="usernameTF" prefHeight="27.0" prefWidth="359.0" promptText="Username" HBox.hgrow="ALWAYS">
+                                    <TextField fx:id="usernameTF" prefHeight="33.0" prefWidth="335.0" promptText="Username" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </TextField>
-                                    <Label fx:id="usernameLabel" translateX="-27.0">
-                                       <graphic>
-                                          <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                       </graphic>
-                                       <tooltip>
-                                          <Tooltip fx:id="usernameTT" text="Empty Tooltip" />
-                                       </tooltip>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </Label>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
+                        <Label fx:id="usernameErr" layoutX="15.0" layoutY="214.0" styleClass="label-red" text="shown password" textFill="#f80000">
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font>
+                        </Label>
                         <VBox>
                            <children>
-                              <Label text="Password:">
+                              <Label styleClass="label-bright" text="Password:">
                                  <font>
                                     <Font name="Arial" size="17.0" />
                                  </font>
                               </Label>
-                              <HBox>
+                              <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <PasswordField fx:id="passwordPF" onAction="#handle_passwordField" onKeyTyped="#passwordFieldKeyTyped" prefHeight="25.0" prefWidth="383.0" promptText="Create Password" HBox.hgrow="ALWAYS" />
-                                    <Label fx:id="passwordLabel" translateX="-27.0">
-                                       <graphic>
-                                          <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                       </graphic>
-                                       <tooltip>
-                                          <Tooltip fx:id="passwordTT" text="Empty Tooltip">
-                                             <graphic>
-                                                <StackedFontIcon />
-                                             </graphic>
-                                          </Tooltip>
-                                       </tooltip>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </Label>
+                                    <StackPane HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <PasswordField fx:id="passwordPF" onAction="#handle_passwordField" onKeyTyped="#passwordFieldKeyTyped" prefHeight="25.0" prefWidth="383.0" promptText="Create Password" />
+                                       </children>
+                                    </StackPane>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <HBox alignment="CENTER_LEFT" spacing="5.0">
-                           <children>
-                              <ToggleButton fx:id="showPasswordButton" mnemonicParsing="false" onAction="#handle_showPasswordButton" text="Show password" />
-                              <Label fx:id="shownPasswordLabel" text="shown password" textFill="#f80000">
-                                 <font>
-                                    <Font name="Arial Bold" size="15.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="5.0" />
                         <VBox>
                            <children>
-                              <Label text="Confirm Password:">
+                              <Label styleClass="label-bright" text="Confirm Password:">
                                  <font>
                                     <Font name="Arial" size="17.0" />
                                  </font>
@@ -102,22 +72,15 @@
                               <HBox>
                                  <children>
                                     <PasswordField fx:id="confirmPassPF" promptText="Confirm Password" HBox.hgrow="ALWAYS" />
-                                    <Label fx:id="confirmPassLabel" translateX="-27.0">
-                                       <graphic>
-                                          <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                       </graphic>
-                                       <tooltip>
-                                          <Tooltip fx:id="confirmPassTT" text="Empty Tooltip" />
-                                       </tooltip>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </Label>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <ToggleButton fx:id="confirmPasswordButton" mnemonicParsing="false" text="Confirm password" />
+                        <Label fx:id="passwordNoMatchErr" styleClass="label-red" text="shown password" textFill="#f80000">
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font>
+                        </Label>
                         <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#handle_signUp" prefHeight="37.0" prefWidth="392.0" text="SignUp ">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -128,7 +91,7 @@
                         </Button>
                         <HBox>
                            <children>
-                              <Label text="Already have an account?">
+                              <Label styleClass="label-bright" text="Already have an account?">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
@@ -163,7 +126,7 @@
          <top>
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="SignUp">
+                  <Label styleClass="label-bright" text="Sign Up">
                      <font>
                         <Font name="Arial" size="45.0" />
                      </font>
@@ -176,4 +139,7 @@
          </top>
       </BorderPane>
    </children>
+   <padding>
+      <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+   </padding>
 </StackPane>

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import e2p.icotp.App;
 import e2p.icotp.layout.accounts.Login;
 import e2p.icotp.layout.accounts.LoginWrapper;
-import e2p.icotp.layout.accounts.SignUp;
+import e2p.icotp.layout.accounts.Account;
 import e2p.icotp.layout.accounts.SignUpWrapper;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -14,9 +14,9 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
 public class XMLService {
-    public static ArrayList<SignUp> unwrap_signUpXML(App app, File xml) { // -- converts xml File into java readable
-                                                                          // File --
-        ArrayList<SignUp> signUpList = new ArrayList<>();
+    public static ArrayList<Account> unwrap_signUpXML(App app, File xml) { // -- converts xml File into java readable
+                                                                           // File --
+        ArrayList<Account> signUpList = new ArrayList<>();
 
         try {
             JAXBContext context = JAXBContext.newInstance(SignUpWrapper.class);
@@ -27,7 +27,7 @@ public class XMLService {
 
             signUpList.addAll(unWrapper.getSignUpList());
             RegistryService.setXML_toRegistry(app, xml);
-            
+
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -42,7 +42,7 @@ public class XMLService {
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
             SignUpWrapper wrapper = new SignUpWrapper();
-            wrapper.setAccountList(app.getSignUpList());
+            wrapper.setAccountList(app.accountsMasterlist());
 
             m.marshal(wrapper, xml);
             RegistryService.setXML_toRegistry(app, xml);
