@@ -60,7 +60,7 @@ public class App extends Application {
         loanCache = LoanDAO.getMasterlist();
         loanerCache = LoanerDAO.getMasterlist();
         paymentCache = PaymentDAO.getMasterlist();
-        removedPaymentCache = RemovedPaymentDAO.getMasterlist();
+        removedPaymentCache = PaymentDAO.getMasterlist();
         collateralCache = CollateralDAO.getMasterlist();
         loan_typeCache = LoanTypeDAO.getMasterlist();
         loan_planCache = LoanPlanDAO.getMasterlist();

@@ -4,12 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.time.MonthDay;
-import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
-
-import org.apache.commons.io.FilenameUtils;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.factory.TypesFactory;
@@ -35,7 +31,6 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -679,6 +674,8 @@ public class MainController {
 
         loan_edit_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
         loan_remove_button.disableProperty().bind(loanTable.getSelectionModel().selectedItemProperty().isNull());
+
+        plan_modify_button.disableProperty().bind(loanPlanTable.getSelectionModel().selectedItemProperty().isNull());
 
         // payment_edit_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
         // payment_remove_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
