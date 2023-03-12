@@ -414,13 +414,13 @@ public class MainController {
     @FXML
     private void handle_loaner_edit() throws IOException {
         isEdit.set(true);
-        ModalLoader.load_loaner_update(app, loaner, isEdit.get(), this);
+        ModalLoader.load_loaner_update(app, loaner, true, this);
     }
 
     @FXML
     private void handle_loaner_add() throws IOException {
         isEdit.set(false);
-        ModalLoader.load_loaner_update(app, new Loaner(), isEdit.get(), this);
+        ModalLoader.load_loaner_update(app, new Loaner(), false, this);
     }
 
     @FXML

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.accounts.LogInController;
+// import e2p.icotp.layout.accounts.LogInController;
 import e2p.icotp.layout.accounts.SignUpController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;

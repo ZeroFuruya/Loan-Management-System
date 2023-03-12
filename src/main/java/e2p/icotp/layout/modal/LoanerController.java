@@ -3,7 +3,6 @@ package e2p.icotp.layout.modal;
 import java.io.File;
 import java.sql.SQLException;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import e2p.icotp.App;
@@ -170,6 +169,10 @@ public class LoanerController {
         this.isEdit = new SimpleBooleanProperty(isEdit);
         this.mc = mc;
 
+        System.out.println("Citizenship" + loaner.getCitizenship());
+        System.out.println("Civil Status" + loaner.getCivilStatus());
+        System.out.println("Place of Birth" + loaner.getPlaceOfBirth());
+
         init_bindings();
         init_fields();
     }
@@ -210,7 +213,9 @@ public class LoanerController {
 
         if (isEdit.get()) {
             loaner_id.textProperty().set(loaner.getLoaner_id() + "");
+            System.out.println("Entered " + isEdit.get());
         } else {
+            System.out.println("Entered " + isEdit.get());
             generate_id();
         }
 
@@ -234,11 +239,19 @@ public class LoanerController {
             string_val = temp_val + string_val;
         }
         final_num = Long.parseLong(string_val);
-
+        System.out.println(final_num);
+        if (app.loanerMasterlist().isEmpty()) {
+            System.out.println("Entered appmasterlist");
+            loaner_id.textProperty().set(final_num + "");
+            return;
+        }
         app.loanerMasterlist().forEach(loaner -> {
+            System.out.println("Entered foreach");
             if (loaner.getLoaner_id() == final_num) {
+                System.out.println("Entered foreach ifelse if");
                 generate_id();
             } else {
+                System.out.println("Entered foreach ifelse else");
                 loaner_id.textProperty().set(final_num + "");
             }
         });

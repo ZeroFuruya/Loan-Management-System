@@ -41,12 +41,5 @@ public class AppLoader {
 
         MainController controller = loader.getController();
         controller.load(app);
-
-        // Gets and Unwraps XML file
-        File xml = RegistryService.getXML_FromRegistry();
-        if (xml != null) {
-            app.getSignUpList().setAll(XMLService.unwrap_signUpXML(app, xml));
-            // app.getLoginList().setAll(XMLService.unwrap_loginXML(app, xml));
-        }
     }
 }

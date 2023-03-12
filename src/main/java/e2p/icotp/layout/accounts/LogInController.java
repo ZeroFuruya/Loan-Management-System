@@ -47,7 +47,7 @@ public class LogInController {
     private void handle_login() {
         login = new Login(usernameTF.getText(), passwordFieldPF.getText());
 
-        app.getSignUpList().forEach(user -> {
+        app.accountsMasterlist().forEach(user -> {
             if (user.getUsername().equals(login.getUsername()) && user.getPassword().equals(login.getPassword()))
                 ;
             {
@@ -56,11 +56,11 @@ public class LogInController {
         });
         if (loginAtomic.get()) {
             LogInLoader.modal_close(app);
-        } 
+        }
         buttonClick();
     }
 
-    private void buttonClick(){
+    private void buttonClick() {
         ModalLoader.modal_close(app);
     }
 
@@ -83,7 +83,7 @@ public class LogInController {
     private void init_bindings() {
 
         BooleanBinding loginExist = Bindings.createBooleanBinding(() -> {
-            return !app.getSignUpList().stream()
+            return !app.accountsMasterlist().stream()
                     .anyMatch(users -> usernameTF.textProperty().get().equals(users.getUsername()));
         }, usernameTF.textProperty());
 
