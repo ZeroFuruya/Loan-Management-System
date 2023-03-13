@@ -1,6 +1,7 @@
 package e2p.icotp.layout.accounts;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
@@ -13,6 +14,7 @@ import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.AccountDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
+import e2p.icotp.util.custom.cipher.Encrypt;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
@@ -77,18 +79,28 @@ public class SignUpController {
 
     @FXML
     void handle_signUp() throws Exception {
-        // Encrypt Pass
-        String encryptedPass = encryptPassword(passwordPF.getText());
-        String encodedKey = Base64.getEncoder().encodeToString(myDesKey.getEncoded());
+        // // Encrypt Pass
+        // String encryptedPass = encryptPassword(passwordPF.getText());
+        // SecretKey key = Encrypt.generateKey();
+        // String encodedKey = Base64.getEncoder().encodeToString(key.getEncoded());
+        // // System.out.println("Normal: Prince");
+        // System.out.println("Key: " + encodedKey);
+        // byte[] encryptedPass = Encrypt.encrypt(passwordPF.getText(), key);
+        // String s = new String(encryptedPass, StandardCharsets.UTF_8);
+        // System.out.println(s);
+        // System.out.println(Encrypt.decrypt(key, encryptedPass));
 
-        generate_id();
-        user.setUsername(usernameTF.getText());
-        user.setPassword(encryptedPass);
-        user.setPassKey(encodedKey);
-        AccountDAO.insert(user);
-        app.accountsMasterlist().add(user);
-        ModalLoader.modal_close(app);
-        LogInLoader.load_log_in(app);
+        // System.out.println("Encrypted Pass: " + encryptedPass);
+        // System.out.println("Key: " + encodedKey);
+
+        // generate_id();
+        // user.setUsername(usernameTF.getText());
+        // user.setPassword(encryptedPass.toString());
+        // user.setPassKey(encodedKey);
+        // AccountDAO.insert(user);
+        // app.accountsMasterlist().add(user);
+        // ModalLoader.modal_close(app);
+        // LogInLoader.load_log_in(app);
 
         // TODO DECRYPT PASS ON LOG IN
     }
@@ -123,56 +135,56 @@ public class SignUpController {
 
     }
 
-    private SecretKey generateKey() throws NoSuchAlgorithmException {
-        // Generating objects of KeyGenerator &
-        // SecretKey
-        KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
-        SecretKey myDesKey = keygenerator.generateKey();
+    // private SecretKey generateKey() throws NoSuchAlgorithmException {
+    // // Generating objects of KeyGenerator &
+    // // SecretKey
+    // KeyGenerator keygenerator = KeyGenerator.getInstance("DES");
+    // SecretKey myDesKey = keygenerator.generateKey();
 
-        return myDesKey;
-    }
+    // return myDesKey;
+    // }
 
-    private String encryptPassword(String pass) throws NoSuchAlgorithmException {
-        String s = "";
-        myDesKey = generateKey();
-        try {
-            // Creating object of Cipher
-            Cipher desCipher;
-            desCipher = Cipher.getInstance("DES");
-
-            // Creating byte array to store string
-            byte[] text = pass.getBytes("UTF8");
-
-            // Encrypting text
-            desCipher.init(Cipher.ENCRYPT_MODE, myDesKey);
-            textEncrypted = desCipher.doFinal(text);
-
-            // Converting encrypted byte array to string
-            s = new String(textEncrypted);
-            System.out.println(s);
-        } catch (Exception e) {
-            System.out.println("Exception");
-        }
-        return s;
-    }
-
-    // private void decryptPassword(byte[] textEncrypted) {
+    // private String encryptPassword(String pass) throws NoSuchAlgorithmException {
+    // String s = "";
+    // myDesKey = generateKey();
     // try {
-
+    // // Creating object of Cipher
     // Cipher desCipher;
-    // desCipher = Cipher.getInstance("DES");
+    // desCipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
 
-    // // Decrypting text
-    // desCipher.init(Cipher.DECRYPT_MODE, myDesKey);
-    // byte[] textDecrypted = desCipher.doFinal(textEncrypted);
+    // // Creating byte array to store string
+    // byte[] text = pass.getBytes("UTF8");
 
-    // // Converting decrypted byte array to string
-    // String s = new String(textDecrypted);
-    // System.out.println(s);
+    // // Encrypting text
+    // desCipher.init(Cipher.ENCRYPT_MODE, myDesKey);
+    // textEncrypted = desCipher.doFinal(text);
+
+    // // Converting encrypted byte array to string
+    // s = new String(textEncrypted);
     // } catch (Exception e) {
     // System.out.println(e);
     // }
+
+    // return s;
     // }
+
+    // // private void decryptPassword(byte[] textEncrypted) {
+    // // try {
+
+    // // Cipher desCipher;
+    // // desCipher = Cipher.getInstance("AES_128/CBC/NoPadding");
+
+    // // // Decrypting text
+    // // desCipher.init(Cipher.DECRYPT_MODE, myDesKey);
+    // // byte[] textDecrypted = desCipher.doFinal(textEncrypted);
+
+    // // // Converting decrypted byte array to string
+    // // String s = new String(textDecrypted);
+    // // System.out.println(s);
+    // // } catch (Exception e) {
+    // // System.out.println(e);
+    // // }
+    // // }
 
     int final_num = 0;
 

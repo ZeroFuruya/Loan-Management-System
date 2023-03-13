@@ -29,10 +29,10 @@ public class LogInLoader {
         StackPane.setMargin(pane, new Insets(75, 0, 0, 0));
 
         modal.setOnMouseClicked(e -> {
-            if (e.getTarget() == modal) {
+            if (e.getTarget() != modal) {
                 e.consume();
             } else {
-                e.consume();
+                modal_close(app);
             }
         });
 

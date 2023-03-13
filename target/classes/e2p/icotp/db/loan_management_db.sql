@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2023 at 02:30 AM
+-- Generation Time: Mar 13, 2023 at 01:17 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `loan_management_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accounts`
+--
+
+CREATE TABLE `accounts` (
+  `account_id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `pass_key` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`account_id`, `username`, `password`, `pass_key`) VALUES
+(2463, 'dropdead', '�g��pL�', '8iYxmP66eRA='),
+(2541, 'prince', 'fvC$�@�', 'OCMvC6dd7/Q='),
+(6231, 'shinda', 'ǷI\"�t�', 'Sm0sp6TV7NU=');
 
 -- --------------------------------------------------------
 
@@ -60,26 +82,8 @@ CREATE TABLE `loaners` (
 --
 
 INSERT INTO `loaners` (`loaner_id`, `name`, `address`, `phone`, `email`, `birthdate`, `social_security`, `civil_status`, `citizenship`, `place_of_birth`) VALUES
-(1, 'Zephyr Spade', 'Middle-Earth, Clover Kingdom, 1st Class District', 777666999, 'qwrqw@gmail.com', '2003-06-30', 777777, 'Single', 'Filipino', 'Baybay'),
-(2, 'Crowley', 'Hell', 666666, 'CoreyTaylor@yahoo.com', '1915-01-07', 6666666, 'Baybay', 'married', 'Filipino'),
-(3, 'Azkaziel', 'Baybay', 9612354813, 'Gideon@gmail.com', '2014-01-31', 3, 'Baybay', 'married', 'Filipino'),
-(7, 'Lucatiel', 'Leyte', 9215364841, 'Andrew@hotmail.com', '2015-01-01', 5, 'Baybay', 'married', 'Filipino'),
-(8, 'Gadreel', 'U.S.A', 65184698, 'DonaldTrump@gmail.com', '2019-10-10', 1, 'Baybay', 'married', 'Filipino'),
-(9, 'Ezekiel', 'South Korean', 48138434, 'LeeDongWok@yahoo.com', '2013-07-06', 6, 'Baybay', 'married', 'Filipino'),
-(14, 'Lucifer', 'North pole', 46565656, 'Kimjongon@zohomail.com', '2017-01-12', 0, 'Baybay', 'married', 'Filipino'),
-(30, 'Michael', 'Kalubian', 9725681345, 'StephenCurry@yandexmail.com', '2013-06-10', 2, 'Baybay', 'married', 'Filipino'),
-(34, 'Gabriel', 'Kansunka', 6464651, 'Cjaymoreno@yahoo.com', '2023-05-12', 999, 'Baybay', 'married', 'Filipino'),
-(53, 'Mael', 'Sanfausto', 9687438921, 'Klaythompson@gmail.com', '2013-05-01', 1, 'Baybay', 'married', 'Filipino'),
-(61, 'Zachariah', 'san francisco, leyte', 9633255541, 'dodongdurant@hotmail.com', '2013-01-01', 4, 'american', 'U.S.A', 'single'),
-(75, 'Raphael', 'gubang', 113655468, 'felix@yahoo.com', '2013-05-01', 6, 'Filipino', 'sa balay', 'signle'),
-(81, 'Hyphtareil', 'New york nickes', 8666648843, 'doctorkakaiba@gmail.com', '2015-05-15', 2, 'sa snow', 'unstable', 'american'),
-(99, 'Xamiel', 'Japauki', 3212316546, 'kobebrian@yahoo.com', '2013-06-01', 9, 'sa kilid sa basketballan', 'married', 'Filipino'),
-(123, 'Metatron', 'Heaven', 21345, 'theoneandonlyfgod@gmail.com', '2023-01-09', 6134, 'Assbutt', 'Angel', 'Heaven'),
-(3815448, 'Klaus Hargreeves', 'Umbrella Academy', 23112311, 'immortalKlaus@gmail.com', '1989-10-01', 23415, 'Single', 'Amish', 'Pensylvania'),
-(6052370, 'Ben Hargreeves', 'Umbrella Academy', 125214, 'tentacleboi@yahoo.com', '1989-10-01', 25156, 'Single', 'Korean', 'Korea'),
-(7880135, 'Uriel', 'Heaven', 426, 'uryyyTheAngel@heavenmail.com', '2011-01-05', 2742, 'Complicated', 'Angel', 'Heaven'),
-(8304456, 'Abaddon', 'Hell', 666125412, 'hotChickAbaddon@hellmail.com', '2023-01-30', 666214, 'Widowed', 'Knight of Hell', 'Hell'),
-(8522327, 'Five Hargreeves', 'Umbrella Academy', 2412412, 'numberfive@gmail.com', '1989-10-01', 6124312, 'Single', 'American', 'Nowhere');
+(3058244, 'Five Hargreeves', 'Umbrella Academy', 849642, 'spaceAndTime@gmail.com', '1989-10-01', 45214, 'Single', 'Irish', 'Dublin, Ireland'),
+(3331357, 'Rythmind', 'France', 1235125, 'asfag@gmail.com', '2015-07-29', 2135, 'Single', 'French', 'France');
 
 -- --------------------------------------------------------
 
@@ -108,6 +112,13 @@ CREATE TABLE `loans` (
   `total_unpaid` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `loans`
+--
+
+INSERT INTO `loans` (`loan_id`, `loaner_id`, `type_id`, `plan_id`, `release_date`, `term`, `maturity_date`, `principal`, `interest`, `penalty`, `payment_frequency`, `due`, `paid`, `balance`, `status`, `next_payment`, `next_due_date`, `total_unpaid`) VALUES
+(5068517, 3058244, 1, 2764, '2023-03-12', 999, '2025-12-12', 500000, 0.09, 0.18, 'Monthly', 12, 0, 545000, 'Open', 0, '2023-04-12', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -122,6 +133,13 @@ CREATE TABLE `loan_plans` (
   `penalty` double NOT NULL,
   `payment_frequency` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `loan_plans`
+--
+
+INSERT INTO `loan_plans` (`plan_id`, `type_id`, `term`, `interest`, `penalty`, `payment_frequency`) VALUES
+(2764, 1, 999, 0.09, 0.18, 'Monthly');
 
 -- --------------------------------------------------------
 
@@ -168,6 +186,12 @@ CREATE TABLE `payments` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `accounts`
+--
+ALTER TABLE `accounts`
+  ADD PRIMARY KEY (`account_id`);
 
 --
 -- Indexes for table `collateral`
@@ -231,7 +255,7 @@ ALTER TABLE `collateral`
 -- Constraints for table `loans`
 --
 ALTER TABLE `loans`
-  ADD CONSTRAINT `loans_ibfk_1` FOREIGN KEY (`loaner_id`) REFERENCES `loaners` (`loaner_id`),
+  ADD CONSTRAINT `loans_ibfk_10` FOREIGN KEY (`loaner_id`) REFERENCES `loaners` (`loaner_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `loans_ibfk_8` FOREIGN KEY (`type_id`) REFERENCES `loan_plans` (`type_id`),
   ADD CONSTRAINT `loans_ibfk_9` FOREIGN KEY (`plan_id`) REFERENCES `loan_plans` (`plan_id`);
 
