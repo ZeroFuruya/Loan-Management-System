@@ -1,6 +1,8 @@
 package e2p.icotp;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
@@ -9,7 +11,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import e2p.icotp.layout.accounts.Login;
 import e2p.icotp.layout.accounts.Account;
 import e2p.icotp.model.Collateral;
 import e2p.icotp.service.server.dao.*;
@@ -19,6 +20,7 @@ import e2p.icotp.model.LoanPlan;
 import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
+import e2p.icotp.service.loader.AdminLoader;
 import e2p.icotp.service.loader.AppLoader;
 
 /**
@@ -37,7 +39,7 @@ public class App extends Application {
     private ObservableList<LoanPlan> loan_planCache;
     private ObservableList<Account> accountsCache;
 
-    private ObservableList<Login> loginList = FXCollections.observableArrayList();
+    private Account admin;
     // STASH UPDATE COMMENT
 
     // Boolean
@@ -48,6 +50,24 @@ public class App extends Application {
         FileUtil.init_appdata();
         load_cache();
         initializa_main();
+        init_admin();
+    }
+
+    private void init_admin() throws IOException {
+        BooleanBinding adminExist = Bindings.createBooleanBinding(() -> {
+            return accountsMasterlist().stream()
+                    .anyMatch(user -> user.getAccountId() == 1);
+        }, accountsMasterlist());
+        if (adminExist.get()) {
+            accountsMasterlist().forEach(user -> {
+                if (user.getAccountId() == 1) {
+                    admin = user;
+                    return;
+                }
+            });
+            return;
+        }
+        AdminLoader.load_admin(this);
     }
 
     long temp = 0;
@@ -117,10 +137,6 @@ public class App extends Application {
     // Accounts
     public ObservableList<Account> accountsMasterlist() {
         return this.accountsCache;
-    }
-
-    public ObservableList<Login> getLoginList() {
-        return this.loginList;
     }
 
     public static void main(String[] args) {

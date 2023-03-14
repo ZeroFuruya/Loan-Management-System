@@ -6,78 +6,64 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.accounts.LogInController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="483.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.accounts.LogInController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="500.0" prefWidth="485.0" spacing="10.0">
+                  <VBox prefHeight="446.0" prefWidth="380.0" spacing="10.0">
                      <children>
                         <VBox>
                            <children>
-                              <Label text="Username:">
+                              <Label styleClass="label-bright" text="Username:">
                                  <font>
                                     <Font name="Arial" size="17.0" />
                                  </font>
                               </Label>
                               <HBox>
                                  <children>
-                                    <TextField fx:id="usernameTF" prefHeight="27.0" prefWidth="362.0" promptText="Username">
+                                    <TextField fx:id="username_field" onKeyTyped="#validate_user" prefHeight="27.0" prefWidth="362.0" promptText="Username">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </TextField>
-                                    <Label fx:id="usernameLabel" translateX="-27.0">
-                                       <graphic>
-                                          <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                       </graphic>
-                                       <tooltip>
-                                          <Tooltip fx:id="usernameTT" text="Empty Tooltip" />
-                                       </tooltip>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </Label>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
+                        <Label fx:id="username_error" styleClass="label-red" text="Account does not exist">
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font>
+                        </Label>
                         <VBox>
                            <children>
-                              <Label text="Password:">
+                              <Label styleClass="label-bright" text="Password:">
                                  <font>
                                     <Font name="Arial" size="17.0" />
                                  </font>
                               </Label>
                               <HBox>
                                  <children>
-                                    <PasswordField fx:id="passwordFieldPF" prefHeight="25.0" prefWidth="364.0" promptText="Password" />
-                                    <Label fx:id="passwordLabel" translateX="-27.0">
-                                       <graphic>
-                                          <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="15" />
-                                       </graphic>
-                                       <tooltip>
-                                          <Tooltip fx:id="passwordTT" text="Empty Tooltip" />
-                                       </tooltip>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </Label>
+                                    <PasswordField fx:id="password_field" prefHeight="25.0" prefWidth="364.0" promptText="Password" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
+                        <Label fx:id="password_error" layoutX="15.0" layoutY="78.0" styleClass="label-red" text="Wrong Password">
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font>
+                        </Label>
                         <VBox />
-                        <Button fx:id="logInButton" mnemonicParsing="false" onAction="#handle_login" prefHeight="37.0" prefWidth="392.0" text="LogIn">
+                        <Button fx:id="logIn_button" mnemonicParsing="false" onAction="#handle_login" prefHeight="37.0" prefWidth="392.0" text="LogIn">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -87,7 +73,7 @@
                         </Button>
                         <HBox>
                            <children>
-                              <Label text="Don't have an account?">
+                              <Label styleClass="label-bright" text="Don't have an account?">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
@@ -95,7 +81,7 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <Hyperlink fx:id="signUp" onAction="#handle_signUp" text="SignUp">
+                              <Hyperlink fx:id="sign_up" onAction="#handle_signUp" text="SignUp">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
@@ -122,7 +108,7 @@
          <top>
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="LogIn">
+                  <Label styleClass="label-cont-bright" text="Log In">
                      <font>
                         <Font name="Arial" size="45.0" />
                      </font>
@@ -135,4 +121,7 @@
          </top>
       </BorderPane>
    </children>
+   <padding>
+      <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+   </padding>
 </StackPane>

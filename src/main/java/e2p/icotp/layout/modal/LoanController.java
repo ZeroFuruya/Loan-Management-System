@@ -425,7 +425,8 @@ public class LoanController {
     private void generate_id() {
         String temp_val;
         String string_val = "";
-        for (int i = 0; i < 7; i++) {
+        string_val = RandomIDGenerator.getRandomNumber() + "";
+        for (int i = 0; i < 6; i++) {
             int initial_num = RandomIDGenerator.getRandomNumber();
             temp_val = Integer.toString(initial_num);
             string_val = temp_val + string_val;

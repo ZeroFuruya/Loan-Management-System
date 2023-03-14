@@ -1273,6 +1273,7 @@ public class MainController {
     double monthly_payment_getter = 0;
 
     // TODO make an invoice for each payment done
+    // TODO create admin sign up, only one admin
     // TODO add security more by putting confirmations every after tasks
     // TODO make statistics
     // TODO add forget password

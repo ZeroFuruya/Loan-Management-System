@@ -3,6 +3,7 @@ package e2p.icotp.service.loader;
 import java.io.IOException;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.accounts.AdminController;
 import e2p.icotp.layout.accounts.LogInController;
 // import e2p.icotp.layout.accounts.LogInController;
 import e2p.icotp.layout.accounts.SignUpController;
@@ -11,7 +12,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 
-public class LogInLoader {
+public class AdminLoader {
     private static FXMLLoader load_modal(App app, String fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(App.class.getResource("layout/" + fxml + ".fxml"));
@@ -32,7 +33,7 @@ public class LogInLoader {
             if (e.getTarget() != modal) {
                 e.consume();
             } else {
-                modal_close(app);
+                e.consume();
             }
         });
 
@@ -44,17 +45,10 @@ public class LogInLoader {
         app.getMainScreen().getChildren().remove(lastIdx);
     }
 
-    public static void load_log_in(App app) throws IOException {
-        FXMLLoader loader = load_modal(app, "accounts/LOGIN");
+    public static void load_admin(App app) throws IOException {
+        FXMLLoader loader = load_modal(app, "accounts/ADMIN");
 
-        LogInController controller = loader.getController();
-        controller.load(app);
-    }
-
-    public static void load_sign_up(App app) throws IOException {
-        FXMLLoader loader = load_modal(app, "accounts/SIGNUP");
-
-        SignUpController controller = loader.getController();
+        AdminController controller = loader.getController();
         controller.load(app);
     }
 
