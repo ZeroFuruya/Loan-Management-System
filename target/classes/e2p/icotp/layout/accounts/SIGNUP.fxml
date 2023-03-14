@@ -54,7 +54,7 @@
                                  <children>
                                     <StackPane HBox.hgrow="ALWAYS">
                                        <children>
-                                          <PasswordField fx:id="passwordPF" onAction="#handle_passwordField" onKeyTyped="#passwordFieldKeyTyped" prefHeight="25.0" prefWidth="383.0" promptText="Create Password" />
+                                          <PasswordField fx:id="passwordPF" prefHeight="25.0" prefWidth="383.0" promptText="Create Password" />
                                        </children>
                                     </StackPane>
                                  </children>

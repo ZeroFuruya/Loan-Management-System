@@ -11,19 +11,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="467.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.accounts.SignUpController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="467.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.accounts.AdminController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="500.0" prefWidth="485.0" spacing="10.0">
+                  <VBox prefHeight="500.0" prefWidth="485.0" spacing="2.0">
                      <children>
                         <VBox>
                            <children>
                               <Label styleClass="label-bright" text="Username:">
                                  <font>
-                                    <Font name="Arial" size="17.0" />
+                                    <Font name="Arial Bold" size="17.0" />
                                  </font>
                               </Label>
                               <HBox VBox.vgrow="ALWAYS">
@@ -39,21 +39,21 @@
                         </VBox>
                         <Label fx:id="usernameErr" layoutX="15.0" layoutY="214.0" styleClass="label-red" text="shown password" textFill="#f80000">
                            <font>
-                              <Font name="Arial Bold" size="14.0" />
+                              <Font name="Arial Bold" size="12.0" />
                            </font>
                         </Label>
                         <VBox>
                            <children>
                               <Label styleClass="label-bright" text="Password:">
                                  <font>
-                                    <Font name="Arial" size="17.0" />
+                                    <Font name="Arial Bold" size="17.0" />
                                  </font>
                               </Label>
                               <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
                                  <children>
                                     <StackPane HBox.hgrow="ALWAYS">
                                        <children>
-                                          <PasswordField fx:id="passwordPF" onAction="#handle_passwordField" onKeyTyped="#passwordFieldKeyTyped" prefHeight="25.0" prefWidth="383.0" promptText="Create Password" />
+                                          <PasswordField fx:id="passwordPF" prefHeight="25.0" prefWidth="383.0" promptText="Create Password" />
                                        </children>
                                     </StackPane>
                                  </children>
@@ -65,7 +65,7 @@
                            <children>
                               <Label styleClass="label-bright" text="Confirm Password:">
                                  <font>
-                                    <Font name="Arial" size="17.0" />
+                                    <Font name="Arial Bold" size="17.0" />
                                  </font>
                               </Label>
                               <HBox>
@@ -77,7 +77,34 @@
                         </VBox>
                         <Label fx:id="passwordNoMatchErr" styleClass="label-red" text="shown password" textFill="#f80000">
                            <font>
-                              <Font name="Arial Bold" size="14.0" />
+                              <Font name="Arial Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label styleClass="label-bright" text="Verify Email:">
+                           <font>
+                              <Font name="Arial Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <TextField fx:id="emailTF" promptText="egxample@gmail.com" HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" onAction="#handle_send_code" text="Send Code" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <Label fx:id="invalidEmailErr" layoutX="15.0" layoutY="224.0" styleClass="label-red" text="Invalid Email" textFill="#f80000">
+                           <font>
+                              <Font name="Arial Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="15.0" layoutY="200.0" styleClass="label-bright" text="Enter Code:">
+                           <font>
+                              <Font name="Arial Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="codeTF" />
+                        <Label fx:id="incorrecrCodeErr" layoutX="15.0" layoutY="224.0" styleClass="label-red" text="Incorrect Code" textFill="#f80000">
+                           <font>
+                              <Font name="Arial Bold" size="12.0" />
                            </font>
                         </Label>
                         <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#handle_signUp" prefHeight="37.0" prefWidth="392.0" text="SignUp ">
@@ -104,7 +131,7 @@
                <children>
                   <Label styleClass="label-bright" text="Admin Set Up">
                      <font>
-                        <Font name="Arial" size="45.0" />
+                        <Font name="Arial Bold" size="40.0" />
                      </font>
                   </Label>
                </children>

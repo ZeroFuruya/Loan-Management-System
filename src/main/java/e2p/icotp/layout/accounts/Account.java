@@ -10,20 +10,23 @@ public class Account {
     private StringProperty username;
     private StringProperty password;
     private StringProperty pass_key;
+    private StringProperty email_address;
 
     public Account() {
-        this(0, "", "", "");
+        this(0, "", "", "", null);
     }
 
-    public Account(Account signUp) {
-        this(signUp.getAccountId(), signUp.getUsername(), signUp.getPassword(), signUp.getPassKey());
+    public Account(Account account) {
+        this(account.getAccountId(), account.getUsername(), account.getPassword(), account.getPassKey(),
+                account.getEmail());
     }
 
-    public Account(int account_id, String username, String password, String pass_key) {
+    public Account(int account_id, String username, String password, String pass_key, String email_address) {
         this.account_id = new SimpleIntegerProperty(account_id);
         this.username = new SimpleStringProperty(username);
         this.password = new SimpleStringProperty(password);
         this.pass_key = new SimpleStringProperty(pass_key);
+        this.email_address = new SimpleStringProperty(email_address);
     }
 
     // Setters
@@ -44,6 +47,10 @@ public class Account {
         this.pass_key.set(val);
     }
 
+    public void setEmail(String val) {
+        this.email_address.set(val);
+    }
+
     // Getters
     public String getUsername() {
         return this.username.get();
@@ -55,6 +62,10 @@ public class Account {
 
     public String getPassKey() {
         return this.pass_key.get();
+    }
+
+    public String getEmail() {
+        return this.email_address.get();
     }
 
     public int getAccountId() {
@@ -72,6 +83,10 @@ public class Account {
 
     public StringProperty getPassKeyProperty() {
         return this.pass_key;
+    }
+
+    public StringProperty getEmailProperty() {
+        return this.email_address;
     }
 
     public IntegerProperty getAccountIdProperty() {

@@ -49,8 +49,8 @@ public class App extends Application {
         this.mainStage = stage;
         FileUtil.init_appdata();
         load_cache();
-        init_admin();
         initializa_main();
+        init_admin();
     }
 
     private void init_admin() throws IOException {

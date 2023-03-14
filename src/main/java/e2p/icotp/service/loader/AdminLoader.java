@@ -3,6 +3,7 @@ package e2p.icotp.service.loader;
 import java.io.IOException;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.accounts.AdminController;
 import e2p.icotp.layout.accounts.LogInController;
 // import e2p.icotp.layout.accounts.LogInController;
 import e2p.icotp.layout.accounts.SignUpController;
@@ -47,7 +48,7 @@ public class AdminLoader {
     public static void load_admin(App app) throws IOException {
         FXMLLoader loader = load_modal(app, "accounts/ADMIN");
 
-        SignUpController controller = loader.getController();
+        AdminController controller = loader.getController();
         controller.load(app);
     }
 
