@@ -54,7 +54,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0" visible="false">
+                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="902.0" styleClass="dept-tab-container">
                            <children>
@@ -941,7 +941,7 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="plans_box" prefHeight="200.0" prefWidth="100.0">
+                  <VBox fx:id="plans_box" prefHeight="200.0" prefWidth="100.0" visible="false">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
@@ -981,7 +981,11 @@
                            <children>
                               <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="1138.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="plan_add_button" layoutX="1111.0" layoutY="15.0" mnemonicParsing="false" onAction="#handle_add_loan_plan" text="Add Plan" />
+                                    <StackPane>
+                                       <children>
+                                          <Button fx:id="plan_add_button" mnemonicParsing="false" onAction="#handle_add_loan_plan" text="Add Plan" />
+                                       </children>
+                                    </StackPane>
                                     <Button fx:id="plan_modify_button" layoutX="974.0" layoutY="15.0" mnemonicParsing="false" onAction="#handle_modify_loan_plan" text="Modify Plan" />
                                     <Button fx:id="plan_remove_button" layoutX="1110.0" layoutY="15.0" mnemonicParsing="false" onAction="#handle_remove_plan" text="Remove Plan" />
                                  </children>
@@ -996,10 +1000,66 @@
          <left>
             <VBox fx:id="toggle_btn_container" prefHeight="695.0" prefWidth="122.0" styleClass="dept-tab-container" BorderPane.alignment="CENTER">
                <children>
-                  <ToggleButton fx:id="home_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button" text="Home" />
-                  <ToggleButton fx:id="loaners_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button" text="Loaners" />
-                  <ToggleButton fx:id="types_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button" text="Loan Types" />
-                  <ToggleButton fx:id="plans_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button" text="Loan Plans" />
+                  <StackPane>
+                     <children>
+                        <ToggleButton fx:id="home_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button">
+                           <tooltip>
+                              <Tooltip text="Home" />
+                           </tooltip>
+                        </ToggleButton>
+                        <FontIcon iconColor="WHITE" iconLiteral="fas-home" iconSize="25" styleClass="label-bright" />
+                     </children>
+                  </StackPane>
+                  <StackPane>
+                     <children>
+                        <ToggleButton fx:id="loaners_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button">
+                           <tooltip>
+                              <Tooltip text="Loaners" />
+                           </tooltip>
+                        </ToggleButton>
+                        <FontIcon iconColor="WHITE" iconLiteral="fas-users" iconSize="25" />
+                     </children>
+                  </StackPane>
+                  <StackPane>
+                     <children>
+                        <ToggleButton fx:id="types_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button">
+                           <tooltip>
+                              <Tooltip text="Loan Types" />
+                           </tooltip>
+                        </ToggleButton>
+                        <FontIcon iconColor="WHITE" iconLiteral="fas-list-alt" iconSize="25" />
+                     </children>
+                  </StackPane>
+                  <StackPane>
+                     <children>
+                        <ToggleButton fx:id="plans_button" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" styleClass="toggle_button">
+                           <tooltip>
+                              <Tooltip text="Loan Plans" />
+                           </tooltip>
+                        </ToggleButton>
+                        <FontIcon iconColor="WHITE" iconLiteral="fas-money-bill-wave" iconSize="25" />
+                     </children>
+                  </StackPane>
+                  <Region prefHeight="200.0" prefWidth="200.0" />
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <FontIcon iconLiteral="fas-user-circle" iconSize="80" />
+                                    <Label text="Label">
+                                       <font>
+                                          <Font name="Arial Bold" size="29.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="Change Password" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </StackPane>
                </children>
             </VBox>
          </left>

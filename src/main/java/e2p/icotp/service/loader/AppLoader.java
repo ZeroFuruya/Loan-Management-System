@@ -1,12 +1,9 @@
 package e2p.icotp.service.loader;
 
-import java.io.File;
 import java.io.IOException;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
-import e2p.icotp.service.RegistryService;
-import e2p.icotp.service.XMLService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;

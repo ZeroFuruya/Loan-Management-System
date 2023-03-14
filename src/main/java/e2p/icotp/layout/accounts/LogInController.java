@@ -2,14 +2,10 @@ package e2p.icotp.layout.accounts;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Base64;
-
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 import e2p.icotp.App;
 import e2p.icotp.service.loader.LogInLoader;
+import e2p.icotp.util.custom.cipher.Encrypt;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -45,15 +41,10 @@ public class LogInController {
 
     @FXML
     private void handle_login() throws UnsupportedEncodingException {
-        // byte[] textEncrypted = account.getPassword().getBytes("UTF8");
-        // byte[] decodedKey = Base64.getDecoder().decode(account.getPassKey());
-        // SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length,
-        // "DES");
-
-        // System.out.println("Encrypted: " + account.getPassword());
-        // System.out.println("Decrypted: " + decryptPassword(textEncrypted,
-        // originalKey));
-
+        String decryptedPass = Encrypt.decrypt(account.getPassword(), account.getPassKey());
+        System.out.println("Encrypted: " + account.getPassword());
+        System.out.println("Key: " + account.getPassKey());
+        System.out.println("Decrypted: " + decryptedPass);
     }
 
     private App app;

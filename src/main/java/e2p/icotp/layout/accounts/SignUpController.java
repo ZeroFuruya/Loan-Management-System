@@ -15,6 +15,7 @@ import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.AccountDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.cipher.Encrypt;
+import e2p.icotp.util.gmail.GMailer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
@@ -79,28 +80,22 @@ public class SignUpController {
 
     @FXML
     void handle_signUp() throws Exception {
-        // // Encrypt Pass
-        // String encryptedPass = encryptPassword(passwordPF.getText());
-        // SecretKey key = Encrypt.generateKey();
-        // String encodedKey = Base64.getEncoder().encodeToString(key.getEncoded());
-        // // System.out.println("Normal: Prince");
-        // System.out.println("Key: " + encodedKey);
-        // byte[] encryptedPass = Encrypt.encrypt(passwordPF.getText(), key);
-        // String s = new String(encryptedPass, StandardCharsets.UTF_8);
-        // System.out.println(s);
-        // System.out.println(Encrypt.decrypt(key, encryptedPass));
+        SecretKey key = Encrypt.generateKey();
+        String keyString = Encrypt.convertSecretKeyToString(key);
+        Encrypt.prepareSecreteKey(keyString);
+        String pass = passwordPF.getText();
+        String encryptedPass = Encrypt.encrypt(pass, keyString);
+        System.out.println(encryptedPass);
 
-        // System.out.println("Encrypted Pass: " + encryptedPass);
-        // System.out.println("Key: " + encodedKey);
+        generate_id();
+        user.setUsername(usernameTF.getText());
+        user.setPassword(encryptedPass);
+        user.setPassKey(keyString);
+        AccountDAO.insert(user);
+        app.accountsMasterlist().add(user);
 
-        // generate_id();
-        // user.setUsername(usernameTF.getText());
-        // user.setPassword(encryptedPass.toString());
-        // user.setPassKey(encodedKey);
-        // AccountDAO.insert(user);
-        // app.accountsMasterlist().add(user);
-        // ModalLoader.modal_close(app);
-        // LogInLoader.load_log_in(app);
+        ModalLoader.modal_close(app);
+        LogInLoader.load_log_in(app);
 
         // TODO DECRYPT PASS ON LOG IN
     }
