@@ -42,9 +42,6 @@ public class LogInController {
     @FXML
     private void handle_login() throws UnsupportedEncodingException {
         String decryptedPass = Encrypt.decrypt(account.getPassword(), account.getPassKey());
-        System.out.println("Encrypted: " + account.getPassword());
-        System.out.println("Key: " + account.getPassKey());
-        System.out.println("Decrypted: " + decryptedPass);
     }
 
     private App app;
