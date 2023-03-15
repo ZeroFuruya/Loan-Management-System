@@ -44,6 +44,9 @@ public class LogInController {
         String decryptedPass = Encrypt.decrypt(account.getPassword(), account.getPassKey());
         String passFieldInput = password_field.getText();
 
+        if (!decryptedPass.equals(passFieldInput))
+            return;
+
     }
 
     private App app;
