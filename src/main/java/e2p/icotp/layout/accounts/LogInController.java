@@ -79,24 +79,4 @@ public class LogInController {
             }
         });
     }
-
-    // private String decryptPassword(byte[] textEncrypted, SecretKey myDesKey) {
-    // String s = "";
-    // System.out.println(textEncrypted);
-    // try {
-
-    // Cipher desCipher;
-    // desCipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
-
-    // // Decrypting text
-    // desCipher.init(Cipher.DECRYPT_MODE, myDesKey);
-    // byte[] textDecrypted = desCipher.doFinal(textEncrypted);
-
-    // // Converting decrypted byte array to string
-    // s = new String(textDecrypted);
-    // } catch (Exception e) {
-    // System.out.println(e);
-    // }
-    // return s;
-    // }
 }
