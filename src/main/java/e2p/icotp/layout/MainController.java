@@ -49,6 +49,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
@@ -360,6 +361,21 @@ public class MainController {
     @FXML
     ImageView pfp;
 
+    @FXML
+    private VBox sidePanelVBox;
+    @FXML
+    private HBox logInButtonHBox;
+    @FXML
+    private Button logOutButton;
+    @FXML
+    private MenuBar menuBar;
+
+    static BooleanProperty isNotLoggedIn = new SimpleBooleanProperty(false);
+
+    public static BooleanProperty getisNotLoggedIn() {
+        return isNotLoggedIn;
+    }
+
     // APP
     // ------------------------------------------------------------------------------------------
 
@@ -398,6 +414,11 @@ public class MainController {
     BooleanProperty isEdit = new SimpleBooleanProperty(false);
 
     NumberFormat format = NumberFormat.getInstance();
+
+    @FXML
+    private void handle_log_out() {
+        isNotLoggedIn.set(true);
+    }
 
     @FXML
     private void handle_login() throws IOException {
@@ -645,6 +666,11 @@ public class MainController {
     }
 
     private void init_bindings() {
+        BooleanProperty disableLogButtons = new SimpleBooleanProperty(false);
+        isNotLoggedIn.set(true);
+        disableLogButtons.bind(isNotLoggedIn);
+
+        logInButtonHBox.visibleProperty().bind(disableLogButtons);
 
         // TABLE WIDTHS
         loaner_id.prefWidthProperty().bind(loanerTable.widthProperty().multiply(0.235));
@@ -683,6 +709,9 @@ public class MainController {
 
         // payment_edit_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
         // payment_remove_button.disableProperty().bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
+
+        toggle_btn_container.disableProperty().bind(isNotLoggedIn);
+        menuBar.disableProperty().bind(isNotLoggedIn);
     }
 
     private void init_togbutton_listeners() {
@@ -1272,9 +1301,11 @@ public class MainController {
 
     double monthly_payment_getter = 0;
 
+    // TODO FINISH LOAN TYPES
     // TODO make an invoice for each payment done
     // TODO create admin sign up, only one admin
     // TODO add security more by putting confirmations every after tasks
+    // TODO make auto paper works (loan, collateral)
     // TODO make statistics
     // TODO add forget password
     // TODO think of more features to add after the important bits are done

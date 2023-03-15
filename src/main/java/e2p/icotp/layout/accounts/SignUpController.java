@@ -12,15 +12,12 @@ import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.cipher.Encrypt;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.input.KeyEvent;
 
 public class SignUpController {
     @FXML
@@ -84,8 +81,9 @@ public class SignUpController {
                     .anyMatch(users -> usernameTF.textProperty().get().equals(users.getUsername()));
         }, usernameTF.textProperty());
 
-        usernameErr.textProperty().set("Username already taken");
-        usernameErr.visibleProperty().bind(signUpList);
+        usernameErr.textProperty().bind(Bindings.when(signUpList).then("Username already taken").otherwise(
+                Bindings.when(usernameTF.textProperty().isEmpty()).then("Field must not be empty").otherwise("")));
+        usernameErr.visibleProperty().bind(signUpList.or(usernameTF.textProperty().isEmpty()));
 
         passwordNoMatchErr.textProperty()
                 .bind(Bindings.when(passwordPF.textProperty().isEqualTo(confirmPassPF.textProperty()))

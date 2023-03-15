@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.MainController;
 import e2p.icotp.service.loader.LogInLoader;
+import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.util.custom.cipher.Encrypt;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -44,9 +46,15 @@ public class LogInController {
         String decryptedPass = Encrypt.decrypt(account.getPassword(), account.getPassKey());
         String passFieldInput = password_field.getText();
 
-        if (!decryptedPass.equals(passFieldInput))
+        if (!decryptedPass.equals(passFieldInput)) {
+            password_error.visibleProperty().set(true);
             return;
+        }
+        password_error.visibleProperty().set(false);
 
+        MainController.getisNotLoggedIn().set(false);
+
+        ModalLoader.modal_close(app);
     }
 
     private App app;
