@@ -139,6 +139,10 @@ public class App extends Application {
         return this.accountsCache;
     }
 
+    public Account getAdminProperty() {
+        return this.admin;
+    }
+
     public static void main(String[] args) {
         launch();
     }

@@ -430,6 +430,11 @@ public class MainController {
         LogInLoader.load_sign_up(app);
     }
 
+    @FXML
+    private void handle_forgot_pass() throws IOException {
+        LogInLoader.load_forgot_pass(app);
+    }
+
     // LOANER BUTTON HANDLES
     // --------------------------------------------------------------------------------
     @FXML
@@ -1301,6 +1306,7 @@ public class MainController {
 
     double monthly_payment_getter = 0;
 
+    // TODO add SecurityCode to AdminSetUp form
     // TODO FINISH LOAN TYPES
     // TODO make an invoice for each payment done
     // TODO create admin sign up, only one admin
