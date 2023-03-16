@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.MainController;
 import e2p.icotp.service.loader.LogInLoader;
+import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.util.custom.cipher.Encrypt;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -42,9 +44,17 @@ public class LogInController {
     @FXML
     private void handle_login() throws UnsupportedEncodingException {
         String decryptedPass = Encrypt.decrypt(account.getPassword(), account.getPassKey());
-        System.out.println("Encrypted: " + account.getPassword());
-        System.out.println("Key: " + account.getPassKey());
-        System.out.println("Decrypted: " + decryptedPass);
+        String passFieldInput = password_field.getText();
+
+        if (!decryptedPass.equals(passFieldInput)) {
+            password_error.visibleProperty().set(true);
+            return;
+        }
+        password_error.visibleProperty().set(false);
+
+        MainController.getisNotLoggedIn().set(false);
+
+        ModalLoader.modal_close(app);
     }
 
     private App app;
@@ -79,24 +89,4 @@ public class LogInController {
             }
         });
     }
-
-    // private String decryptPassword(byte[] textEncrypted, SecretKey myDesKey) {
-    // String s = "";
-    // System.out.println(textEncrypted);
-    // try {
-
-    // Cipher desCipher;
-    // desCipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
-
-    // // Decrypting text
-    // desCipher.init(Cipher.DECRYPT_MODE, myDesKey);
-    // byte[] textDecrypted = desCipher.doFinal(textEncrypted);
-
-    // // Converting decrypted byte array to string
-    // s = new String(textDecrypted);
-    // } catch (Exception e) {
-    // System.out.println(e);
-    // }
-    // return s;
-    // }
 }

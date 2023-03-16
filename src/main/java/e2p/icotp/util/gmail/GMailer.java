@@ -34,7 +34,7 @@ import com.google.api.services.gmail.model.Message;
 
 public class GMailer {
 
-    private static final String TEST_EMAIL = "ninjaassassinhunter@gmail.com";
+    private static final String TEST_EMAIL = "ZephyrDev30@gmail.com";
     private Gmail service;
 
     public GMailer() throws GeneralSecurityException, IOException {

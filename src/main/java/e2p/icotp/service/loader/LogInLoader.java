@@ -3,6 +3,7 @@ package e2p.icotp.service.loader;
 import java.io.IOException;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.accounts.ForgotPasswordController;
 import e2p.icotp.layout.accounts.LogInController;
 // import e2p.icotp.layout.accounts.LogInController;
 import e2p.icotp.layout.accounts.SignUpController;
@@ -55,6 +56,13 @@ public class LogInLoader {
         FXMLLoader loader = load_modal(app, "accounts/SIGNUP");
 
         SignUpController controller = loader.getController();
+        controller.load(app);
+    }
+
+    public static void load_forgot_pass(App app) throws IOException {
+        FXMLLoader loader = load_modal(app, "accounts/FORGOT");
+
+        ForgotPasswordController controller = loader.getController();
         controller.load(app);
     }
 
