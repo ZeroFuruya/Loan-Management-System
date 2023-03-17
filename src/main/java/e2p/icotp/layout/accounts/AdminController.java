@@ -49,6 +49,8 @@ public class AdminController {
     @FXML
     private Button signUpButton;
 
+    // TODO send code button
+
     private App app;
     private Account admin;
 
@@ -123,6 +125,11 @@ public class AdminController {
         AccountDAO.insert(admin);
         app.accountsMasterlist().add(admin);
 
+        app.getAdminProperty().setAccountId(admin.getAccountId());
+        app.getAdminProperty().setEmail(admin.getEmail());
+        app.getAdminProperty().setPassKey(admin.getPassKey());
+        app.getAdminProperty().setPassword(admin.getPassword());
+        app.getAdminProperty().setUsername(admin.getUsername());
         ModalLoader.modal_close(app);
         LogInLoader.load_log_in(app);
     }
