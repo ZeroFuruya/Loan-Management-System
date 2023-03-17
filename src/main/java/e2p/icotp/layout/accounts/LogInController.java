@@ -1,11 +1,13 @@
 package e2p.icotp.layout.accounts;
 
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.io.UnsupportedEncodingException;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.MainController;
 import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
+import e2p.icotp.util.custom.cipher.Encrypt;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
@@ -14,29 +16,25 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 
 public class LogInController {
     @FXML
-    private TextField usernameTF;
+    private TextField username_field;
     @FXML
-    private PasswordField passwordFieldPF;
+    private PasswordField password_field;
 
     @FXML
-    private Label usernameLabel;
+    private Label username_error;
     @FXML
-    private Label passwordLabel;
+    private Label password_error;
 
     @FXML
-    private Tooltip usernameTT;
-    @FXML
-    private Tooltip passwordTT;
+    private Button logIn_button;
 
     @FXML
-    private Button logInButton;
+    private Hyperlink sign_up;
 
-    @FXML
-    private Hyperlink signUp;
+    private Account account = new Account();
 
     @FXML
     private void handle_signUp() throws IOException {
@@ -44,59 +42,51 @@ public class LogInController {
     }
 
     @FXML
-    private void handle_login() {
-        login = new Login(usernameTF.getText(), passwordFieldPF.getText());
+    private void handle_login() throws UnsupportedEncodingException {
+        String decryptedPass = Encrypt.decrypt(account.getPassword(), account.getPassKey());
+        String passFieldInput = password_field.getText();
 
-        app.getSignUpList().forEach(user -> {
-            if (user.getUsername().equals(login.getUsername()) && user.getPassword().equals(login.getPassword()))
-                ;
-            {
-                loginAtomic.set(true);
-            }
-        });
-        if (loginAtomic.get()) {
-            LogInLoader.modal_close(app);
-        } 
-        buttonClick();
-    }
+        if (!decryptedPass.equals(passFieldInput)) {
+            password_error.visibleProperty().set(true);
+            return;
+        }
+        password_error.visibleProperty().set(false);
 
-    private void buttonClick(){
+        MainController.getisNotLoggedIn().set(false);
+
         ModalLoader.modal_close(app);
     }
 
     private App app;
-    private Login login;
-
-    BooleanBinding loginMatches;
-    AtomicBoolean loginAtomic;
 
     public void load(App app) {
         this.app = app;
-        load_fields();
         init_bindings();
-    }
-
-    private void load_fields() {
-        loginAtomic = new AtomicBoolean(false);
     }
 
     private void init_bindings() {
 
+        password_error.setVisible(false);
+
         BooleanBinding loginExist = Bindings.createBooleanBinding(() -> {
-            return !app.getSignUpList().stream()
-                    .anyMatch(users -> usernameTF.textProperty().get().equals(users.getUsername()));
-        }, usernameTF.textProperty());
+            return !app.accountsMasterlist().stream()
+                    .anyMatch(users -> username_field.textProperty().get().equals(users.getUsername()));
+        }, username_field.textProperty());
 
-        loginMatches = Bindings.createBooleanBinding(() -> {
-            return !app.getLoginList().stream().anyMatch(acc -> login == acc);
-        }, passwordFieldPF.textProperty());
+        username_error.textProperty().bind(Bindings.when(username_field.textProperty().isEmpty()).then("Empty field")
+                .otherwise(Bindings.when(loginExist).then("Account does not exist")
+                        .otherwise("")));
 
-        logInButton.disableProperty().bind(usernameLabel.visibleProperty().or(passwordLabel.visibleProperty()));
+        logIn_button.disableProperty().bind(username_error.textProperty().isNotEqualTo(""));
+    }
 
-        usernameLabel.visibleProperty().bind(usernameTF.textProperty().isEmpty().or(loginExist));
-        passwordLabel.visibleProperty().bind(passwordFieldPF.textProperty().isEmpty().or(loginExist));
-
-        usernameTT.textProperty()
-                .bind(Bindings.when(loginExist).then("Account doesn't Exist. ").otherwise("Invalid Username"));
+    @FXML
+    private void validate_user() {
+        app.accountsMasterlist().forEach(user -> {
+            if (username_field.getText().equals(user.getUsername())) {
+                account = user;
+                return;
+            }
+        });
     }
 }

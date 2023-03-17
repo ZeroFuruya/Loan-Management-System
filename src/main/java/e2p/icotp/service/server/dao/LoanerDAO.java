@@ -45,8 +45,9 @@ public class LoanerDAO {
         String citizenship = crs.getString("citizenship");
         String place_of_birth = crs.getString("place_of_birth");
 
-        return new Loaner(loaner_id, name, address, phone, email, birthdate, social_security, civil_status, citizenship,
-                place_of_birth);
+        return new Loaner(loaner_id, name, address, phone, email, birthdate, social_security, citizenship,
+                place_of_birth,
+                civil_status);
     }
 
     // Insert

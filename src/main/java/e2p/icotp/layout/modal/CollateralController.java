@@ -6,8 +6,10 @@ import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
 import e2p.icotp.model.Collateral;
 import e2p.icotp.model.Loan;
+import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Enums.CollateralStatus;
 import e2p.icotp.service.loader.ModalLoader;
+import e2p.icotp.service.server.dao.CollateralDAO;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
@@ -41,13 +43,26 @@ public class CollateralController {
     private Collateral collateral;
     private Collateral og_collateral;
     private Loan loan;
+    private Loaner loaner;
     private boolean isEdit;
     private MainController mc;
 
     @FXML
-    void handle_save() {
+    void handle_save() throws SQLException {
         modify_collateral_listener();
-        // TODO FINISH THIS SHIT ------------------------
+        if (isEdit) {
+            CollateralDAO.update(collateral);
+            app.collateralMasterlist().remove(og_collateral);
+            app.collateralMasterlist().add(collateral);
+        } else {
+            CollateralDAO.insert(collateral);
+            app.collateralMasterlist().add(collateral);
+        }
+        notify_changes();
+        mc.load_loan_table();
+        mc.refresh_loan_list();
+        mc.selectLoan();
+        ModalLoader.modal_close(app);
     }
 
     @FXML
@@ -55,9 +70,10 @@ public class CollateralController {
         ModalLoader.modal_close(app);
     }
 
-    public void load(App app, Loan loan, boolean isEdit, MainController mc, Collateral collateral) {
+    public void load(App app, Loan loan, Loaner loaner, boolean isEdit, MainController mc, Collateral collateral) {
         this.app = app;
         this.loan = loan;
+        this.loaner = loaner;
         this.isEdit = isEdit;
         this.mc = mc;
         this.collateral = collateral;
@@ -98,6 +114,12 @@ public class CollateralController {
     }
 
     private void modify_collateral_listener() {
+        collateral.setCollateral(collateral_detail_ta.getText());
+        collateral.setCollateral_id(Integer.parseInt(collateral_id_tf.getText()));
+        collateral.setLoan_id(loan);
+        collateral.setLoaner_id(loaner);
+        collateral.setPlan_id(loan.getLoanPlan());
+        collateral.getStatusProperty().set(status_cbox.getSelectionModel().getSelectedItem());
     }
 
     long final_num = 0;
@@ -105,7 +127,8 @@ public class CollateralController {
     private void generate_id() {
         String temp_val;
         String string_val = "";
-        for (int i = 0; i < 10; i++) {
+        string_val = RandomIDGenerator.getRandomNumber() + "";
+        for (int i = 0; i < 3; i++) {
             int initial_num = RandomIDGenerator.getRandomNumber();
             temp_val = Integer.toString(initial_num);
             string_val = temp_val + string_val;
@@ -124,5 +147,6 @@ public class CollateralController {
     private void notify_changes() throws SQLException {
         app.paymentMasterlist().setAll(PaymentDAO.getMasterlist());
         app.loanMasterList().setAll(LoanDAO.getMasterlist());
+        app.collateralMasterlist().setAll(CollateralDAO.getMasterlist());
     }
 }

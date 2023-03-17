@@ -16,7 +16,6 @@ import e2p.icotp.model.LoanPlan;
 import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
-import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.collections.transformation.FilteredList;
@@ -110,12 +109,13 @@ public class ModalLoader {
         controller.load(app, loan_plan, isEdit, mc, loanTypeList);
     }
 
-    public static void load_collateral(App app, Loan loan, boolean isEdit, MainController mc, Collateral collateral)
+    public static void load_collateral(App app, Loan loan, Loaner loaner, boolean isEdit, MainController mc,
+            Collateral collateral)
             throws IOException {
         FXMLLoader loader = load_modal(app, "modal/COLLATERAL");
 
         CollateralController controller = loader.getController();
-        controller.load(app, loan, isEdit, mc, collateral);
+        controller.load(app, loan, loaner, isEdit, mc, collateral);
     }
 
     // public static void load_degree_update(App app) throws IOException {
