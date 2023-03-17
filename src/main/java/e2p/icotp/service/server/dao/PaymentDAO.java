@@ -92,6 +92,11 @@ public class PaymentDAO {
         SQLCommand.deleteById("payments", new SQLParam(Types.BIGINT, "payment_id", payment.getPayment_id()));
     }
 
+    public static void removeByLoanId(Loan loan_id) {
+        SQLCommand.deleteById("payments", new SQLParam(Types.INTEGER, "loan_id",
+                loan_id.getLoan_id()));
+    }
+
     public static void updateById(Payment payment, long target_id) {
         SQLParam idParam = new SQLParam(Types.BIGINT, "payment_id", target_id);
         ArrayList<SQLParam> params = parameters(payment);

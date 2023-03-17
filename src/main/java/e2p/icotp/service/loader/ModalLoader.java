@@ -4,18 +4,26 @@ import java.io.IOException;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
+import e2p.icotp.layout.modal.CollateralController;
 import e2p.icotp.layout.modal.LoanController;
+import e2p.icotp.layout.modal.LoanPlanController;
 import e2p.icotp.layout.modal.LoanTypesController;
 import e2p.icotp.layout.modal.LoanerController;
 import e2p.icotp.layout.modal.PaymentController;
+import e2p.icotp.model.Collateral;
 import e2p.icotp.model.Loan;
+import e2p.icotp.model.LoanPlan;
 import e2p.icotp.model.LoanType;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 public class ModalLoader {
     private static FXMLLoader load_modal(App app, String fxml) throws IOException {
@@ -29,6 +37,13 @@ public class ModalLoader {
         modal.setPadding(new Insets(0, 0, 50, 0));
         modal.getStylesheets().add(App.class.getResource("themes/Def_Theme.css").toExternalForm());
 
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(pane);
+        translate.setDuration(Duration.millis(400));
+        translate.setInterpolator(Interpolator.EASE_IN);
+        translate.setFromX(-600);
+        translate.setToX(0);
+
         app.getMainScreen().getChildren().add(modal);
 
         StackPane.setAlignment(pane, Pos.TOP_CENTER);
@@ -41,6 +56,8 @@ public class ModalLoader {
                 e.consume();
             }
         });
+
+        translate.play();
 
         return loader;
     }
@@ -81,6 +98,24 @@ public class ModalLoader {
 
         LoanTypesController controller = loader.getController();
         controller.load(app, loan_type, isEdit, mc);
+    }
+
+    public static void load_loan_plan_update(App app, LoanPlan loan_plan, boolean isEdit, MainController mc,
+            FilteredList<LoanType> loanTypeList)
+            throws IOException {
+        FXMLLoader loader = load_modal(app, "modal/LOANPLAN");
+
+        LoanPlanController controller = loader.getController();
+        controller.load(app, loan_plan, isEdit, mc, loanTypeList);
+    }
+
+    public static void load_collateral(App app, Loan loan, Loaner loaner, boolean isEdit, MainController mc,
+            Collateral collateral)
+            throws IOException {
+        FXMLLoader loader = load_modal(app, "modal/COLLATERAL");
+
+        CollateralController controller = loader.getController();
+        controller.load(app, loan, loaner, isEdit, mc, collateral);
     }
 
     // public static void load_degree_update(App app) throws IOException {

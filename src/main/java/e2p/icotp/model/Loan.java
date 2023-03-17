@@ -25,41 +25,70 @@ public class Loan {
     private DoubleProperty principal;
     private DoubleProperty interest;
     private DoubleProperty penalty;
+    private StringProperty payment_frequency;
     private IntegerProperty due;
     private DoubleProperty paid;
     private DoubleProperty balance;
     private StringProperty status;
+    private DoubleProperty next_payment;
+    private ObjectProperty<LocalDate> next_due_date;
+    private DoubleProperty total_unpaid;
 
     public Loan(int loan_id, Loaner loaner_id, LoanType loan_type, LoanPlan loan_plan, LocalDate release_date,
             long term,
             LocalDate maturity_date,
             double principal,
-            double interest, double penalty, int due, double paid, double balance, String status) {
+            double interest, double penalty, String payment_frequency, int due, double paid, double balance,
+            String status, double next_payment,
+            LocalDate next_due_date, double total_unpaid) {
 
         this.loan_id = new SimpleIntegerProperty(loan_id);
-        this.loaner_id = new SimpleObjectProperty<>(loaner_id);
-        this.loan_type = new SimpleObjectProperty<>(loan_type);
-        this.loan_plan = new SimpleObjectProperty<>(loan_plan);
+        this.loaner_id = new SimpleObjectProperty<>(new Loaner(loaner_id));
+        this.loan_type = new SimpleObjectProperty<>(new LoanType(loan_type));
+        this.loan_plan = new SimpleObjectProperty<>(new LoanPlan(loan_plan));
         this.release_date = new SimpleObjectProperty<>(release_date);
         this.term = new SimpleLongProperty(term);
         this.maturity_date = new SimpleObjectProperty<>(maturity_date);
         this.principal = new SimpleDoubleProperty(principal);
         this.interest = new SimpleDoubleProperty(interest);
         this.penalty = new SimpleDoubleProperty(penalty);
+        this.payment_frequency = new SimpleStringProperty(payment_frequency);
         this.due = new SimpleIntegerProperty(due);
         this.paid = new SimpleDoubleProperty(paid);
         this.balance = new SimpleDoubleProperty(balance);
         this.status = new SimpleStringProperty(status);
+        this.next_payment = new SimpleDoubleProperty(next_payment);
+        this.next_due_date = new SimpleObjectProperty<>(next_due_date);
+        this.total_unpaid = new SimpleDoubleProperty(total_unpaid);
     }
 
     public Loan() {
-        this(0, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
-                LoanStatus.APPLICATION);
+        this(0, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0.0, 0.0, 0.0, "", 0,
+                0.0, 0.0, LoanStatus.APPLICATION, 0.0, LocalDate.now(), 0.0);
     }
 
     public Loan(int id) {
-        this(id, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0, 0, 0, 0, 0, 0,
-                LoanStatus.APPLICATION);
+        this(id, new Loaner(), new LoanType(), new LoanPlan(), LocalDate.now(), 0, LocalDate.now(), 0.0, 0.0, 0.0, "",
+                0,
+                0.0, 0.0,
+                LoanStatus.APPLICATION, 0.0, LocalDate.now(), 0.0);
+    }
+
+    public Loan(Loan loan) {
+        this(loan.getLoan_id(), loan.getLoaner_id(), loan.getLoanType(), loan.getLoanPlan(), loan.getRelease_date(),
+                loan.getTerm(), loan.getMaturity_date(), loan.getPrincipal(), loan.getInterest(), loan.getPenalty(),
+                loan.getPaymentFrequencyProperty().get(), loan.getDue(), loan.getPaid(), loan.getBalance(),
+                loan.getStatus(), loan.getNextPayment(), loan.getNextDueDate(), loan.getTotalUnpaidProperty().get());
+    }
+
+    // NEWLY ADDED PROPERTIES GETTER
+
+    public StringProperty getPaymentFrequencyProperty() {
+        return this.payment_frequency;
+    }
+
+    public DoubleProperty getTotalUnpaidProperty() {
+        return this.total_unpaid;
     }
 
     // SETTERS
@@ -119,6 +148,14 @@ public class Loan {
         this.status.set(val);
     }
 
+    public void setNextPayment(double next_payment) {
+        this.next_payment.set(next_payment);
+    }
+
+    public void setNextDueDate(LocalDate next_due_date) {
+        this.next_due_date.set(next_due_date);
+    }
+
     // GETTERS
     public int getLoan_id() {
         return this.loan_id.get();
@@ -176,6 +213,14 @@ public class Loan {
         return this.status.get();
     }
 
+    public double getNextPayment() {
+        return this.next_payment.get();
+    }
+
+    public LocalDate getNextDueDate() {
+        return this.next_due_date.get();
+    }
+
     // PROPERTY GETTERS
     public IntegerProperty getLoanID_Property() {
         return this.loan_id;
@@ -231,5 +276,13 @@ public class Loan {
 
     public StringProperty getStatusProperty() {
         return this.status;
+    }
+
+    public DoubleProperty getNextPaymentProperty() {
+        return this.next_payment;
+    }
+
+    public ObjectProperty<LocalDate> getNextdueDateProperty() {
+        return this.next_due_date;
     }
 }

@@ -39,6 +39,7 @@ public class JDBC {
                 try {
                     switch (param.getType()) {
                         case Types.VARCHAR:
+                        case Types.VARBINARY:
                             statement.setString(dataCount.getAndIncrement(), String.valueOf(param.getData()));
                             break;
                         case Types.DECIMAL:

@@ -17,10 +17,10 @@ public class Collateral {
 
     public Collateral(Loaner loaner_id, Loan loan_id, int collateral_id, LoanPlan loan_plan_id, String collateral,
             String status) {
-        this.loaner_id = new SimpleObjectProperty<>(loaner_id);
-        this.loan_id = new SimpleObjectProperty<>(loan_id);
+        this.loaner_id = new SimpleObjectProperty<>(new Loaner(loaner_id));
+        this.loan_id = new SimpleObjectProperty<>(new Loan(loan_id));
         this.collateral_id = new SimpleIntegerProperty(collateral_id);
-        this.loan_plan_id = new SimpleObjectProperty<>(loan_plan_id);
+        this.loan_plan_id = new SimpleObjectProperty<>(new LoanPlan(loan_plan_id));
         this.collateral = new SimpleStringProperty(collateral);
         this.status = new SimpleStringProperty(status);
     }

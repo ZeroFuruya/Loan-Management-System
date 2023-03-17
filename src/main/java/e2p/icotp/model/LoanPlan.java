@@ -1,5 +1,6 @@
 package e2p.icotp.model;
 
+import e2p.icotp.model.Enums.PaymentFrequency;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
@@ -8,6 +9,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class LoanPlan {
     private IntegerProperty plan_id;
@@ -15,17 +18,30 @@ public class LoanPlan {
     private LongProperty term;
     private DoubleProperty interest;
     private DoubleProperty penalty;
+    private StringProperty payment_frequency;
 
-    public LoanPlan(int plan, LoanType type, long term, double interest, double penalty) {
+    public LoanPlan(int plan, LoanType type, long term, double interest, double penalty, String payment_frequency) {
         this.plan_id = new SimpleIntegerProperty(plan);
-        this.loan_type = new SimpleObjectProperty<>(type);
+        this.loan_type = new SimpleObjectProperty<>(new LoanType(type));
         this.term = new SimpleLongProperty(term);
         this.interest = new SimpleDoubleProperty(interest);
         this.penalty = new SimpleDoubleProperty(penalty);
+        this.payment_frequency = new SimpleStringProperty(payment_frequency);
     }
 
     public LoanPlan() {
-        this(0, new LoanType(), 0, 0, 0);
+        this(0, new LoanType(), 0, 0, 0, PaymentFrequency.MONTHLY);
+    }
+
+    public LoanPlan(LoanPlan loanPlan) {
+        this(loanPlan.getId().get(), loanPlan.getType().get(), loanPlan.getTerm().get(), loanPlan.getInterest().get(),
+                loanPlan.getPenalty().get(), loanPlan.getPaymentFrequencyProperty().get());
+    }
+
+    // NEWLY ADDED PROPERTIES GETTER
+
+    public StringProperty getPaymentFrequencyProperty() {
+        return this.payment_frequency;
     }
 
     // PROPERTY GETTERS

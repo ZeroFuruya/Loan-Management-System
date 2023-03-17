@@ -9,6 +9,7 @@ import e2p.icotp.layout.MainController;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
+import e2p.icotp.model.Enums.PaymentFrequency;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
@@ -77,15 +78,27 @@ public class PaymentController {
     @FXML
     private void handle_save() throws SQLException {
         modify_payment_listener();
-        System.out.println(payment.getPayment_id());
-        System.out.println(payment.getLoaner_id().getName());
-        System.out.println(payment.getLoan_id().getLoanType().getName().get());
-        System.out.println(payment.getPaymentDate().getMonth());
-        System.out.println(payment.getPayment_amount());
-        // TODO UPDATE LOAN
+
+        LocalDate next_due_date = loan.getNextDueDate();
 
         loan.setPaid(payment.getPayment_amount() + loan.getPaid());
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.MONTHLY.toLowerCase())) {
+            next_due_date = next_due_date.plusMonths(1);
+            loan.setNextDueDate(next_due_date);
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.DAILY.toLowerCase())) {
+            next_due_date = next_due_date.plusDays(1);
+            loan.setNextDueDate(next_due_date);
+        }
+        if (loan.getPaymentFrequencyProperty().get().toLowerCase().contains(PaymentFrequency.YEARLY.toLowerCase())) {
+            next_due_date = next_due_date.plusYears(1);
+            loan.setNextDueDate(next_due_date);
+        }
+
+        System.out.println(loan.getBalance());
+        System.out.println(payment.getPayment_amount());
         loan.setBalance(loan.getBalance() - payment.getPayment_amount());
+        System.out.println(loan.getBalance());
 
         if (isEdit.get()) {
             PaymentDAO.update(payment);
@@ -103,6 +116,7 @@ public class PaymentController {
         notify_changes();
         mc.load_loan_table();
         mc.refresh_loan_list();
+        mc.selectLoan();
         ModalLoader.modal_close(app);
     }
 
@@ -120,7 +134,6 @@ public class PaymentController {
         init_listeners();
         if (isEdit) {
             loan.setPaid(loan.getPaid() - payment.getPayment_amount());
-            loan.setBalance(loan.getBalance() + payment.getPayment_amount());
             init_insert_listeners();
         } else {
             init_add_listeners();
@@ -151,8 +164,8 @@ public class PaymentController {
     private void init_add_listeners() {
         generate_id();
         date_paid.setText(DateUtil.localizeDate(LocalDate.now()));
-        payment_date.valueProperty().set(mc.getNextDueDate());
-        payment_date_label.textProperty().set(DateUtil.localizeDate(mc.getNextDueDate()));
+        payment_date.valueProperty().set(loan.getNextDueDate());
+        payment_date_label.textProperty().set(DateUtil.localizeDate(loan.getNextDueDate()));
         payment_amount.textProperty().set(mc.getTotalDueAmount());
 
         payment.getDatePaymentProperty().set(LocalDate.now());
@@ -234,7 +247,8 @@ public class PaymentController {
     private void generate_id() {
         String temp_val;
         String string_val = "";
-        for (int i = 0; i < 10; i++) {
+        string_val = RandomIDGenerator.getRandomNumber() + "";
+        for (int i = 0; i < 7; i++) {
             int initial_num = RandomIDGenerator.getRandomNumber();
             temp_val = Integer.toString(initial_num);
             string_val = temp_val + string_val;

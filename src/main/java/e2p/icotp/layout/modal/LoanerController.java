@@ -1,6 +1,9 @@
 package e2p.icotp.layout.modal;
 
+import java.io.File;
 import java.sql.SQLException;
+
+import org.apache.commons.io.FilenameUtils;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
@@ -9,6 +12,7 @@ import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanerDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
+import e2p.icotp.util.FileUtil;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.date.LocalizeDateConverter;
 import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
@@ -21,6 +25,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class LoanerController {
     @FXML
@@ -106,7 +112,11 @@ public class LoanerController {
 
     private MainController mc;
 
+    private File pfpFile;
+
     long final_num = 0;
+
+    FileChooser fc = new FileChooser();
 
     @FXML
     private void handle_cancel() {
@@ -114,8 +124,10 @@ public class LoanerController {
     }
 
     @FXML
-    private void handle_save() throws SQLException {
+    private void handle_save() throws Exception {
         modify_loaner_listener();
+        File old_file = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id());
+        old_file.mkdirs();
         if (isEdit.get()) {
             LoanerDAO.update(loaner);
             app.loanerMasterlist().remove(og_loaner);
@@ -124,8 +136,30 @@ public class LoanerController {
             LoanerDAO.insert(loaner);
             app.loanerMasterlist().add(loaner);
         }
+        if (pfpFile != null) {
+            FileUtil.create_dir(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() + FileUtil.FS);
+            String ext = FilenameUtils.getExtension(pfpFile.getAbsolutePath());
+            File destination = new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id() +
+                    FileUtil.FS + "!!!id_picture." + ext);
+            FileUtil.convert_png_to_destination(pfpFile, destination);
+        }
         notify_changes();
+        mc.load_loan_table();
+        mc.refresh_loan_list();
+        mc.selectLoaner();
         ModalLoader.modal_close(app);
+    }
+
+    @FXML
+    void handle_upload_image() {
+        // TODO HANDLE UPLOAD
+        ExtensionFilter jpeg_filter = new ExtensionFilter("JPEG Files", "*.jpeg", "*.jpg");
+        ExtensionFilter png_filter = new ExtensionFilter("PNG Files", "*.png");
+
+        fc.getExtensionFilters().addAll(jpeg_filter, png_filter);
+        fc.setTitle("Upload Profile Picture");
+        fc.setInitialDirectory(new File(System.getProperty("user.home")));
+        pfpFile = fc.showOpenDialog(app.getMainStage());
     }
 
     public void load(App app, Loaner loaner, boolean isEdit, MainController mc) {
@@ -134,6 +168,10 @@ public class LoanerController {
         this.og_loaner = loaner;
         this.isEdit = new SimpleBooleanProperty(isEdit);
         this.mc = mc;
+
+        System.out.println("Citizenship" + loaner.getCitizenship());
+        System.out.println("Civil Status" + loaner.getCivilStatus());
+        System.out.println("Place of Birth" + loaner.getPlaceOfBirth());
 
         init_bindings();
         init_fields();
@@ -175,7 +213,9 @@ public class LoanerController {
 
         if (isEdit.get()) {
             loaner_id.textProperty().set(loaner.getLoaner_id() + "");
+            System.out.println("Entered " + isEdit.get());
         } else {
+            System.out.println("Entered " + isEdit.get());
             generate_id();
         }
 
@@ -193,17 +233,26 @@ public class LoanerController {
     private void generate_id() {
         String temp_val;
         String string_val = "";
-        for (int i = 0; i < 7; i++) {
+        string_val = RandomIDGenerator.getRandomNumber() + "";
+        for (int i = 0; i < 6; i++) {
             int initial_num = RandomIDGenerator.getRandomNumber();
             temp_val = Integer.toString(initial_num);
             string_val = temp_val + string_val;
         }
         final_num = Long.parseLong(string_val);
-
+        System.out.println(final_num);
+        if (app.loanerMasterlist().isEmpty()) {
+            System.out.println("Entered appmasterlist");
+            loaner_id.textProperty().set(final_num + "");
+            return;
+        }
         app.loanerMasterlist().forEach(loaner -> {
+            System.out.println("Entered foreach");
             if (loaner.getLoaner_id() == final_num) {
+                System.out.println("Entered foreach ifelse if");
                 generate_id();
             } else {
+                System.out.println("Entered foreach ifelse else");
                 loaner_id.textProperty().set(final_num + "");
             }
         });

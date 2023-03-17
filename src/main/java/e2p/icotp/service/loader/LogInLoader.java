@@ -3,7 +3,9 @@ package e2p.icotp.service.loader;
 import java.io.IOException;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.accounts.ForgotPasswordController;
 import e2p.icotp.layout.accounts.LogInController;
+// import e2p.icotp.layout.accounts.LogInController;
 import e2p.icotp.layout.accounts.SignUpController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -28,10 +30,10 @@ public class LogInLoader {
         StackPane.setMargin(pane, new Insets(75, 0, 0, 0));
 
         modal.setOnMouseClicked(e -> {
-            if (e.getTarget() == modal) {
+            if (e.getTarget() != modal) {
                 e.consume();
             } else {
-                e.consume();
+                modal_close(app);
             }
         });
 
@@ -57,6 +59,13 @@ public class LogInLoader {
         controller.load(app);
        
 
+    }
+
+    public static void load_forgot_pass(App app) throws IOException {
+        FXMLLoader loader = load_modal(app, "accounts/FORGOT");
+
+        ForgotPasswordController controller = loader.getController();
+        controller.load(app);
     }
 
 }

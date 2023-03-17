@@ -51,8 +51,9 @@ public class LoanPlanDAO {
         long term = crs.getLong("term");
         double interest = crs.getDouble("interest");
         double penalty = crs.getDouble("penalty");
+        String payment_frequency = (crs.getString("payment_frequency"));
 
-        return new LoanPlan(plan_id, loan_type, term, interest, penalty);
+        return new LoanPlan(plan_id, loan_type, term, interest, penalty, payment_frequency);
     }
 
     // Insert
@@ -84,14 +85,21 @@ public class LoanPlanDAO {
 
         // int plan_id
         params.add(new SQLParam(Types.INTEGER, "plan_id", loan_plan.getId().get()));
+
         // int plan_id
         params.add(new SQLParam(Types.INTEGER, "type_id", loan_plan.getType().get().getId().get()));
+
         // int plan_id
         params.add(new SQLParam(Types.BIGINT, "term", loan_plan.getTerm().get()));
+
         // int plan_id
         params.add(new SQLParam(Types.DECIMAL, "interest", loan_plan.getInterest().get()));
+
         // int plan_id
         params.add(new SQLParam(Types.DECIMAL, "penalty", loan_plan.getPenalty().get()));
+
+        // PAYMENT_FREQUENCY
+        params.add(new SQLParam(Types.VARCHAR, "payment_frequency", loan_plan.getPaymentFrequencyProperty().get()));
 
         return params;
     }

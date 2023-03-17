@@ -17,7 +17,7 @@ public class LoanType {
     }
 
     public LoanType() {
-        this(0, "Select Loan Type", "");
+        this(0, "Loan Type", "");
     }
 
     public LoanType(LoanType loan_type) {
