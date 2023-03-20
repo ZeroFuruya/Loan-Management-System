@@ -88,7 +88,7 @@
                         <HBox alignment="CENTER_LEFT">
                            <children>
                               <TextField fx:id="emailTF" promptText="egxample@gmail.com" HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" onAction="#handle_send_code" text="Send Code" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="sendCodeButton" mnemonicParsing="false" onAction="#handle_send_code" text="Send Code" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                         <Label fx:id="invalidEmailErr" layoutX="15.0" layoutY="224.0" styleClass="label-red" text="Invalid Email" textFill="#f80000">

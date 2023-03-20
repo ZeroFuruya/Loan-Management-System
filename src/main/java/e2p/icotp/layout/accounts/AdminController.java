@@ -48,9 +48,13 @@ public class AdminController {
 
     @FXML
     private Button signUpButton;
+    @FXML
+    private Button sendCodeButton;
 
     private App app;
     private Account admin;
+
+    // TODO ADD SECURITY CODE
 
     String ver_code = "";
 
@@ -72,9 +76,9 @@ public class AdminController {
 
         String emailAddress = emailTF.getText();
 
-        String regex = "^(.+)@(.+)$";
+        String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
 
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
 
         Matcher matcher = pattern.matcher(emailAddress);
 
@@ -122,7 +126,6 @@ public class AdminController {
         admin.setEmail(emailTF.getText());
         AccountDAO.insert(admin);
         app.accountsMasterlist().add(admin);
-
         ModalLoader.modal_close(app);
         LogInLoader.load_log_in(app);
     }
