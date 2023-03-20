@@ -74,28 +74,6 @@ public class LoanerController {
     @FXML
     private HBox placeOfBirth_icon;
 
-    // ToolTip
-    @FXML
-    private Tooltip nameTT;
-    @FXML
-    private Tooltip birthdayTT;
-    @FXML
-    private Tooltip addressTT;
-    @FXML
-    private Tooltip contactTT;
-    @FXML
-    private Tooltip emailTT;
-    @FXML
-    private Tooltip loanerIdTT;
-    @FXML
-    private Tooltip socialSecurityTT;
-    @FXML
-    private Tooltip civilStatusTT;
-    @FXML
-    private Tooltip citizenshipTT;
-    @FXML
-    private Tooltip placeOfBirthTT;
-
     @FXML
     private Button upload_img;
     @FXML
@@ -171,23 +149,16 @@ public class LoanerController {
         this.isEdit = new SimpleBooleanProperty(isEdit);
         this.mc = mc;
 
-        System.out.println("Citizenship" + loaner.getCitizenship());
-        System.out.println("Civil Status" + loaner.getCivilStatus());
-        System.out.println("Place of Birth" + loaner.getPlaceOfBirth());
-
         init_bindings();
         init_fields();
     }
 
     private void init_bindings() {
-
         // ERROR BINDINGS
         name_icon.visibleProperty().bind(name.textProperty().isEmpty());
         birthday_icon.visibleProperty().bind(birthday.valueProperty().isNull());
         address_icon.visibleProperty().bind(address.textProperty().isEmpty());
-        contact_icon.visibleProperty().bind(contactNo.textProperty().isEmpty());
         loanerId_icon.visibleProperty().bind(loaner_id.textProperty().isEmpty());
-        socialSecurity_icon.visibleProperty().bind(social_security.textProperty().isEmpty());
         civilStatus_icon.visibleProperty().bind(civil_status.textProperty().isEmpty());
         citizenship_icon.visibleProperty().bind(citizenship.textProperty().isEmpty());
         placeOfBirth_icon.visibleProperty().bind(place_of_Birth.textProperty().isEmpty());
@@ -214,9 +185,7 @@ public class LoanerController {
 
         if (isEdit.get()) {
             loaner_id.textProperty().set(loaner.getLoaner_id() + "");
-            System.out.println("Entered " + isEdit.get());
         } else {
-            System.out.println("Entered " + isEdit.get());
             generate_id();
         }
 
@@ -241,13 +210,11 @@ public class LoanerController {
             string_val = temp_val + string_val;
         }
         final_num = Long.parseLong(string_val);
-        System.out.println(final_num);
         if (app.loanerMasterlist().isEmpty()) {
             loaner_id.textProperty().set(final_num + "");
             return;
         }
         app.loanerMasterlist().forEach(loaner -> {
-            System.out.println("Entered foreach");
             if (loaner.getLoaner_id() == final_num) {
                 generate_id();
             } else {
@@ -280,7 +247,30 @@ public class LoanerController {
 
         BooleanProperty isMatching = new SimpleBooleanProperty(matcher.matches());
 
-        email_icon.visibleProperty().bind(email.textProperty().isEmpty().or(isMatching));
+        email_icon.visibleProperty().bind(email.textProperty().isEmpty().or(isMatching.not()));
+    }
+
+    @FXML
+    private void validateContactNumber() {
+        Pattern phone_numberPattern = Pattern.compile("0?9[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]");
+
+        Matcher matcher = phone_numberPattern.matcher(contactNo.textProperty().get());
+
+        BooleanProperty isContactValid = new SimpleBooleanProperty(matcher.matches());
+
+        contact_icon.visibleProperty().bind(contactNo.textProperty().isEmpty().or(isContactValid.not()));
+    }
+
+    @FXML
+    private void validateSocialSecurityNumber() {
+        Pattern social_securityPattern = Pattern.compile("[1-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]");
+
+        Matcher matcher = social_securityPattern.matcher(social_security.textProperty().get());
+
+        BooleanProperty isSocialSecurityValid = new SimpleBooleanProperty(matcher.matches());
+
+        socialSecurity_icon.visibleProperty()
+                .bind(social_security.textProperty().isEmpty().or(isSocialSecurityValid.not()));
     }
 
     private Long long_parser(String val) {
