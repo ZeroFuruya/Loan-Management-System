@@ -3,13 +3,15 @@ package e2p.icotp;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import e2p.icotp.layout.accounts.Account;
 import e2p.icotp.model.Collateral;
@@ -48,6 +50,7 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         this.mainStage = stage;
         FileUtil.init_appdata();
+        timerTask();
         load_cache();
         initializa_main();
         init_admin();

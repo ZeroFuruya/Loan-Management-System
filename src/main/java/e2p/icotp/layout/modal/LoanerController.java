@@ -2,6 +2,8 @@ package e2p.icotp.layout.modal;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -184,7 +186,6 @@ public class LoanerController {
         birthday_icon.visibleProperty().bind(birthday.valueProperty().isNull());
         address_icon.visibleProperty().bind(address.textProperty().isEmpty());
         contact_icon.visibleProperty().bind(contactNo.textProperty().isEmpty());
-        email_icon.visibleProperty().bind(email.textProperty().isEmpty());
         loanerId_icon.visibleProperty().bind(loaner_id.textProperty().isEmpty());
         socialSecurity_icon.visibleProperty().bind(social_security.textProperty().isEmpty());
         civilStatus_icon.visibleProperty().bind(civil_status.textProperty().isEmpty());
@@ -242,17 +243,14 @@ public class LoanerController {
         final_num = Long.parseLong(string_val);
         System.out.println(final_num);
         if (app.loanerMasterlist().isEmpty()) {
-            System.out.println("Entered appmasterlist");
             loaner_id.textProperty().set(final_num + "");
             return;
         }
         app.loanerMasterlist().forEach(loaner -> {
             System.out.println("Entered foreach");
             if (loaner.getLoaner_id() == final_num) {
-                System.out.println("Entered foreach ifelse if");
                 generate_id();
             } else {
-                System.out.println("Entered foreach ifelse else");
                 loaner_id.textProperty().set(final_num + "");
             }
         });
@@ -270,6 +268,19 @@ public class LoanerController {
         loaner.setCivilStatus(civil_status.textProperty().get());
         loaner.setCitizenship(citizenship.textProperty().get());
         loaner.setPlaceOfBirth(place_of_Birth.textProperty().get());
+    }
+
+    @FXML
+    private void validateEmail() {
+        String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = pattern.matcher(email.textProperty().get());
+
+        BooleanProperty isMatching = new SimpleBooleanProperty(matcher.matches());
+
+        email_icon.visibleProperty().bind(email.textProperty().isEmpty().or(isMatching));
     }
 
     private Long long_parser(String val) {
