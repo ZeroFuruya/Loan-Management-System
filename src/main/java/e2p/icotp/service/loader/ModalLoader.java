@@ -118,6 +118,11 @@ public class ModalLoader {
         controller.load(app, loan, loaner, isEdit, mc, collateral);
     }
 
+    public static void load_popup_warning(App app)
+            throws IOException {
+        FXMLLoader loader = load_modal(app, "modal/PLANPOPUP");
+    }
+
     // public static void load_degree_update(App app) throws IOException {
     // FXMLLoader loader = load_modal(app, "modals/DEGREE_UPDATE");
 
