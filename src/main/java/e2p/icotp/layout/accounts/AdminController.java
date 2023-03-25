@@ -108,7 +108,7 @@ public class AdminController {
 
             incorrecrCodeErr.setVisible(false);
         });
-    }// leo asd
+    }
 
     @FXML
     void handle_signUp() throws Exception {

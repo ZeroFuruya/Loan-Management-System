@@ -1,5 +1,7 @@
 package e2p.icotp.layout.modal;
 
+import java.io.IOException;
+
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
 import e2p.icotp.model.LoanPlan;
@@ -12,6 +14,8 @@ import e2p.icotp.util.custom.cbox.LoanTypeListCell;
 import e2p.icotp.util.custom.cbox.LoanTypeStringConverter;
 import e2p.icotp.util.custom.formatters.DoubleTextFieldFormatter;
 import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.transformation.FilteredList;
@@ -86,11 +90,22 @@ public class LoanPlanController {
     }
 
     private void init_plans() {
-        // TODO ADD A POP UP MODAL (IF PLAN TYPES IS EMPTY)
-        // TODO IF THE SELECTED LOAN PLAN IS CURRENTLY BEING USED, DISABLE MODIFY
+        BooleanBinding isMaxVal = Bindings.createBooleanBinding(() -> {
+            return plan_term_tf.textProperty().get().length() > 18 ? true : false;
+        }, plan_term_tf.textProperty());
+
+        if (loanTypeList.isEmpty()) {
+            try {
+                ModalLoader.load_popup_warning(app);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         plan_type_cbox.disableProperty().bind(isEdit);
         plan_term_err.visibleProperty()
-                .bind(plan_term_tf.textProperty().isEmpty().or(plan_term_tf.textProperty().isEqualTo("0")));
+                .bind(plan_term_tf.textProperty().isEmpty().or(plan_term_tf.textProperty().isEqualTo("0"))
+                        .or(isMaxVal));
         plan_interest_err.visibleProperty()
                 .bind(plan_interest_tf.textProperty().isEmpty().or(plan_interest_tf.textProperty().isEqualTo("0.0")));
         plan_penalty_err.visibleProperty()

@@ -1306,7 +1306,6 @@ public class MainController {
 
     double monthly_payment_getter = 0;
 
-    // TODO Loaner form input fields fix
     // TODO Loan Plan fix form input fields fix
     // TODO add SecurityCode to AdminSetUp form
     // TODO FINISH LOAN TYPES
