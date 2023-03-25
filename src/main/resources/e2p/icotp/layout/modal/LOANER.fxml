@@ -5,7 +5,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -63,9 +62,6 @@
                                              </font>
                                           </Label>
                                           <Label>
-                                             <tooltip>
-                                                <Tooltip fx:id="nameTT" text="No last name" />
-                                             </tooltip>
                                              <graphic>
                                                 <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                              </graphic>
@@ -104,9 +100,6 @@
                                              </font>
                                           </Label>
                                           <Label>
-                                             <tooltip>
-                                                <Tooltip fx:id="addressTT" text="No last name" />
-                                             </tooltip>
                                              <graphic>
                                                 <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                              </graphic>
@@ -129,7 +122,7 @@
                            <children>
                               <VBox HBox.hgrow="ALWAYS">
                                  <children>
-                                    <TextField fx:id="social_security" prefHeight="27.0" prefWidth="201.0">
+                                    <TextField fx:id="social_security" onKeyTyped="#validateSocialSecurityNumber" prefHeight="27.0" prefWidth="201.0">
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
@@ -145,9 +138,6 @@
                                              </font>
                                           </Label>
                                           <Label fx:id="name_icon8">
-                                             <tooltip>
-                                                <Tooltip fx:id="socialSecurityTT" text="No last name" />
-                                             </tooltip>
                                              <graphic>
                                                 <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                              </graphic>
@@ -177,7 +167,7 @@
                            <children>
                               <VBox HBox.hgrow="ALWAYS">
                                  <children>
-                                    <TextField fx:id="contactNo" prefHeight="27.0" prefWidth="188.0">
+                                    <TextField fx:id="contactNo" onKeyTyped="#validateContactNumber" prefHeight="27.0" prefWidth="188.0">
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
@@ -193,9 +183,6 @@
                                              </font>
                                           </Label>
                                           <Label>
-                                             <tooltip>
-                                                <Tooltip fx:id="contactTT" text="No last name" />
-                                             </tooltip>
                                              <graphic>
                                                 <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                              </graphic>
@@ -234,9 +221,6 @@
                                              </font>
                                           </Label>
                                           <Label>
-                                             <tooltip>
-                                                <Tooltip fx:id="civilStatusTT" text="No last name" />
-                                             </tooltip>
                                              <graphic>
                                                 <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                              </graphic>
@@ -275,9 +259,6 @@
                                              </font>
                                           </Label>
                                           <Label fx:id="name_icon9">
-                                             <tooltip>
-                                                <Tooltip fx:id="placeOfBirthTT" text="No last name" />
-                                             </tooltip>
                                              <graphic>
                                                 <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                              </graphic>
@@ -307,7 +288,7 @@
                            <children>
                               <VBox HBox.hgrow="ALWAYS">
                                  <children>
-                                    <TextField fx:id="email" prefHeight="31.0" prefWidth="181.0">
+                                    <TextField fx:id="email" onKeyTyped="#validateEmail" prefHeight="31.0" prefWidth="181.0">
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
@@ -322,14 +303,8 @@
                                                 <Font name="Arial Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <Label>
-                                             <tooltip>
-                                                <Tooltip fx:id="emailTT" text="No last name" />
-                                             </tooltip>
-                                             <graphic>
-                                                <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
-                                             </graphic>
-                                          </Label>
+                                          <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
+                                          <Label />
                                        </children>
                                     </HBox>
                                  </children>
@@ -364,9 +339,6 @@
                                              </font>
                                           </Label>
                                           <Label>
-                                             <tooltip>
-                                                <Tooltip fx:id="citizenshipTT" text="No last name" />
-                                             </tooltip>
                                              <graphic>
                                                 <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                              </graphic>
@@ -408,9 +380,6 @@
                                              </font>
                                           </Label>
                                           <Label>
-                                             <tooltip>
-                                                <Tooltip fx:id="birthdayTT" text="No last name" />
-                                             </tooltip>
                                              <graphic>
                                                 <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                              </graphic>
@@ -449,9 +418,6 @@
                                              </font>
                                           </Label>
                                           <Label>
-                                             <tooltip>
-                                                <Tooltip fx:id="loanerIdTT" text="No last name" />
-                                             </tooltip>
                                              <graphic>
                                                 <FontIcon iconColor="RED" iconLiteral="fas-times" iconSize="15" />
                                              </graphic>

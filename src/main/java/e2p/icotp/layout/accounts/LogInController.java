@@ -38,6 +38,7 @@ public class LogInController {
 
     @FXML
     private void handle_signUp() throws IOException {
+        ModalLoader.modal_close(app);
         LogInLoader.load_sign_up(app);
     }
 

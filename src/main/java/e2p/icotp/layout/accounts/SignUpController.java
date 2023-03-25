@@ -65,6 +65,7 @@ public class SignUpController {
 
     @FXML
     void handle_loginLink() throws IOException {
+        ModalLoader.modal_close(app);
         LogInLoader.load_log_in(app);
     }
 
