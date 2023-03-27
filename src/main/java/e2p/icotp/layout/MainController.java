@@ -1243,8 +1243,10 @@ public class MainController {
             HBox val3 = TypesFactory.createLabelContainer(label3, types_container, 500, 1, Pos.CENTER_LEFT, 0);
 
             types_container.getChildren()
-                    .add(TypesFactory.createVBox(TypesFactory.createHBox(val1, val2), TypesFactory.createHBox(val3,
-                            TypesFactory.createButton("Modify", Color.RED, type, this, app))));
+                    .add(TypesFactory.createVBox(TypesFactory.createHBox(val1, val2, new HBox()),
+                            TypesFactory.createHBox(val3,
+                                    TypesFactory.createButton("Modify", Color.RED, type, this, app, false),
+                                    TypesFactory.createButton("Delete", Color.RED, type, this, app, true))));
         });
     }
 
@@ -1306,6 +1308,7 @@ public class MainController {
 
     double monthly_payment_getter = 0;
 
+    // TODO Loaner form input fields fix
     // TODO Loan Plan fix form input fields fix
     // TODO add SecurityCode to AdminSetUp form
     // TODO FINISH LOAN TYPES
