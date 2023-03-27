@@ -126,6 +126,7 @@ public class AdminController {
         admin.setEmail(emailTF.getText());
         AccountDAO.insert(admin);
         app.accountsMasterlist().add(admin);
+
         ModalLoader.modal_close(app);
         LogInLoader.load_log_in(app);
     }
