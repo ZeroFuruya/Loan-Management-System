@@ -1250,6 +1250,15 @@ public class MainController {
         });
     }
 
+    @FXML
+    VBox scrollpane_container;
+
+    public void refresh_types() {
+        scrollpane_container.getChildren().remove(types_scroll_pane);
+        _init_types();
+        scrollpane_container.getChildren().add(types_scroll_pane);
+    }
+
     // LOAN PLAN ---------------------------------------------------------
     // LOAN PLAN ---------------------------------------------------------
     // LOAN PLAN ---------------------------------------------------------
