@@ -1371,6 +1371,8 @@ public class MainController {
             collateral.getStatusProperty().set(CollateralStatus.SAFE);
         }
 
+        // TODO FINISH POP UPS
+
         if (!payment_exist) {
             if (days_skipped > total_days) {
                 loan_next_due_label.setText("Past Maturity Date");
