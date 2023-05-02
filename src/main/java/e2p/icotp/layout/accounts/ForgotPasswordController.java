@@ -1,17 +1,11 @@
 package e2p.icotp.layout.accounts;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-
 import javax.crypto.SecretKey;
-import javax.mail.MessagingException;
 
 import e2p.icotp.App;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.AccountDAO;
-import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.cipher.Encrypt;
-import e2p.icotp.util.gmail.GMailer;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -53,42 +47,45 @@ public class ForgotPasswordController {
 
     BooleanProperty isValidCode = new SimpleBooleanProperty(false);
 
-    @FXML
-    private void handle_send_code() throws GeneralSecurityException, IOException, MessagingException {
-        incorrecrCodeErr.setVisible(true);
-        String temp_val;
-        ver_code = "";
-        ver_code = RandomIDGenerator.getRandomNumber() + "";
-        for (int i = 0; i < 6; i++) {
-            int initial_num = RandomIDGenerator.getRandomNumber();
-            temp_val = Integer.toString(initial_num);
-            ver_code = temp_val + ver_code;
-        }
-        GMailer mail_sender = new GMailer();
+    // @FXML
+    // private void handle_send_code() throws GeneralSecurityException, IOException,
+    // MessagingException {
+    // incorrecrCodeErr.setVisible(true);
+    // String temp_val;
+    // ver_code = "";
+    // ver_code = RandomIDGenerator.getRandomNumber() + "";
+    // for (int i = 0; i < 6; i++) {
+    // int initial_num = RandomIDGenerator.getRandomNumber();
+    // temp_val = Integer.toString(initial_num);
+    // ver_code = temp_val + ver_code;
+    // }
+    // GMailer mail_sender = new GMailer();
 
-        StringBuilder code_message = new StringBuilder(
-                "You are trying to change your forgotten password for Zephyr Loan Management System.\n Please enter this code on the field from the app.");
-        code_message.append("\n");
-        code_message.append("\n");
-        code_message.append("Verification Code: ");
-        code_message.append(ver_code);
+    // StringBuilder code_message = new StringBuilder(
+    // "You are trying to change your forgotten password for Zephyr Loan Management
+    // System.\n Please enter this code on the field from the app.");
+    // code_message.append("\n");
+    // code_message.append("\n");
+    // code_message.append("Verification Code: ");
+    // code_message.append(ver_code);
 
-        mail_sender.sendMail(admin.getEmail(), "Zephyr Loan Management Verification Code",
-                code_message.toString());
+    // mail_sender.sendMail(admin.getSecurityQuestion(), "Zephyr Loan Management
+    // Verification Code",
+    // code_message.toString());
 
-        codeTF.textProperty().addListener((o, ov, nv) -> {
-            if (nv.isEmpty() || nv.isBlank()) {
-                incorrecrCodeErr.setVisible(true);
-            }
+    // codeTF.textProperty().addListener((o, ov, nv) -> {
+    // if (nv.isEmpty() || nv.isBlank()) {
+    // incorrecrCodeErr.setVisible(true);
+    // }
 
-            if (!nv.equals(ver_code)) {
-                incorrecrCodeErr.setVisible(true);
-                return;
-            }
-            isValidCode.set(true);
-            incorrecrCodeErr.setVisible(false);
-        });
-    }
+    // if (!nv.equals(ver_code)) {
+    // incorrecrCodeErr.setVisible(true);
+    // return;
+    // }
+    // isValidCode.set(true);
+    // incorrecrCodeErr.setVisible(false);
+    // });
+    // }
 
     @FXML
     void handle_change_pass() throws Exception {
@@ -102,7 +99,7 @@ public class ForgotPasswordController {
         admin.setPassword(encryptedPass);
         admin.setPassKey(keyString);
         admin.setAccountId(admin.getAccountId());
-        admin.setEmail(admin.getEmail());
+        admin.setSecurityQuestion(admin.getSecurityQuestion());
         admin.setUsername(admin.getUsername());
         AccountDAO.remove(admin_copy);
         AccountDAO.insert(admin);
@@ -118,7 +115,7 @@ public class ForgotPasswordController {
 
         System.out.println(admin.getUsername());
         System.out.println(admin.getAccountId());
-        System.out.println(admin.getEmail());
+        System.out.println(admin.getSecurityQuestion());
         System.out.println(admin.getPassKey());
         System.out.println(admin.getPassword());
 
@@ -127,7 +124,7 @@ public class ForgotPasswordController {
 
     private void init_bindings() {
 
-        emailAccount_label.textProperty().bind(admin.getEmailProperty());
+        // emailAccount_label.textProperty().bind(admin.getSecurityQuestionProperty());
 
         BooleanBinding isPassEmpty = passwordPF.textProperty().isEmpty();
         BooleanBinding isPassNotMatches = passwordPF.textProperty().isNotEqualTo(confirmPassPF.textProperty());
