@@ -3,6 +3,7 @@ package e2p.icotp.layout.accounts;
 import javax.crypto.SecretKey;
 
 import e2p.icotp.App;
+import e2p.icotp.model.Enums.SecurityQuestions;
 import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.AccountDAO;
@@ -160,36 +161,36 @@ public class AdminController {
 
     private void init_cboxes() {
         // TODO make a whole separate object for this called SecurityQuestion
-        securityQuestionCBox.getItems().add("In what city or town did your mother and father meet?");
-        securityQuestionCBox.getItems().add("What was the first exam you failed?");
-        securityQuestionCBox.getItems().add("What was the name of your first stuffed animal?");
-        securityQuestionCBox.getItems().add("What is the middle name of your youngest child?");
-        securityQuestionCBox.getItems().add("Where were you when you had your first kiss?");
-        securityQuestionCBox.getItems().add("What was the name of the boy or the girl you first kissed?");
-        securityQuestionCBox.getItems().add("What is the name of the first animated movie you watched?");
+        securityQuestionCBox.getItems().add(SecurityQuestions.SQ_1);
+        securityQuestionCBox.getItems().add(SecurityQuestions.SQ_2);
+        securityQuestionCBox.getItems().add(SecurityQuestions.SQ_3);
+        securityQuestionCBox.getItems().add(SecurityQuestions.SQ_4);
+        securityQuestionCBox.getItems().add(SecurityQuestions.SQ_5);
+        securityQuestionCBox.getItems().add(SecurityQuestions.SQ_6);
+        securityQuestionCBox.getItems().add(SecurityQuestions.SQ_7);
 
         securityQuestionCBox.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (!nv.isEmpty() || !nv.isBlank()) {
                 switch (nv) {
-                    case "In what city or town did your mother and father meet?":
+                    case SecurityQuestions.SQ_1:
                         securityQuestionVal.set(1);
                         break;
-                    case "What was the first exam you failed?":
+                    case SecurityQuestions.SQ_2:
                         securityQuestionVal.set(2);
                         break;
-                    case "What was the name of your first stuffed animal?":
+                    case SecurityQuestions.SQ_3:
                         securityQuestionVal.set(3);
                         break;
-                    case "What is the middle name of your youngest child?":
+                    case SecurityQuestions.SQ_4:
                         securityQuestionVal.set(4);
                         break;
-                    case "Where were you when you had your first kiss?":
+                    case SecurityQuestions.SQ_5:
                         securityQuestionVal.set(5);
                         break;
-                    case "What was the name of the boy or the girl you first kissed?":
+                    case SecurityQuestions.SQ_6:
                         securityQuestionVal.set(6);
                         break;
-                    case "What is the name of the first animated movie you watched?":
+                    case SecurityQuestions.SQ_7:
                         securityQuestionVal.set(7);
                         break;
                     default:
