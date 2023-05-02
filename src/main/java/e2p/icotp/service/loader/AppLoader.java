@@ -20,7 +20,7 @@ public class AppLoader {
         // mainStage.getIcons().add(new
         // Image(App.class.getResourceAsStream("assets/icons/ThesisManager.png")));
 
-        FXMLLoader loader = load("MAIN");
+        FXMLLoader loader = load("MAINS");
         StackPane root = loader.load();
         root.setOnMousePressed(e -> root.requestFocus());
 

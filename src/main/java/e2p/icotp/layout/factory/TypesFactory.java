@@ -6,6 +6,7 @@ import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
 import e2p.icotp.model.LoanType;
 import e2p.icotp.service.loader.ModalLoader;
+import e2p.icotp.service.server.dao.LoanTypeDAO;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -27,18 +28,22 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class TypesFactory {
-    public static HBox createHBox(Node children3, Node button) {
-        HBox hbox = new HBox(children3, button);
+    public static HBox createHBox(Node children3, Node button, Node button1) {
+        HBox hbox = new HBox(children3, button, button1);
         hbox.setBackground(Background.fill(Color.rgb(0, 0, 0, 0)));
         // hbox.setPrefHeight(100.0f);
         hbox.setBorder(new Border(
                 new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(10), new BorderWidths(0.5))));
         hbox.setAlignment(Pos.CENTER_LEFT);
-        hbox.setOnMouseEntered(e -> {
-            if (e.getClickCount() == 1) {
-                hbox.prefHeight(hbox.getHeight() * 2);
-            }
-        });
+        hbox.setSpacing(10);
+        // hbox.setOnMouseEntered(e -> {
+        // if (e.getClickCount() == 1) {
+        // hbox.prefHeight(hbox.getHeight() * 2);
+        // }
+        // });
+        hbox.prefHeight(500.0f);
+        hbox.prefWidth(50.0f);
+        hbox.setPrefWidth(50.0f);
 
         // DropShadow dsfx = new DropShadow(null, Color.WHITE, 1, 1, 0, 0);
         // hbox.setEffect(dsfx);
@@ -58,6 +63,9 @@ public class TypesFactory {
             }
         });
 
+        vbox.setPrefHeight(500.0f);
+        vbox.prefWidth(50.0f);
+        vbox.setPrefWidth(50.0f);
         // DropShadow dsfx = new DropShadow(null, Color.WHITE, 1, 1, 0, 0);
         // vbox.setEffect(dsfx);
         return vbox;
@@ -87,21 +95,28 @@ public class TypesFactory {
         return label;
     }
 
-    public static Button createButton(String text, Color color, LoanType loan_type, MainController mc, App app) {
+    public static Button createButton(String text, Color color, LoanType loan_type, MainController mc, App app,
+            boolean isDelete) {
         Button button = new Button(text);
         EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    ModalLoader.load_loan_type_update(app, loan_type, true, mc);
+                    if (isDelete) {
+                        LoanTypeDAO.remove(loan_type.getId().get());
+                        app.loanTypeMasterlist().remove(loan_type);
+                    } else {
+                        ModalLoader.load_loan_type_update(app, loan_type, true, mc);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
         };
-        button.setPrefHeight(100.0f);
+        button.setPrefHeight(50.0f);
+        button.setPrefWidth(100.0f * 2f);
         button.setBorder(new Border(
                 new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, new CornerRadii(0),
                         new BorderWidths(0))));
