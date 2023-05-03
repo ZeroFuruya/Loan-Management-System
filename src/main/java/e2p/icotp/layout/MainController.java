@@ -1557,6 +1557,11 @@ public class MainController {
         }
     }
 
+    @FXML
+    void handle_setup_verify_code() throws IOException {
+        LogInLoader.load_set_up_passcode(app);
+    }
+
     // GETTERS AND SETTERS
     public ObservableList<Loan> getLoanObservableList() {
         return loanObservableList;
