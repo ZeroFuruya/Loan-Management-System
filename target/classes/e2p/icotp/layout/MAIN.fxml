@@ -1078,6 +1078,7 @@
                 </Menu>
                   <Menu mnemonicParsing="false" text="Admin">
                      <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handle_setup_verify_code" text="Set Up Verification Code" />
                         <MenuItem mnemonicParsing="false" onAction="#handle_forgot_pass" text="Forgotten Password?" />
                      </items>
                   </Menu>
