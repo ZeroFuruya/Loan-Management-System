@@ -105,16 +105,17 @@ public class ForgotPasswordController {
     @FXML
     void handle_confirm_answer() {
         String decryptedPass = Encrypt.decrypt(admin.getSecurityAnswer(), admin.getPassKey());
-        String secAns = decryptedPass;
+        System.out.println(admin.getSecurityAnswer() + " : " + admin.getPassKey());
+        System.out.println(decryptedPass);
 
-        if (secAns.isBlank() || secAns.isEmpty()) {
+        if (secAnsTf.textProperty().get().isEmpty() || secAnsTf.textProperty().get().isBlank()) {
             secAnsIsEmpty.set(true);
             return;
         } else {
             secAnsIsEmpty.set(false);
         }
 
-        if (secAnsTf.getText().equals(secAns)) {
+        if (secAnsTf.getText().equals(decryptedPass)) {
             secAnsIsWrong.set(false);
         } else {
             secAnsIsWrong.set(true);
