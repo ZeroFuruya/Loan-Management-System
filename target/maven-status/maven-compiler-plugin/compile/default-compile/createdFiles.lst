@@ -25,6 +25,7 @@ e2p\icotp\service\server\core\SQLCommand.class
 e2p\icotp\Launcher.class
 e2p\icotp\service\server\dao\LoanerDAO.class
 e2p\icotp\layout\accounts\AdminController.class
+e2p\icotp\layout\accounts\VerifyAction.class
 e2p\icotp\layout\modal\PaymentController.class
 e2p\icotp\layout\factory\TypesFactory$1.class
 e2p\icotp\util\custom\cbox\LoanerStringConverter.class

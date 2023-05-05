@@ -142,6 +142,10 @@ public class App extends Application {
         return this.admin;
     }
 
+    public void setAdminProperty(Account account) {
+        this.admin = account;
+    }
+
     public static void main(String[] args) {
         launch();
     }

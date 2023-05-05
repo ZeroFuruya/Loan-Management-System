@@ -5,13 +5,14 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="483.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="483.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.accounts.VerifyAction">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
@@ -37,9 +38,12 @@
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="Call an Admin to verify this action" />
+                           </tooltip>
                         </Label>
                         <VBox />
-                        <Button fx:id="logIn_button" mnemonicParsing="false" onAction="#handle_login" prefHeight="37.0" prefWidth="392.0" text="Verify">
+                        <Button fx:id="logIn_button" mnemonicParsing="false" onAction="#handle_verification" prefHeight="37.0" prefWidth="392.0" text="Verify">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -57,7 +61,7 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <Hyperlink fx:id="sign_up" onAction="#handle_signUp" text="Recovery">
+                              <Hyperlink fx:id="sign_up" text="Recovery">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
