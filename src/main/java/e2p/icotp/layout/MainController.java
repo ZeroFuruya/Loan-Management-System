@@ -422,7 +422,7 @@ public class MainController {
 
     @FXML
     private void handle_login() throws IOException {
-        LogInLoader.load_log_in(app);
+        LogInLoader.load_log_in(app, false);
     }
 
     @FXML
@@ -1559,7 +1559,7 @@ public class MainController {
 
     @FXML
     void handle_setup_verify_code() throws IOException {
-        LogInLoader.load_set_up_passcode(app);
+        LogInLoader.load_log_in(app, true);
     }
 
     // GETTERS AND SETTERS

@@ -108,7 +108,7 @@
          <top>
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <Label styleClass="label-cont-bright" text="Log In">
+                  <Label fx:id="label_modal" styleClass="label-cont-bright" text="Log In">
                      <font>
                         <Font name="Arial" size="45.0" />
                      </font>

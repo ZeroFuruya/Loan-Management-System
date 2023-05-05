@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2023 at 09:43 AM
+-- Generation Time: May 05, 2023 at 04:30 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -33,8 +33,16 @@ CREATE TABLE `accounts` (
   `password` varchar(50) NOT NULL,
   `pass_key` varchar(100) NOT NULL,
   `security_question` int(11) DEFAULT NULL,
-  `security_answer` varchar(2500) DEFAULT NULL
+  `security_answer` varchar(2500) DEFAULT NULL,
+  `passcode` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`account_id`, `username`, `password`, `pass_key`, `security_question`, `security_answer`, `passcode`) VALUES
+(1, 'qwe', 'BjPs6g65OgftJaPUp081GQ==', 'LNwVTxD4pL8=', 2, 'QcTOJz4rF5UU28UVysG8ZQ==', NULL);
 
 -- --------------------------------------------------------
 

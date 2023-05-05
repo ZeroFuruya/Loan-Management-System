@@ -148,7 +148,7 @@ public class AdminController {
         app.accountsMasterlist().add(admin);
 
         ModalLoader.modal_close(app);
-        LogInLoader.load_log_in(app);
+        LogInLoader.load_log_in(app, false);
     }
 
     public void load(App app) {
