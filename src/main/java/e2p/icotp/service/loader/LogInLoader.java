@@ -46,11 +46,11 @@ public class LogInLoader {
         app.getMainScreen().getChildren().remove(lastIdx);
     }
 
-    public static void load_log_in(App app) throws IOException {
+    public static void load_log_in(App app, boolean isLoggedIn) throws IOException {
         FXMLLoader loader = load_modal(app, "accounts/LOGIN");
 
         LogInController controller = loader.getController();
-        controller.load(app);
+        controller.load(app, isLoggedIn);
     }
 
     public static void load_sign_up(App app) throws IOException {

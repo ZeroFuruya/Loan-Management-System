@@ -12,24 +12,30 @@ public class Account {
     private StringProperty pass_key;
     private IntegerProperty security_question;
     private StringProperty security_answer;
+    private StringProperty passcode;
 
     public Account() {
-        this(0, "", "", "", 0, "");
+        this(0, "", "", "", 0, "", "");
     }
 
     public Account(Account account) {
         this(account.getAccountId(), account.getUsername(), account.getPassword(), account.getPassKey(),
-                account.getSecurityQuestion(), account.getSecurityAnswer());
+                account.getSecurityQuestion(), account.getSecurityAnswer(), account.getPassCodeProperty().get());
     }
 
     public Account(int account_id, String username, String password, String pass_key, int security_question,
-            String security_answer) {
+            String security_answer, String passcode) {
         this.account_id = new SimpleIntegerProperty(account_id);
         this.username = new SimpleStringProperty(username);
         this.password = new SimpleStringProperty(password);
         this.pass_key = new SimpleStringProperty(pass_key);
         this.security_question = new SimpleIntegerProperty(security_question);
         this.security_answer = new SimpleStringProperty(security_answer);
+        this.passcode = new SimpleStringProperty(passcode);
+    }
+
+    public StringProperty getPassCodeProperty() {
+        return this.passcode;
     }
 
     // Setters
