@@ -4,6 +4,7 @@ import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
 import e2p.icotp.model.LoanType;
 import e2p.icotp.service.loader.ModalLoader;
+import e2p.icotp.service.server.dao.LoanTypeDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -29,6 +30,8 @@ public class LoanTypesController {
     private App app;
     LoanType og_loan_type;
     LoanType loan_type;
+    boolean isEdit;
+    MainController mc;
 
     @FXML
     private void handle_cancel() {
@@ -37,13 +40,25 @@ public class LoanTypesController {
 
     @FXML
     private void handle_save() {
-
+        modify_fields();
+        if (isEdit) {
+            LoanTypeDAO.update(loan_type);
+            app.loanTypeMasterlist().remove(og_loan_type);
+            app.loanTypeMasterlist().add(loan_type);
+        } else {
+            LoanTypeDAO.insert(loan_type);
+            app.loanTypeMasterlist().add(loan_type);
+        }
+        mc.refresh_types();
+        ModalLoader.modal_close(app);
     }
 
     public void load(App app, LoanType loan_type, boolean isEdit, MainController mc) {
         this.app = app;
         this.og_loan_type = loan_type;
         this.loan_type = loan_type;
+        this.isEdit = isEdit;
+        this.mc = mc;
         load_bindings();
         load_fields();
     }
@@ -58,6 +73,20 @@ public class LoanTypesController {
     private void load_fields() {
         loanName.setText(og_loan_type.getName().get());
         description.setText(og_loan_type.getDesc().get());
+    }
+
+    private void modify_fields() {
+        loan_type.getDesc().set(description.getText());
+        loan_type.getName().set(loanName.getText());
+        if (isEdit) {
+            loan_type.getId().set(loan_type.getId().get());
+        } else {
+            loan_type.getId().set(app.loanTypeMasterlist().size() + 1);
+        }
+
+        System.out.println(loan_type.getDesc());
+        System.out.println(loan_type.getId());
+        System.out.println(loan_type.getName());
     }
 
 }

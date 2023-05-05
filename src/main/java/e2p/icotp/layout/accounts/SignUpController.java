@@ -58,14 +58,15 @@ public class SignUpController {
         app.accountsMasterlist().add(user);
 
         ModalLoader.modal_close(app);
-        LogInLoader.load_log_in(app);
+        LogInLoader.load_log_in(app, false);
 
         // TODO DECRYPT PASS ON LOG IN
     }
 
     @FXML
     void handle_loginLink() throws IOException {
-        LogInLoader.load_log_in(app);
+        ModalLoader.modal_close(app);
+        LogInLoader.load_log_in(app, false);
     }
 
     public void load(App app) {

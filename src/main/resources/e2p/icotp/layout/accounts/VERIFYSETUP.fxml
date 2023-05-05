@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="383.0" prefWidth="496.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.accounts.SetUpPasscode">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <center>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="446.0" prefWidth="380.0" spacing="10.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label styleClass="label-bright" text="Create Passcode">
+                                 <font>
+                                    <Font name="Arial" size="17.0" />
+                                 </font>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <PasswordField fx:id="pf_passcode" prefHeight="25.0" prefWidth="364.0" promptText="*********" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="15.0" layoutY="15.0">
+                           <children>
+                              <Label styleClass="label-bright" text="Confirm Passcode">
+                                 <font>
+                                    <Font name="Arial" size="17.0" />
+                                 </font>
+                              </Label>
+                              <HBox>
+                                 <children>
+                                    <PasswordField fx:id="pf_passcode_confirm" prefHeight="25.0" prefWidth="364.0" promptText="*********" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Label fx:id="label_error_message" layoutX="15.0" layoutY="78.0" styleClass="label-red" text="Passcode doesn't match" visible="false">
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <VBox />
+                        <Button fx:id="btn_confirm" mnemonicParsing="false" onAction="#handle_passcode" prefHeight="37.0" prefWidth="392.0" text="Confirm">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </HBox>
+         </center>
+         <top>
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="label-cont-bright" text="Set Up Passcode">
+                     <font>
+                        <Font name="Arial" size="45.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+         </top>
+      </BorderPane>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</StackPane>

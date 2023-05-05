@@ -51,15 +51,15 @@ public class LoanTypeDAO {
         updateById(loan_type, loan_type.getId().get());
     }
 
-    public static void updateById(LoanType loan_type, long target_id) {
-        SQLParam idParam = new SQLParam(Types.BIGINT, "type_id", target_id);
+    public static void updateById(LoanType loan_type, int target_id) {
+        SQLParam idParam = new SQLParam(Types.INTEGER, "type_id", target_id);
         ArrayList<SQLParam> params = parameters(loan_type);
         SQLCommand.updateById("loan_types", params, idParam);
     }
 
     // Remove
     public static void remove(int type_id) {
-        SQLParam idParam = new SQLParam(Types.BIGINT, "type_id", type_id);
+        SQLParam idParam = new SQLParam(Types.INTEGER, "type_id", type_id);
         SQLCommand.deleteById("loan_types", idParam);
     }
 
@@ -68,11 +68,11 @@ public class LoanTypeDAO {
         ArrayList<SQLParam> params = new ArrayList<>();
 
         // int type_id
-        params.add(new SQLParam(Types.BIGINT, "type_id", loan_type.getId().get()));
+        params.add(new SQLParam(Types.INTEGER, "type_id", loan_type.getId().get()));
         // varchar type_name
         params.add(new SQLParam(Types.VARCHAR, "type_name", loan_type.getName().get()));
         // varchar type_desc
-        params.add(new SQLParam(Types.VARCHAR, "address", loan_type.getDesc().get()));
+        params.add(new SQLParam(Types.VARCHAR, "type_desc", loan_type.getDesc().get()));
 
         return params;
     }

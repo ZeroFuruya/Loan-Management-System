@@ -35,9 +35,11 @@ public class AccountDAO {
         String username = crs.getString("username");
         String password = crs.getString("password");
         String pass_key = crs.getString("pass_key");
-        String email_address = crs.getString("email_address");
+        int security_question = crs.getInt("security_question");
+        String security_answer = crs.getString("security_answer");
+        String passcode = crs.getString("passcode");
 
-        return new Account(account_id, username, password, pass_key, email_address);
+        return new Account(account_id, username, password, pass_key, security_question, security_answer, passcode);
     }
 
     public static ArrayList<SQLParam> parameters(Account account) {
@@ -51,7 +53,11 @@ public class AccountDAO {
 
         params.add(new SQLParam(Types.VARCHAR, "pass_key", account.getPassKey()));
 
-        params.add(new SQLParam(Types.VARCHAR, "email_address", account.getEmail()));
+        params.add(new SQLParam(Types.INTEGER, "security_question", account.getSecurityQuestion()));
+
+        params.add(new SQLParam(Types.VARCHAR, "security_answer", account.getSecurityAnswer()));
+
+        params.add(new SQLParam(Types.VARCHAR, "passcode", account.getPassCodeProperty().get()));
 
         return params;
     }
@@ -70,8 +76,7 @@ public class AccountDAO {
     }
 
     public static void removeByLoanId(Account account) {
-        SQLCommand.deleteById("accounts", new SQLParam(Types.INTEGER, "account_id",
-                account.getAccountId()));
+        SQLCommand.deleteById("accounts", new SQLParam(Types.INTEGER, "account_id", account.getAccountId()));
     }
 
     public static void updateById(Account account, long target_id) {

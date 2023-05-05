@@ -5,6 +5,7 @@ import java.io.IOException;
 import e2p.icotp.App;
 import e2p.icotp.layout.accounts.ForgotPasswordController;
 import e2p.icotp.layout.accounts.LogInController;
+import e2p.icotp.layout.accounts.SetUpPasscode;
 // import e2p.icotp.layout.accounts.LogInController;
 import e2p.icotp.layout.accounts.SignUpController;
 import javafx.fxml.FXMLLoader;
@@ -45,11 +46,11 @@ public class LogInLoader {
         app.getMainScreen().getChildren().remove(lastIdx);
     }
 
-    public static void load_log_in(App app) throws IOException {
+    public static void load_log_in(App app, boolean isLoggedIn) throws IOException {
         FXMLLoader loader = load_modal(app, "accounts/LOGIN");
 
         LogInController controller = loader.getController();
-        controller.load(app);
+        controller.load(app, isLoggedIn);
     }
 
     public static void load_sign_up(App app) throws IOException {
@@ -63,6 +64,13 @@ public class LogInLoader {
         FXMLLoader loader = load_modal(app, "accounts/FORGOT");
 
         ForgotPasswordController controller = loader.getController();
+        controller.load(app);
+    }
+
+    public static void load_set_up_passcode(App app) throws IOException {
+        FXMLLoader loader = load_modal(app, "accounts/VERIFYSETUP");
+
+        SetUpPasscode controller = loader.getController();
         controller.load(app);
     }
 

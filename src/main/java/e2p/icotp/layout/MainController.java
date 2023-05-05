@@ -422,7 +422,7 @@ public class MainController {
 
     @FXML
     private void handle_login() throws IOException {
-        LogInLoader.load_log_in(app);
+        LogInLoader.load_log_in(app, false);
     }
 
     @FXML
@@ -1243,9 +1243,20 @@ public class MainController {
             HBox val3 = TypesFactory.createLabelContainer(label3, types_container, 500, 1, Pos.CENTER_LEFT, 0);
 
             types_container.getChildren()
-                    .add(TypesFactory.createVBox(TypesFactory.createHBox(val1, val2), TypesFactory.createHBox(val3,
-                            TypesFactory.createButton("Modify", Color.RED, type, this, app))));
+                    .add(TypesFactory.createVBox(TypesFactory.createHBox(val1, val2, new HBox()),
+                            TypesFactory.createHBox(val3,
+                                    TypesFactory.createButton("Modify", Color.RED, type, this, app, false),
+                                    TypesFactory.createButton("Delete", Color.RED, type, this, app, true))));
         });
+    }
+
+    @FXML
+    VBox scrollpane_container;
+
+    public void refresh_types() {
+        scrollpane_container.getChildren().remove(types_scroll_pane);
+        _init_types();
+        scrollpane_container.getChildren().add(types_scroll_pane);
     }
 
     // LOAN PLAN ---------------------------------------------------------
@@ -1306,6 +1317,8 @@ public class MainController {
 
     double monthly_payment_getter = 0;
 
+    // TODO Loaner form input fields fix
+    // TODO Loan Plan fix form input fields fix
     // TODO add SecurityCode to AdminSetUp form
     // TODO FINISH LOAN TYPES
     // TODO make an invoice for each payment done
@@ -1357,6 +1370,8 @@ public class MainController {
             loan.setStatus(LoanStatus.PAID);
             collateral.getStatusProperty().set(CollateralStatus.SAFE);
         }
+
+        // TODO FINISH POP UPS
 
         if (!payment_exist) {
             if (days_skipped > total_days) {
@@ -1540,6 +1555,11 @@ public class MainController {
             loan_next_amount_label.setText(format.format(loan.getNextPayment()));
             return;
         }
+    }
+
+    @FXML
+    void handle_setup_verify_code() throws IOException {
+        LogInLoader.load_log_in(app, true);
     }
 
     // GETTERS AND SETTERS

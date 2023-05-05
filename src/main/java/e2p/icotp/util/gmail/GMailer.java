@@ -32,9 +32,11 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Message;
 
+import e2p.icotp.App;
+
 public class GMailer {
 
-    private static final String TEST_EMAIL = "ZephyrDev30@gmail.com";
+    private static final String TEST_EMAIL = "ninjaassassinhunter@gmail.com";
     private Gmail service;
 
     public GMailer() throws GeneralSecurityException, IOException {
@@ -83,8 +85,8 @@ public class GMailer {
     private static Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory)
             throws IOException {
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory,
-                new InputStreamReader(GMailer.class.getResourceAsStream(
-                        "/client_secret_479479034605-tdaoqbrgo8eb41dnuhullc8iffgoavg7.apps.googleusercontent.com.json")));
+                new InputStreamReader(App.class.getResourceAsStream(
+                        "client/client_secret_479479034605-eiptj9cqnm58if9mnht3al36rn9lvmo9.apps.googleusercontent.com.json")));
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(

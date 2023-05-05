@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -22,39 +23,54 @@
                      <children>
                         <VBox>
                            <children>
+                              <Label styleClass="label-bright" text="Security Question:">
+                                 <font>
+                                    <Font name="Arial" size="17.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" prefHeight="19.0" prefWidth="337.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <ComboBox fx:id="secQuesCBox" prefHeight="32.0" prefWidth="341.0" promptText="Select Correct Security Question" />
+                                 </children>
+                              </HBox>
+                              <Label fx:id="incorrectQuestionErr" styleClass="label-red" text="Incorrect Question" textFill="#f80000">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                              </Label>
                               <HBox alignment="CENTER_LEFT" spacing="5.0">
                                  <children>
-                                    <Label styleClass="label-bright" text="Verification Code:">
+                                    <Label styleClass="label-bright" text="Security Answer:">
                                        <font>
                                           <Font name="Arial" size="17.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="emailAccount_label" styleClass="label-cont-bright" text="sample@gmail.com">
+                                    <Label fx:id="emailAccount_label" styleClass="label-cont-bright">
                                        <font>
                                           <Font name="Arial" size="12.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="30.0">
                                  <children>
-                                    <TextField fx:id="codeTF" prefHeight="33.0" prefWidth="250.0" promptText="4865841" HBox.hgrow="ALWAYS">
+                                    <TextField fx:id="secAnsTf" prefHeight="33.0" prefWidth="250.0" promptText="Terry Crews" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </TextField>
-                                    <Button mnemonicParsing="false" onAction="#handle_send_code" text="Send Code" />
+                                    <Button fx:id="answer_confirm_btn" mnemonicParsing="false" onAction="#handle_confirm_answer" text="Confirm" />
                                  </children>
                               </HBox>
-                           </children>
-                        </VBox>
-                        <VBox fx:id="field_container_vbox" prefHeight="355.0" prefWidth="337.0" spacing="5.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <Label fx:id="incorrecrCodeErr" styleClass="label-red" text="incorrect code" textFill="#f80000">
+                              <Label fx:id="incorrectAnswerErr" styleClass="label-red" text="Incorrect Answer" textFill="#f80000">
                                  <font>
                                     <Font name="Arial Bold" size="14.0" />
                                  </font>
                               </Label>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="field_container_vbox" prefHeight="355.0" prefWidth="337.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                           <children>
                               <VBox>
                                  <children>
                                     <Label styleClass="label-bright" text="New Password:">
@@ -88,7 +104,7 @@
                                     </HBox>
                                  </children>
                               </VBox>
-                              <Label fx:id="passwordNoMatchErr" styleClass="label-red" text="shown password" textFill="#f80000">
+                              <Label fx:id="passwordNoMatchErr" styleClass="label-red" text="Shown password" textFill="#f80000">
                                  <font>
                                     <Font name="Arial Bold" size="14.0" />
                                  </font>
