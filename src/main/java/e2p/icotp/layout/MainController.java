@@ -1337,8 +1337,6 @@ public class MainController {
 
     double monthly_payment_getter = 0;
 
-    // TODO FIX FORGOT PASSWORD PASS KEY ISSUE
-    // TODO Loaner form input fields fix
     // TODO make an invoice for each payment done
     // TODO add security more by putting confirmations every after tasks
     // TODO make auto paper works (loan, collateral)
@@ -1411,6 +1409,7 @@ public class MainController {
                 loan.setNextPayment(penalty_payment);
                 loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                 loan_next_amount_label.setText(format.format(loan.getNextPayment()));
+                loan_total_unpaid_label.setText(penalty_val + "");
                 return;
             }
             return;

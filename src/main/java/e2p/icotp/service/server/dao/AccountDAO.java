@@ -79,7 +79,7 @@ public class AccountDAO {
         SQLCommand.deleteById("accounts", new SQLParam(Types.INTEGER, "account_id", account.getAccountId()));
     }
 
-    public static void updateById(Account account, long target_id) {
+    public static void updateById(Account account, int target_id) {
         SQLParam idParam = new SQLParam(Types.INTEGER, "account_id", target_id);
         ArrayList<SQLParam> params = parameters(account);
         SQLCommand.updateById("accounts", params, idParam);

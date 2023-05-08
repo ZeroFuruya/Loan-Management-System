@@ -124,15 +124,11 @@ public class ForgotPasswordController {
 
     @FXML
     void handle_change_pass() throws Exception {
-        SecretKey key = Encrypt.generateKey();
-        String keyString = Encrypt.convertSecretKeyToString(key);
-        Encrypt.prepareSecreteKey(keyString);
         String pass = passwordPF.getText();
-        String encryptedPass = Encrypt.encrypt(pass, keyString);
+        String encryptedPass = Encrypt.encrypt(pass, admin.getPassKey());
         // System.out.println(encryptedPass);
 
         admin.setPassword(encryptedPass);
-        admin.setPassKey(keyString);
         admin.setAccountId(admin.getAccountId());
         admin.setSecurityQuestion(admin.getSecurityQuestion());
         admin.setUsername(admin.getUsername());
@@ -145,8 +141,8 @@ public class ForgotPasswordController {
 
     public void load(App app) {
         this.app = app;
-        admin = app.getAdminProperty();
-        admin_copy = new Account(admin);
+        this.admin = app.getAdminProperty();
+        this.admin_copy = new Account(admin);
 
         // System.out.println(admin.getUsername());
         // System.out.println(admin.getAccountId());
