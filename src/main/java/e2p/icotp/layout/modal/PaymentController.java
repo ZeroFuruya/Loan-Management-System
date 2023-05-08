@@ -16,13 +16,20 @@ import e2p.icotp.service.server.dao.PaymentDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.ValidateTextField;
 import e2p.icotp.util.custom.date.DateUtil;
+import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
@@ -73,6 +80,8 @@ public class PaymentController {
     private Loaner loaner;
     private Payment payment;
     private Payment og_payment;
+
+    TextFormatter<Long> payment_formatter;
 
     @FXML
     private void handle_cancel() {
@@ -134,6 +143,10 @@ public class PaymentController {
         this.payment = payment;
         this.og_payment = payment;
 
+        payment_formatter = new IDTextFieldFormatter();
+
+        payment_amount.setTextFormatter(payment_formatter);
+
         load_bindings();
         init_listeners();
         if (isEdit) {
@@ -173,6 +186,20 @@ public class PaymentController {
         payment_date_label.textProperty().set(DateUtil.localizeDate(loan.getNextDueDate()));
         // payment_amount.textProperty().set(mc.getTotalDueAmount());
         amount_to_pay.textProperty().set("$" + mc.getTotalDueAmount() + "");
+        DoubleProperty payment_amount_int = new SimpleDoubleProperty(0);
+        DoubleProperty change_amount_int = new SimpleDoubleProperty(0);
+
+        payment_amount.textProperty().addListener((o, ov, nv) -> {
+            if (!nv.isEmpty() || !nv.isBlank()) {
+                payment_amount_int.set(Double.parseDouble(nv));
+
+                change_amount_int.set(payment_amount_int.get() - loan.getNextPayment());
+
+            }
+        });
+        change_amount.textProperty().bind(Bindings.createStringBinding(() -> {
+            return String.format("$%.2f", change_amount_int.get());
+        }, change_amount_int));
 
         payment.getDatePaymentProperty().set(LocalDate.now());
     }
@@ -245,7 +272,7 @@ public class PaymentController {
         payment.setLoan_id(loan);
         payment.setPayment_id(Long.parseLong(payment_id.textProperty().get()));
         payment.setPayment_date(payment_date.valueProperty().get());
-        payment.setPayment_amount(Double.parseDouble(payment_amount.textProperty().get()));
+        payment.setPayment_amount(loan.getNextPayment());
     }
 
     long final_num = 0;

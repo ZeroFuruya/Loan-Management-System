@@ -567,7 +567,7 @@ public class MainController {
 
         loaner_information_container.setVisible(false);
         loaner_name_container.setVisible(false);
-        payment_information_container.setVisible(false);
+        // payment_information_container.setVisible(false);
         collateral_information_container.setVisible(false);
         payments_box.setVisible(false);
         // collateral_box.setVisible(false);
@@ -717,6 +717,11 @@ public class MainController {
 
         toggle_btn_container.disableProperty().bind(isNotLoggedIn);
         menuBar.disableProperty().bind(isNotLoggedIn);
+
+        collateral_modify_button.disableProperty()
+                .bind(collateralTable.getSelectionModel().selectedItemProperty().isNull());
+        collateral_remove_button.disableProperty()
+                .bind(collateralTable.getSelectionModel().selectedItemProperty().isNull());
     }
 
     private void init_togbutton_listeners() {
@@ -789,7 +794,7 @@ public class MainController {
                 clear_payment_table();
                 _init_loaner_bindings();
                 loan_information_container.setVisible(true);
-                payment_information_container.setVisible(false);
+                // payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
                 payments_box.setVisible(false);
 
@@ -810,7 +815,7 @@ public class MainController {
                 loaner_information_container.setVisible(false);
                 loaner_name_container.setVisible(false);
                 loan_information_container.setVisible(false);
-                payment_information_container.setVisible(false);
+                // payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
                 payments_box.setVisible(false);
                 // collateral_box.setVisible(false);
@@ -847,7 +852,7 @@ public class MainController {
 
                 init_plans();
             } else {
-                payment_information_container.setVisible(false);
+                // payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
                 payments_box.setVisible(false);
                 // collateral_box.setVisible(false);
@@ -871,13 +876,13 @@ public class MainController {
         // PAYMENT --------------------------------------------
         paymentTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (nv != null) {
-                payment_information_container.setVisible(true);
+                // payment_information_container.setVisible(true);
                 og_payment = nv;
                 payment = og_payment;
                 _init_payment_bindings();
                 init_plans();
-            } else {
-                payment_information_container.setVisible(false);
+                // } else {
+                // payment_information_container.setVisible(false);
             }
         });
         payment_search.textProperty().addListener((o, ov, nv) -> {
@@ -1284,6 +1289,7 @@ public class MainController {
     // LOAN PLAN ---------------------------------------------------------
     // TODO POPUP MODAL
     private void init_plans() {
+        plan_modify_button.disableProperty().set(true);
         loanPlanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             BooleanProperty planIs = new SimpleBooleanProperty(false);
             og_loan_plan = nv;
@@ -1575,6 +1581,14 @@ public class MainController {
     @FXML
     void handle_setup_verify_code() throws IOException {
         LogInLoader.load_log_in(app, true);
+    }
+
+    @FXML
+    Button payment_btn_invoice;
+
+    @FXML
+    void payment_handle_generate_invoice() {
+
     }
 
     // GETTERS AND SETTERS
