@@ -177,7 +177,7 @@ public class LoanController {
             total_additional = total_years;
         }
         if (isEdit) {
-            loan.setBalance(loan.getBalance());
+            loan.setBalance(total_additional * payment);
             if (!paymentList.isEmpty()) {
                 loan.setNextDueDate(loan.getNextDueDate());
             } else {

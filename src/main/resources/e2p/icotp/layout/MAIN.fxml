@@ -537,6 +537,7 @@
                                                                         <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
                                                                            <children>
                                                                               <Button fx:id="payment_add_button" mnemonicParsing="false" onAction="#handle_payment_add" text="New Payment" />
+                                                                              <Button fx:id="payment_btn_invoice" layoutX="435.0" layoutY="10.0" mnemonicParsing="false" onAction="#payment_handle_generate_invoice" text="Generate Invoice" />
                                                                            </children>
                                                                         </HBox>
                                                                      </children>

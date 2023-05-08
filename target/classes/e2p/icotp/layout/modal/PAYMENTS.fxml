@@ -248,7 +248,7 @@
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="amount_to_pay1" layoutX="10.0" layoutY="10.0" text="Amount to Pay:">
+                                    <Label fx:id="change_amount" layoutX="10.0" layoutY="10.0" text="Amount to Pay:">
                                        <padding>
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
