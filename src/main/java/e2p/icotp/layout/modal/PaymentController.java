@@ -40,6 +40,10 @@ public class PaymentController {
     private DatePicker payment_date;
     @FXML
     private Label payment_date_label;
+    @FXML
+    private Label amount_to_pay;
+    @FXML
+    private Label change_amount;
 
     @FXML
     private TextField payment_amount;
@@ -156,7 +160,8 @@ public class PaymentController {
         payment_id.textProperty().set(payment.getPayment_id() + "");
         payment_date.valueProperty().set(payment.getPaymentDate());
         payment_date_label.textProperty().set(DateUtil.localizeDate(payment.getPaymentDate()));
-        payment_amount.textProperty().set(payment.getPayment_amount() + "");
+        // payment_amount.textProperty().set(payment.getPayment_amount() + "");
+        amount_to_pay.textProperty().set("$" + payment.getPayment_amount() + "");
 
         payment.getDatePaymentProperty().set(payment.getDatePaymentProperty().get());
     }
@@ -166,7 +171,8 @@ public class PaymentController {
         date_paid.setText(DateUtil.localizeDate(LocalDate.now()));
         payment_date.valueProperty().set(loan.getNextDueDate());
         payment_date_label.textProperty().set(DateUtil.localizeDate(loan.getNextDueDate()));
-        payment_amount.textProperty().set(mc.getTotalDueAmount());
+        // payment_amount.textProperty().set(mc.getTotalDueAmount());
+        amount_to_pay.textProperty().set("$" + mc.getTotalDueAmount() + "");
 
         payment.getDatePaymentProperty().set(LocalDate.now());
     }
@@ -220,11 +226,11 @@ public class PaymentController {
             paymentAmount_icon.visibleProperty().set(false);
         }
 
-        if (Double.parseDouble(payment_amount.getText()) > loan.getBalance()) {
-            paymentAmount_icon.visibleProperty().set(true);
-            paymentAmountTT.textProperty().set("Payment should not surpass balance");
-            return;
-        }
+        // if (Double.parseDouble(payment_amount.getText()) > loan.getBalance()) {
+        // paymentAmount_icon.visibleProperty().set(true);
+        // paymentAmountTT.textProperty().set("Payment should not surpass balance");
+        // return;
+        // }
 
         if (!pattern.matcher(payment_amount.getText()).matches()) {
             paymentAmount_icon.visibleProperty().set(true);

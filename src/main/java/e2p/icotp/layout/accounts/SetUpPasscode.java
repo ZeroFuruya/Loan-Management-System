@@ -39,8 +39,9 @@ public class SetUpPasscode {
         String encryptedPass = Encrypt.encrypt(pass, admin.getPassKey());
 
         admin.getPassCodeProperty().set(encryptedPass);
-        AccountDAO.removeByLoanId(admin_copy);
-        AccountDAO.insert(admin);
+        // AccountDAO.removeByLoanId(admin_copy);
+        // AccountDAO.insert(admin);
+        AccountDAO.update(admin);
 
         ModalLoader.modal_close(app);
     }
