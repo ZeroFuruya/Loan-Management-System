@@ -4,16 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.time.MonthDay;
-import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 
 import e2p.icotp.App;
-import e2p.icotp.layout.factory.TypesFactory;
 import e2p.icotp.model.Collateral;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.LoanPlan;
@@ -32,11 +28,11 @@ import e2p.icotp.service.server.dao.LoanerDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
 import e2p.icotp.util.FileUtil;
 import e2p.icotp.util.custom.date.DateUtil;
+import e2p.icotp.util.custom.pdf.InvoiceGenerator;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -45,7 +41,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -61,8 +56,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
 public class MainController {
@@ -1587,8 +1580,8 @@ public class MainController {
     Button payment_btn_invoice;
 
     @FXML
-    void payment_handle_generate_invoice() {
-
+    void payment_handle_generate_invoice() throws Exception {
+        InvoiceGenerator.generate_invoice(app, og_payment);
     }
 
     // GETTERS AND SETTERS
