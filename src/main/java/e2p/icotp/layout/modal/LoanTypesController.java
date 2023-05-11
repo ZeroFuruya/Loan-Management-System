@@ -1,10 +1,15 @@
 package e2p.icotp.layout.modal;
 
+import java.io.IOException;
+
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
 import e2p.icotp.model.LoanType;
+import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanTypeDAO;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -33,13 +38,23 @@ public class LoanTypesController {
     boolean isEdit;
     MainController mc;
 
+    BooleanProperty isVerified = new SimpleBooleanProperty(false);
+
     @FXML
     private void handle_cancel() {
         ModalLoader.modal_close(app);
     }
 
     @FXML
-    private void handle_save() {
+    private void handle_save() throws IOException {
+        if (!isVerified.get()) {
+            LogInLoader.load_verification(app, isVerified);
+        } else {
+            verified_save();
+        }
+    }
+
+    private void verified_save() {
         modify_fields();
         if (isEdit) {
             LoanTypeDAO.update(loan_type);
@@ -49,18 +64,20 @@ public class LoanTypesController {
             LoanTypeDAO.insert(loan_type);
             app.loanTypeMasterlist().add(loan_type);
         }
-        mc.refresh_types();
         ModalLoader.modal_close(app);
     }
 
     public void load(App app, LoanType loan_type, boolean isEdit, MainController mc) {
         this.app = app;
-        this.og_loan_type = loan_type;
-        this.loan_type = loan_type;
         this.isEdit = isEdit;
+        this.loan_type = loan_type;
+        this.og_loan_type = loan_type;
         this.mc = mc;
         load_bindings();
-        load_fields();
+        if (isEdit) {
+            load_fields();
+        }
+
     }
 
     private void load_bindings() {

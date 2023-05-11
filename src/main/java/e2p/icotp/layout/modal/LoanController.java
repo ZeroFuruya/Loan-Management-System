@@ -18,6 +18,8 @@ import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.ValidateTextField;
+import e2p.icotp.util.custom.formatters.DoubleTextFieldFormatter;
+import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -32,6 +34,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -113,6 +116,8 @@ public class LoanController {
     private LoanPlan loan_plan = new LoanPlan();
     private boolean isEdit;
 
+    TextFormatter<Long> principal_formatter;
+
     NumberFormat format = NumberFormat.getInstance();
     private MainController mc;
 
@@ -172,7 +177,7 @@ public class LoanController {
             total_additional = total_years;
         }
         if (isEdit) {
-            loan.setBalance(loan.getBalance());
+            loan.setBalance(total_additional * payment);
             if (!paymentList.isEmpty()) {
                 loan.setNextDueDate(loan.getNextDueDate());
             } else {
@@ -201,6 +206,10 @@ public class LoanController {
         this.loan = loan;
         this.isEdit = isEdit;
         this.loaner = loaner;
+
+        principal_formatter = new IDTextFieldFormatter();
+
+        principal.setTextFormatter(principal_formatter);
 
         format.setGroupingUsed(true);
 

@@ -8,6 +8,8 @@ import e2p.icotp.layout.accounts.LogInController;
 import e2p.icotp.layout.accounts.SetUpPasscode;
 // import e2p.icotp.layout.accounts.LogInController;
 import e2p.icotp.layout.accounts.SignUpController;
+import e2p.icotp.layout.accounts.VerifyAction;
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -72,6 +74,13 @@ public class LogInLoader {
 
         SetUpPasscode controller = loader.getController();
         controller.load(app);
+    }
+
+    public static void load_verification(App app, BooleanProperty isVerified) throws IOException {
+        FXMLLoader loader = load_modal(app, "accounts/VERIFY");
+
+        VerifyAction controller = loader.getController();
+        controller.load(app, isVerified);
     }
 
 }

@@ -105,16 +105,17 @@ public class ForgotPasswordController {
     @FXML
     void handle_confirm_answer() {
         String decryptedPass = Encrypt.decrypt(admin.getSecurityAnswer(), admin.getPassKey());
-        String secAns = decryptedPass;
+        System.out.println(admin.getSecurityAnswer() + " : " + admin.getPassKey());
+        System.out.println(decryptedPass);
 
-        if (secAns.isBlank() || secAns.isEmpty()) {
+        if (secAnsTf.textProperty().get().isEmpty() || secAnsTf.textProperty().get().isBlank()) {
             secAnsIsEmpty.set(true);
             return;
         } else {
             secAnsIsEmpty.set(false);
         }
 
-        if (secAnsTf.getText().equals(secAns)) {
+        if (secAnsTf.getText().equals(decryptedPass)) {
             secAnsIsWrong.set(false);
         } else {
             secAnsIsWrong.set(true);
@@ -123,15 +124,11 @@ public class ForgotPasswordController {
 
     @FXML
     void handle_change_pass() throws Exception {
-        SecretKey key = Encrypt.generateKey();
-        String keyString = Encrypt.convertSecretKeyToString(key);
-        Encrypt.prepareSecreteKey(keyString);
         String pass = passwordPF.getText();
-        String encryptedPass = Encrypt.encrypt(pass, keyString);
+        String encryptedPass = Encrypt.encrypt(pass, admin.getPassKey());
         // System.out.println(encryptedPass);
 
         admin.setPassword(encryptedPass);
-        admin.setPassKey(keyString);
         admin.setAccountId(admin.getAccountId());
         admin.setSecurityQuestion(admin.getSecurityQuestion());
         admin.setUsername(admin.getUsername());
@@ -144,8 +141,8 @@ public class ForgotPasswordController {
 
     public void load(App app) {
         this.app = app;
-        admin = app.getAdminProperty();
-        admin_copy = new Account(admin);
+        this.admin = app.getAdminProperty();
+        this.admin_copy = new Account(admin);
 
         // System.out.println(admin.getUsername());
         // System.out.println(admin.getAccountId());

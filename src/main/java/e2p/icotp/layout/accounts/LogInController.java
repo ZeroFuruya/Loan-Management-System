@@ -59,6 +59,10 @@ public class LogInController {
 
         MainController.getisNotLoggedIn().set(false);
 
+        if (account.getAccountId() == 1) {
+            app.setAdminProperty(account);
+        }
+
         ModalLoader.modal_close(app);
 
         if (!isLoggedIn) {

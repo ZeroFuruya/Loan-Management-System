@@ -35,15 +35,13 @@ public class SetUpPasscode {
 
     @FXML
     void handle_passcode() throws NoSuchAlgorithmException {
-        SecretKey key = Encrypt.generateKey();
-        String keyString = Encrypt.convertSecretKeyToString(key);
-        Encrypt.prepareSecreteKey(keyString);
         String pass = pf_passcode.getText();
-        String encryptedPass = Encrypt.encrypt(pass, keyString);
+        String encryptedPass = Encrypt.encrypt(pass, admin.getPassKey());
 
         admin.getPassCodeProperty().set(encryptedPass);
-        AccountDAO.removeByLoanId(admin_copy);
-        AccountDAO.insert(admin);
+        // AccountDAO.removeByLoanId(admin_copy);
+        // AccountDAO.insert(admin);
+        AccountDAO.update(admin);
 
         ModalLoader.modal_close(app);
     }

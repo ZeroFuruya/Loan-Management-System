@@ -567,7 +567,7 @@ public class MainController {
 
         loaner_information_container.setVisible(false);
         loaner_name_container.setVisible(false);
-        payment_information_container.setVisible(false);
+        // payment_information_container.setVisible(false);
         collateral_information_container.setVisible(false);
         payments_box.setVisible(false);
         // collateral_box.setVisible(false);
@@ -717,6 +717,11 @@ public class MainController {
 
         toggle_btn_container.disableProperty().bind(isNotLoggedIn);
         menuBar.disableProperty().bind(isNotLoggedIn);
+
+        collateral_modify_button.disableProperty()
+                .bind(collateralTable.getSelectionModel().selectedItemProperty().isNull());
+        collateral_remove_button.disableProperty()
+                .bind(collateralTable.getSelectionModel().selectedItemProperty().isNull());
     }
 
     private void init_togbutton_listeners() {
@@ -789,7 +794,7 @@ public class MainController {
                 clear_payment_table();
                 _init_loaner_bindings();
                 loan_information_container.setVisible(true);
-                payment_information_container.setVisible(false);
+                // payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
                 payments_box.setVisible(false);
 
@@ -810,7 +815,7 @@ public class MainController {
                 loaner_information_container.setVisible(false);
                 loaner_name_container.setVisible(false);
                 loan_information_container.setVisible(false);
-                payment_information_container.setVisible(false);
+                // payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
                 payments_box.setVisible(false);
                 // collateral_box.setVisible(false);
@@ -847,7 +852,7 @@ public class MainController {
 
                 init_plans();
             } else {
-                payment_information_container.setVisible(false);
+                // payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
                 payments_box.setVisible(false);
                 // collateral_box.setVisible(false);
@@ -871,13 +876,13 @@ public class MainController {
         // PAYMENT --------------------------------------------
         paymentTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (nv != null) {
-                payment_information_container.setVisible(true);
+                // payment_information_container.setVisible(true);
                 og_payment = nv;
                 payment = og_payment;
                 _init_payment_bindings();
                 init_plans();
-            } else {
-                payment_information_container.setVisible(false);
+                // } else {
+                // payment_information_container.setVisible(false);
             }
         });
         payment_search.textProperty().addListener((o, ov, nv) -> {
@@ -1230,33 +1235,53 @@ public class MainController {
     // LOAN TYPES ---------------------------------------------------------
     // LOAN TYPES ---------------------------------------------------------
     // LOAN TYPES ---------------------------------------------------------
-    private void _init_types() {
-        types_scroll_pane.setStyle("-fx-background: #bb161e; -fx-border-color: #bb161e;");
-        types_container.prefWidthProperty().bind(types_scroll_pane.widthProperty().subtract(18));
-        types_container.setSpacing(10);
-        loanTypeList.forEach(type -> {
-            Label label1 = TypesFactory.createLabel(type.getId().get() + "", FontWeight.BOLD, 20);
-            HBox val1 = TypesFactory.createLabelContainer(label1, types_container, 0.0d, 0.05, Pos.CENTER, 1);
-            Label label2 = TypesFactory.createLabel(type.getName().get(), FontWeight.SEMI_BOLD, 30);
-            HBox val2 = TypesFactory.createLabelContainer(label2, types_container, 0.0d, 0.95, Pos.CENTER_LEFT, 1);
-            Label label3 = TypesFactory.createLabel(type.getDesc().get(), FontWeight.NORMAL, 17);
-            HBox val3 = TypesFactory.createLabelContainer(label3, types_container, 500, 1, Pos.CENTER_LEFT, 0);
+    @FXML
+    TableView<LoanType> table_loan_types;
+    @FXML
+    TableColumn<LoanType, String> tcolumn_loan_types;
+    @FXML
+    TextField tf__type_search_box;
+    @FXML
+    Label label_type_name;
+    @FXML
+    Label label_type_desc;
+    @FXML
+    Button btn_modify_type;
 
-            types_container.getChildren()
-                    .add(TypesFactory.createVBox(TypesFactory.createHBox(val1, val2, new HBox()),
-                            TypesFactory.createHBox(val3,
-                                    TypesFactory.createButton("Modify", Color.RED, type, this, app, false),
-                                    TypesFactory.createButton("Delete", Color.RED, type, this, app, true))));
+    private void _init_types() {
+        tcolumn_loan_types.setCellValueFactory(type -> {
+            return type.getValue().getName();
+        });
+
+        table_loan_types.setItems(loanTypeList);
+
+        table_loan_types.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
+            if (nv != null) {
+                loan_type = nv;
+                og_loan_type = loan_type;
+                label_type_name.textProperty().set(nv.getName().get());
+                label_type_desc.textProperty().set(nv.getDesc().get());
+            }
+        });
+        tf__type_search_box.textProperty().addListener((o, ov, nv) -> {
+            loanTypeList.setPredicate(p -> {
+                if (nv == null || nv.isEmpty()) {
+                    return true;
+                }
+
+                return p.getName().get().toLowerCase().contains(nv.toLowerCase());
+            });
         });
     }
 
     @FXML
-    VBox scrollpane_container;
+    void handle_insert_type() throws IOException {
+        ModalLoader.load_loan_type_update(app, new LoanType(), false, this);
+    }
 
-    public void refresh_types() {
-        scrollpane_container.getChildren().remove(types_scroll_pane);
-        _init_types();
-        scrollpane_container.getChildren().add(types_scroll_pane);
+    @FXML
+    void handle_modify_type() throws IOException {
+        ModalLoader.load_loan_type_update(app, loan_type, true, this);
     }
 
     // LOAN PLAN ---------------------------------------------------------
@@ -1264,6 +1289,7 @@ public class MainController {
     // LOAN PLAN ---------------------------------------------------------
     // TODO POPUP MODAL
     private void init_plans() {
+        plan_modify_button.disableProperty().set(true);
         loanPlanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             BooleanProperty planIs = new SimpleBooleanProperty(false);
             og_loan_plan = nv;
@@ -1317,16 +1343,10 @@ public class MainController {
 
     double monthly_payment_getter = 0;
 
-    // TODO Loaner form input fields fix
-    // TODO Loan Plan fix form input fields fix
-    // TODO add SecurityCode to AdminSetUp form
-    // TODO FINISH LOAN TYPES
     // TODO make an invoice for each payment done
-    // TODO create admin sign up, only one admin
     // TODO add security more by putting confirmations every after tasks
     // TODO make auto paper works (loan, collateral)
     // TODO make statistics
-    // TODO add forget password
     // TODO think of more features to add after the important bits are done
 
     private void loan_next_logic_monthly() {
@@ -1395,6 +1415,7 @@ public class MainController {
                 loan.setNextPayment(penalty_payment);
                 loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                 loan_next_amount_label.setText(format.format(loan.getNextPayment()));
+                loan_total_unpaid_label.setText(penalty_val + "");
                 return;
             }
             return;
@@ -1560,6 +1581,14 @@ public class MainController {
     @FXML
     void handle_setup_verify_code() throws IOException {
         LogInLoader.load_log_in(app, true);
+    }
+
+    @FXML
+    Button payment_btn_invoice;
+
+    @FXML
+    void payment_handle_generate_invoice() {
+
     }
 
     // GETTERS AND SETTERS
