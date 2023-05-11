@@ -24,6 +24,7 @@ import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.CollateralDAO;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanPlanDAO;
+import e2p.icotp.service.server.dao.LoanTypeDAO;
 import e2p.icotp.service.server.dao.LoanerDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
 import e2p.icotp.util.FileUtil;
@@ -345,6 +346,22 @@ public class MainController {
     // @FXML
     // HBox payment_mode_err;
 
+    // TYPES ---------------------------------------------------------
+    @FXML
+    TableView<LoanType> table_loan_types;
+    @FXML
+    TableColumn<LoanType, String> tcolumn_loan_types;
+    @FXML
+    TextField tf__type_search_box;
+    @FXML
+    Label label_type_name;
+    @FXML
+    Label label_type_desc;
+    @FXML
+    Button types_modify_button;
+    @FXML
+    Button types_delete_button;
+
     // SCROLLPANE-----------------------------------------------------
     @FXML
     ScrollPane types_scroll_pane;
@@ -574,6 +591,13 @@ public class MainController {
         init_plans();
         _init_types();
         init_anims();
+
+        try {
+            InvoiceGenerator.generate_invoice(app, og_payment);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     private void init_tables() {
@@ -715,6 +739,10 @@ public class MainController {
                 .bind(collateralTable.getSelectionModel().selectedItemProperty().isNull());
         collateral_remove_button.disableProperty()
                 .bind(collateralTable.getSelectionModel().selectedItemProperty().isNull());
+        types_modify_button.disableProperty()
+                .bind(table_loan_types.getSelectionModel().selectedItemProperty().isNull());
+        types_delete_button.disableProperty()
+                .bind(table_loan_types.getSelectionModel().selectedItemProperty().isNull());
     }
 
     private void init_togbutton_listeners() {
@@ -1228,19 +1256,6 @@ public class MainController {
     // LOAN TYPES ---------------------------------------------------------
     // LOAN TYPES ---------------------------------------------------------
     // LOAN TYPES ---------------------------------------------------------
-    @FXML
-    TableView<LoanType> table_loan_types;
-    @FXML
-    TableColumn<LoanType, String> tcolumn_loan_types;
-    @FXML
-    TextField tf__type_search_box;
-    @FXML
-    Label label_type_name;
-    @FXML
-    Label label_type_desc;
-    @FXML
-    Button btn_modify_type;
-
     private void _init_types() {
         tcolumn_loan_types.setCellValueFactory(type -> {
             return type.getValue().getName();
@@ -1275,6 +1290,12 @@ public class MainController {
     @FXML
     void handle_modify_type() throws IOException {
         ModalLoader.load_loan_type_update(app, loan_type, true, this);
+    }
+
+    @FXML
+    void handle_delete_type() throws IOException {
+        LoanTypeDAO.remove(og_loan_type.getId().get());
+        app.loanTypeMasterlist().remove(og_loan_type);
     }
 
     // LOAN PLAN ---------------------------------------------------------
@@ -1337,10 +1358,8 @@ public class MainController {
     double monthly_payment_getter = 0;
 
     // TODO make an invoice for each payment done
-    // TODO add security more by putting confirmations every after tasks
-    // TODO make auto paper works (loan, collateral)
+    // TODO Collateral remove
     // TODO make statistics
-    // TODO think of more features to add after the important bits are done
 
     private void loan_next_logic_monthly() {
         total_months = 0;
@@ -1582,6 +1601,12 @@ public class MainController {
     @FXML
     void payment_handle_generate_invoice() throws Exception {
         InvoiceGenerator.generate_invoice(app, og_payment);
+        Runtime.getRuntime()
+                .exec("explorer.exe /select," + FileUtil.CUSTOM_DIR + payment.getLoaner_id().getLoaner_id() +
+                        FileUtil.FS + payment.getLoan_id().getLoan_id() + FileUtil.FS + "invoices" + FileUtil.FS
+                        + payment.getPayment_id()
+                        + ".pdf");
+
     }
 
     // GETTERS AND SETTERS

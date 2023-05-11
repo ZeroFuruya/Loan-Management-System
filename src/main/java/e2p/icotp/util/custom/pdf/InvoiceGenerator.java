@@ -2,21 +2,14 @@ package e2p.icotp.util.custom.pdf;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Date;
 
-import org.apache.commons.io.FilenameUtils;
-
-import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.TabStop.Alignment;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import e2p.icotp.App;
@@ -24,100 +17,130 @@ import e2p.icotp.model.Payment;
 import e2p.icotp.util.FileUtil;
 
 public class InvoiceGenerator {
-    static App app;
-    static Payment payment;
+        static App app;
+        static Payment payment;
 
-    private static String file_name = "";
-    private static String path_name = "";
+        private static String file_name = "";
+        private static String path_name = "";
 
-    private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
-            Font.BOLD);
-    private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.NORMAL, BaseColor.RED);
-    private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
-            Font.BOLD);
-    private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.BOLD);
+        private static Font catFont = new Font(Font.FontFamily.HELVETICA, 18,
+                        Font.BOLD);
+        private static Font subFont = new Font(Font.FontFamily.HELVETICA, 12,
+                        Font.NORMAL);
+        private static Font smallBold = new Font(Font.FontFamily.HELVETICA, 12,
+                        Font.BOLD);
 
-    public static void generate_invoice(App val1, Payment val2) throws Exception {
-        app = val1;
-        payment = val2;
+        public static void generate_invoice(App val1, Payment val2) throws Exception {
+                app = val1;
+                payment = val2;
 
-        file_name = FileUtil.CUSTOM_DIR + payment.getLoaner_id().getLoaner_id() +
-                FileUtil.FS + payment.getLoan_id().getLoan_id() + FileUtil.FS + "invoices" + FileUtil.FS
-                + payment.getPayment_id()
-                + ".pdf";
+                file_name = FileUtil.CUSTOM_DIR + payment.getLoaner_id().getLoaner_id() +
+                                FileUtil.FS + payment.getLoan_id().getLoan_id() + FileUtil.FS + "invoices" + FileUtil.FS
+                                + payment.getPayment_id()
+                                + ".pdf";
 
-        path_name = FileUtil.CUSTOM_DIR + payment.getLoaner_id().getLoaner_id() +
-                FileUtil.FS + payment.getLoan_id().getLoan_id() + FileUtil.FS + "invoices" + FileUtil.FS;
+                path_name = FileUtil.CUSTOM_DIR + payment.getLoaner_id().getLoaner_id() +
+                                FileUtil.FS + payment.getLoan_id().getLoan_id() + FileUtil.FS + "invoices"
+                                + FileUtil.FS;
 
-        System.out.println(file_name);
-        create_new_file(file_name, path_name);
-        try {
-            Document document = new Document();
-            PdfWriter.getInstance(document,
-                    new FileOutputStream(file_name));
-            document.open();
-            addMetaData(document);
-            addTitlePage(document);
-            addContent(document);
-            document.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+                System.out.println(file_name);
+                create_new_file(file_name, path_name);
+                try {
+                        Document document = new Document();
+                        PdfWriter.getInstance(document,
+                                        new FileOutputStream(file_name));
+                        document.open();
+                        addMetaData(document);
+                        addTitlePage(document);
+                        addTable(document);
+                        addContent(document);
+                        document.close();
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
         }
-    }
 
-    private static void addMetaData(Document document) {
-        document.addTitle("Invoice for Payment No. " + payment.getPayment_id());
-        document.addSubject("Payment");
-        document.addKeywords(payment.getLoaner_id().getLoaner_id() + ", " + payment.getLoan_id().getLoan_id() + ", "
-                + payment.getPayment_id());
-        document.addAuthor("Zephyr LMS");
-        document.addCreator("Zephyr LMS");
+        private static void addMetaData(Document document) {
+                document.addTitle("Invoice for Payment No. " + payment.getPayment_id());
+                document.addSubject("Payment");
+                document.addKeywords(
+                                payment.getLoaner_id().getLoaner_id() + ", " + payment.getLoan_id().getLoan_id() + ", "
+                                                + payment.getPayment_id());
+                document.addAuthor("Zephyr LMS");
+                document.addCreator("Zephyr LMS");
 
-    }
-
-    private static void addTitlePage(Document document) throws DocumentException {
-        Paragraph preface = new Paragraph();
-        // We add one empty line
-        addEmptyLine(preface, 1);
-        // Lets write a big header
-        Paragraph invoice_title = new Paragraph("Title of the document", catFont);
-        invoice_title.setAlignment(Element.ALIGN_CENTER);
-        preface.add(invoice_title);
-
-        addEmptyLine(preface, 1);
-        // Will create: Report generated by: _name, _date
-        preface.add(new Paragraph(
-                "Report generated by: " + "Zephyr LMS" + ", " + new Date(), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                smallBold));
-        addEmptyLine(preface, 3);
-        preface.add(new Paragraph(
-                payment.getLoaner_id().getName() + ": " + payment.getPayment_amount(),
-                smallBold));
-
-        addEmptyLine(preface, 8);
-
-        preface.add(new Paragraph(
-                "This document is a preliminary version and not subject to your license agreement or any other agreement with vogella.com ;-).",
-                redFont));
-
-        document.add(preface);
-        // Start a new page
-        document.newPage();
-    }
-
-    private static void addContent(Document document) {
-    }
-
-    private static void addEmptyLine(Paragraph paragraph, int number) {
-        for (int i = 0; i < number; i++) {
-            paragraph.add(new Paragraph(" "));
         }
-    }
 
-    private static void create_new_file(String file_name, String path_name) throws Exception {
-        FileUtil.create_dir(path_name);
-        File destination = new File(file_name);
-    }
+        private static void addTitlePage(Document document) throws DocumentException {
+                Paragraph preface = new Paragraph();
+                // We add one empty line
+                addEmptyLine(preface, 1);
+                // Lets write a big header
+                StringBuilder payment_loan_type = new StringBuilder();
+                payment_loan_type.append(payment.getLoan_id().getLoanType().getName().get());
+                payment_loan_type.delete(payment_loan_type.length() - 1, payment_loan_type.length());
+                Paragraph invoice_title = new Paragraph(
+                                "Zephyr Loans                                                           "
+                                                + payment_loan_type.toString(),
+                                catFont);
+                // invoice_title.setAlignment(Element.ALIGN_CENTER);
+                invoice_title.getFont().setSize(17.0f);
+                preface.add(invoice_title);
+
+                addEmptyLine(preface, 1);
+                // Will create: Report generated by: _name, _date
+                preface.add(new Paragraph(
+                                "Report generated by: " + "Zephyr LMS" + ", " + new Date(), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                                smallBold));
+                // addEmptyLine(preface, 3);
+
+                Paragraph am = new Paragraph(new Paragraph(
+                                payment.getLoaner_id().getName() + ": " + payment.getPayment_amount(),
+                                subFont));
+
+                preface.add(am);
+
+                addEmptyLine(am, 1);
+                document.add(preface);
+        }
+
+        private static void addTable(Document document) throws DocumentException {
+                // Create a table with 3 columns
+                PdfPTable table = new PdfPTable(3);
+
+                // Add table header
+                PdfPCell header1 = new PdfPCell(new Paragraph("Header 1"));
+                PdfPCell header2 = new PdfPCell(new Paragraph("Header 2"));
+                PdfPCell header3 = new PdfPCell(new Paragraph("Header 3"));
+
+                table.addCell(header1);
+                table.addCell(header2);
+                table.addCell(header3);
+
+                // Add table rows
+                table.addCell("1");
+                table.addCell("2");
+                table.addCell("3");
+
+                table.addCell("4");
+                table.addCell("5");
+                table.addCell("6");
+
+                document.add(table);
+
+        }
+
+        private static void addContent(Document document) {
+        }
+
+        private static void addEmptyLine(Paragraph paragraph, int number) {
+                for (int i = 0; i < number; i++) {
+                        paragraph.add(new Paragraph(" "));
+                }
+        }
+
+        private static void create_new_file(String file_name, String path_name) throws Exception {
+                FileUtil.create_dir(path_name);
+                File destination = new File(file_name);
+        }
 }

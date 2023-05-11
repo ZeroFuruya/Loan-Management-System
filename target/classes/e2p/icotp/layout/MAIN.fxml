@@ -53,7 +53,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0">
+                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0" visible="false">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="902.0" styleClass="dept-tab-container">
                            <children>
@@ -907,7 +907,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="types_box" prefHeight="200.0" prefWidth="100.0" visible="false">
+                  <VBox fx:id="types_box" prefHeight="200.0" prefWidth="100.0">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
@@ -994,8 +994,9 @@
                               </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="1138.0" spacing="10.0">
                                  <children>
-                                    <Button fx:id="btn_modify_type" mnemonicParsing="false" onAction="#handle_modify_type" text="Modify" />
+                                    <Button fx:id="types_modify_button" mnemonicParsing="false" onAction="#handle_modify_type" text="Modify" />
                                     <Button mnemonicParsing="false" onAction="#handle_insert_type" text="Insert" />
+                                    <Button fx:id="types_delete_button" layoutX="1015.0" layoutY="20.0" mnemonicParsing="false" onAction="#handle_delete_type" text="Delete" />
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

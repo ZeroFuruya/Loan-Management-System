@@ -75,12 +75,4 @@ public class LogInLoader {
         SetUpPasscode controller = loader.getController();
         controller.load(app);
     }
-
-    public static void load_verification(App app, BooleanProperty isVerified) throws IOException {
-        FXMLLoader loader = load_modal(app, "accounts/VERIFY");
-
-        VerifyAction controller = loader.getController();
-        controller.load(app, isVerified);
-    }
-
 }
