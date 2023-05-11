@@ -29,7 +29,7 @@
                               </Label>
                               <HBox>
                                  <children>
-                                    <PasswordField fx:id="password_field" prefHeight="25.0" prefWidth="364.0" promptText="*********" />
+                                    <PasswordField fx:id="pf_code" prefHeight="25.0" prefWidth="364.0" promptText="*********" />
                                  </children>
                               </HBox>
                            </children>

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
+import e2p.icotp.layout.accounts.VerifyAction;
 import e2p.icotp.layout.modal.CollateralController;
 import e2p.icotp.layout.modal.LoanController;
 import e2p.icotp.layout.modal.LoanPlanController;
@@ -18,6 +19,7 @@ import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -121,6 +123,13 @@ public class ModalLoader {
     public static void load_popup_warning(App app)
             throws IOException {
         FXMLLoader loader = load_modal(app, "modal/PLANPOPUP");
+    }
+
+    public static void load_verification(App app, BooleanProperty isVerified) throws IOException {
+        FXMLLoader loader = load_modal(app, "accounts/VERIFY");
+
+        VerifyAction controller = loader.getController();
+        controller.load(app, isVerified);
     }
 
     // public static void load_degree_update(App app) throws IOException {

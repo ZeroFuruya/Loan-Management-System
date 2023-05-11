@@ -47,11 +47,7 @@ public class LoanTypesController {
 
     @FXML
     private void handle_save() throws IOException {
-        if (!isVerified.get()) {
-            LogInLoader.load_verification(app, isVerified);
-        } else {
-            verified_save();
-        }
+        verified_save();
     }
 
     private void verified_save() {
@@ -67,12 +63,14 @@ public class LoanTypesController {
         ModalLoader.modal_close(app);
     }
 
-    public void load(App app, LoanType loan_type, boolean isEdit, MainController mc) {
+    public void load(App app, LoanType loan_type, boolean isEdit, MainController mc) throws IOException {
         this.app = app;
+        ModalLoader.load_verification(app, isVerified);
         this.isEdit = isEdit;
         this.loan_type = loan_type;
         this.og_loan_type = loan_type;
         this.mc = mc;
+
         load_bindings();
         if (isEdit) {
             load_fields();
