@@ -46,7 +46,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <Label fx:id="label_error_message" layoutX="15.0" layoutY="78.0" styleClass="label-red" text="Passcode doesn't match" visible="false">
+                        <Label fx:id="label_error_message" layoutX="15.0" layoutY="78.0" styleClass="label-red" text="Passcode doesn't match">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>

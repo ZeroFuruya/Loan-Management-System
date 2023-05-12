@@ -1,10 +1,10 @@
 package e2p.icotp.layout.accounts;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-import javax.crypto.SecretKey;
-
 import e2p.icotp.App;
+import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.AccountDAO;
 import e2p.icotp.util.custom.cipher.Encrypt;
@@ -34,7 +34,7 @@ public class SetUpPasscode {
     Account admin_copy;
 
     @FXML
-    void handle_passcode() throws NoSuchAlgorithmException {
+    void handle_passcode() throws NoSuchAlgorithmException, IOException {
         String pass = pf_passcode.getText();
         String encryptedPass = Encrypt.encrypt(pass, admin.getPassKey());
 
@@ -65,6 +65,7 @@ public class SetUpPasscode {
         label_error_message.textProperty()
                 .bind(Bindings.when(pf_passcode.textProperty().isEqualTo(pf_passcode_confirm.textProperty()))
                         .then("").otherwise("Password doesn't match"));
+        // TODO FIX BUTTON
+        btn_confirm.disableProperty().bind(label_error_message.visibleProperty());
     }
-
 }

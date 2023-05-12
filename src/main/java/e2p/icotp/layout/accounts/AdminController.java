@@ -4,6 +4,7 @@ import javax.crypto.SecretKey;
 
 import e2p.icotp.App;
 import e2p.icotp.model.Enums.SecurityQuestions;
+import e2p.icotp.service.loader.AdminLoader;
 import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.AccountDAO;
@@ -148,7 +149,7 @@ public class AdminController {
         app.accountsMasterlist().add(admin);
 
         ModalLoader.modal_close(app);
-        LogInLoader.load_log_in(app, false);
+        // LogInLoader.load_log_in(app, false);
     }
 
     public void load(App app) {
