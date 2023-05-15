@@ -1,10 +1,10 @@
 package e2p.icotp.layout.accounts;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-import javax.crypto.SecretKey;
-
 import e2p.icotp.App;
+import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.AccountDAO;
 import e2p.icotp.util.custom.cipher.Encrypt;
@@ -34,7 +34,7 @@ public class SetUpPasscode {
     Account admin_copy;
 
     @FXML
-    void handle_passcode() throws NoSuchAlgorithmException {
+    void handle_passcode() throws NoSuchAlgorithmException, IOException {
         String pass = pf_passcode.getText();
         String encryptedPass = Encrypt.encrypt(pass, admin.getPassKey());
 
@@ -58,13 +58,22 @@ public class SetUpPasscode {
     private void init_bindings() {
 
         BooleanBinding isPassEmpty = Bindings.createBooleanBinding(() -> {
-            return pf_passcode.textProperty().isEmpty().get() ? false : true;
+            return pf_passcode.textProperty().isEmpty().get() ? true : false;
         }, pf_passcode.textProperty());
+        BooleanBinding isPassConfirmEmpty = Bindings.createBooleanBinding(() -> {
+            return pf_passcode_confirm.textProperty().isEmpty().get() ? true : false;
+        }, pf_passcode_confirm.textProperty());
 
-        label_error_message.visibleProperty().bind(isPassEmpty);
+        // label_error_message.visibleProperty().bind(isPassEmpty);
         label_error_message.textProperty()
-                .bind(Bindings.when(pf_passcode.textProperty().isEqualTo(pf_passcode_confirm.textProperty()))
-                        .then("").otherwise("Password doesn't match"));
-    }
+                .bind((Bindings.when(pf_passcode.textProperty().isEqualTo(pf_passcode_confirm.textProperty()))
+                        .then("Correct").otherwise("Password doesn't match")));
+        label_error_message.visibleProperty()
+                .bind(pf_passcode.textProperty().isEqualTo(pf_passcode_confirm.textProperty()).not());
+        // TODO FIX BUTTON
+        // btn_confirm.disableProperty().bind(label_error_message.visibleProperty().or(isPassEmpty));
 
+        btn_confirm.disableProperty()
+                .bind(label_error_message.visibleProperty().or(isPassEmpty).or(isPassConfirmEmpty));
+    }
 }

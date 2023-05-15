@@ -16,7 +16,7 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
-            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <VBox prefHeight="446.0" prefWidth="380.0" spacing="10.0">
                      <children>
@@ -61,7 +61,7 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </Label>
-                              <Hyperlink fx:id="sign_up" text="Recovery">
+                              <Hyperlink fx:id="sign_up" onAction="#handle_recovery" text="Recovery">
                                  <font>
                                     <Font name="Arial" size="14.0" />
                                  </font>
@@ -99,9 +99,16 @@
                </padding>
             </VBox>
          </top>
+         <bottom>
+            <HBox alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="383.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handle_cancel" text="Cancel" />
+               </children>
+            </HBox>
+         </bottom>
       </BorderPane>
    </children>
    <padding>
-      <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
 </StackPane>

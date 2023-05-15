@@ -1,17 +1,17 @@
 package e2p.icotp.layout.accounts;
 
+import java.io.IOException;
+
 import e2p.icotp.App;
+import e2p.icotp.service.loader.AdminLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.util.custom.cipher.Encrypt;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 
 public class VerifyAction {
     App app;
-    BooleanProperty isVerified;
 
     @FXML
     PasswordField pf_code;
@@ -30,12 +30,21 @@ public class VerifyAction {
             return;
         }
 
-        isVerified.set(true);
         ModalLoader.modal_close(app);
     }
 
-    public void load(App app, BooleanProperty isVerified) {
+    @FXML
+    private void handle_cancel() {
+        ModalLoader.modal_close(app);
+        ModalLoader.modal_close(app);
+    }
+
+    @FXML
+    private void handle_recovery() throws IOException {
+        AdminLoader.load_set_up_passcode(app);
+    }
+
+    public void load(App app) {
         this.app = app;
-        this.isVerified = new SimpleBooleanProperty(isVerified.get());
     }
 }

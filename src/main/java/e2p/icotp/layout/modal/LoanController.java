@@ -1,5 +1,6 @@
 package e2p.icotp.layout.modal;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -199,9 +200,10 @@ public class LoanController {
         ModalLoader.modal_close(app);
     }
 
-    public void load(App app, Loan loan, boolean isEdit, MainController mc, Loaner loaner) {
+    public void load(App app, Loan loan, boolean isEdit, MainController mc, Loaner loaner) throws IOException {
         this.mc = mc;
         this.app = app;
+        ModalLoader.load_verification(app);
         this.og_loan = loan;
         this.loan = loan;
         this.isEdit = isEdit;

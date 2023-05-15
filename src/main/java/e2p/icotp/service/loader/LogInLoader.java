@@ -68,11 +68,4 @@ public class LogInLoader {
         ForgotPasswordController controller = loader.getController();
         controller.load(app);
     }
-
-    public static void load_set_up_passcode(App app) throws IOException {
-        FXMLLoader loader = load_modal(app, "accounts/VERIFYSETUP");
-
-        SetUpPasscode controller = loader.getController();
-        controller.load(app);
-    }
 }

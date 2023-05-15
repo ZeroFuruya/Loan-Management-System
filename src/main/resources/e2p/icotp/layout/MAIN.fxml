@@ -1133,12 +1133,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem mnemonicParsing="false" onAction="#handle_open_data_folder" text="Open Data Folder" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Admin">
@@ -1147,11 +1142,6 @@
                         <MenuItem mnemonicParsing="false" onAction="#handle_forgot_pass" text="Forgotten Password?" />
                      </items>
                   </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
               </menus>
             </MenuBar>
          </top>

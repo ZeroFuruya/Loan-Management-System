@@ -125,11 +125,11 @@ public class ModalLoader {
         FXMLLoader loader = load_modal(app, "modal/PLANPOPUP");
     }
 
-    public static void load_verification(App app, BooleanProperty isVerified) throws IOException {
+    public static void load_verification(App app) throws IOException {
         FXMLLoader loader = load_modal(app, "accounts/VERIFY");
 
         VerifyAction controller = loader.getController();
-        controller.load(app, isVerified);
+        controller.load(app);
     }
 
     // public static void load_degree_update(App app) throws IOException {

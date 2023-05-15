@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
+import e2p.icotp.service.loader.AdminLoader;
 import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.util.custom.cipher.Encrypt;
@@ -51,25 +52,31 @@ public class LogInController {
         String decryptedPass = Encrypt.decrypt(account.getPassword(), account.getPassKey());
         String passFieldInput = password_field.getText();
 
+        System.out.println("IN");
+
         if (!decryptedPass.equals(passFieldInput)) {
             password_error.visibleProperty().set(true);
             return;
         }
+        ModalLoader.modal_close(app);
+        System.out.println("IN1");
         password_error.visibleProperty().set(false);
 
         MainController.getisNotLoggedIn().set(false);
 
         if (account.getAccountId() == 1) {
             app.setAdminProperty(account);
+            if (account.getPassCodeProperty().get().isEmpty() || account.getPassCodeProperty().get().isBlank()) {
+                System.out.println("ODORIKO");
+                AdminLoader.load_set_up_passcode(app);
+            }
         }
-
-        ModalLoader.modal_close(app);
+        System.out.println("IN2");
 
         if (!isLoggedIn) {
             return;
         }
-
-        LogInLoader.load_set_up_passcode(app);
+        ModalLoader.modal_close(app);
     }
 
     private App app;
