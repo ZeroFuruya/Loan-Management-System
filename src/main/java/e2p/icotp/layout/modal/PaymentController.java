@@ -1,5 +1,6 @@
 package e2p.icotp.layout.modal;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.regex.Pattern;
@@ -18,12 +19,11 @@ import e2p.icotp.util.custom.ValidateTextField;
 import e2p.icotp.util.custom.date.DateUtil;
 import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -133,7 +133,8 @@ public class PaymentController {
         ModalLoader.modal_close(app);
     }
 
-    public void load(App app, Loan loan, boolean isEdit, MainController mc, Loaner loaner, Payment payment) {
+    public void load(App app, Loan loan, boolean isEdit, MainController mc, Loaner loaner, Payment payment)
+            throws IOException {
         this.app = app;
         this.loan = loan;
         this.og_loan = loan;
@@ -164,8 +165,16 @@ public class PaymentController {
 
     private void load_bindings() {
         paymentAmount_icon.setVisible(false);
+        DoubleProperty payment_double = new SimpleDoubleProperty(0.0f);
+        BooleanBinding paymentIsZero = Bindings.createBooleanBinding(() -> {
+            if (!payment_amount.textProperty().get().isEmpty() || !payment_amount.textProperty().get().isBlank()) {
+                payment_double.set(Double.parseDouble(payment_amount.textProperty().get()));
+            }
+            return payment_double.get() <= 0 ? true : false;
+        }, payment_amount.textProperty());
 
-        save.disableProperty().bind(paymentAmount_icon.visibleProperty().or(paymentAmount_icon.visibleProperty()));
+        save.disableProperty()
+                .bind(paymentAmount_icon.visibleProperty().or(paymentAmount_icon.visibleProperty()).or(paymentIsZero));
     }
 
     private void init_insert_listeners() {

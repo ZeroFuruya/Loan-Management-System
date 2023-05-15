@@ -66,7 +66,10 @@ public class LogInController {
 
         if (account.getAccountId() == 1) {
             app.setAdminProperty(account);
-            AdminLoader.load_set_up_passcode(app);
+            if (account.getPassCodeProperty().get().isEmpty() || account.getPassCodeProperty().get().isBlank()) {
+                System.out.println("ODORIKO");
+                AdminLoader.load_set_up_passcode(app);
+            }
         }
         System.out.println("IN2");
 

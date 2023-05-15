@@ -58,14 +58,22 @@ public class SetUpPasscode {
     private void init_bindings() {
 
         BooleanBinding isPassEmpty = Bindings.createBooleanBinding(() -> {
-            return pf_passcode.textProperty().isEmpty().get() ? false : true;
+            return pf_passcode.textProperty().isEmpty().get() ? true : false;
         }, pf_passcode.textProperty());
+        BooleanBinding isPassConfirmEmpty = Bindings.createBooleanBinding(() -> {
+            return pf_passcode_confirm.textProperty().isEmpty().get() ? true : false;
+        }, pf_passcode_confirm.textProperty());
 
-        label_error_message.visibleProperty().bind(isPassEmpty);
+        // label_error_message.visibleProperty().bind(isPassEmpty);
         label_error_message.textProperty()
-                .bind(Bindings.when(pf_passcode.textProperty().isEqualTo(pf_passcode_confirm.textProperty()))
-                        .then("").otherwise("Password doesn't match"));
+                .bind((Bindings.when(pf_passcode.textProperty().isEqualTo(pf_passcode_confirm.textProperty()))
+                        .then("Correct").otherwise("Password doesn't match")));
+        label_error_message.visibleProperty()
+                .bind(pf_passcode.textProperty().isEqualTo(pf_passcode_confirm.textProperty()).not());
         // TODO FIX BUTTON
-        btn_confirm.disableProperty().bind(label_error_message.visibleProperty());
+        // btn_confirm.disableProperty().bind(label_error_message.visibleProperty().or(isPassEmpty));
+
+        btn_confirm.disableProperty()
+                .bind(label_error_message.visibleProperty().or(isPassEmpty).or(isPassConfirmEmpty));
     }
 }

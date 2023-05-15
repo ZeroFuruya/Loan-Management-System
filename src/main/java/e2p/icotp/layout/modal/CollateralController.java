@@ -1,5 +1,6 @@
 package e2p.icotp.layout.modal;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import e2p.icotp.App;
@@ -70,7 +71,8 @@ public class CollateralController {
         ModalLoader.modal_close(app);
     }
 
-    public void load(App app, Loan loan, Loaner loaner, boolean isEdit, MainController mc, Collateral collateral) {
+    public void load(App app, Loan loan, Loaner loaner, boolean isEdit, MainController mc, Collateral collateral)
+            throws IOException {
         this.app = app;
         this.loan = loan;
         this.loaner = loaner;

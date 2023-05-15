@@ -1,6 +1,7 @@
 package e2p.icotp.layout.modal;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -141,8 +142,9 @@ public class LoanerController {
         pfpFile = fc.showOpenDialog(app.getMainStage());
     }
 
-    public void load(App app, Loaner loaner, boolean isEdit, MainController mc) {
+    public void load(App app, Loaner loaner, boolean isEdit, MainController mc) throws IOException {
         this.app = app;
+        ModalLoader.load_verification(app);
         this.loaner = loaner;
         this.og_loaner = loaner;
         this.isEdit = new SimpleBooleanProperty(isEdit);

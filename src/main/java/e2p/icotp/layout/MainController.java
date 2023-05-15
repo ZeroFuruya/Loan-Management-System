@@ -1640,6 +1640,12 @@ public class MainController {
         });
     }
 
+    @FXML
+    private void handle_open_data_folder() throws IOException {
+        Runtime.getRuntime()
+                .exec("explorer.exe /select," + FileUtil.CUSTOM_DIR);
+    }
+
     public ImageView getPfp() {
         return pfp;
     }
