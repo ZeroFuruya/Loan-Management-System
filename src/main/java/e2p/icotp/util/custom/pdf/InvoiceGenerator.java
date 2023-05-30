@@ -15,6 +15,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import e2p.icotp.App;
 import e2p.icotp.model.Payment;
 import e2p.icotp.util.FileUtil;
+import e2p.icotp.util.custom.date.DateUtil;
 
 public class InvoiceGenerator {
         static App app;
@@ -106,25 +107,38 @@ public class InvoiceGenerator {
 
         private static void addTable(Document document) throws DocumentException {
                 // Create a table with 3 columns
-                PdfPTable table = new PdfPTable(3);
+                PdfPTable table = new PdfPTable(2);
 
                 // Add table header
-                PdfPCell header1 = new PdfPCell(new Paragraph("Header 1"));
-                PdfPCell header2 = new PdfPCell(new Paragraph("Header 2"));
-                PdfPCell header3 = new PdfPCell(new Paragraph("Header 3"));
+                PdfPCell header1 = new PdfPCell(new Paragraph("Payment ID"));
+                PdfPCell header2 = new PdfPCell(new Paragraph("Loan ID"));
+                PdfPCell header3 = new PdfPCell(new Paragraph("Due Date"));
+                PdfPCell header4 = new PdfPCell(new Paragraph("Payment Date"));
+                PdfPCell header5 = new PdfPCell(new Paragraph("Payment Due"));
+                PdfPCell header6 = new PdfPCell(new Paragraph("Paid"));
+                PdfPCell header_blank1 = new PdfPCell(new Paragraph(""));
+                PdfPCell header7 = new PdfPCell(new Paragraph("Total Balance"));
+                PdfPCell header8 = new PdfPCell(new Paragraph("Total Paid"));
 
                 table.addCell(header1);
+                table.addCell(payment.getPayment_id() + "");
                 table.addCell(header2);
+                table.addCell(payment.getLoan_id().getLoan_id() + "");
                 table.addCell(header3);
-
-                // Add table rows
-                table.addCell("1");
-                table.addCell("2");
-                table.addCell("3");
-
-                table.addCell("4");
-                table.addCell("5");
-                table.addCell("6");
+                table.addCell(DateUtil.localizeDateProperty(payment.getLoan_id().getNextDueDate()).get());
+                table.addCell(header4);
+                table.addCell(DateUtil.localizeDate(payment.getDatePaymentProperty().get()));
+                table.addCell(header5);
+                table.addCell("$" + payment.getLoan_id().getNextPaymentProperty().get() + "");
+                table.addCell(header6);
+                table.addCell("$" + payment.getPayment_amount() + "");
+                table.addCell(header_blank1);
+                table.addCell(header_blank1);
+                table.addCell(header7);
+                table.addCell("$" + payment.getLoan_id().getBalance() + "");
+                table.addCell(header8);
+                table.addCell("$" + payment.getLoan_id().getPaid() + "");
+                // table.addCell(payment.);
 
                 document.add(table);
 

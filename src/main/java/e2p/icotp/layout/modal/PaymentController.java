@@ -18,6 +18,7 @@ import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.ValidateTextField;
 import e2p.icotp.util.custom.date.DateUtil;
 import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
+import e2p.icotp.util.custom.pdf.InvoiceGenerator;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -131,6 +132,13 @@ public class PaymentController {
         mc.refresh_loan_list();
         mc.selectLoan();
         ModalLoader.modal_close(app);
+
+        try {
+            InvoiceGenerator.generate_invoice(app, payment);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void load(App app, Loan loan, boolean isEdit, MainController mc, Loaner loaner, Payment payment)

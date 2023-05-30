@@ -52,6 +52,7 @@ e2p\icotp\util\gmail\GMailer.class
 e2p\icotp\util\custom\cipher\Encrypt.class
 e2p\icotp\util\custom\date\DateUtil.class
 e2p\icotp\util\custom\cbox\PaymentListCell.class
+e2p\icotp\util\custom\pdf\InvoiceGenerator.class
 e2p\icotp\util\custom\RandomIDGenerator.class
 e2p\icotp\layout\modal\CollateralController.class
 e2p\icotp\model\LoanPlan.class

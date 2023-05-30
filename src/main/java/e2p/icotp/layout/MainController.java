@@ -591,13 +591,6 @@ public class MainController {
         init_plans();
         _init_types();
         init_anims();
-
-        try {
-            InvoiceGenerator.generate_invoice(app, og_payment);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     private void init_tables() {

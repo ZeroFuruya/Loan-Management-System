@@ -105,8 +105,6 @@ public class ForgotPasswordController {
     @FXML
     void handle_confirm_answer() {
         String decryptedPass = Encrypt.decrypt(admin.getSecurityAnswer(), admin.getPassKey());
-        System.out.println(admin.getSecurityAnswer() + " : " + admin.getPassKey());
-        System.out.println(decryptedPass);
 
         if (secAnsTf.textProperty().get().isEmpty() || secAnsTf.textProperty().get().isBlank()) {
             secAnsIsEmpty.set(true);
@@ -126,7 +124,6 @@ public class ForgotPasswordController {
     void handle_change_pass() throws Exception {
         String pass = passwordPF.getText();
         String encryptedPass = Encrypt.encrypt(pass, admin.getPassKey());
-        // System.out.println(encryptedPass);
 
         admin.setPassword(encryptedPass);
         admin.setAccountId(admin.getAccountId());
@@ -143,12 +140,6 @@ public class ForgotPasswordController {
         this.app = app;
         this.admin = app.getAdminProperty();
         this.admin_copy = new Account(admin);
-
-        // System.out.println(admin.getUsername());
-        // System.out.println(admin.getAccountId());
-        // System.out.println(admin.getSecurityQuestion());
-        // System.out.println(admin.getPassKey());
-        // System.out.println(admin.getPassword());
 
         init_bindings();
         init_cboxes();
@@ -211,8 +202,6 @@ public class ForgotPasswordController {
                         securityQuestionVal.set(0);
                         break;
                 }
-                // System.out.println(securityQuestionVal.get());
-                // System.out.println(nv);
                 if (securityQuestionVal.get() != admin.getSecurityQuestion()) {
                     secQuesIsWrong.set(true);
                 } else {

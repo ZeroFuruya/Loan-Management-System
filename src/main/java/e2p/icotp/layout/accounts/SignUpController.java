@@ -48,7 +48,6 @@ public class SignUpController {
         Encrypt.prepareSecreteKey(keyString);
         String pass = passwordPF.getText();
         String encryptedPass = Encrypt.encrypt(pass, keyString);
-        System.out.println(encryptedPass);
 
         generate_id();
         user.setUsername(usernameTF.getText());

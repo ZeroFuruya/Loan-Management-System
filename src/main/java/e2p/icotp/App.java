@@ -82,9 +82,6 @@ public class App extends Application {
         loan_planCache = LoanPlanDAO.getMasterlist();
         accountsCache = AccountDAO.getMasterlist();
 
-        accountsCache.forEach(account -> {
-            System.out.println(account.getUsername());
-        });
     }
 
     public void initializa_main() throws IOException {

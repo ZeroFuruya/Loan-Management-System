@@ -136,8 +136,6 @@ public class AdminController {
         String pass = passwordPF.getText();
         String encryptedPass = Encrypt.encrypt(pass, keyString);
         String encryptedAnswer = Encrypt.encrypt(secQuesAnswer.getText(), keyString);
-        System.out.println(encryptedPass);
-        System.out.println(encryptedAnswer);
 
         admin.setAccountId(1);
         admin.setUsername(usernameTF.getText());
@@ -198,8 +196,6 @@ public class AdminController {
                         securityQuestionVal.set(0);
                         break;
                 }
-                System.out.println(securityQuestionVal.get());
-                System.out.println(nv);
             }
         });
     }

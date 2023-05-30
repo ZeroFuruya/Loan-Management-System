@@ -52,26 +52,26 @@ public class LogInController {
         String decryptedPass = Encrypt.decrypt(account.getPassword(), account.getPassKey());
         String passFieldInput = password_field.getText();
 
-        System.out.println("IN");
-
         if (!decryptedPass.equals(passFieldInput)) {
             password_error.visibleProperty().set(true);
             return;
         }
         ModalLoader.modal_close(app);
-        System.out.println("IN1");
         password_error.visibleProperty().set(false);
 
         MainController.getisNotLoggedIn().set(false);
 
-        if (account.getAccountId() == 1) {
-            app.setAdminProperty(account);
-            if (account.getPassCodeProperty().get().isEmpty() || account.getPassCodeProperty().get().isBlank()) {
-                System.out.println("ODORIKO");
-                AdminLoader.load_set_up_passcode(app);
+        if (account != null) {
+            if (account.getAccountId() == 1) {
+                app.setAdminProperty(account);
+                if (account.getPassCodeProperty().isNotNull().get()) {
+                    if (account.getPassCodeProperty().get().isEmpty()
+                            || account.getPassCodeProperty().get().isBlank()) {
+                        AdminLoader.load_set_up_passcode(app);
+                    }
+                }
             }
         }
-        System.out.println("IN2");
 
         if (!isLoggedIn) {
             return;
