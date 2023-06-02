@@ -19,7 +19,6 @@ import e2p.icotp.model.Loaner;
 import e2p.icotp.model.Payment;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
-import javafx.beans.property.BooleanProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;

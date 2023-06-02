@@ -10,7 +10,6 @@ import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.util.custom.cipher.Encrypt;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.binding.StringBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -70,6 +69,8 @@ public class LogInController {
                         AdminLoader.load_set_up_passcode(app);
                     }
                 }
+            } else {
+                app.setAdminProperty(account);
             }
         }
 

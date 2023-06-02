@@ -19,6 +19,7 @@ import e2p.icotp.model.Payment;
 import e2p.icotp.model.Enums.CollateralStatus;
 import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.model.Enums.PaymentFrequency;
+import e2p.icotp.service.loader.AdminLoader;
 import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.CollateralDAO;
@@ -1585,7 +1586,9 @@ public class MainController {
 
     @FXML
     void handle_setup_verify_code() throws IOException {
-        LogInLoader.load_log_in(app, true);
+        if (app.getAdminProperty().getAccountId() == 1) {
+            AdminLoader.load_set_up_passcode(app);
+        }
     }
 
     @FXML
