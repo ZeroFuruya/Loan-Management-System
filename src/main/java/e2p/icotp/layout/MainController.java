@@ -737,6 +737,8 @@ public class MainController {
                 .bind(table_loan_types.getSelectionModel().selectedItemProperty().isNull());
         types_delete_button.disableProperty()
                 .bind(table_loan_types.getSelectionModel().selectedItemProperty().isNull());
+        payment_btn_invoice.disableProperty()
+                .bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
     }
 
     private void init_togbutton_listeners() {
@@ -1600,7 +1602,7 @@ public class MainController {
         Runtime.getRuntime()
                 .exec("explorer.exe /select," + FileUtil.CUSTOM_DIR + payment.getLoaner_id().getLoaner_id() +
                         FileUtil.FS + payment.getLoan_id().getLoan_id() + FileUtil.FS + "invoices" + FileUtil.FS
-                        + payment.getPayment_id()
+                        + payment.getPaymentDate().toString()
                         + ".pdf");
 
     }

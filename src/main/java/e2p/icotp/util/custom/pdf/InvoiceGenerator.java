@@ -37,14 +37,13 @@ public class InvoiceGenerator {
 
                 file_name = FileUtil.CUSTOM_DIR + payment.getLoaner_id().getLoaner_id() +
                                 FileUtil.FS + payment.getLoan_id().getLoan_id() + FileUtil.FS + "invoices" + FileUtil.FS
-                                + payment.getPayment_id()
+                                + payment.getPaymentDate().toString()
                                 + ".pdf";
 
                 path_name = FileUtil.CUSTOM_DIR + payment.getLoaner_id().getLoaner_id() +
                                 FileUtil.FS + payment.getLoan_id().getLoan_id() + FileUtil.FS + "invoices"
                                 + FileUtil.FS;
 
-                System.out.println(file_name);
                 create_new_file(file_name, path_name);
                 try {
                         Document document = new Document();
