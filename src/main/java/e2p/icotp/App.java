@@ -3,7 +3,6 @@ package e2p.icotp;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -83,9 +82,6 @@ public class App extends Application {
         loan_planCache = LoanPlanDAO.getMasterlist();
         accountsCache = AccountDAO.getMasterlist();
 
-        accountsCache.forEach(account -> {
-            System.out.println(account.getUsername());
-        });
     }
 
     public void initializa_main() throws IOException {
@@ -141,6 +137,10 @@ public class App extends Application {
 
     public Account getAdminProperty() {
         return this.admin;
+    }
+
+    public void setAdminProperty(Account account) {
+        this.admin = account;
     }
 
     public static void main(String[] args) {

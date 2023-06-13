@@ -5,6 +5,7 @@ import java.io.IOException;
 import e2p.icotp.App;
 import e2p.icotp.layout.accounts.AdminController;
 import e2p.icotp.layout.accounts.LogInController;
+import e2p.icotp.layout.accounts.SetUpPasscode;
 // import e2p.icotp.layout.accounts.LogInController;
 import e2p.icotp.layout.accounts.SignUpController;
 import javafx.fxml.FXMLLoader;
@@ -49,6 +50,13 @@ public class AdminLoader {
         FXMLLoader loader = load_modal(app, "accounts/ADMIN");
 
         AdminController controller = loader.getController();
+        controller.load(app);
+    }
+
+    public static void load_set_up_passcode(App app) throws IOException {
+        FXMLLoader loader = load_modal(app, "accounts/VERIFYSETUP");
+
+        SetUpPasscode controller = loader.getController();
         controller.load(app);
     }
 

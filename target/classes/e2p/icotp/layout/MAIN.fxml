@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -26,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<StackPane maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1300.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.MainController">
+<StackPane maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1300.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.MainController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
@@ -538,6 +537,7 @@
                                                                         <HBox alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="827.0" spacing="10.0">
                                                                            <children>
                                                                               <Button fx:id="payment_add_button" mnemonicParsing="false" onAction="#handle_payment_add" text="New Payment" />
+                                                                              <Button fx:id="payment_btn_invoice" layoutX="435.0" layoutY="10.0" mnemonicParsing="false" onAction="#payment_handle_generate_invoice" text="Generate Invoice" />
                                                                            </children>
                                                                         </HBox>
                                                                      </children>
@@ -921,17 +921,82 @@
                               </Label>
                            </children>
                         </HBox>
-                        <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                        <VBox fx:id="scrollpane_container" alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
                            <children>
-                              <ScrollPane fx:id="types_scroll_pane" prefHeight="493.0" prefWidth="1138.0" VBox.vgrow="ALWAYS">
-                                 <content>
-                                    <VBox fx:id="types_container" maxWidth="1.7976931348623157E308" prefWidth="1123.0" />
-                                 </content>
-                              </ScrollPane>
+                              <HBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox fillWidth="false" prefHeight="551.0" prefWidth="202.0" HBox.hgrow="NEVER">
+                                       <children>
+                                          <VBox prefHeight="551.0" prefWidth="233.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <HBox prefHeight="520.0" prefWidth="217.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <TableView fx:id="table_loan_types" prefHeight="520.0" prefWidth="288.0" HBox.hgrow="ALWAYS">
+                                                        <columns>
+                                                          <TableColumn fx:id="tcolumn_loan_types" prefWidth="197.0" text="Loan Type" />
+                                                        </columns>
+                                                      </TableView>
+                                                   </children>
+                                                </HBox>
+                                                <TextField fx:id="tf__type_search_box" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="551.0" prefWidth="622.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox alignment="TOP_CENTER" prefHeight="60.0" prefWidth="906.0">
+                                             <children>
+                                                <Label fx:id="label_type_name" alignment="CENTER" prefHeight="60.0" prefWidth="930.0" styleClass="label-bright" text="Loan Type" HBox.hgrow="ALWAYS">
+                                                   <font>
+                                                      <Font name="Arial" size="37.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <VBox alignment="TOP_CENTER" prefHeight="17.0" prefWidth="906.0">
+                                                   <children>
+                                                      <Label prefHeight="17.0" prefWidth="70.0" styleClass="label-bright" text="Description">
+                                                         <font>
+                                                            <Font name="Arial" size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="20.0" />
+                                                   </padding>
+                                                </VBox>
+                                                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets left="20.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label fx:id="label_type_desc" alignment="TOP_LEFT" prefHeight="430.0" prefWidth="886.0" styleClass="label-bright" text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?" textAlignment="JUSTIFY" wrapText="true" VBox.vgrow="ALWAYS">
+                                                         <font>
+                                                            <Font name="Arial" size="20.0" />
+                                                         </font>
+                                                         <VBox.margin>
+                                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="20.0" right="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                               <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="1138.0" spacing="10.0">
                                  <children>
-                                    <Button mnemonicParsing="false" text="Modify" />
-                                    <Button mnemonicParsing="false" text="Insert" />
+                                    <Button fx:id="types_modify_button" mnemonicParsing="false" onAction="#handle_modify_type" text="Modify" />
+                                    <Button mnemonicParsing="false" onAction="#handle_insert_type" text="Insert" />
+                                    <Button fx:id="types_delete_button" layoutX="1015.0" layoutY="20.0" mnemonicParsing="false" onAction="#handle_delete_type" text="Delete" />
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
@@ -1068,24 +1133,15 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem mnemonicParsing="false" onAction="#handle_open_data_folder" text="Open Data Folder" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Admin">
                      <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handle_setup_verify_code" text="Set Up Verification Code" />
                         <MenuItem mnemonicParsing="false" onAction="#handle_forgot_pass" text="Forgotten Password?" />
                      </items>
                   </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
               </menus>
             </MenuBar>
          </top>

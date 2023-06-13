@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2023 at 01:17 PM
+-- Generation Time: May 05, 2023 at 04:30 AM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,17 +31,18 @@ CREATE TABLE `accounts` (
   `account_id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `pass_key` varchar(100) NOT NULL
+  `pass_key` varchar(100) NOT NULL,
+  `security_question` int(11) DEFAULT NULL,
+  `security_answer` varchar(2500) DEFAULT NULL,
+  `passcode` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`account_id`, `username`, `password`, `pass_key`) VALUES
-(2463, 'dropdead', '�g��pL�', '8iYxmP66eRA='),
-(2541, 'prince', 'fvC$�@�', 'OCMvC6dd7/Q='),
-(6231, 'shinda', 'ǷI\"�t�', 'Sm0sp6TV7NU=');
+INSERT INTO `accounts` (`account_id`, `username`, `password`, `pass_key`, `security_question`, `security_answer`, `passcode`) VALUES
+(1, 'qwe', 'BjPs6g65OgftJaPUp081GQ==', 'LNwVTxD4pL8=', 2, 'QcTOJz4rF5UU28UVysG8ZQ==', NULL);
 
 -- --------------------------------------------------------
 
@@ -57,6 +58,13 @@ CREATE TABLE `collateral` (
   `plan_id` int(11) NOT NULL,
   `status` enum('Seized','Safe','Warning','Neutral') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `collateral`
+--
+
+INSERT INTO `collateral` (`loaner_id`, `loan_id`, `collateral_id`, `collateral`, `plan_id`, `status`) VALUES
+(8745533, 5105041, 5208, 'egit', 2764, 'Warning');
 
 -- --------------------------------------------------------
 
@@ -82,8 +90,10 @@ CREATE TABLE `loaners` (
 --
 
 INSERT INTO `loaners` (`loaner_id`, `name`, `address`, `phone`, `email`, `birthdate`, `social_security`, `civil_status`, `citizenship`, `place_of_birth`) VALUES
-(3058244, 'Five Hargreeves', 'Umbrella Academy', 849642, 'spaceAndTime@gmail.com', '1989-10-01', 45214, 'Single', 'Irish', 'Dublin, Ireland'),
-(3331357, 'Rythmind', 'France', 1235125, 'asfag@gmail.com', '2015-07-29', 2135, 'Single', 'French', 'France');
+(3058244, 'Five Hargreeves', 'Umbrella Academy', 9264827189, 'spaceAndTime@gmail.com', '1989-10-01', 5484862187, 'Single', 'Irish', 'Dublin, Ireland'),
+(3331357, 'Rythmind', 'France', 1235125, 'asfag@gmail.com', '2015-07-29', 2135, 'Single', 'French', 'France'),
+(3876501, 'Klaus Hargreeves', 'Umbrella Academy', 9263816480, 'asf@gmail.com', '1989-10-01', 2312452123, 'Single', 'American', 'unknown'),
+(8745533, 'stewie11', 'C.M.Rizal', 9896544522, 'skywrath271@gmail', '2000-01-12', 151, 'double', 'senior', 'balay');
 
 -- --------------------------------------------------------
 
@@ -117,7 +127,8 @@ CREATE TABLE `loans` (
 --
 
 INSERT INTO `loans` (`loan_id`, `loaner_id`, `type_id`, `plan_id`, `release_date`, `term`, `maturity_date`, `principal`, `interest`, `penalty`, `payment_frequency`, `due`, `paid`, `balance`, `status`, `next_payment`, `next_due_date`, `total_unpaid`) VALUES
-(5068517, 3058244, 1, 2764, '2023-03-12', 999, '2025-12-12', 500000, 0.09, 0.18, 'Monthly', 12, 0, 545000, 'Open', 0, '2023-04-12', 0);
+(5068517, 3058244, 1, 2764, '2023-03-12', 999, '2025-12-12', 500000, 0.09, 0.18, 'Monthly', 12, 0, 545000, 'Open', 0, '2023-04-12', 0),
+(5105041, 8745533, 1, 2764, '2023-03-17', 999, '2025-12-17', 1000000, 0.09, 0.18, 'Monthly', 17, 33030.3, 1056969.7, 'Open', 33030.30303030303, '2023-05-17', 0);
 
 -- --------------------------------------------------------
 
@@ -165,8 +176,7 @@ INSERT INTO `loan_types` (`type_id`, `type_name`, `type_desc`) VALUES
 (5, 'Home Equity Loan', 'You can borrow up to a percentage of the equity in your house with a home equity loan or home equity line of credit (HELOC), which you can use for any reason. Installment loans are those made using your home equity; you receive a lump sum and pay it back over time (often five to thirty years) in consistent monthly installments. Revolving credit is what a HELOC is. Like with a credit card, you can use the credit line whenever you need during a \"draw period\" and only incur interest up until the end of the draw period. Following that, you typically have 20 years to repay the debt. Home equity loans typically have fixed interest rates, whereas HELOCs typically have variable interest rates.'),
 (6, 'Credit Builder Loan', 'You can borrow up to a percentage of the equity in your house with a home equity loan or home equity line of credit (HELOC), which you can use for any reason. Installment loans are those made using your home equity; you receive a lump sum and pay it back over time (often five to thirty years) in consistent monthly installments. Revolving credit is what a HELOC is. Like with a credit card, you can use the credit line whenever you need during a \"draw period\" and only incur interest up until the end of the draw period. Following that, you typically have 20 years to repay the debt. Home equity loans typically have fixed interest rates, whereas HELOCs typically have variable interest rates.'),
 (7, 'Dept Consolidation Loan', 'A personal loan called a debt consolidation loan is intended to be used to pay off high-interest debt, including credit card debt. If the interest rate on these loans is lower than the interest rate on your current debt, you could save money. Due to the fact that there is only one lender to pay instead of multiple, consolidating debt also makes repayment simpler. Your credit score can increase if you pay off credit card debt with a loan because it lowers your credit use ratio. Loans for debt consolidation might have a variety of payback lengths and fixed or variable interest rates.'),
-(8, 'Payday Loan', 'Payday loans are one kind of loan to stay away from. These payday loans are usually subject to fees with annual percentage rates (APRs) of 400% or higher, and they must be fully returned by your next paycheck. These loans, which are available from online and physical payday lenders, typically range in size from $50 to $1,000 and don\'t involve a credit check. Payday loans are simple to obtain but difficult to pay back on time, so consumers renew them, incurring extra penalties and charges and spiraling further into debt. If you need money for an emergency, credit cards or personal loans are preferable possibilities.'),
-(9, '323212', '32132132');
+(8, 'Payday Loan', 'Payday loans are one kind of loan to stay away from. These payday loans are usually subject to fees with annual percentage rates (APRs) of 400% or higher, and they must be fully returned by your next paycheck. These loans, which are available from online and physical payday lenders, typically range in size from $50 to $1,000 and don\'t involve a credit check. Payday loans are simple to obtain but difficult to pay back on time, so consumers renew them, incurring extra penalties and charges and spiraling further into debt. If you need money for an emergency, credit cards or personal loans are preferable possibilities.');
 
 -- --------------------------------------------------------
 
@@ -182,6 +192,13 @@ CREATE TABLE `payments` (
   `payment_amount` double NOT NULL,
   `date_pay` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`payment_id`, `loaner_id`, `loan_id`, `payment_date`, `payment_amount`, `date_pay`) VALUES
+(50653431, 8745533, 5105041, '2023-04-17', 33030.3, '2023-03-17');
 
 --
 -- Indexes for dumped tables

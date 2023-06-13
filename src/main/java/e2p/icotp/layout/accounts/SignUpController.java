@@ -48,7 +48,6 @@ public class SignUpController {
         Encrypt.prepareSecreteKey(keyString);
         String pass = passwordPF.getText();
         String encryptedPass = Encrypt.encrypt(pass, keyString);
-        System.out.println(encryptedPass);
 
         generate_id();
         user.setUsername(usernameTF.getText());
@@ -58,14 +57,15 @@ public class SignUpController {
         app.accountsMasterlist().add(user);
 
         ModalLoader.modal_close(app);
-        LogInLoader.load_log_in(app);
+        LogInLoader.load_log_in(app, false);
 
         // TODO DECRYPT PASS ON LOG IN
     }
 
     @FXML
     void handle_loginLink() throws IOException {
-        LogInLoader.load_log_in(app);
+        ModalLoader.modal_close(app);
+        LogInLoader.load_log_in(app, false);
     }
 
     public void load(App app) {
@@ -81,6 +81,13 @@ public class SignUpController {
                     .anyMatch(users -> usernameTF.textProperty().get().equals(users.getUsername()));
         }, usernameTF.textProperty());
 
+        BooleanBinding isPassEmpty = Bindings.createBooleanBinding(() -> {
+            return passwordPF.textProperty().isEmpty().get() ? true : false;
+        }, passwordPF.textProperty());
+        BooleanBinding isPassConfirmEmpty = Bindings.createBooleanBinding(() -> {
+            return confirmPassPF.textProperty().isEmpty().get() ? true : false;
+        }, confirmPassPF.textProperty());
+
         usernameErr.textProperty().bind(Bindings.when(signUpList).then("Username already taken").otherwise(
                 Bindings.when(usernameTF.textProperty().isEmpty()).then("Field must not be empty").otherwise("")));
         usernameErr.visibleProperty().bind(signUpList.or(usernameTF.textProperty().isEmpty()));
@@ -88,9 +95,11 @@ public class SignUpController {
         passwordNoMatchErr.textProperty()
                 .bind(Bindings.when(passwordPF.textProperty().isEqualTo(confirmPassPF.textProperty()))
                         .then("").otherwise("Password doesn't match"));
-        signUpButton.disableProperty().bind(Bindings.createBooleanBinding(() -> {
-            return usernameErr.textProperty().isEqualTo("Password doesn't match").get() ? true : false;
-        }, usernameErr.textProperty()));
+        passwordNoMatchErr.visibleProperty()
+                .bind(passwordPF.textProperty().isEqualTo(confirmPassPF.textProperty()).not());
+
+        signUpButton.disableProperty()
+                .bind(passwordNoMatchErr.visibleProperty().or(isPassEmpty).or(isPassConfirmEmpty));
 
     }
 

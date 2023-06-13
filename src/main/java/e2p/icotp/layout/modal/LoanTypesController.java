@@ -1,9 +1,15 @@
 package e2p.icotp.layout.modal;
 
+import java.io.IOException;
+
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
 import e2p.icotp.model.LoanType;
+import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
+import e2p.icotp.service.server.dao.LoanTypeDAO;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -29,6 +35,10 @@ public class LoanTypesController {
     private App app;
     LoanType og_loan_type;
     LoanType loan_type;
+    boolean isEdit;
+    MainController mc;
+
+    BooleanProperty isVerified = new SimpleBooleanProperty(false);
 
     @FXML
     private void handle_cancel() {
@@ -36,16 +46,36 @@ public class LoanTypesController {
     }
 
     @FXML
-    private void handle_save() {
-
+    private void handle_save() throws IOException {
+        verified_save();
     }
 
-    public void load(App app, LoanType loan_type, boolean isEdit, MainController mc) {
+    private void verified_save() {
+        modify_fields();
+        if (isEdit) {
+            LoanTypeDAO.update(loan_type);
+            app.loanTypeMasterlist().remove(og_loan_type);
+            app.loanTypeMasterlist().add(loan_type);
+        } else {
+            LoanTypeDAO.insert(loan_type);
+            app.loanTypeMasterlist().add(loan_type);
+        }
+        ModalLoader.modal_close(app);
+    }
+
+    public void load(App app, LoanType loan_type, boolean isEdit, MainController mc) throws IOException {
         this.app = app;
-        this.og_loan_type = loan_type;
+        ModalLoader.load_verification(app);
+        this.isEdit = isEdit;
         this.loan_type = loan_type;
+        this.og_loan_type = loan_type;
+        this.mc = mc;
+
         load_bindings();
-        load_fields();
+        if (isEdit) {
+            load_fields();
+        }
+
     }
 
     private void load_bindings() {
@@ -58,6 +88,20 @@ public class LoanTypesController {
     private void load_fields() {
         loanName.setText(og_loan_type.getName().get());
         description.setText(og_loan_type.getDesc().get());
+    }
+
+    private void modify_fields() {
+        loan_type.getDesc().set(description.getText());
+        loan_type.getName().set(loanName.getText());
+        if (isEdit) {
+            loan_type.getId().set(loan_type.getId().get());
+        } else {
+            loan_type.getId().set(app.loanTypeMasterlist().size() + 1);
+        }
+
+        System.out.println(loan_type.getDesc());
+        System.out.println(loan_type.getId());
+        System.out.println(loan_type.getName());
     }
 
 }

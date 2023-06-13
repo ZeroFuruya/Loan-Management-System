@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="800.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.modal.LoanController">
+   <children>
+      <VBox alignment="CENTER" StackPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <FontIcon iconColor="RED" iconLiteral="fas-exclamation-triangle" iconSize="65" wrappingWidth="86.83332824707031" />
+                  <Label styleClass="label-bright" text="EMPTY LOAN TYPE">
+                     <font>
+                        <Font name="Arial Bold" size="55.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label styleClass="label-bright" text="Add Loan Types first">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

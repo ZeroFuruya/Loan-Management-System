@@ -4,16 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.time.MonthDay;
-import java.time.Year;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 
 import e2p.icotp.App;
-import e2p.icotp.layout.factory.TypesFactory;
 import e2p.icotp.model.Collateral;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.LoanPlan;
@@ -23,20 +19,22 @@ import e2p.icotp.model.Payment;
 import e2p.icotp.model.Enums.CollateralStatus;
 import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.model.Enums.PaymentFrequency;
+import e2p.icotp.service.loader.AdminLoader;
 import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.CollateralDAO;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.service.server.dao.LoanPlanDAO;
+import e2p.icotp.service.server.dao.LoanTypeDAO;
 import e2p.icotp.service.server.dao.LoanerDAO;
 import e2p.icotp.service.server.dao.PaymentDAO;
 import e2p.icotp.util.FileUtil;
 import e2p.icotp.util.custom.date.DateUtil;
+import e2p.icotp.util.custom.pdf.InvoiceGenerator;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -45,7 +43,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -61,8 +58,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
 public class MainController {
@@ -352,6 +347,22 @@ public class MainController {
     // @FXML
     // HBox payment_mode_err;
 
+    // TYPES ---------------------------------------------------------
+    @FXML
+    TableView<LoanType> table_loan_types;
+    @FXML
+    TableColumn<LoanType, String> tcolumn_loan_types;
+    @FXML
+    TextField tf__type_search_box;
+    @FXML
+    Label label_type_name;
+    @FXML
+    Label label_type_desc;
+    @FXML
+    Button types_modify_button;
+    @FXML
+    Button types_delete_button;
+
     // SCROLLPANE-----------------------------------------------------
     @FXML
     ScrollPane types_scroll_pane;
@@ -421,13 +432,12 @@ public class MainController {
     }
 
     @FXML
-    private void handle_login() throws IOException{
-        LogInLoader.load_log_in(app);
+    private void handle_login() throws IOException {
+        LogInLoader.load_log_in(app, false);
     }
 
     @FXML
     private void handle_signup() throws IOException {
-        app.getSignUpList();
         LogInLoader.load_sign_up(app);
     }
 
@@ -568,7 +578,7 @@ public class MainController {
 
         loaner_information_container.setVisible(false);
         loaner_name_container.setVisible(false);
-        payment_information_container.setVisible(false);
+        // payment_information_container.setVisible(false);
         collateral_information_container.setVisible(false);
         payments_box.setVisible(false);
         // collateral_box.setVisible(false);
@@ -718,6 +728,17 @@ public class MainController {
 
         toggle_btn_container.disableProperty().bind(isNotLoggedIn);
         menuBar.disableProperty().bind(isNotLoggedIn);
+
+        collateral_modify_button.disableProperty()
+                .bind(collateralTable.getSelectionModel().selectedItemProperty().isNull());
+        collateral_remove_button.disableProperty()
+                .bind(collateralTable.getSelectionModel().selectedItemProperty().isNull());
+        types_modify_button.disableProperty()
+                .bind(table_loan_types.getSelectionModel().selectedItemProperty().isNull());
+        types_delete_button.disableProperty()
+                .bind(table_loan_types.getSelectionModel().selectedItemProperty().isNull());
+        payment_btn_invoice.disableProperty()
+                .bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
     }
 
     private void init_togbutton_listeners() {
@@ -790,7 +811,7 @@ public class MainController {
                 clear_payment_table();
                 _init_loaner_bindings();
                 loan_information_container.setVisible(true);
-                payment_information_container.setVisible(false);
+                // payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
                 payments_box.setVisible(false);
 
@@ -811,7 +832,7 @@ public class MainController {
                 loaner_information_container.setVisible(false);
                 loaner_name_container.setVisible(false);
                 loan_information_container.setVisible(false);
-                payment_information_container.setVisible(false);
+                // payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
                 payments_box.setVisible(false);
                 // collateral_box.setVisible(false);
@@ -848,7 +869,7 @@ public class MainController {
 
                 init_plans();
             } else {
-                payment_information_container.setVisible(false);
+                // payment_information_container.setVisible(false);
                 collateral_information_container.setVisible(false);
                 payments_box.setVisible(false);
                 // collateral_box.setVisible(false);
@@ -872,13 +893,13 @@ public class MainController {
         // PAYMENT --------------------------------------------
         paymentTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (nv != null) {
-                payment_information_container.setVisible(true);
+                // payment_information_container.setVisible(true);
                 og_payment = nv;
                 payment = og_payment;
                 _init_payment_bindings();
                 init_plans();
-            } else {
-                payment_information_container.setVisible(false);
+                // } else {
+                // payment_information_container.setVisible(false);
             }
         });
         payment_search.textProperty().addListener((o, ov, nv) -> {
@@ -1232,21 +1253,45 @@ public class MainController {
     // LOAN TYPES ---------------------------------------------------------
     // LOAN TYPES ---------------------------------------------------------
     private void _init_types() {
-        types_scroll_pane.setStyle("-fx-background: #bb161e; -fx-border-color: #bb161e;");
-        types_container.prefWidthProperty().bind(types_scroll_pane.widthProperty().subtract(18));
-        types_container.setSpacing(10);
-        loanTypeList.forEach(type -> {
-            Label label1 = TypesFactory.createLabel(type.getId().get() + "", FontWeight.BOLD, 20);
-            HBox val1 = TypesFactory.createLabelContainer(label1, types_container, 0.0d, 0.05, Pos.CENTER, 1);
-            Label label2 = TypesFactory.createLabel(type.getName().get(), FontWeight.SEMI_BOLD, 30);
-            HBox val2 = TypesFactory.createLabelContainer(label2, types_container, 0.0d, 0.95, Pos.CENTER_LEFT, 1);
-            Label label3 = TypesFactory.createLabel(type.getDesc().get(), FontWeight.NORMAL, 17);
-            HBox val3 = TypesFactory.createLabelContainer(label3, types_container, 500, 1, Pos.CENTER_LEFT, 0);
-
-            types_container.getChildren()
-                    .add(TypesFactory.createVBox(TypesFactory.createHBox(val1, val2), TypesFactory.createHBox(val3,
-                            TypesFactory.createButton("Modify", Color.RED, type, this, app))));
+        tcolumn_loan_types.setCellValueFactory(type -> {
+            return type.getValue().getName();
         });
+
+        table_loan_types.setItems(loanTypeList);
+
+        table_loan_types.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
+            if (nv != null) {
+                loan_type = nv;
+                og_loan_type = loan_type;
+                label_type_name.textProperty().set(nv.getName().get());
+                label_type_desc.textProperty().set(nv.getDesc().get());
+            }
+        });
+        tf__type_search_box.textProperty().addListener((o, ov, nv) -> {
+            loanTypeList.setPredicate(p -> {
+                if (nv == null || nv.isEmpty()) {
+                    return true;
+                }
+
+                return p.getName().get().toLowerCase().contains(nv.toLowerCase());
+            });
+        });
+    }
+
+    @FXML
+    void handle_insert_type() throws IOException {
+        ModalLoader.load_loan_type_update(app, new LoanType(), false, this);
+    }
+
+    @FXML
+    void handle_modify_type() throws IOException {
+        ModalLoader.load_loan_type_update(app, loan_type, true, this);
+    }
+
+    @FXML
+    void handle_delete_type() throws IOException {
+        LoanTypeDAO.remove(og_loan_type.getId().get());
+        app.loanTypeMasterlist().remove(og_loan_type);
     }
 
     // LOAN PLAN ---------------------------------------------------------
@@ -1254,6 +1299,7 @@ public class MainController {
     // LOAN PLAN ---------------------------------------------------------
     // TODO POPUP MODAL
     private void init_plans() {
+        plan_modify_button.disableProperty().set(true);
         loanPlanTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             BooleanProperty planIs = new SimpleBooleanProperty(false);
             og_loan_plan = nv;
@@ -1307,15 +1353,9 @@ public class MainController {
 
     double monthly_payment_getter = 0;
 
-    // TODO add SecurityCode to AdminSetUp form
-    // TODO FINISH LOAN TYPES
     // TODO make an invoice for each payment done
-    // TODO create admin sign up, only one admin
-    // TODO add security more by putting confirmations every after tasks
-    // TODO make auto paper works (loan, collateral)
+    // TODO Collateral remove
     // TODO make statistics
-    // TODO add forget password
-    // TODO think of more features to add after the important bits are done
 
     private void loan_next_logic_monthly() {
         total_months = 0;
@@ -1359,6 +1399,8 @@ public class MainController {
             collateral.getStatusProperty().set(CollateralStatus.SAFE);
         }
 
+        // TODO FINISH POP UPS
+
         if (!payment_exist) {
             if (days_skipped > total_days) {
                 loan_next_due_label.setText("Past Maturity Date");
@@ -1381,6 +1423,7 @@ public class MainController {
                 loan.setNextPayment(penalty_payment);
                 loan_next_due_label.setText(DateUtil.localizeDate(loan.getNextDueDate()));
                 loan_next_amount_label.setText(format.format(loan.getNextPayment()));
+                loan_total_unpaid_label.setText(penalty_val + "");
                 return;
             }
             return;
@@ -1543,6 +1586,27 @@ public class MainController {
         }
     }
 
+    @FXML
+    void handle_setup_verify_code() throws IOException {
+        if (app.getAdminProperty().getAccountId() == 1) {
+            AdminLoader.load_set_up_passcode(app);
+        }
+    }
+
+    @FXML
+    Button payment_btn_invoice;
+
+    @FXML
+    void payment_handle_generate_invoice() throws Exception {
+        InvoiceGenerator.generate_invoice(app, og_payment);
+        Runtime.getRuntime()
+                .exec("explorer.exe /select," + FileUtil.CUSTOM_DIR + payment.getLoaner_id().getLoaner_id() +
+                        FileUtil.FS + payment.getLoan_id().getLoan_id() + FileUtil.FS + "invoices" + FileUtil.FS
+                        + payment.getPaymentDate().toString()
+                        + ".pdf");
+
+    }
+
     // GETTERS AND SETTERS
     public ObservableList<Loan> getLoanObservableList() {
         return loanObservableList;
@@ -1572,6 +1636,12 @@ public class MainController {
                 loanerTable.scrollTo(loaner);
             }
         });
+    }
+
+    @FXML
+    private void handle_open_data_folder() throws IOException {
+        Runtime.getRuntime()
+                .exec("explorer.exe /select," + FileUtil.CUSTOM_DIR);
     }
 
     public ImageView getPfp() {

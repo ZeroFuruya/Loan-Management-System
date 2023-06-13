@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
+import e2p.icotp.layout.accounts.VerifyAction;
 import e2p.icotp.layout.modal.CollateralController;
 import e2p.icotp.layout.modal.LoanController;
 import e2p.icotp.layout.modal.LoanPlanController;
@@ -116,6 +117,18 @@ public class ModalLoader {
 
         CollateralController controller = loader.getController();
         controller.load(app, loan, loaner, isEdit, mc, collateral);
+    }
+
+    public static void load_popup_warning(App app)
+            throws IOException {
+        FXMLLoader loader = load_modal(app, "modal/PLANPOPUP");
+    }
+
+    public static void load_verification(App app) throws IOException {
+        FXMLLoader loader = load_modal(app, "accounts/VERIFY");
+
+        VerifyAction controller = loader.getController();
+        controller.load(app);
     }
 
     // public static void load_degree_update(App app) throws IOException {
