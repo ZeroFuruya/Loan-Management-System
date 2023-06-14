@@ -19,7 +19,6 @@ import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanDAO;
 import e2p.icotp.util.custom.RandomIDGenerator;
 import e2p.icotp.util.custom.ValidateTextField;
-import e2p.icotp.util.custom.formatters.DoubleTextFieldFormatter;
 import e2p.icotp.util.custom.formatters.IDTextFieldFormatter;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -203,9 +202,9 @@ public class LoanController {
     public void load(App app, Loan loan, boolean isEdit, MainController mc, Loaner loaner) throws IOException {
         this.mc = mc;
         this.app = app;
-        if (isEdit) {
-            ModalLoader.load_verification(app);
-        }
+        // if (isEdit) {
+        // ModalLoader.load_verification(app);
+        // }
         this.og_loan = loan;
         this.loan = loan;
         this.isEdit = isEdit;

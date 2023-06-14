@@ -5,7 +5,6 @@ import java.io.IOException;
 import e2p.icotp.App;
 import e2p.icotp.layout.MainController;
 import e2p.icotp.model.LoanType;
-import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.LoanTypeDAO;
 import javafx.beans.property.BooleanProperty;
@@ -65,9 +64,9 @@ public class LoanTypesController {
 
     public void load(App app, LoanType loan_type, boolean isEdit, MainController mc) throws IOException {
         this.app = app;
-        if (isEdit) {
-            ModalLoader.load_verification(app);
-        }
+        // if (isEdit) {
+        // ModalLoader.load_verification(app);
+        // }
         this.isEdit = isEdit;
         this.loan_type = loan_type;
         this.og_loan_type = loan_type;

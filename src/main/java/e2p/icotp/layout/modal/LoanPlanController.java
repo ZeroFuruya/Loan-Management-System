@@ -72,9 +72,9 @@ public class LoanPlanController {
     public void load(App app, LoanPlan loan_plan, boolean isEdit, MainController mc,
             FilteredList<LoanType> loanTypeList) throws IOException {
         this.app = app;
-        if (isEdit) {
-            ModalLoader.load_verification(app);
-        }
+        // if (isEdit) {
+        // ModalLoader.load_verification(app);
+        // }
         this.og_loan_plan = loan_plan;
         this.loan_plan = new LoanPlan(loan_plan);
         this.isEdit = new SimpleBooleanProperty(isEdit);

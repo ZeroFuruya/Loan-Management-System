@@ -443,8 +443,20 @@ public class MainController {
         LogInLoader.load_log_in(app, false, this);
     }
 
-    public void set_user_name(String current_user) {
-
+    public void set_user_name(String current_user, Account account) {
+        current_user_label.setText(current_user);
+        if (account.getAccountId() != 1) {
+            loaner_edit_button.visibleProperty().set(false);
+            loaner_remove_button.visibleProperty().set(false);
+            loan_edit_button.visibleProperty().set(false);
+            loan_remove_button.visibleProperty().set(false);
+            collateral_modify_button.visibleProperty().set(false);
+            collateral_remove_button.visibleProperty().set(false);
+            plan_add_button.visibleProperty().set(false);
+            plan_modify_button.visibleProperty().set(false);
+            types_modify_button.visibleProperty().set(false);
+            types_delete_button.visibleProperty().set(false);
+        }
     }
 
     @FXML

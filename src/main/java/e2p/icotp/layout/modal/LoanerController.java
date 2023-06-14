@@ -144,9 +144,9 @@ public class LoanerController {
 
     public void load(App app, Loaner loaner, boolean isEdit, MainController mc) throws IOException {
         this.app = app;
-        if (isEdit) {
-            ModalLoader.load_verification(app);
-        }
+        // if (isEdit) {
+        // ModalLoader.load_verification(app);
+        // }
         this.loaner = loaner;
         this.og_loaner = loaner;
         this.isEdit = new SimpleBooleanProperty(isEdit);

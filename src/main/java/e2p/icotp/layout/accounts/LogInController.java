@@ -65,7 +65,7 @@ public class LogInController {
         if (account != null) {
             if (account.getAccountId() == 1) {
                 app.setAdminProperty(account);
-                mc.set_user_name("Admin");
+                mc.set_user_name("Admin", account);
                 if (account.getPassCodeProperty().isNotNull().get()) {
                     if (account.getPassCodeProperty().get().isEmpty()
                             || account.getPassCodeProperty().get().isBlank()) {
@@ -74,7 +74,7 @@ public class LogInController {
                 }
             } else {
                 app.setAdminProperty(account);
-                mc.set_user_name(app.getAdminProperty().getUsername());
+                mc.set_user_name(app.getAdminProperty().getUsername(), account);
             }
         }
 

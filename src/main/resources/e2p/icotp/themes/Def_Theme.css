@@ -53,7 +53,7 @@
 /* Department and Salary Grade MASTERLIST */
 
 .dept-container {
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #28334a, #314268);
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #1b1719, #272124);
     background-color: #dddddd;
 }
 .dividers {
@@ -63,12 +63,12 @@
 
 .dept-tab-container {
     /* -fx-background-color: #31087B; */
-    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #ffd817, #fbde44);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #aaaeac, #d4d6d5);
     background-color: #31087B;
 }
 
 .edit-container {
-    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
     background-color: #31087B;
     -fx-background-radius: 5;
 }
@@ -76,18 +76,18 @@
 .table-view .column-header,
 .table-view .column-header .filler,
 .table-view .column-header-background .filler {
-    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
-    background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
+    background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
 }
 
 .table-view .column-header {
-    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
-    background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
+    background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
 }
 
 .tab-header-background {
-    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
-    background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
+    background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
 }
 
 .table-view .column-header,
@@ -98,7 +98,7 @@
 .tree-table-view>.column-header-background>.show-hide-columns-button,
 .table-view:constrained-resize .filler,
 .tree-table-view:constrained-resize .filler {
-    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
     -fx-background-insets: 0, 0 1 1 0, 1 2 2 1;
     -fx-font-weight: bold;
     -fx-size: 2em;
@@ -113,8 +113,8 @@
 }
 
 .table-view .column-header .label {
-    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
-    background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
+    background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
     -fx-text-fill: rgb(255, 255, 255);
     -fx-font-weight: bold;
     font-weight: bold;
@@ -281,7 +281,7 @@ border-color: black;
 
 .table-row-cell:odd {
     -fx-text-fill: rgb(255, 255, 255);
-	-fx-background-color:#bb161e;
+	-fx-background-color:#005c80;
 	background-color:#bb161e;
     -fx-font-size: 13;
     font-size: 13;
@@ -289,7 +289,7 @@ border-color: black;
 }
 .table-row-cell:even {
     -fx-text-fill: rgb(255, 255, 255);
-	-fx-background-color:#830c12; 
+	-fx-background-color:#003764; 
 	background-color:#830c12; 
     -fx-font-size: 13;
     font-size: 13;
@@ -325,13 +325,13 @@ border-color: black;
 .text-field {
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-    -fx-background-color: #ff2f3a;
+    -fx-background-color: #dddbcb ;
     background-color: #FFC23C;
     -fx-background-radius: 1;
     -fx-font-size: 15;
     font-size: 20;
-    -fx-text-fill: rgb(255, 255, 255);
-    -fx-fill: rgb(255, 255, 255);
+    -fx-text-fill: #0c0c0c;
+    -fx-fill: rgb(0, 0, 0);
     fill: rgb(0, 0, 0);
     -fx-border-color: #ae00ff00;
     -fx-border-color: rgba(0, 0, 0, 0);
@@ -383,61 +383,61 @@ border-color: black;
 }
 
 .text-area {
-    -fx-text-area-background: #180b20;
-    -fx-text-fill: white;
+    -fx-text-area-background: #dddbcb;
+    -fx-text-fill: #0c0c0c;
     -fx-font-size: 17;
     font-size: 17;
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-    -fx-fill: white;
+    -fx-fill: #0c0c0c;
     fill: white;
 }
 .text-area:hover {
-    -fx-text-area-background: #180b20;
-    -fx-text-fill: white;
+    -fx-text-area-background: #dddbcb;
+    -fx-text-fill: #0c0c0c;
     -fx-font-size: 17;
     font-size: 17;
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-    -fx-fill: white;
+    -fx-fill: #0c0c0c;
     fill: white;
 }
 .text-area:focused {
-    -fx-text-area-background: #180b20;
-    -fx-text-fill: white;
+    -fx-text-area-background: #dddbcb;
+    -fx-text-fill: #0c0c0c;
     -fx-font-size: 17;
     font-size: 17;
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-    -fx-fill: white;
+    -fx-fill: #0c0c0c;
     fill: white;
 }
 
 .text-area:pressed {
-    -fx-text-area-background: #180b20;
-    -fx-text-fill: white;
+    -fx-text-area-background: #dddbcb;
+    -fx-text-fill: #0c0c0c;
     -fx-font-size: 17;
     font-size: 17;
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-    -fx-fill: white;
+    -fx-fill: #0c0c0c;
     fill: white;
 }
 
 .text-area:selected {
-    -fx-text-area-background: #180b20;
-    -fx-text-fill: white;
+    -fx-text-area-background: #dddbcb;
+    -fx-text-fill: #0c0c0c;
     -fx-font-size: 17;
     font-size: 17;
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-    -fx-fill: white;
+    -fx-fill: #0c0c0c;
     fill: white;
 }
 
 .text-area .content {
-    -fx-background-color: #180b20;
-    background-color: #180b20;
+    -fx-background-color: #dddbcb;
+    background-color: #dddbcb;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
     -fx-border-color: rgba(0, 0, 0, 0);
@@ -447,16 +447,16 @@ border-color: black;
     -fx-border-width: 0.5;
     border-width: 0.5;
     border-radius: 10;
-    -fx-text-fill: white;
-    -fx-fill: white;
+    -fx-text-fill: #0c0c0c;
+    -fx-fill: #0c0c0c;
     fill: white;
 }
 
 .text-area .scroll-pane {
     -fx-background-color: transparent;
     background-color: transparent;
-    -fx-border-color: #180b20;
-    border-color: #180b20;
+    -fx-border-color: #dddbcb;
+    border-color: #dddbcb;
     -fx-border-radius: 10;
     border-radius: 10;
     -fx-border-width: 2;
@@ -473,8 +473,8 @@ border-color: black;
 .text-area .scroll-pane .viewport {
     -fx-background-color: transparent;
     background-color: transparent;
-    -fx-border-color: #180b20;
-    border-color: #180b20;
+    -fx-border-color: #dddbcb;
+    border-color: #dddbcb;
     -fx-border-radius: 10;
     border-radius: 10;
     -fx-border-width: 2;
@@ -503,8 +503,8 @@ border-color: black;
 }
 
 .button {
-    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
-    background-color: linear-gradient(from 5% 5% to 100% 100%, #f65058, #ff2f3a);
+    -fx-background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
+    background-color: linear-gradient(from 5% 5% to 100% 100%,#008080, #006464);
 	-fx-border-radius:6px;
     -fx-border-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
@@ -520,11 +520,11 @@ border-color: black;
 	text-shadow:0px 1px 0px #b23e35;
 }
 .button:hover {
-	-fx-background-color:linear-gradient(to bottom, #e7666c 5%, #ff525b 100%);
+	-fx-background-color:linear-gradient(to bottom, #00aaaa 5%, #00cccc 100%);
 	background-color:linear-gradient(to bottom, #e7666c 5%, #ff525b 100%);
 }
 .button:pressed {
-    -fx-background-color:linear-gradient(to bottom, #ff2f3a 5%, #ff2f3a 100%);
+    -fx-background-color:linear-gradient(to bottom, #003535 5%, #001b1b 100%);
     background-color:linear-gradient(to bottom, #ff2f3a 5%, #ff2f3a 100%);
 }
 
@@ -588,13 +588,15 @@ border-color: black;
 }
 .combo-box .list-cell 
 {
-    -fx-background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
-    background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
-    -fx-text-fill: white;
+    -fx-background-color: #dddbcb;
+    background-color: #dddbcb;
+    -fx-text-fill: #181818;
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
     -fx-font-size: 14;
     font-size: 14;
+    -fx-font-weight: bold;
+    font-weight: bold;
     -fx-background-radius: 5;
     -fx-padding: 7 0 7 7;
     padding: 7 0 7 7;
@@ -603,11 +605,11 @@ border-color: black;
 
 .combo-box-popup .list-view 
 {
-    -fx-background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%), linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
-    background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%), linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
+    -fx-background-color: #dddbcb, #dddbcb;
+    background-color: #dddbcb, #dddbcb;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
-    -fx-text-fill: white;
+    -fx-text-fill: #181818;
     -fx-font-size: 14;
     font-size: 14;
     -fx-font-family: "Century Gothic";
@@ -620,42 +622,42 @@ border-color: black;
     padding: 0 0 0 5;
 
     /* No alternate highlighting */
-    -fx-background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
-    background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
+    -fx-background-color: linear-gradient(to bottom, #dddbcb 5%, #bbb9ac 100%);
+    background-color: linear-gradient(to bottom, #dddbcb 5%, #bbb9ac 100%);
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-    -fx-text-fill: white;
+    -fx-text-fill: #181818;
 }
 
 .combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover 
 {
-	-fx-background-color:linear-gradient(to bottom, #a51219 5%, #a51219 100%);
-	background-color:linear-gradient(to bottom, #a51219 5%, #a51219 100%);
+	-fx-background-color:linear-gradient(to bottom, #008080, #006464 100%);
+	background-color:linear-gradient(to bottom, #008080, #006464 100%);
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-    -fx-text-fill: white;
+    -fx-text-fill: #181818;
 }
 
 .combo-box-popup .list-view .list-cell:filled:hover 
 {
-	-fx-background-color:linear-gradient(to bottom, #a51219 5%, #a51219 100%);
-	background-color:linear-gradient(to bottom, #a51219 5%, #a51219 100%);
+	-fx-background-color:linear-gradient(to bottom, #008080, #006464 100%);
+	background-color:linear-gradient(to bottom, #008080, #006464 100%);
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-    -fx-text-fill: white;
+    -fx-text-fill: #181818;
 }
 
 .combo-box-base  
 {
-    -fx-background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%), linear-gradient(to bottom, #db4148 5%, #e21c26 100%), linear-gradient(to bottom, #db4148 5%, #e21c26 100%), linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
-    background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%), linear-gradient(to bottom, #db4148 5%, #e21c26 100%), linear-gradient(to bottom, #db4148 5%, #e21c26 100%), linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
+    -fx-background-color: #dddbcb, #dddbcb, #dddbcb, #dddbcb;
+    background-color: #dddbcb, #dddbcb, #dddbcb, #dddbcb;
     -fx-background-radius: 0;
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-padding: 0;
     padding: 0;
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-    -fx-text-fill: white;
+    -fx-text-fill: #181818;
 
 }
 
@@ -671,13 +673,13 @@ border-color: black;
  }
 
  .date-picker{
-    -fx-background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
-    background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
+    -fx-background-color: #dddbcb;
+    background-color: #dddbcb;
  }
 
 .date-picker .arrow-button {
-    -fx-background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
-    background-color: linear-gradient(to bottom, #db4148 5%, #e21c26 100%);
+    -fx-background-color: #dddbcb;
+    background-color: #dddbcb;
 	-fx-background-radius: 10;
 }
 .date-picker .arrow-button:hover {
@@ -713,7 +715,7 @@ border-color: black;
 	background-color: #ff3fe5;
     -fx-font-family: "Century Gothic";
     font-family: "Century Gothic";
-	-fx-text-fill: #000000;
+	-fx-text-fill: #0c0c0c;
 }
 .date-picker .selected:focused {
 	-fx-background-color: #ff00dd;
