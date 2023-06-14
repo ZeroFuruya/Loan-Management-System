@@ -53,7 +53,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0">
+                  <VBox fx:id="loaners_box" prefHeight="695.0" prefWidth="899.0" visible="false">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="902.0" styleClass="dept-tab-container">
                            <children>
@@ -996,7 +996,7 @@
                                  <children>
                                     <Button fx:id="types_delete_button" layoutX="1015.0" layoutY="20.0" mnemonicParsing="false" onAction="#handle_delete_type" text="Delete" />
                                     <Button fx:id="types_modify_button" mnemonicParsing="false" onAction="#handle_modify_type" text="Modify" />
-                                    <Button mnemonicParsing="false" onAction="#handle_insert_type" text="Insert" />
+                                    <Button fx:id="types_insert_button" mnemonicParsing="false" onAction="#handle_insert_type" text="Insert" />
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
@@ -1006,7 +1006,7 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="plans_box" prefHeight="200.0" prefWidth="100.0" visible="false">
+                  <VBox fx:id="plans_box" prefHeight="200.0" prefWidth="100.0">
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding>
@@ -1160,6 +1160,11 @@
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#handle_setup_verify_code" text="Set Up Verification Code" />
                         <MenuItem mnemonicParsing="false" onAction="#handle_forgot_pass" text="Forgotten Password?" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Theme">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handle_change_theme" text="Change Theme" />
                      </items>
                   </Menu>
               </menus>

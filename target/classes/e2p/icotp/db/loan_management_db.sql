@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2023 at 04:30 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: Jun 14, 2023 at 06:27 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,9 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`account_id`, `username`, `password`, `pass_key`, `security_question`, `security_answer`, `passcode`) VALUES
-(1, 'qwe', 'BjPs6g65OgftJaPUp081GQ==', 'LNwVTxD4pL8=', 2, 'QcTOJz4rF5UU28UVysG8ZQ==', NULL);
+(1, 'qwe', 'QYhCwNs4Lo+gmOIVXWhyjQ==', 'UoNS5ZgBtRo=', 2, 'QYhCwNs4Lo+gmOIVXWhyjQ==', 'Shny8fiHzrFQZNWJj1OX5Q=='),
+(5035, '123', 'LvAJW7CHQk0fB27HpZUgLw==', 's51XwrlG6Q0=', 0, '', ''),
+(8708, 'ert', 'UN3suYu+PdEIuPC0/EnI9A==', 'ecGiZ82A9J4=', 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -58,13 +60,6 @@ CREATE TABLE `collateral` (
   `plan_id` int(11) NOT NULL,
   `status` enum('Seized','Safe','Warning','Neutral') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `collateral`
---
-
-INSERT INTO `collateral` (`loaner_id`, `loan_id`, `collateral_id`, `collateral`, `plan_id`, `status`) VALUES
-(8745533, 5105041, 5208, 'egit', 2764, 'Warning');
 
 -- --------------------------------------------------------
 
@@ -122,14 +117,6 @@ CREATE TABLE `loans` (
   `total_unpaid` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `loans`
---
-
-INSERT INTO `loans` (`loan_id`, `loaner_id`, `type_id`, `plan_id`, `release_date`, `term`, `maturity_date`, `principal`, `interest`, `penalty`, `payment_frequency`, `due`, `paid`, `balance`, `status`, `next_payment`, `next_due_date`, `total_unpaid`) VALUES
-(5068517, 3058244, 1, 2764, '2023-03-12', 999, '2025-12-12', 500000, 0.09, 0.18, 'Monthly', 12, 0, 545000, 'Open', 0, '2023-04-12', 0),
-(5105041, 8745533, 1, 2764, '2023-03-17', 999, '2025-12-17', 1000000, 0.09, 0.18, 'Monthly', 17, 33030.3, 1056969.7, 'Open', 33030.30303030303, '2023-05-17', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -150,7 +137,8 @@ CREATE TABLE `loan_plans` (
 --
 
 INSERT INTO `loan_plans` (`plan_id`, `type_id`, `term`, `interest`, `penalty`, `payment_frequency`) VALUES
-(2764, 1, 999, 0.09, 0.18, 'Monthly');
+(2764, 1, 999, 0.09, 0.18, 'Monthly'),
+(7762, 2, 423634, 0.0023, 0.005, 'Yearly');
 
 -- --------------------------------------------------------
 
@@ -192,13 +180,6 @@ CREATE TABLE `payments` (
   `payment_amount` double NOT NULL,
   `date_pay` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `payments`
---
-
-INSERT INTO `payments` (`payment_id`, `loaner_id`, `loan_id`, `payment_date`, `payment_amount`, `date_pay`) VALUES
-(50653431, 8745533, 5105041, '2023-04-17', 33030.3, '2023-03-17');
 
 --
 -- Indexes for dumped tables
@@ -273,14 +254,14 @@ ALTER TABLE `collateral`
 --
 ALTER TABLE `loans`
   ADD CONSTRAINT `loans_ibfk_10` FOREIGN KEY (`loaner_id`) REFERENCES `loaners` (`loaner_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `loans_ibfk_8` FOREIGN KEY (`type_id`) REFERENCES `loan_plans` (`type_id`),
+  ADD CONSTRAINT `loans_ibfk_11` FOREIGN KEY (`type_id`) REFERENCES `loan_plans` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `loans_ibfk_9` FOREIGN KEY (`plan_id`) REFERENCES `loan_plans` (`plan_id`);
 
 --
 -- Constraints for table `loan_plans`
 --
 ALTER TABLE `loan_plans`
-  ADD CONSTRAINT `loan_plans_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `loan_types` (`type_id`);
+  ADD CONSTRAINT `loan_plans_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `loan_types` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `payments`

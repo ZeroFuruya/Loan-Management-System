@@ -4,26 +4,26 @@ import java.io.IOException;
 
 import e2p.icotp.App;
 import e2p.icotp.layout.accounts.AdminController;
-import e2p.icotp.layout.accounts.LogInController;
 import e2p.icotp.layout.accounts.SetUpPasscode;
 // import e2p.icotp.layout.accounts.LogInController;
-import e2p.icotp.layout.accounts.SignUpController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
 
 public class AdminLoader {
+    static StackPane modal;
+
     private static FXMLLoader load_modal(App app, String fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(App.class.getResource("layout/" + fxml + ".fxml"));
 
         StackPane pane = loader.load();
 
-        StackPane modal = new StackPane(pane);
+        modal = new StackPane(pane);
         modal.getStyleClass().add("login-bg");
         modal.setPadding(new Insets(0, 0, 50, 0));
-        modal.getStylesheets().add(App.class.getResource("themes/Def_Theme.css").toExternalForm());
+        change_dark();
 
         app.getMainScreen().getChildren().add(modal);
 
@@ -60,4 +60,13 @@ public class AdminLoader {
         controller.load(app);
     }
 
+    public static void change_light() {
+        modal.getStylesheets().remove(App.class.getResource("themes/Def_Theme.css").toExternalForm());
+        modal.getStylesheets().add(App.class.getResource("themes/Def_Theme1.css").toExternalForm());
+    }
+
+    public static void change_dark() {
+        modal.getStylesheets().remove(App.class.getResource("themes/Def_Theme1.css").toExternalForm());
+        modal.getStylesheets().add(App.class.getResource("themes/Def_Theme.css").toExternalForm());
+    }
 }

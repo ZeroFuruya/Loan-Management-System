@@ -21,6 +21,7 @@ import e2p.icotp.model.Enums.CollateralStatus;
 import e2p.icotp.model.Enums.LoanStatus;
 import e2p.icotp.model.Enums.PaymentFrequency;
 import e2p.icotp.service.loader.AdminLoader;
+import e2p.icotp.service.loader.AppLoader;
 import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.CollateralDAO;
@@ -363,6 +364,8 @@ public class MainController {
     Button types_modify_button;
     @FXML
     Button types_delete_button;
+    @FXML
+    Button types_insert_button;
 
     // SCROLLPANE-----------------------------------------------------
     @FXML
@@ -454,8 +457,23 @@ public class MainController {
             collateral_remove_button.visibleProperty().set(false);
             plan_add_button.visibleProperty().set(false);
             plan_modify_button.visibleProperty().set(false);
+            plan_remove_button.visibleProperty().set(false);
             types_modify_button.visibleProperty().set(false);
             types_delete_button.visibleProperty().set(false);
+            types_insert_button.visibleProperty().set(false);
+        } else {
+            loaner_edit_button.visibleProperty().set(true);
+            loaner_remove_button.visibleProperty().set(true);
+            loan_edit_button.visibleProperty().set(true);
+            loan_remove_button.visibleProperty().set(true);
+            collateral_modify_button.visibleProperty().set(true);
+            collateral_remove_button.visibleProperty().set(true);
+            plan_add_button.visibleProperty().set(true);
+            plan_modify_button.visibleProperty().set(true);
+            plan_remove_button.visibleProperty().set(true);
+            types_modify_button.visibleProperty().set(true);
+            types_delete_button.visibleProperty().set(true);
+            types_insert_button.visibleProperty().set(true);
         }
     }
 
@@ -1684,5 +1702,20 @@ public class MainController {
 
     public String getTotalDueAmount() {
         return String.format("%.2f", loan.getNextPayment());
+    }
+
+    // SECRET
+
+    boolean toggle = true;
+
+    @FXML
+    void handle_change_theme() {
+        if (toggle) {
+            AppLoader.change_light();
+            toggle = false;
+            return;
+        }
+        AppLoader.change_dark();
+        toggle = true;
     }
 }
