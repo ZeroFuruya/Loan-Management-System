@@ -203,7 +203,9 @@ public class LoanController {
     public void load(App app, Loan loan, boolean isEdit, MainController mc, Loaner loaner) throws IOException {
         this.mc = mc;
         this.app = app;
-        ModalLoader.load_verification(app);
+        if (isEdit) {
+            ModalLoader.load_verification(app);
+        }
         this.og_loan = loan;
         this.loan = loan;
         this.isEdit = isEdit;

@@ -74,6 +74,9 @@ public class CollateralController {
     public void load(App app, Loan loan, Loaner loaner, boolean isEdit, MainController mc, Collateral collateral)
             throws IOException {
         this.app = app;
+        if (isEdit) {
+            ModalLoader.load_verification(app);
+        }
         this.loan = loan;
         this.loaner = loaner;
         this.isEdit = isEdit;

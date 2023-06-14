@@ -62,6 +62,8 @@ public class App extends Application {
                 if (user.getAccountId() == 1) {
                     admin = user;
                     return;
+                } else {
+                    admin = new Account();
                 }
             });
             return;

@@ -3,6 +3,7 @@ package e2p.icotp.service.loader;
 import java.io.IOException;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.MainController;
 import e2p.icotp.layout.accounts.ForgotPasswordController;
 import e2p.icotp.layout.accounts.LogInController;
 import e2p.icotp.layout.accounts.SetUpPasscode;
@@ -48,18 +49,18 @@ public class LogInLoader {
         app.getMainScreen().getChildren().remove(lastIdx);
     }
 
-    public static void load_log_in(App app, boolean isLoggedIn) throws IOException {
+    public static void load_log_in(App app, boolean isLoggedIn, MainController mc) throws IOException {
         FXMLLoader loader = load_modal(app, "accounts/LOGIN");
 
         LogInController controller = loader.getController();
-        controller.load(app, isLoggedIn);
+        controller.load(app, isLoggedIn, mc);
     }
 
-    public static void load_sign_up(App app) throws IOException {
+    public static void load_sign_up(App app, MainController mc) throws IOException {
         FXMLLoader loader = load_modal(app, "accounts/SIGNUP");
 
         SignUpController controller = loader.getController();
-        controller.load(app);
+        controller.load(app, mc);
     }
 
     public static void load_forgot_pass(App app) throws IOException {

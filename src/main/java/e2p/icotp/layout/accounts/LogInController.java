@@ -40,10 +40,12 @@ public class LogInController {
 
     private boolean isLoggedIn;
 
+    private MainController mc;
+
     @FXML
     private void handle_signUp() throws IOException {
         ModalLoader.modal_close(app);
-        LogInLoader.load_sign_up(app);
+        LogInLoader.load_sign_up(app, mc);
     }
 
     @FXML
@@ -63,6 +65,7 @@ public class LogInController {
         if (account != null) {
             if (account.getAccountId() == 1) {
                 app.setAdminProperty(account);
+                mc.set_user_name("Admin");
                 if (account.getPassCodeProperty().isNotNull().get()) {
                     if (account.getPassCodeProperty().get().isEmpty()
                             || account.getPassCodeProperty().get().isBlank()) {
@@ -71,6 +74,7 @@ public class LogInController {
                 }
             } else {
                 app.setAdminProperty(account);
+                mc.set_user_name(app.getAdminProperty().getUsername());
             }
         }
 
@@ -82,9 +86,10 @@ public class LogInController {
 
     private App app;
 
-    public void load(App app, boolean isLoggedIn) {
+    public void load(App app, boolean isLoggedIn, MainController mc) {
         this.app = app;
         this.isLoggedIn = isLoggedIn;
+        this.mc = mc;
 
         init_bindings();
     }

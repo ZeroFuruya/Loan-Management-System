@@ -10,6 +10,7 @@ import java.time.temporal.ChronoUnit;
 import org.apache.commons.io.FileUtils;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.accounts.Account;
 import e2p.icotp.model.Collateral;
 import e2p.icotp.model.Loan;
 import e2p.icotp.model.LoanPlan;
@@ -373,6 +374,9 @@ public class MainController {
     ImageView pfp;
 
     @FXML
+    Label current_user_label;
+
+    @FXML
     private VBox sidePanelVBox;
     @FXML
     private HBox logInButtonHBox;
@@ -422,6 +426,8 @@ public class MainController {
     LoanPlan og_loan_plan = new LoanPlan();
     LoanPlan loan_plan = new LoanPlan();
 
+    Account account;
+
     BooleanProperty isEdit = new SimpleBooleanProperty(false);
 
     NumberFormat format = NumberFormat.getInstance();
@@ -429,16 +435,21 @@ public class MainController {
     @FXML
     private void handle_log_out() {
         isNotLoggedIn.set(true);
+
     }
 
     @FXML
     private void handle_login() throws IOException {
-        LogInLoader.load_log_in(app, false);
+        LogInLoader.load_log_in(app, false, this);
+    }
+
+    public void set_user_name(String current_user) {
+
     }
 
     @FXML
     private void handle_signup() throws IOException {
-        LogInLoader.load_sign_up(app);
+        LogInLoader.load_sign_up(app, this);
     }
 
     @FXML
@@ -462,7 +473,7 @@ public class MainController {
 
     @FXML
     private void handle_loaner_remove() throws IOException {
-        // TODO REMOVE ALL PAYMENT IF LOANER IS DELETED
+        ModalLoader.load_verification(app);
         FileUtils.deleteDirectory(new File(FileUtil.CUSTOM_DIR + loaner.getLoaner_id()));
         LoanerDAO.remove(og_loaner);
         app.loanerMasterlist().remove(og_loaner);
@@ -743,11 +754,13 @@ public class MainController {
 
     private void init_togbutton_listeners() {
         // HOME
+        // TODO Disable Remove if not admin
         home_button.selectedProperty().addListener((o, ov, nv) -> {
             if (home_button.isSelected()) {
                 loaners_button.selectedProperty().set(false);
                 types_button.selectedProperty().set(false);
                 plans_button.selectedProperty().set(false);
+                logOutButton.disableProperty().set(false);
             }
         });
         // LOANER
@@ -756,6 +769,7 @@ public class MainController {
                 home_button.selectedProperty().set(false);
                 types_button.selectedProperty().set(false);
                 plans_button.selectedProperty().set(false);
+                logOutButton.disableProperty().set(true);
             }
         });
         // TYPE
@@ -764,6 +778,7 @@ public class MainController {
                 home_button.selectedProperty().set(false);
                 loaners_button.selectedProperty().set(false);
                 plans_button.selectedProperty().set(false);
+                logOutButton.disableProperty().set(true);
             }
         });
         // PLAN
@@ -772,6 +787,7 @@ public class MainController {
                 home_button.selectedProperty().set(false);
                 loaners_button.selectedProperty().set(false);
                 types_button.selectedProperty().set(false);
+                logOutButton.disableProperty().set(true);
             }
         });
     }

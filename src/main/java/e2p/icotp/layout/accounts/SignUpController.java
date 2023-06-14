@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.crypto.SecretKey;
 
 import e2p.icotp.App;
+import e2p.icotp.layout.MainController;
 import e2p.icotp.service.loader.LogInLoader;
 import e2p.icotp.service.loader.ModalLoader;
 import e2p.icotp.service.server.dao.AccountDAO;
@@ -40,6 +41,7 @@ public class SignUpController {
 
     private App app;
     private Account user;
+    private MainController mc;
 
     @FXML
     void handle_signUp() throws Exception {
@@ -57,7 +59,7 @@ public class SignUpController {
         app.accountsMasterlist().add(user);
 
         ModalLoader.modal_close(app);
-        LogInLoader.load_log_in(app, false);
+        LogInLoader.load_log_in(app, false, mc);
 
         // TODO DECRYPT PASS ON LOG IN
     }
@@ -65,12 +67,13 @@ public class SignUpController {
     @FXML
     void handle_loginLink() throws IOException {
         ModalLoader.modal_close(app);
-        LogInLoader.load_log_in(app, false);
+        LogInLoader.load_log_in(app, false, mc);
     }
 
-    public void load(App app) {
+    public void load(App app, MainController mc) {
         this.app = app;
         user = new Account();
+        this.mc = mc;
         init_bindings();
     }
 

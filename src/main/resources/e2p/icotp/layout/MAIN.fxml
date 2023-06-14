@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<StackPane maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1300.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.MainController">
+<StackPane maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1300.0" styleClass="dept-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="e2p.icotp.layout.MainController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
@@ -1113,7 +1113,7 @@
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <FontIcon iconLiteral="fas-user-circle" iconSize="80" />
-                                    <Label text="Label">
+                                    <Label fx:id="current_user_label" text="User">
                                        <font>
                                           <Font name="Arial Bold" size="29.0" />
                                        </font>

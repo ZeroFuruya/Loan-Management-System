@@ -65,7 +65,9 @@ public class LoanTypesController {
 
     public void load(App app, LoanType loan_type, boolean isEdit, MainController mc) throws IOException {
         this.app = app;
-        ModalLoader.load_verification(app);
+        if (isEdit) {
+            ModalLoader.load_verification(app);
+        }
         this.isEdit = isEdit;
         this.loan_type = loan_type;
         this.og_loan_type = loan_type;

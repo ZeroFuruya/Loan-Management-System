@@ -46,5 +46,9 @@ public class VerifyAction {
 
     public void load(App app) {
         this.app = app;
+        if (app.getAdminProperty().getAccountId() == 1) {
+            ModalLoader.modal_close(app);
+        }
+        ModalLoader.modal_close(app);
     }
 }
