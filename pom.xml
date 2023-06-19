@@ -52,6 +52,19 @@
             <artifactId>ikonli-fontawesome5-pack</artifactId>
             <version>12.3.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jfxcore/javafx -->
+        <dependency>
+            <groupId>org.jfxcore</groupId>
+            <artifactId>javafx</artifactId>
+            <version>18-ea+1</version>
+            <type>pom</type>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jfxcore/javafx-graphics -->
+        <dependency>
+            <groupId>org.jfxcore</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>18-ea+1</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api -->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
