@@ -34,7 +34,13 @@
             <artifactId>javafx-swing</artifactId>
             <version>19</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-core -->
+        <!-- https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-fontawesome5-pack -->
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-fontawesome5-pack</artifactId>
+            <version>12.3.1</version>
+        </dependency>
+    <!-- https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-core -->
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
             <artifactId>ikonli-core</artifactId>
@@ -44,12 +50,6 @@
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
             <artifactId>ikonli-javafx</artifactId>
-            <version>12.3.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.kordamp.ikonli/ikonli-fontawesome5-pack -->
-        <dependency>
-            <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-fontawesome5-pack</artifactId>
             <version>12.3.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.jfxcore/javafx -->
