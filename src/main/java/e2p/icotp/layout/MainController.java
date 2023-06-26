@@ -37,6 +37,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -780,6 +781,13 @@ public class MainController {
                 .bind(table_loan_types.getSelectionModel().selectedItemProperty().isNull());
         payment_btn_invoice.disableProperty()
                 .bind(paymentTable.getSelectionModel().selectedItemProperty().isNull());
+
+        // BooleanBinding isApplication = Bindings.createBooleanBinding(() -> {
+        // return loan.getStatus().equals("Application") ? true : false;
+        // }, loan.getStatusProperty());
+
+        // payment_add_button.disableProperty()
+        // .bind(loanTable.getSelectionModel().selectedItemProperty().isNull().or(isApplication));
     }
 
     private void init_togbutton_listeners() {
@@ -1233,6 +1241,8 @@ public class MainController {
         }
 
         if (loan.getStatus().equals(LoanStatus.PAID)) {
+            payment_add_button.setDisable(true);
+        } else if (loan.getStatus().equals(LoanStatus.APPLICATION)) {
             payment_add_button.setDisable(true);
         } else {
             payment_add_button.setDisable(false);
