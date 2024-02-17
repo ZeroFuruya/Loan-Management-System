@@ -295,8 +295,8 @@ public class LoanController {
 
     // CUSTOMS
     private void modify_loan_plan_field_listener() {
-        LocalDate tempDate = release_date.getValue().plusDays(loan_plan.getTerm().get() + 30);
-        LocalDate matureDate = LocalDate.of(tempDate.getYear(), tempDate.getMonthValue(),
+        LocalDate tempDate = release_date.getValue().plusDays(loan_plan.getTerm().get());
+        LocalDate matureDate = LocalDate.of(tempDate.getYear(), tempDate.getMonthValue() + 1,
                 release_date.getValue().getDayOfMonth());
 
         term.setText(loan_plan.getTerm().get() + "");

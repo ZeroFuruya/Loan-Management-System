@@ -132,7 +132,6 @@
                                                                               </Label>
                                                                               <ImageView fx:id="status_image" fitHeight="50.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                                                                               <Region prefHeight="50.0" prefWidth="89.0" HBox.hgrow="ALWAYS" />
-                                                                              <Button fx:id="refresh_button" mnemonicParsing="false" onAction="#loan_next_logic_monthly" prefHeight="23.0" prefWidth="66.0" text="Refresh" />
                                                                            </children>
                                                                         </HBox>
                                                                         <VBox spacing="10.0" VBox.vgrow="ALWAYS">
